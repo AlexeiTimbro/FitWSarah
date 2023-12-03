@@ -17,7 +17,7 @@ public class FitnessPackageController {
     }
     @GetMapping()
     public List<FitnessPackageResponseModel> getAllFitnessServices(){
-        return null;
+        return fitnessPackageService.getAllFitnessPackages();
     }
 
     @GetMapping("/{serviceId}")

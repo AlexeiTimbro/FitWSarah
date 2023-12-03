@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Embeddable
 public interface TrainerPanelRepository extends JpaRepository<TrainerPanel, Integer> {
-    TrainerPanel findTrainerPanelByTrainerPanelIdentifier_AvailabilityIdAndAdminId(String availabilityId, String adminId);
+    TrainerPanel findTrainerPanelByTrainerPanelIdentifier_AvailabilityIdAndAdminPanelIdentifier_AdminId(String availabilityId, String adminId);
 }

@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FitnessPackageRepository extends JpaRepository<FitnessPackage, Integer> {
     FitnessPackage findByFitnessPackageIdentifier_ServiceId(String serviceId);
 
-    FitnessPackage findByFitnessPackageIdentifier_ServiceIdAndPromoOffersAndFitnessPackageIdentifier_promoId(String serviceId, String promoId);
+    FitnessPackage findFitnessPackageByFitnessPackageIdentifier_ServiceIdAndPromoIdentifier_PromoId(String serviceId, String promoId);
 }
