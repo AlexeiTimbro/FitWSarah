@@ -5,5 +5,5 @@ import jakarta.persistence.Embeddable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Embeddable
-public interface ProfileRepository extends JpaRepository<Profile, Integer> {
+public interface ProfileRepository /*extends JpaRepository<Profile, Integer>*/ {
 }

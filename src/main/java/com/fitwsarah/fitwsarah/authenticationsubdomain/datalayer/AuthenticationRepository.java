@@ -5,5 +5,5 @@ import jakarta.persistence.Embeddable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Embeddable
-public interface AuthenticationRepository extends JpaRepository<Authentication, Integer> {
+public interface AuthenticationRepository /*extends JpaRepository<Authentication, Integer>*/ {
 }

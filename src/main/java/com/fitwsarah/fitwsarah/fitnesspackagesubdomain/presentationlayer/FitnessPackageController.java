@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("api/v1/fitnessPackages")
 public class FitnessPackageController {
     private FitnessPackageService fitnessPackageService;
@@ -17,7 +18,7 @@ public class FitnessPackageController {
     }
     @GetMapping()
     public List<FitnessPackageResponseModel> getAllFitnessServices(){
-        return null;
+        return fitnessPackageService.getAllFitnessPackages();
     }
 
     @GetMapping("/{serviceId}")
