@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import './css/index.css';
+import './index.css';
 import './App.js';
-import './views/bookingAppointment.js';
-import './views/clientCoachNotes.js';
+import './components/booking/bookingAppointment.js';
+import './components/clientProfile/clientCoachNotes.js';
 import './components/home/home.js';
-import './views/clientInvoices.js';
+import './components/clientProfile/clientInvoices.js';
 import './components/layout/layout.js';
-import './views/personalTrainerFeedback.js';
-import './views/profile.js';
+import './components/feedback/personalTrainerFeedback.js';
+import './components/clientProfile/profile.js';
 import './components/authentication/register.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';

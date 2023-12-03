@@ -36,3 +36,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+
+  reactapp:
+    build:
+      context: ./fitwsarah_frontend
+      dockerfile: Dockerfile.react
+    ports:
+      - "3000:80"
+    depends_on:
+      - fitwsarah
