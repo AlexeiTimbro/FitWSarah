@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Embeddable
 public interface AdminPanelRepository extends JpaRepository<AdminPanel, Integer> {
+    AdminPanel findAdminPanelByAdminPanelIdentifier_AdminId(String adminId);
 }
