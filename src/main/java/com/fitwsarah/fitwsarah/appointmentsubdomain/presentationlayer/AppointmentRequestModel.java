@@ -9,4 +9,9 @@ import lombok.Value;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AppointmentRequestModel {
+    private String availabilityId;
+    private String adminId;
+    private String serviceId;
+    private String status;
+    private String location;
 }

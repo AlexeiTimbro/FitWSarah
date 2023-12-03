@@ -9,4 +9,7 @@ import lombok.Value;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class FeedbackRequestModel {
+    private String accountId;
+    private Integer stars;
+    private String content;
 }
