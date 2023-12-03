@@ -9,4 +9,7 @@ import lombok.Value;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TrainerPanelRequestModel {
+    private String available;
+    private String adminId;
+    private String date;
 }

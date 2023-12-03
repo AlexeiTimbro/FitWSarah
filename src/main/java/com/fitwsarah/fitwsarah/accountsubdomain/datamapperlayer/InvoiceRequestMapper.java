@@ -11,5 +11,6 @@ import org.mapstruct.Mapping;
 public interface InvoiceRequestMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping( expression = "java(invoiceIdentifier) ", target = "invoiceIdentifier", ignore = true)
+    @Mapping( expression = "java(accountIdentifier) ", target = "accountIdentifier", ignore = true)
     Invoices requestModelToEntity(InvoiceRequestModel invoiceRequestModel);
 }
