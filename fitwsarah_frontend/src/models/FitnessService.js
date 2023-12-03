@@ -1,10 +1,10 @@
 import axios from "axios";
 import FitnessServiceCard from "../components/home/FitnessServiceCard";
 import { useState, useEffect } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
-function FintessServiceList() {
-    const [FinessServices, setFitnessServices] = useState([]);
+function FitnessServiceList() {
+    const [services, setServices] = useState([]);
 
     useEffect(() => {
         getAllFitnessServices();
@@ -13,34 +13,25 @@ function FintessServiceList() {
     const getAllFitnessServices = () => {
         axios.get("http://localhost:8080/api/v1/fitnessPackages")
         .then((response) => {
-            console.log(response);
-            setFitnessServices(response.data);
+            setServices(response.data);
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
         });
     }
 
     return (
-        <div>
-            <Row xs={1} md={2} lg={3} className="g-4">
-            {FinessServices.map((service) => (
-                 <Col key={service.id}>
-                <FitnessServiceCard 
-                    key={service.serviceId} 
-                    fitnessService={{
-                        serviceId: service.serviceId,
-                        promoId: service.promoId,
-                        title: service.title,
-                        duration: service.duration,
-                        description: service.description,
-                        price: service.price
-                    }}/>
+        <Container>
+            <h2 style={{ textAlign: 'center', margin: '2rem 0' }}>Services & Prices</h2>
+            <Row xs={1} md={3} className="g-4">
+                {services.map((service) => (
+                    <Col key={service.serviceId}>
+                        <FitnessServiceCard fitnessService={service} />
                     </Col>
-            ))}
+                ))}
             </Row>
-        </div>
+        </Container>
     );
 }
 
-export default FintessServiceList;
+export default FitnessServiceList;

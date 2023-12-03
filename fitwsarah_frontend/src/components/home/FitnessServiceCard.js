@@ -2,19 +2,16 @@ import { Card, Button } from 'react-bootstrap';
 
 function FitnessServiceCard({ fitnessService }) {
     return (
-        <Card style={{ width: '18rem' }}> {/* Adjust width as needed */}
+        <Card style={{ width: '18rem', margin: 'auto', textAlign: 'center', backgroundColor: '#343a40', color: 'white' }}>
             <Card.Body>
-                <Card.Title>{fitnessService.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                    Duration: {fitnessService.duration}
-                </Card.Subtitle>
+                <Card.Title style={{ color: '#fff' }}>{fitnessService.title}</Card.Title>
                 <Card.Text>
                     {fitnessService.description}
                 </Card.Text>
                 <Card.Text>
-                    Price: {fitnessService.price}
+                    {fitnessService.price}
                 </Card.Text>
-                <Button variant="primary">Book</Button>
+                <Button variant="light">Book</Button>
             </Card.Body>
         </Card>
     );
