@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.1.5'
     id 'io.spring.dependency-management' version '1.1.3'
     id 'io.freefair.lombok' version '6.6.1'
+    id 'jacoco'
 }
 
 group = 'com.fitwsarah'
@@ -54,6 +55,40 @@ dependencies {
 
 }
 
-tasks.named('test') {
+jacoco{
+    toolVersion = "0.8.8"
+}
+
+
+jacocoTestReport {
+    dependsOn test
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+//"com/movielister/**/MovieDetailsServiceApplication.class",
+// "**/*MapperImpl.class"
+            ])
+        }))
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.00
+            }
+        }
+    }
+}
+
+test.finalizedBy jacocoTestReport
+check.dependsOn
+
+test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
 }
