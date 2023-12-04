@@ -5,9 +5,13 @@ import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageR
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.PromoIdentifier;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageResponseMapper;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
+import org.hibernate.mapping.Any;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -21,40 +25,25 @@ class FitnessPackageServiceUnitTest {
     FitnessPackageService fitnessPackageService;
     @MockBean
     FitnessPackageRepository fitnessPackageRepository;
-    @MockBean
-    FitnessPackageResponseMapper fitnessPackageResponseMapper;
-
     PromoIdentifier promoIdentifier = new PromoIdentifier();
-    FitnessPackageResponseModel fitnessPackageResponseModel1 = FitnessPackageResponseModel.builder()
-            .serviceId("Service_ID1")
-            .promoId(promoIdentifier.toString())
-            .title("One On One Training")
-            .duration("1 hour")
-            .description("Desc")
-            .price(100.00)
-            .build();
+    FitnessPackage fitnessPackage = new FitnessPackage(promoIdentifier, "One On One Training", "1 hour", "Desc", 100.00);
+    FitnessPackage fitnessPackage2 = new FitnessPackage(promoIdentifier, "One On One Training1", "2 hour", "Desc2", 200.00);
 
-    FitnessPackageResponseModel fitnessPackageResponseModel2 = FitnessPackageResponseModel.builder()
-            .serviceId("Service_ID2")
-            .promoId(promoIdentifier.toString())
-            .title("One On One Training")
-            .duration("1 hour")
-            .description("Desc")
-            .price(100.00)
-            .build();
+    List<FitnessPackage> fitnessPackages = new ArrayList<>();
+    @BeforeEach
+    void setUp() {
+        fitnessPackageRepository.deleteAll();
+        fitnessPackageRepository.save(fitnessPackage);
+        fitnessPackageRepository.save(fitnessPackage2);
+        fitnessPackages.add(fitnessPackage);
+        fitnessPackages.add(fitnessPackage2);
+    }
+
     @Test
     void getAllFitnessPackages_ShouldSucceed() {
-        // Arrange
-        List<FitnessPackage> fitnessPackages = new ArrayList<>();
-        fitnessPackages.add(new FitnessPackage(promoIdentifier, "One On One Training", "1 hour", "Desc", 100.00));
-        fitnessPackages.add(new FitnessPackage(promoIdentifier, "One On One Training", "1 hour", "Desc", 100.00));
+
 
         Mockito.when(fitnessPackageRepository.findAll()).thenReturn(fitnessPackages);
-
-        Mockito.when(fitnessPackageResponseMapper.entityToResponseModel(fitnessPackages.get(0)))
-                .thenReturn(fitnessPackageResponseModel1);
-        Mockito.when(fitnessPackageResponseMapper.entityToResponseModel(fitnessPackages.get(1)))
-                .thenReturn(fitnessPackageResponseModel2);
 
         // Act
         List<FitnessPackageResponseModel> result = fitnessPackageService.getAllFitnessPackages();
@@ -62,7 +51,15 @@ class FitnessPackageServiceUnitTest {
         // Assert
         assertNotNull(result, "The result should not be null.");
         assertEquals(2, result.size(), "The result list should contain two elements.");
-        assertTrue(result.contains(fitnessPackageResponseModel1), "The result should contain fitnessPackageResponseModel1.");
-        assertTrue(result.contains(fitnessPackageResponseModel2), "The result should contain fitnessPackageResponseModel2.");
+        assertEquals(fitnessPackage.getTitle(), result.get(0).getTitle());
+        assertEquals(fitnessPackage.getPrice(), result.get(0).getPrice());
+        assertEquals(fitnessPackage.getDescription(), result.get(0).getDescription());
+        assertEquals(fitnessPackage.getDuration(), result.get(0).getDuration());
+        assertEquals(fitnessPackage.getPrice(), result.get(0).getPrice());
+        assertEquals(fitnessPackage2.getTitle(), result.get(1).getTitle());
+        assertEquals(fitnessPackage2.getPrice(), result.get(1).getPrice());
+        assertEquals(fitnessPackage2.getDescription(), result.get(1).getDescription());
+        assertEquals(fitnessPackage2.getDuration(), result.get(1).getDuration());
+        assertEquals(fitnessPackage2.getPrice(), result.get(1).getPrice());
     }
 }
