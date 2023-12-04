@@ -22,7 +22,7 @@ public class FitnessPackage {
     private Double price;
 
 
-    FitnessPackage() {
+    public FitnessPackage() {
         this.fitnessPackageIdentifier = new FitnessPackageIdentifier();
     }
 

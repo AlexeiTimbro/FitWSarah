@@ -7,12 +7,12 @@ import lombok.Value;
 
 @Value
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class FitnessPackageResponseModel {
-    private String serviceId;
-    private String promoId;
-    private String title;
-    private String duration;
-    private String description;
-    private Double price;
+    public String serviceId;
+    public String promoId;
+    public String title;
+    public String duration;
+    public String description;
+    public Double price;
 }
