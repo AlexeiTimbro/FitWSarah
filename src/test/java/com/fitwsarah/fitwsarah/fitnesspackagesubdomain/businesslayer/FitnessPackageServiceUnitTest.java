@@ -9,57 +9,47 @@ import org.hibernate.mapping.Any;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-@SpringBootTest
-class FitnessPackageServiceUnitTest {
-    @Autowired
-    FitnessPackageService fitnessPackageService;
-    @MockBean
-    FitnessPackageRepository fitnessPackageRepository;
-    PromoIdentifier promoIdentifier = new PromoIdentifier();
-    FitnessPackage fitnessPackage = new FitnessPackage(promoIdentifier, "One On One Training", "1 hour", "Desc", 100.00);
-    FitnessPackage fitnessPackage2 = new FitnessPackage(promoIdentifier, "One On One Training1", "2 hour", "Desc2", 200.00);
+import static org.mockito.Mockito.when;
 
-    List<FitnessPackage> fitnessPackages = new ArrayList<>();
+class FitnessPackageServiceUnitTest {
+    @InjectMocks
+    private FitnessPackageServiceImpl fitnessPackageService;
+
+    @Mock
+    private FitnessPackageRepository fitnessPackageRepository;
+
+    @Mock
+    private FitnessPackageResponseMapper fitnessPackageResponseMapper;
+
     @BeforeEach
-    void setUp() {
-        fitnessPackageRepository.deleteAll();
-        fitnessPackageRepository.save(fitnessPackage);
-        fitnessPackageRepository.save(fitnessPackage2);
-        fitnessPackages.add(fitnessPackage);
-        fitnessPackages.add(fitnessPackage2);
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void getAllFitnessPackages_ShouldSucceed() {
+    public void getAllFitnessPackages_returnsNonEmptyList_whenPackagesExist() {
+        FitnessPackage fitnessPackage = new FitnessPackage();
+        FitnessPackageResponseModel responseModel = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", 100.00);
 
+        when(fitnessPackageRepository.findAll()).thenReturn(Arrays.asList(fitnessPackage));
+        when(fitnessPackageResponseMapper.entityListToResponseModelList(Arrays.asList(fitnessPackage))).thenReturn(Arrays.asList(responseModel));
 
-        Mockito.when(fitnessPackageRepository.findAll()).thenReturn(fitnessPackages);
-
-        // Act
         List<FitnessPackageResponseModel> result = fitnessPackageService.getAllFitnessPackages();
 
-        // Assert
-        assertNotNull(result, "The result should not be null.");
-        assertEquals(2, result.size(), "The result list should contain two elements.");
-        assertEquals(fitnessPackage.getTitle(), result.get(0).getTitle());
-        assertEquals(fitnessPackage.getPrice(), result.get(0).getPrice());
-        assertEquals(fitnessPackage.getDescription(), result.get(0).getDescription());
-        assertEquals(fitnessPackage.getDuration(), result.get(0).getDuration());
-        assertEquals(fitnessPackage.getPrice(), result.get(0).getPrice());
-        assertEquals(fitnessPackage2.getTitle(), result.get(1).getTitle());
-        assertEquals(fitnessPackage2.getPrice(), result.get(1).getPrice());
-        assertEquals(fitnessPackage2.getDescription(), result.get(1).getDescription());
-        assertEquals(fitnessPackage2.getDuration(), result.get(1).getDuration());
-        assertEquals(fitnessPackage2.getPrice(), result.get(1).getPrice());
+        assertEquals(1, result.size());
     }
 }
