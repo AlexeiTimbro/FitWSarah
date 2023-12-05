@@ -43,7 +43,7 @@ function FitnessServiceList() {
                 <Row>
                     {services.map(service => (
                         <Col key={service.id} md={4}>
-                            <div className="service-card">
+                            <div id="serviceCard" className="service-card">
                                 <h3>{service.title}</h3>
                                 <p>{service.description}</p>
                                 <div className="price">{service.price}$</div>
