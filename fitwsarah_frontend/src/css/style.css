@@ -1,0 +1,166 @@
+
+.main-page {
+    font-family: "Alegreya Sans", sans-serif;
+    background-color: #000; 
+    color: #fff; 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.service-card p {
+    color: #000; 
+}
+
+.price {
+    color: #000; 
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #533747; 
+}
+
+.logo {
+    font-size: 2em; 
+    font-weight: bold;
+}
+
+.main-nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1em;
+}
+
+.signup-btn {
+    padding: 0.5rem 1rem;
+    background-color: #533747; 
+    border: 2px solid #fff; 
+    border-radius: 5px;
+    color: #fff; 
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.signup-btn:hover {
+    background-color: #422e37; 
+}
+
+/* Hero Section Styles */
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+    background-image: url('../img/221221132301-exercise-workouts-menstrual-cycle-wellness-stock-1.png');
+    background-size: cover;
+    background-position: center;
+    margin-top: -1rem; 
+    height: 50vh; 
+}
+
+
+.services-section {
+    padding: 2rem 0;
+    background-color: #000; 
+}
+
+.services-section .section-heading {
+    text-align: center; 
+    margin-bottom: 2rem;
+    color: #fff; 
+}
+
+.service-card {
+    background-color: #fff; 
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem;
+}
+
+.service-card h3 {
+    color: #333; 
+}
+
+.book-button {
+    background-color: #533747; 
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.book-button:hover {
+    background-color: #422e37;
+}
+
+
+.main-footer {
+    background-color: #533747;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-content a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-content a:hover {
+    color: #ddd; 
+}
+
+.copy-info {
+    color: #fff;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+
+    .main-header,
+    .main-footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-nav a,
+    .signup-btn {
+        margin: 0.5rem 0;
+    }
+
+    .services-section .section-heading,
+    .packages-section .section-heading {
+        font-size: 1.5em; 
+    }
+}
