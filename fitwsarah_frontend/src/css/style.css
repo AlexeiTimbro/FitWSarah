@@ -12,6 +12,10 @@
     color: #000; 
 }
 
+.price {
+    color: #000; 
+}
+
 .main-header {
     display: flex;
     justify-content: space-between;

@@ -46,7 +46,7 @@ function FitnessServiceList() {
                             <div className="service-card">
                                 <h3>{service.title}</h3>
                                 <p>{service.description}</p>
-                                <div className="price">{service.price}</div>
+                                <div className="price">{service.price}$</div>
                                 <button className="book-button">Book</button>
                             </div>
                         </Col>
