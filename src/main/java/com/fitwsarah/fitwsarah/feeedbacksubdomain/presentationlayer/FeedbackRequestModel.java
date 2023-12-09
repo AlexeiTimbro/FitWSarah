@@ -1,13 +1,11 @@
 package com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Data
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@AllArgsConstructor
 public class FeedbackRequestModel {
     private String accountId;
     private Integer stars;

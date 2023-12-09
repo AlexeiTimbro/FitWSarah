@@ -1,13 +1,11 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class InvoiceRequestModel {
     private String accountId;
     private double amount;

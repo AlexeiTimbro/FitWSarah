@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import reactor.core.publisher.Flux;
+import reactor.test.StepVerifier;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,14 +41,16 @@ class FitnessPackageControllerUnitTest {
                 fitnessPackage,
                 fitnessPackage2
         );
-        when(fitnessPackageService.getAllFitnessPackages()).thenReturn(fitnessPackageList);
+        when(fitnessPackageService.getAllFitnessPackages()).thenReturn(Flux.fromIterable(fitnessPackageList));
 
         // Act
-        List<FitnessPackageResponseModel> result = fitnessPackageController.getAllFitnessServices();
+        Flux<FitnessPackageResponseModel> result = fitnessPackageController.getAllFitnessServices();
 
         // Assert
-        assertThat(result, hasSize(fitnessPackageList.size()));
-        assertThat(result, is(fitnessPackageList));
+        StepVerifier.create(result)
+                .expectNextMatches(fitnessPackageList::contains)
+                .expectNextMatches(fitnessPackageList::contains)
+                .verifyComplete();
     }
 
 }

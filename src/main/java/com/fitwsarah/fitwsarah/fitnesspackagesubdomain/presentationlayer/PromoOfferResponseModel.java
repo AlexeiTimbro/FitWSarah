@@ -1,14 +1,12 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PromoOfferResponseModel {
     private String promoId;
     private String title;

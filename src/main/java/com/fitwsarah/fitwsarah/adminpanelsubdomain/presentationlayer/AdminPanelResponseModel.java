@@ -1,13 +1,11 @@
 package com.fitwsarah.fitwsarah.adminpanelsubdomain.presentationlayer;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Data
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@AllArgsConstructor
 public class AdminPanelResponseModel {
     private String adminId;
     private String username;

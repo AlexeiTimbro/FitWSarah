@@ -1,8 +1,7 @@
-package com.champlain.courseservice.utils;
+package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.utils;
 
-import com.champlain.courseservice.Data.Course;
-import com.champlain.courseservice.Presentation.CourseRequestDTO;
-import com.champlain.courseservice.Presentation.CourseResponseDTO;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
@@ -10,16 +9,16 @@ import java.util.UUID;
 public class entityDTOutils {
 
 
-    public static CourseResponseDTO toCourseResponseDTO(Course course){
-        CourseResponseDTO courseResponseDTO = new CourseResponseDTO();
-        BeanUtils.copyProperties(course, courseResponseDTO);
-        return courseResponseDTO;
+    public static FitnessPackageResponseModel toFitnessPackageResponseDTO(FitnessPackage fitnessPackage){
+        FitnessPackageResponseModel fitnessPackageResponseModel = new FitnessPackageResponseModel();
+        BeanUtils.copyProperties(fitnessPackage, fitnessPackageResponseModel);
+        return fitnessPackageResponseModel;
     }
 
-    public static Course toCourseEntity(CourseRequestDTO courseRequestDTO){
-        Course course = new Course();
-        BeanUtils.copyProperties(courseRequestDTO, course);
-        return  course;
+    public static FitnessPackage toFitnessPackageEntity(FitnessPackageResponseModel fitnessPackageResponseModel){
+        FitnessPackage fitnessPackage = new FitnessPackage();
+        BeanUtils.copyProperties(fitnessPackageResponseModel, fitnessPackage);
+        return  fitnessPackage;
     }
     public static String genUUID(){
         return UUID.randomUUID().toString();

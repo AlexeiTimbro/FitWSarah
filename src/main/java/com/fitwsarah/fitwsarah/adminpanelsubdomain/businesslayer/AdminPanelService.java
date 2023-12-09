@@ -7,5 +7,5 @@ import com.fitwsarah.fitwsarah.adminpanelsubdomain.presentationlayer.AdminPanelR
 import java.util.List;
 
 public interface AdminPanelService {
-
+    //make sure to use Flux/Mono
 }
