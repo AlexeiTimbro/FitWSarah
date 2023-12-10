@@ -20,4 +20,5 @@ public class AppointmentResponseModel {
     private String location;
     private String availableStatus;
     private String availableDate;
+
 }
