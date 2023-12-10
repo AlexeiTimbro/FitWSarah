@@ -24,8 +24,8 @@ public class AppointmentController {
         return null;
     }
     @PostMapping()
-    public AppointmentResponseModel addAppointmentById(@RequestBody AppointmentResponseModel appointmentResponseModel){
-        return null;
+    public AppointmentResponseModel addAppointment(@RequestBody AppointmentRequestModel appointmentRequestModel){
+        return appointmentService.addAppointment(appointmentRequestModel);
     }
 
     @PutMapping("/{appointmentId}")

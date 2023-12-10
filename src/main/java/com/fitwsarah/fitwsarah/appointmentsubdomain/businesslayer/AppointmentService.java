@@ -13,7 +13,7 @@ public interface AppointmentService {
 
     AppointmentResponseModel getAppointmentByAppointmentId(String appointmentId);
 
-    AppointmentResponseModel addAppointment(AppointmentRequestModel appointmentRequestModel, String appointmentId);
+    AppointmentResponseModel addAppointment(AppointmentRequestModel appointmentRequestModel);
 
     AppointmentResponseModel updateAppointment(AppointmentRequestModel appointmentRequestModel, String appointmentId);
 

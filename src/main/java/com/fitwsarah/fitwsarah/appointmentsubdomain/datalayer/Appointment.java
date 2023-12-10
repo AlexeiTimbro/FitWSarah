@@ -2,6 +2,7 @@ package com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer;
 
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountIdentifier;
 import com.fitwsarah.fitwsarah.adminpanelsubdomain.datalayer.AdminPanelIdentifier;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageIdentifier;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,32 +15,37 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @Embedded
     private AppointmentIdentifier appointmentIdentifier;
 
 
-    private String availabilityId;
-
     @Embedded
     private AdminPanelIdentifier adminPanelIdentifier;
 
-    private String serviceId;
+    @Embedded
+    private AccountIdentifier accountIdentifier;
+
+    @Embedded
+    private FitnessPackageIdentifier fitnessPackageIdentifier;
 
     private String status;
 
     private String location;
 
+    @Embedded
+    private Availability availability;
+
     Appointment(){
         this.appointmentIdentifier = new AppointmentIdentifier();
     }
 
-    public Appointment( String availabilityId,AdminPanelIdentifier adminPanelIdentifier,  String serviceId, String status, String location) {
+    public Appointment(AdminPanelIdentifier adminPanelIdentifier, AccountIdentifier accountIdentifier, FitnessPackageIdentifier fitnessPackageIdentifier, String status, String location, Availability availability) {
         this.appointmentIdentifier = new AppointmentIdentifier();
         this.adminPanelIdentifier = adminPanelIdentifier;
-        this.availabilityId = availabilityId;
-        this.serviceId = serviceId;
+        this.accountIdentifier = accountIdentifier;
+        this.fitnessPackageIdentifier = fitnessPackageIdentifier;
         this.status = status;
         this.location = location;
+        this.availability = availability;
     }
 }

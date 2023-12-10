@@ -6,6 +6,7 @@ import java.util.UUID;
 
 @Embeddable
 public class AdminPanelIdentifier {
+
     private String adminId;
     AdminPanelIdentifier(){
         this.adminId = UUID.randomUUID().toString();
@@ -15,3 +16,4 @@ public class AdminPanelIdentifier {
         return adminId;
     }
 }
+
