@@ -9,6 +9,5 @@ import org.mapstruct.Mapping;
 public interface AppointmentRequestMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping( expression = "java(appointmentIdentifier) ", target = "appointmentIdentifier", ignore = true)
-    @Mapping( expression = "java(adminPanelIdentifier) ", target = "adminPanelIdentifier", ignore = true)
     Appointment requestModelToEntity(AppointmentRequestModel appointmentRequestModel);
 }
