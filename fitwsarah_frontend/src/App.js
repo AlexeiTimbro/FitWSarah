@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import FintessServiceList from './models/FitnessService';
+import FintessServiceList from './views/HomePage/FitnessService';
 
 function App() {
   return (

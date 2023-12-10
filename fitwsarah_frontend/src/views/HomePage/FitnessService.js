@@ -1,8 +1,8 @@
 import axios from "axios";
-import FitnessServiceCard from "../components/home/FitnessServiceCard";
+import FitnessServiceCard from "../../components/home/FitnessServiceCard";
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "../css/style.css";
+import "../../css/style.css";
 
 
 function FitnessServiceList() {
