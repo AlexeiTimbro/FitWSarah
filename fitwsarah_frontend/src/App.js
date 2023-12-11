@@ -1,12 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import FintessServiceList from './views/HomePage/FitnessService';
+import LoginButton from './components/authentication/login';
+import LogoutButton from './components/authentication/logout';
+import AccountProfile from './components/authentication/AccountProfile'
 
 function App() {
   return (
-    <div>
-      <div><FintessServiceList></FintessServiceList></div>
-    </div>
+    <>
+    <LoginButton></LoginButton>
+    <LogoutButton></LogoutButton>
+    <AccountProfile></AccountProfile>
+    </>
   );
 }
 

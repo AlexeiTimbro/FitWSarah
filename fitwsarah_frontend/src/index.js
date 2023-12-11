@@ -17,12 +17,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <Auth0Provider
+  domain='dev-twa7h1nv0usycyum.us.auth0.com'
+  clientId='uiI9dAvArjVkR8WW4Tv7vNo7KkZwE7MW'
+  authorizationParams={{
+    redirect_uri: window.location.origin,
+    audience: "https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/",
+    scope: "read:current_user update:current_user_metadata"
+  }}>
     <App />
-  </React.StrictMode>
+  </Auth0Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
