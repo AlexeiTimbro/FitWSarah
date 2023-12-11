@@ -8,11 +8,14 @@ import java.util.UUID;
 public class AppointmentIdentifier {
     private String appointmentId;
 
-    AppointmentIdentifier(){
+    public AppointmentIdentifier(){
         this.appointmentId = UUID.randomUUID().toString();
     }
 
     public String getAppointmentId() {
         return appointmentId;
+    }
+
+    public void setAppointmentId(String appointmentId) {
     }
 }

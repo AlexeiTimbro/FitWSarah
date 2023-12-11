@@ -30,7 +30,7 @@ public class Appointment {
 
     private String location;
 
-    Appointment(){
+    public Appointment(){
         this.appointmentIdentifier = new AppointmentIdentifier();
     }
 

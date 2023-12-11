@@ -7,7 +7,7 @@ import lombok.Value;
 
 @Value
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class AppointmentResponseModel {
     private String appointmentId;
     private String availabilityId;
