@@ -20,8 +20,9 @@ public class AppointmentController {
     }
 
     @GetMapping("/{appointmentId}")
-    public AppointmentResponseModel getAppointmentById(@PathVariable String appointmentId){
-        return null;
+    public AppointmentResponseModel getAppointmentById(@PathVariable String appointmentId ){
+     return appointmentService.getAppointmentByAppointmentId(appointmentId);
+
     }
     @PostMapping()
     public AppointmentResponseModel addAppointmentById(@RequestBody AppointmentResponseModel appointmentResponseModel){

@@ -30,11 +30,15 @@ public class Appointment {
 
     private String location;
 
-    Appointment(){
+    public Appointment(){
         this.appointmentIdentifier = new AppointmentIdentifier();
     }
 
+
+    // Add this constructor in your Appointment class
+
     public Appointment( String availabilityId,AdminPanelIdentifier adminPanelIdentifier,  String serviceId, String status, String location) {
+
         this.appointmentIdentifier = new AppointmentIdentifier();
         this.adminPanelIdentifier = adminPanelIdentifier;
         this.availabilityId = availabilityId;
@@ -42,4 +46,5 @@ public class Appointment {
         this.status = status;
         this.location = location;
     }
+
 }
