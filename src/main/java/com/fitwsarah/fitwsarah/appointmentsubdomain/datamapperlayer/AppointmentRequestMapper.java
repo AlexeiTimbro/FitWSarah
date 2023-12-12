@@ -7,9 +7,11 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface AppointmentRequestMapper {
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "appointmentIdentifier", ignore = true)
     Appointment requestModelToEntity(AppointmentRequestModel appointmentRequestModel);
+
 }
 
 

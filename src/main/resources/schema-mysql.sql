@@ -37,14 +37,14 @@ create table if not exists feeback_threads(
 
 create table if not exists appointments(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    appointment_id VARCHAR(36) NOT NULL,
-    admin_id VARCHAR(36) NOT NULL,
-    account_id VARCHAR(36) NOT NULL,
-    service_id VARCHAR(36) NOT NULL,
-    status VARCHAR(50) NOT NULL,
-    location VARCHAR(50) NOT NULL,
-    available_status VARCHAR (50) NOT NULL,
-    available_date VARCHAR (50) NOT NULL
+    appointment_id VARCHAR(36) ,
+    admin_id VARCHAR(36) ,
+    account_id VARCHAR(36) ,
+    service_id VARCHAR(36),
+    status VARCHAR(50) ,
+    location VARCHAR(50) ,
+    available_status VARCHAR (50) ,
+    available_date VARCHAR (50)
     );
 
 create table if not exists fitness_services(

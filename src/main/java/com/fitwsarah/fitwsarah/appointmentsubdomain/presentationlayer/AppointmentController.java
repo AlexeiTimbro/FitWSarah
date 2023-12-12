@@ -16,13 +16,14 @@ public class AppointmentController {
     }
     @GetMapping()
     public List<AppointmentResponseModel> getAllAppointments(){
-        return null;
+        return appointmentService.getAllAppointments();
     }
 
     @GetMapping("/{appointmentId}")
     public AppointmentResponseModel getAppointmentById(@PathVariable String appointmentId){
         return null;
     }
+
     @PostMapping()
     public AppointmentResponseModel addAppointment(@RequestBody AppointmentRequestModel appointmentRequestModel){
         return appointmentService.addAppointment(appointmentRequestModel);

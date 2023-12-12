@@ -8,6 +8,7 @@ import java.util.UUID;
 public class AdminPanelIdentifier {
 
     private String adminId;
+
     AdminPanelIdentifier(){
         this.adminId = UUID.randomUUID().toString();
     }

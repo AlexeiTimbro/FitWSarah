@@ -1,5 +1,8 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer;
 
+import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
+import com.fitwsarah.fitwsarah.adminpanelsubdomain.presentationlayer.AdminPanelResponseModel;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,9 +15,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AppointmentRequestModel {
-    private String adminId;
-    private String accountId;
-    private String serviceId;
     private String status;
     private String location;
     private String availableStatus;

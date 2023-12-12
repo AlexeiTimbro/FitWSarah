@@ -18,7 +18,6 @@ public class Appointment {
     @Embedded
     private AppointmentIdentifier appointmentIdentifier;
 
-
     @Embedded
     private AdminPanelIdentifier adminPanelIdentifier;
 
