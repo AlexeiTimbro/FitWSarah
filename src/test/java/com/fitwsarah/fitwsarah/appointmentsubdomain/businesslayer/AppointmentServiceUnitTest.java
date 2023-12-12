@@ -33,6 +33,7 @@ class AppointmentServiceUnitTest {
     @Test
     public void getAppointmentByAppointmentId_Should_Succeed() {
 
+
         String appointmentId = "uuid-appt1";
 
 
@@ -45,6 +46,8 @@ class AppointmentServiceUnitTest {
 
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
 
+
+        // Use the appointmentResponseMapper mock to return the responseModel when mapping the appointment to response model
 
         when(appointmentResponseMapper.entityToResponseModel(appointment)).thenReturn(responseModel);
 

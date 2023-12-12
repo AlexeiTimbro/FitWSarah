@@ -24,6 +24,8 @@ services:
       - ./data/init.d:/docker-entrypoint-initdb.d
 
 
+    platform: linux/amd64
+
     healthcheck:
       test:
         [
