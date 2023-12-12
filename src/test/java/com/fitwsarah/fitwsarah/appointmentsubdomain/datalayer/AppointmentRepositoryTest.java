@@ -2,6 +2,8 @@ package com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer;
 
 
 import com.fitwsarah.fitwsarah.adminpanelsubdomain.datalayer.AdminPanelIdentifier;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -10,43 +12,55 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
-    @DataJpaTest
-    class AppointmentRepositoryTest {
+@DataJpaTest
+class AppointmentRepositoryTest {
 
-        @Autowired
-        private TestEntityManager entityManager;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
-        @Autowired
-        private AppointmentRepository appointmentRepository;
+    private String savedAppointmentId;
 
-        @Test
-        void givenNewAppointment_whenSave_thenSuccess() {
-            // Given
-            Appointment newAppointment = new Appointment("availabilityId1", new AdminPanelIdentifier(), "serviceId1", "Scheduled", "Location1");
+    @BeforeEach
+    public void setUp() {
+        Appointment appointment = new Appointment();
+        AppointmentIdentifier identifier = new AppointmentIdentifier();
+        appointment.setAppointmentIdentifier(identifier);
 
-            // When
-            Appointment savedAppointment = appointmentRepository.save(newAppointment);
-
-            // Then
-            assertThat(entityManager.find(Appointment.class, savedAppointment.getId())).isEqualTo(newAppointment);
-        }
-
-        @Test
-        void givenAppointmentCreated_whenFindById_thenSuccess() {
-            // Given
-            Appointment newAppointment = new Appointment("availabilityId1", new AdminPanelIdentifier(), "serviceId1", "Scheduled", "Location1");
-
-            // When
-            // saving the appointmnet to database
-            entityManager.persistAndFlush(newAppointment);
-            // retreving method from database
-            Optional<Appointment> retrievedAppointment = Optional.ofNullable(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(newAppointment.getAppointmentIdentifier().getAppointmentId()));
-
-            // Then
-            assertThat(retrievedAppointment).isPresent();
-            assertThat(retrievedAppointment.orElse(null)).isEqualTo(newAppointment);
-        }
+        // Save the appointment and get the saved ID
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        savedAppointmentId = savedAppointment.getAppointmentIdentifier().getAppointmentId();
     }
 
+    @AfterEach
+    public void tearDown() {
+        // Delete all appointments after each test
+        appointmentRepository.deleteAll();
+    }
 
+    @Test
+    public void whenFindByCustomerId_thenReturnAppointment() {
+        // Arrange
+        assertNotNull(savedAppointmentId);
+
+        // Act
+        Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(savedAppointmentId);
+
+        // Assert
+        assertNotNull(found);
+        assertEquals(savedAppointmentId, found.getAppointmentIdentifier().getAppointmentId());
+    }
+
+    @Test
+    public void whenFindByNonExistentCustomerId_thenReturnNull() {
+        // Arrange
+        String nonExistentAppointmentId = "nonExistentId";
+
+        // Act
+        Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(nonExistentAppointmentId);
+
+        // Assert
+        assertNull(found);
+    }
+}
