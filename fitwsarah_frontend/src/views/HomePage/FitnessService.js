@@ -1,11 +1,10 @@
 import axios from "axios";
-import FitnessServiceCard from "../../components/home/FitnessServiceCard";
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "../../css/style.css";
 
 
-function FitnessServiceList() {
+function FitnessServiceList({ accessToken }) {
     const [services, setServices] = useState([]);
 
     useEffect(() => {
@@ -13,12 +12,25 @@ function FitnessServiceList() {
     }, []);
 
     const getAllFitnessServices = () => {
-        axios.get("http://localhost:8080/api/v1/fitnessPackages")
+        fetch("http://localhost:8080/api/v1/fitnessPackages", {
+            method: "GET",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            })
+        })
         .then((response) => {
-            setServices(response.data);
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            setServices(data);
         })
         .catch((error) => {
-            console.error(error);
+            console.log(error);
         });
     }
 

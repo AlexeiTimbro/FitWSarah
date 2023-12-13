@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const AccountProfile = () => {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+const Profile = () => {
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
+
 
   useEffect(() => {
     const getUserMetadata = async () => {
@@ -11,10 +12,12 @@ const AccountProfile = () => {
   
       try {
         const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: "read:current_user",
+          authorizationParams: {
+            audience: `https://${domain}/api/v2/`,
+            scope: "read:current_user",
+          },
         });
-
+  
         const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
   
         const metadataResponse = await fetch(userDetailsByIdUrl, {
@@ -22,7 +25,7 @@ const AccountProfile = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-
+  
         const { user_metadata } = await metadataResponse.json();
   
         setUserMetadata(user_metadata);
@@ -31,14 +34,8 @@ const AccountProfile = () => {
       }
     };
   
-    if (user) {
-      getUserMetadata();
-    }
+    getUserMetadata();
   }, [getAccessTokenSilently, user?.sub]);
-
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
 
   return (
     isAuthenticated && (
@@ -57,4 +54,4 @@ const AccountProfile = () => {
   );
 };
 
-export default AccountProfile;
+export default Profile;

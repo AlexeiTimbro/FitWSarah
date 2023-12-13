@@ -1,6 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-
 import './index.css';
 import './App.js';
 import './components/booking/bookingAppointment.js';
@@ -14,25 +11,28 @@ import './components/authentication/register.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <Auth0Provider
-  domain='dev-twa7h1nv0usycyum.us.auth0.com'
-  clientId='uiI9dAvArjVkR8WW4Tv7vNo7KkZwE7MW'
-  authorizationParams={{
-    redirect_uri: window.location.origin,
-    audience: "https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/",
-    scope: "read:current_user update:current_user_metadata"
-  }}>
-    <App />
-  </Auth0Provider>
-);
+const root = createRoot(document.getElementById('root'));
 
+
+root.render(
+<Auth0Provider
+    domain="dev-twa7h1nv0usycyum.us.auth0.com"
+    clientId="uiI9dAvArjVkR8WW4Tv7vNo7KkZwE7MW"
+    authorizationParams={{
+      redirect_uri: window.location.origin,
+      audience: "https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/",
+      scope: "read:current_user update:current_user_metadata"
+    }}
+  >
+    <App />
+  </Auth0Provider>,
+);
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
