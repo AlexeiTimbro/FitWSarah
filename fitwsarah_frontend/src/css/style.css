@@ -164,3 +164,7 @@
         font-size: 1.5em; 
     }
 }
+
+.book-button {
+    margin-right: 10px; /* Adjust the value as needed */
+  }

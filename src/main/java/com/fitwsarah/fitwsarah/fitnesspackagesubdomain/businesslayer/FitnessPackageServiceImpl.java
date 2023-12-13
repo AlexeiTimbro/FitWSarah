@@ -29,7 +29,7 @@ public class FitnessPackageServiceImpl implements FitnessPackageService{
 
     @Override
     public FitnessPackageResponseModel getFitnessPackageByFitnessPackageId(String fitnessPackageId) {
-        return null;
+        return fitnessPackageResponseMapper.entityToResponseModel(fitnessPackageRepository.findByFitnessPackageIdentifier_ServiceId(fitnessPackageId));
     }
 
     @Override

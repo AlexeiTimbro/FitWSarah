@@ -9,4 +9,5 @@ public interface FitnessPackageRepository extends JpaRepository<FitnessPackage, 
     FitnessPackage findByFitnessPackageIdentifier_ServiceId(String serviceId);
 
     FitnessPackage findFitnessPackageByFitnessPackageIdentifier_ServiceIdAndPromoIdentifier_PromoId(String serviceId, String promoId);
+
 }

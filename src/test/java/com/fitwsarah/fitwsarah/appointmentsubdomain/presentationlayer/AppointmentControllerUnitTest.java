@@ -42,25 +42,17 @@ class AppointmentControllerUnitTest {
     @Test
     void getAppointmentById_ShouldReturnAppointment() {
 
-
-
         // Arrange
-
         List<AppointmentResponseModel> appointmentResponseModelList = Arrays.asList(
                 appointment1,
                 appointment2
         );
 
-
-
-        when(appointmentService.getAppointmentByAppointmentId(anyString()))
-                .thenReturn(appointment1);
+        when(appointmentService.getAppointmentByAppointmentId(anyString())).thenReturn(appointment1);
 
         AppointmentResponseModel result = appointmentController.getAppointmentById(appointment1.getAppointmentId());
 
-
         // Assert
-
         assertThat(result, is(appointment1));
     }
 }

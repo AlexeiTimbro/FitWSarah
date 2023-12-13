@@ -1,5 +1,10 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentServiceImpl;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.PromoIdentifier;
@@ -25,12 +30,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+
 class FitnessPackageServiceUnitTest {
+
     @InjectMocks
-    private FitnessPackageServiceImpl fitnessPackageService;
+    FitnessPackageServiceImpl fitnessPackageService;
 
     @Mock
-    private FitnessPackageRepository fitnessPackageRepository;
+    FitnessPackageRepository fitnessPackageRepository;
 
     @Mock
     private FitnessPackageResponseMapper fitnessPackageResponseMapper;
@@ -41,15 +48,34 @@ class FitnessPackageServiceUnitTest {
     }
 
     @Test
-    public void getAllFitnessPackages_returnsNonEmptyList_whenPackagesExist() {
+    public void getFitnessPackageByServiceId_Should_Succeed() {
+
+
+        String serviceId = "99a836ab-8f83-4e63-b266-3f56b1396df4";
+
+
         FitnessPackage fitnessPackage = new FitnessPackage();
-        FitnessPackageResponseModel responseModel = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", 100.00);
+        fitnessPackage.getFitnessPackageIdentifier().setServiceId(serviceId);
 
-        when(fitnessPackageRepository.findAll()).thenReturn(Arrays.asList(fitnessPackage));
-        when(fitnessPackageResponseMapper.entityListToResponseModelList(Arrays.asList(fitnessPackage))).thenReturn(Arrays.asList(responseModel));
 
-        List<FitnessPackageResponseModel> result = fitnessPackageService.getAllFitnessPackages();
+        FitnessPackageResponseModel responseModel = new FitnessPackageResponseModel("99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", 1.1);
 
-        assertEquals(1, result.size());
+
+        when(fitnessPackageRepository.findByFitnessPackageIdentifier_ServiceId(serviceId)).thenReturn(fitnessPackage);
+
+
+        // Use the appointmentResponseMapper mock to return the responseModel when mapping the appointment to response model
+
+        when(fitnessPackageResponseMapper.entityToResponseModel(fitnessPackage)).thenReturn(responseModel);
+
+
+        FitnessPackageResponseModel result = fitnessPackageService.getFitnessPackageByFitnessPackageId(serviceId);
+
+
+        assertEquals(serviceId, result.getServiceId());
     }
+
+
+
+
 }

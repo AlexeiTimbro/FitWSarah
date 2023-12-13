@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer.FitnessPackageService;
@@ -23,8 +24,9 @@ public class FitnessPackageController {
 
     @GetMapping("/{serviceId}")
     public FitnessPackageResponseModel getFitnessServiceById(@PathVariable String serviceId){
-        return null;
+        return fitnessPackageService.getFitnessPackageByFitnessPackageId(serviceId);
     }
+
     @PostMapping()
     public FitnessPackageResponseModel addFitnessService(@RequestBody FitnessPackageResponseModel fitnessPackageResponseModel){
         return null;

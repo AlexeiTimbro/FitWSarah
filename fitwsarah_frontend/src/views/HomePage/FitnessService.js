@@ -6,6 +6,9 @@ import "../../css/style.css";
 import LoginButton from "../../components/authentication/login";
 import LogoutButton from "../../components/authentication/logout";
 
+import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
+import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
+
 
 function FitnessServiceList() {
     const {
@@ -39,6 +42,10 @@ function FitnessServiceList() {
         }
     }, [accessToken]);
 
+    useEffect(() => {
+        getFitnessServiceByServiceId();
+    }, []);
+
     const getAllFitnessServices = () => {
         fetch("http://localhost:8080/api/v1/fitnessPackages", {
             method: "GET",
@@ -62,6 +69,16 @@ function FitnessServiceList() {
         });
     }
 
+    const getFitnessServiceByServiceId = () => {
+        axios.get("http://localhost:8080/api/v1/fitnessPackages/{serviceId}")
+        .then((response) => {
+            setServices(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
+
     return (
         <div className="main-page">
         <header className="main-header">
@@ -73,8 +90,9 @@ function FitnessServiceList() {
             </nav>
         </header>
 
+
+        <NavNotLoggedIn/>
         <section className="hero-section">
-            {/* Optionally, if you want to overlay text on the hero image, you can do so here */}
         </section>
 
         <section className="services-section">
@@ -88,27 +106,14 @@ function FitnessServiceList() {
                                 <p>{service.description}</p>
                                 <div className="price">{service.price}$</div>
                                 <button className="book-button">Book</button>
+                                <button className="book-button">Details</button>
                             </div>
                         </Col>
                     ))}
                 </Row>
             </Container>
         </section>
-
-        {/* Include other sections like 'appointments-section' and 'packages-section' as needed */}
-
-        <footer className="main-footer">
-            <div className="footer-content">
-                <a href="/about">About Me</a>
-                <a href="/contact">Contact Me</a>
-                <a href="/reviews">Reviews</a>
-                <p>Based in Montreal, Canada</p>
-                {/* Social icons would go here */}
-            </div>
-            <p className="copy-info">
-                ©Copyright 2023 All rights reserved. Powered by TheMontrealGoats
-            </p>
-        </footer>
+        <FooterNotLoggedIn/>
     </div>
         
 
