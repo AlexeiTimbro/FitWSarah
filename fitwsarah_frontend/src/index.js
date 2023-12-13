@@ -7,7 +7,6 @@ import './components/clientProfile/clientInvoices.js';
 import './components/layout/layout.js';
 import './components/feedback/personalTrainerFeedback.js';
 import './components/clientProfile/profile.js';
-import './components/authentication/register.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -18,8 +17,6 @@ import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const root = createRoot(document.getElementById('root'));
-
-
 root.render(
 <Auth0Provider
     domain="dev-twa7h1nv0usycyum.us.auth0.com"
@@ -27,7 +24,7 @@ root.render(
     authorizationParams={{
       redirect_uri: window.location.origin,
       audience: "https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/",
-      scope: "read:current_user update:current_user_metadata"
+      scope: "read:users update:current_user_metadata"
     }}
   >
     <App />

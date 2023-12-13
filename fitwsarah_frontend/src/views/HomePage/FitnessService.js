@@ -1,15 +1,43 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useAuth0 } from '@auth0/auth0-react';
+import configData from '../../config.json'
 import "../../css/style.css";
+import LoginButton from "../../components/authentication/login";
+import LogoutButton from "../../components/authentication/logout";
 
 
-function FitnessServiceList({ accessToken }) {
+function FitnessServiceList() {
+    const {
+        isAuthenticated,
+        getAccessTokenSilently,
+      } = useAuth0();
+
     const [services, setServices] = useState([]);
+    const [accessToken, setAccessToken] = useState(null);
 
     useEffect(() => {
-        getAllFitnessServices();
-    }, []);
+        if (isAuthenticated) {
+          const getAccessToken = async () => {
+            try {
+              const token = await getAccessTokenSilently({
+                audience: configData.audience,
+                scope: configData.scope,
+              });
+              setAccessToken(token);
+            } catch (e) {
+              console.error(e.message);
+            }
+          };
+          getAccessToken();
+        }
+      }, [getAccessTokenSilently, isAuthenticated]);
+
+    useEffect(() => {
+        if (accessToken) {
+            getAllFitnessServices();
+        }
+    }, [accessToken]);
 
     const getAllFitnessServices = () => {
         fetch("http://localhost:8080/api/v1/fitnessPackages", {
@@ -40,8 +68,8 @@ function FitnessServiceList({ accessToken }) {
             <div className="logo">FITWSARAH</div>
             <nav className="main-nav">
                 <a href="/about">About</a>
-                <a href="/login">Log In</a>
-                <a href="/signup" className="signup-btn">Sign Up</a>
+                {!isAuthenticated && <LoginButton/>}
+                {isAuthenticated && <LogoutButton/>}
             </nav>
         </header>
 
