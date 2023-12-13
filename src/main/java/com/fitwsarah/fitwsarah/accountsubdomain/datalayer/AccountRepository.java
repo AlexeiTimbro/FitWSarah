@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Embeddable
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
-    Account findAccountByAccountIdentifier_AccountId(String accountId);
+    Account findByAccountIdentifier_AccountId(String accountId);
 }
