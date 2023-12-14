@@ -7,7 +7,7 @@ function FooterNotLoggedIn() {
             <div className="footer-content">
                 <a href="/about">About Me</a>
                 <a href="/contact">Contact Me</a>
-                <p>Based in Montreal, Canada</p>
+                <p style={{color: 'white'}}>Based in Montreal, Canada</p>
             </div>
             <p className="copy-info">
                 ©Copyright 2023 All rights reserved. Powered by TheMontrealGoats
