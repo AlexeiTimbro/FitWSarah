@@ -24,6 +24,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @WebMvcTest(FitnessPackageController.class)
 class FitnessPackageControllerIntegrationTest {
     @Autowired
@@ -32,17 +33,15 @@ class FitnessPackageControllerIntegrationTest {
     @MockBean
     private FitnessPackageService fitnessPackageService;
 
+    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", "s",100.00);
+
     private List<FitnessPackageResponseModel> fitnessPackageList;
-    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", 100.00);
-    FitnessPackageResponseModel fitnessPackage2 = new FitnessPackageResponseModel("serviceID2", "promoID2", "One On One Training1", "2 hour", "Desc2", 200.00);
 
     @BeforeEach
     void setUp() {
-        fitnessPackageList = Arrays.asList(
-                fitnessPackage,
-                fitnessPackage2
-        );
+        fitnessPackageList = Arrays.asList(fitnessPackage);
         given(fitnessPackageService.getAllFitnessPackages()).willReturn(fitnessPackageList);
+        given(fitnessPackageService.getFitnessPackageByFitnessPackageId(fitnessPackage.getServiceId())).willReturn(fitnessPackage);
     }
 
     @Test
@@ -53,4 +52,25 @@ class FitnessPackageControllerIntegrationTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()").value(fitnessPackageList.size()));
     }
+
+    @Test
+    void getFitnessPackageByFitnessPackageId_ShouldReturnFitnessPackage() throws Exception {
+        String actualFitnessPackageId = fitnessPackage.getServiceId();
+        mockMvc.perform(get("/api/v1/fitnessPackages/{serviceId}", actualFitnessPackageId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.serviceId").value(fitnessPackage.getServiceId())
+                );
+    }
+
+
+
+
+
+
+
+
+
+
 }

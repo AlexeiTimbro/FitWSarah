@@ -12,5 +12,6 @@ public class FitnessPackageRequestModel {
     private String title;
     private String duration;
     private String description;
+    private String otherInformation;
     private Double price;
 }

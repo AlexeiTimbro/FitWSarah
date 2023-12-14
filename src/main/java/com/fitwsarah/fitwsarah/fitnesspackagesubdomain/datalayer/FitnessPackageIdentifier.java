@@ -15,4 +15,8 @@ public class FitnessPackageIdentifier {
     public String getServiceId() {
         return serviceId;
     }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
 }

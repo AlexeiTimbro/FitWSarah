@@ -52,6 +52,7 @@ create table if not exists fitness_services(
     title VARCHAR(50) NOT NULL,
     duration VARCHAR(50) NOT NULL,
     description VARCHAR(120) NOT NULL,
+    other_information VARCHAR(300) NOT NULL,
     price DECIMAL NOT NULL
 );
 

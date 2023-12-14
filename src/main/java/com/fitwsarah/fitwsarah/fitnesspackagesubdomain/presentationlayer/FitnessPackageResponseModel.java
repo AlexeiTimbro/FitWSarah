@@ -14,5 +14,6 @@ public class FitnessPackageResponseModel {
     public String title;
     public String duration;
     public String description;
+    private String otherInformation;
     public Double price;
 }

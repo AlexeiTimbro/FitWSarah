@@ -1,0 +1,52 @@
+.main-footer {
+    background-color: #533747;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-content a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+    margin: 0 10px; /* Adjust as needed */
+}
+
+.footer-content a:hover {
+    color: #ddd; 
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+
+    .main-header,
+    .main-footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-nav a,
+    .signup-btn {
+        margin: 0.5rem 0;
+    }
+
+    .services-section .section-heading,
+    .packages-section .section-heading {
+        font-size: 1.5em; 
+    }
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+ .footer-content p {
+    margin: 0 10px; /* Adjust as needed */
+  }
