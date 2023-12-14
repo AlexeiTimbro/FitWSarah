@@ -19,6 +19,7 @@ public class FitnessPackage {
     private String title;
     private String duration;
     private String description;
+    private String otherInformation;
     private Double price;
 
 
@@ -26,12 +27,13 @@ public class FitnessPackage {
         this.fitnessPackageIdentifier = new FitnessPackageIdentifier();
     }
 
-    public FitnessPackage( PromoIdentifier promoIdentifier, String title, String duration, String description, Double price) {
+    public FitnessPackage( PromoIdentifier promoIdentifier, String title, String duration, String description,String otherInformation, Double price) {
         this.fitnessPackageIdentifier =  new FitnessPackageIdentifier();
         this.promoIdentifier = promoIdentifier;
         this.title = title;
         this.duration = duration;
         this.description = description;
+        this.otherInformation = otherInformation;
         this.price = price;
     }
 }

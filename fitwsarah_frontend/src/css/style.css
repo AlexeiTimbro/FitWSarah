@@ -168,3 +168,13 @@
 .book-button {
     margin-right: 10px; /* Adjust the value as needed */
   }
+
+  .modal-content {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border: none;
+  }
+  
+  .modal-dialog {
+    margin-top: 10%;
+  }

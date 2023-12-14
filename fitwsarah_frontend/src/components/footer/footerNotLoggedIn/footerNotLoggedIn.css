@@ -11,6 +11,7 @@
     color: #fff;
     text-decoration: none;
     transition: color 0.3s;
+    margin: 0 10px; /* Adjust as needed */
 }
 
 .footer-content a:hover {
@@ -39,3 +40,13 @@
     }
 }
 
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+ .footer-content p {
+    margin: 0 10px; /* Adjust as needed */
+  }

@@ -7,7 +7,6 @@ function FooterNotLoggedIn() {
             <div className="footer-content">
                 <a href="/about">About Me</a>
                 <a href="/contact">Contact Me</a>
-                <a href="/reviews">Reviews</a>
                 <p>Based in Montreal, Canada</p>
             </div>
             <p className="copy-info">

@@ -32,8 +32,6 @@ header {
     padding: 0.5em 1em;
   }
 
-  
-
 nav .signup-button {
     border: none;
     padding: 10px 30px;
@@ -56,14 +54,23 @@ nav .signup-button {
 }
 
 .login-button, .signup-button {
-    margin-right: 10px; /* Adjust the value as needed */
-  }
+  width: 120px; /* Adjust as needed */
+  height: 35px; /* Adjust as needed */
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px; /* Adjust as needed */
+  font-size: 14px; /* Adjust as needed */
+}
+    
 
   .navbar-container {
     background-color: #422e37;
   }
 
   .login-button{
+    
     border: none;
     padding: 10px 30px;
     cursor: pointer;
@@ -100,5 +107,5 @@ nav .signup-button {
     display: flex;
     align-items: center;
   }
-  
+
   
