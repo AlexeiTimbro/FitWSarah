@@ -1,6 +1,7 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.datalayer;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Account {
     @Embedded
     private AccountIdentifier accountIdentifier;
 
+
     private String username;
     private String password;
     private String email;
@@ -25,7 +27,7 @@ public class Account {
 
 
 
-    Account() {
+    public Account() {
         this.accountIdentifier = new AccountIdentifier();
     }
 

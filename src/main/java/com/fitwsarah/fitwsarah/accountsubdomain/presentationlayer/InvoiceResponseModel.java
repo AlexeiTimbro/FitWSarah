@@ -13,5 +13,5 @@ public class InvoiceResponseModel {
     private String accountId;
     private double amount;
 
-    private double content;
+    private String content;
 }
