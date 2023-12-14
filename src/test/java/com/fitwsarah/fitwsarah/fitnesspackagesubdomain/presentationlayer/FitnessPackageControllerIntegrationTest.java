@@ -33,7 +33,7 @@ class FitnessPackageControllerIntegrationTest {
     @MockBean
     private FitnessPackageService fitnessPackageService;
 
-    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", 100.00);
+    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", "s",100.00);
 
     private List<FitnessPackageResponseModel> fitnessPackageList;
 
