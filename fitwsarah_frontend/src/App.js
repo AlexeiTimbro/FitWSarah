@@ -1,12 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import FintessServiceList from './views/HomePage/FitnessService';
+import FitnessServiceList from './views/HomePage/FitnessService';
 
 function App() {
   return (
-    <div>
-      <div><FintessServiceList></FintessServiceList></div>
-    </div>
+    <FitnessServiceList></FitnessServiceList>
   );
 }
 
