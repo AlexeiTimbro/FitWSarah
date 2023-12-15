@@ -1,0 +1,17 @@
+import { useAuth0 } from "@auth0/auth0-react";
+import React from "react";
+
+const RegisterButton = () => {
+  const { loginWithRedirect } = useAuth0();
+
+  return <button
+  id="qsRegisterBtn"
+  color="primary"
+  className="btn-margin"
+  onClick={() => loginWithRedirect({authorizationParams: {
+    screen_hint: "signup"}})}>
+  Sign Up
+</button>
+};
+
+export default RegisterButton;
