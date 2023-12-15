@@ -105,7 +105,7 @@ function FitnessServiceList() {
 
     {!isAuthenticated && <NavNotLoggedIn/>}
     {isAuthenticated && <NavLoggedIn/>}
-            {!isAuthenticated && <RegisterButton/>}
+            
     <section className="hero-section">
     </section>
 

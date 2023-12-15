@@ -62,6 +62,7 @@ class FitnessPackageControllerIntegrationTest {
     void getFitnessPackageByFitnessPackageId_ShouldReturnFitnessPackage() throws Exception {
         String actualFitnessPackageId = fitnessPackage.getServiceId();
         mockMvc.perform(get("/api/v1/fitnessPackages/{serviceId}", actualFitnessPackageId)
+                        .header("Authorization", testToken)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
