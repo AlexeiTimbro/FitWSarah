@@ -41,10 +41,10 @@ class AccountServiceUnitTest {
 
         AccountResponseModel responseModel = new AccountResponseModel("uuid-appt1", "adms", "uuid-admin1", "uuid-service1", "Scheduled");
 
-        // Fix the method name in the following line (from `appointment` to `account`)
+        // Fix the method name in the following line (from appointment to account)
         when(accountRepository.findByAccountIdentifier_AccountId(accountId)).thenReturn(account);
 
-        // Fix the method name in the following line (from `appointment` to `account`)
+        // Fix the method name in the following line (from appointment to account)
         when(accountResponseMapper.entityToResponseModel(account)).thenReturn(responseModel);
 
         AccountResponseModel result = accountService.getAccountByAccountId(accountId);
