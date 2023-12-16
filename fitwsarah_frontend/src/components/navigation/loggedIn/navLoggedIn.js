@@ -1,8 +1,9 @@
 import React from 'react';
-import './navLoggedIn.css';
+import './navLoggedIn.css'; 
 import { useAuth0 } from '@auth0/auth0-react';
 import logo from './image-24.png';
 import { Link } from 'react-router-dom';
+
 
 function NavLoggedIn() {
   const { logout } = useAuth0();
@@ -15,20 +16,16 @@ function NavLoggedIn() {
             <a href="#">About</a>
             <a href="#">Contact Me</a>
             <Link to="/profile">Profile</Link>
-
           </div>
-
-          <div className="right-links">
-            <button
-                className="signup-button"
-                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-            >
-              Log Out
-            </button>
-          </div>
-        </nav>
-        <div className="divider"></div>
-      </header>
+  <div className="right-links">
+  <Link className="signup-button" to="/adminPanel">Admin Panel</Link>
+  <button className="signup-button" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+      Log Out
+  </button>    
+  </div>
+</nav>
+<div className="divider"></div>
+</header>
   );
 }
 
