@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(AccountController.class)
+
 class AccountControllerIntegrationTest {
     @Autowired
     MockMvc mockMvc;
@@ -40,8 +40,8 @@ class AccountControllerIntegrationTest {
 
     private List<AccountResponseModel> accountList;
 
-    AccountResponseModel accountResponseModel1 = new AccountResponseModel("1","john","johnnn","john@gmail.com",  "John City");
-    AccountResponseModel accountResponseModel2 = new AccountResponseModel("2","john2","johnnn2","john2@gmail.com",  "John2 City");
+    AccountResponseModel accountResponseModel1 = new AccountResponseModel("1","john","john@gmail.com",  "John City");
+    AccountResponseModel accountResponseModel2 = new AccountResponseModel("2","john2","john2@gmail.com",  "John2 City");
 
     @BeforeEach
     void setUp() {
@@ -53,7 +53,7 @@ class AccountControllerIntegrationTest {
     }
     @Test
     public void addAccount_shouldSucceed() throws Exception {
-        AccountRequestModel requestModel = new AccountRequestModel("smith", "johnjohn", "john@gmail.com", "John Ville");
+        AccountRequestModel requestModel = new AccountRequestModel("3","smith", "john@gmail.com", "John Ville");
 
         mockMvc.perform(post("/api/v1/accounts")
                         .header("Authorization", testToken)

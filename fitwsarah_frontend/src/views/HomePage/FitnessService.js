@@ -10,6 +10,7 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import RegisterButton from "../../components/authentication/register";
+import AddMemberProfile from "../authentication/Signup";
 
 
 
@@ -105,7 +106,7 @@ function FitnessServiceList() {
 
     {!isAuthenticated && <NavNotLoggedIn/>}
     {isAuthenticated && <NavLoggedIn/>}
-            
+    {isAuthenticated && <AddMemberProfile/>}
     <section className="hero-section">
     </section>
 

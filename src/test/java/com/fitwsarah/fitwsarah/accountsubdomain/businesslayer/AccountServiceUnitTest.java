@@ -44,18 +44,14 @@ class AccountServiceUnitTest {
     @Test
     void addAccount_ShouldSucceed() {
 
-        AccountRequestModel requestModel = new AccountRequestModel("smith", "johnjohn", "john@gmail.com", "John Ville");
-
-        String hashedPassword = "hashed_password";
-
+        AccountRequestModel requestModel = new AccountRequestModel("uuid122","smith", "john@gmail.com", "John Ville");
 
         Account entity = mock(Account.class);
 
-        AccountResponseModel mockedResponse = new AccountResponseModel("uuid-100","smith","johnjohn","john@gmail.com","John Ville");
+        AccountResponseModel mockedResponse = new AccountResponseModel("uuid-100","smith","john@gmail.com","John Ville");
         when(accountResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
         when(accountRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
         when(accountRepository.save(entity)).thenReturn(entity);
-        when(passwordEncoder.encode(entity.getPassword())).thenReturn(hashedPassword);
 
 
         AccountResponseModel result = accountService.addAccount(requestModel);

@@ -27,8 +27,8 @@ class AccountControllerUnitTest {
 
     @Test
     public void AddAccount_ShouldSucceed(){
-        AccountRequestModel requestModel = new AccountRequestModel("smith", "johnjohn", "john@gmail.com", "John Ville");
-        AccountResponseModel response = new AccountResponseModel("uuid-1", "smith", "johnjohn", "john@gmail.com","John Ville");
+        AccountRequestModel requestModel = new AccountRequestModel("uuid-1","smith", "john@gmail.com", "John Ville");
+        AccountResponseModel response = new AccountResponseModel("uuid-1", "smith", "john@gmail.com","John Ville");
 
             // Mock the behavior of the AccountService
             when(accountService.addAccount(requestModel)).thenReturn(response);

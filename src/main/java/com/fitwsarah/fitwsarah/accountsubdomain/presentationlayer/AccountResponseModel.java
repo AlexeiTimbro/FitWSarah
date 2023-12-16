@@ -11,7 +11,6 @@ import lombok.Value;
 public class AccountResponseModel {
     private String accountId;
     private String username;
-    private String password;
     private String email;
     private String city;
 }

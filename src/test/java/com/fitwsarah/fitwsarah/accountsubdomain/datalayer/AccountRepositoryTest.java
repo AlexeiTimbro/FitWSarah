@@ -19,18 +19,17 @@ class AccountRepositoryTest {
     @Test
     public void ShouldSaveSingleAccount(){
         //arrange
-        Account newAccount = buildAccount("user1","pass","email@gmail.com","New York");
+        Account newAccount = buildAccount("1","user1","email@gmail.com","New York");
         Account setup = accountRepository.save(newAccount);
         //Act and Assert
         assertNotNull(setup);
         assertEquals("user1", setup.getUsername());
-        assertEquals("pass", setup.getPassword());
         assertEquals("email@gmail.com", setup.getEmail());
         assertEquals("New York", setup.getCity());
     }
 
 
-    private Account buildAccount(String username, String password, String email, String city) {
-        return new Account(username, password, email, city);
+    private Account buildAccount(String accountId, String username, String email, String city) {
+        return new Account(accountId, username, email, city);
     }
 }

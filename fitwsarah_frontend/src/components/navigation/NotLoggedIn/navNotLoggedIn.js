@@ -21,7 +21,7 @@ function NavNotLoggedIn() {
 
         <div className="right-links">
           <button className="login-button" onClick={() => loginWithRedirect()}>Log In</button>;
-          <RegisterButton className="login-button"></RegisterButton>
+          <RegisterButton></RegisterButton>
         </div>
       </nav>
       <div className="divider"></div>
