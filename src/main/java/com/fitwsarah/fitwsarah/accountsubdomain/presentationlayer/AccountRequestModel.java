@@ -7,10 +7,10 @@ import lombok.Value;
 
 @Value
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class AccountRequestModel {
+    private String account_Id;
     private String username;
-    private String password;
     private String email;
     private String city;
 }

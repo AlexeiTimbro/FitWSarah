@@ -2,18 +2,16 @@ USE `fitwsarah-db`;
 
 create table if not exists accounts(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    account_id VARCHAR(36) NOT NULL,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    city VARCHAR(50) NOT NULL
+    account_id VARCHAR(150) ,
+    username VARCHAR(50) ,
+    email VARCHAR(50) ,
+    city VARCHAR(50)
 );
 
 create table if not exists admin_accounts(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     admin_id VARCHAR(35) NOT NULL,
     username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     role VARCHAR(50) NOT NULL,
     city VARCHAR(50) NOT NULL

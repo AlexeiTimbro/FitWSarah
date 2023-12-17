@@ -8,6 +8,5 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface AccountRequestMapper {
     @Mapping(target = "id", ignore = true)
-    @Mapping( expression = "java(accountIdentifier) ", target = "accountIdentifier", ignore = true)
     Account requestModelToEntity(AccountRequestModel accountRequestModel);
 }

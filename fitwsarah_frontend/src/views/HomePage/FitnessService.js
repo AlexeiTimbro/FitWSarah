@@ -9,6 +9,9 @@ import axios from 'axios';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
+import RegisterButton from "../../components/authentication/register";
+import AddMemberProfile from "../authentication/Signup";
+
 
 
 function FitnessServiceList() {
@@ -103,6 +106,7 @@ function FitnessServiceList() {
 
     {!isAuthenticated && <NavNotLoggedIn/>}
     {isAuthenticated && <NavLoggedIn/>}
+    {isAuthenticated && <AddMemberProfile/>}
     <section className="hero-section">
     </section>
 
