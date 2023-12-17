@@ -7,7 +7,7 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import ProfileSideBar from "../../components/clientProfile/profile";
 import {Link} from "react-router-dom";
-import Sidebar from '../../components/clientProfile/sidebar';
+
 function Profile() {
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
@@ -68,28 +68,32 @@ function Profile() {
 
     return (
         <div>
-
-
-            {!isAuthenticated && <NavNotLoggedIn/>}
-            {isAuthenticated && <NavLoggedIn/>}
+            {!isAuthenticated && <NavNotLoggedIn />}
+            {isAuthenticated && <NavLoggedIn />}
             <section className="hero-section1"></section>
-            <section>
-                <ProfileSideBar/>
-            </section>
-
-
             <section className="services-section">
                 <Container>
-                    {/* Center the welcome text */}
-                    <Row className="justify-content-center">
-                        <Col md={8} className="text-center">
-                            <h1 style={{color: "white"}}>
-                                Welcome {profile && profile.username}
-                            </h1>
-                        </Col>
+                    <h1 style={{ color: "white" }}>
+                        Welcome {profile && profile.username}
+                    </h1>
+                    <Row>
+                        {profile && (
+                            <Col md={6}>
+                                <div id="serviceCard" className="service-card">
+                                    <h2> Personal Info </h2>
+                                    <p> Email Address: {profile.email}</p>
+                                    <p> City of Residence: {profile.city}</p>
+                                </div>
+                            </Col>
+                        )}
                     </Row>
                 </Container>
             </section>
+            <section>
+                <ProfileSideBar />
+            </section>
+
+
 
 
             <FooterNotLoggedIn/>
