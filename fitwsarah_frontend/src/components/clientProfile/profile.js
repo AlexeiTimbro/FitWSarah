@@ -1,26 +1,18 @@
 import React from 'react';
 import "../../css/style.css";
-import { Container, Row, Col, Button } from 'react-bootstrap';  // Import Button from react-bootstrap
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import Profile from '../../views/ProfilePage/Account';
+import AppointmentCard from '../../views/ProfilePage/AppointmentCard';
+import { useState } from 'react';
+import "../../views/ProfilePage/Account.css"
 
-function ProfileSideBar({ username, email, city }) {
+function ProfileSideBar({ appointments, accessToken }) {
     return (
-        <section className="appointments-section">
-            <Container>
-                <h2 style={{ color: 'white' }}></h2>
-                <Row>
-                    <Col md={12}>
-                        <div className="appointment-card">
-                            <p>
-                                <p> Upcoming Appointment </p>
-                                {/* Add the "Edit Appointment" button here */}
-                                <Button variant="primary" className="float-right">Scheduled</Button>
-                            </p>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </section>
+        <div className="scroll-container">
+            {appointments.map((appointment, index) => (
+                <AppointmentCard key={index} appointment={appointment} accessToken={accessToken}/>
+            ))}
+        </div>
     );
 }
 
