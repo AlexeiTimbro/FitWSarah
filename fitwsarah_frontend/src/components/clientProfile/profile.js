@@ -1,6 +1,6 @@
 import React from 'react';
 import "../../css/style.css";
-import { Container, Row, Col, Button } from 'react-bootstrap';  // Import Button from react-bootstrap
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import Profile from '../../views/ProfilePage/Account';
 
 function ProfileSideBar({ username, email, city }) {
@@ -13,7 +13,7 @@ function ProfileSideBar({ username, email, city }) {
                         <div className="appointment-card">
                             <p>
                                 <p> Upcoming Appointment </p>
-                                {/* Add the "Edit Appointment" button here */}
+
                                 <Button variant="primary" className="float-right">Scheduled</Button>
                             </p>
                         </div>
