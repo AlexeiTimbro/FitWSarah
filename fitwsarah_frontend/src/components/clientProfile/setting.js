@@ -46,6 +46,7 @@ const Settings = () => {
                 <div>
                     <p>Username: {profile.username}</p>
                     <p>Email: {profile.email}</p>
+                    {/* Add more profile information as needed */}
                 </div>
             )}
         </div>

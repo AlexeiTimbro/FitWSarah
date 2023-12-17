@@ -21,7 +21,7 @@ function SideBar() {
                     </li>
                 </ul>
             </div>
-
+            {/* Add the rest of your content here */}
         </div>
     );
 }
