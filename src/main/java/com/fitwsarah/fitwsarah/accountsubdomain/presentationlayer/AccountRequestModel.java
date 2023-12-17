@@ -7,7 +7,7 @@ import lombok.Value;
 
 @Value
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class AccountRequestModel {
     private String userId;
     private String username;
