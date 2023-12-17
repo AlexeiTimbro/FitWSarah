@@ -4,7 +4,7 @@ import '/app/src/components/navigation/NotLoggedIn/navNotLoggedIn.css';
 
 const RegisterButton = () => {
   const { loginWithRedirect } = useAuth0();
-  return <button className="login-button"  onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "signup"}})}>
+  return <button className="signup-button"  onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "signup"}})}>
   Sign Up
 </button>
 };

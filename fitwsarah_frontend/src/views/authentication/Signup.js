@@ -6,7 +6,6 @@ import configData from '../../config.json';
 function AddMemberProfile() {
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
-    const [loading, setLoading] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -54,7 +53,6 @@ function AddMemberProfile() {
             const data = await response.json();
             console.log(dataToSend);
             console.log(data);
-            console.log(accessToken);
         } catch (error) {
             console.error("Error adding member: ", error);
         }
