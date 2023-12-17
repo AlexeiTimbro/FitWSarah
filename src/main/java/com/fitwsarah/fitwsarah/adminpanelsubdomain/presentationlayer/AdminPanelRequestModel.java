@@ -10,6 +10,7 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AdminPanelRequestModel {
     private String username;
+    private String password;
     private String email;
     private String role;
     private String city;

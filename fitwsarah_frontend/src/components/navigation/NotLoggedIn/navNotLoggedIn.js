@@ -2,7 +2,6 @@ import React from 'react';
 import './navNotLoggedIn.css'; 
 import logo from './image-24.png';
 import { useAuth0 } from '@auth0/auth0-react';
-import RegisterButton from '../../authentication/register';
 
 
 function NavNotLoggedIn() {
@@ -21,7 +20,7 @@ function NavNotLoggedIn() {
 
         <div className="right-links">
           <button className="login-button" onClick={() => loginWithRedirect()}>Log In</button>;
-          <RegisterButton></RegisterButton>
+          
         </div>
       </nav>
       <div className="divider"></div>
