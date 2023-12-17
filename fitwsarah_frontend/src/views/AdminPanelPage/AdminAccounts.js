@@ -10,7 +10,7 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import './AdminAccounts.css'; 
-import { FaSearch } from 'react-icons/fa'; // Make sure you have react-icons installed
+import { FaSearch } from 'react-icons/fa';
 
 
 

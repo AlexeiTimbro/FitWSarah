@@ -26,15 +26,6 @@ public class AccountServiceImpl implements AccountService{
         this.accountRequestMapper = accountRequestMapper;
     }
 
-    private AccountRepository accountRepository;
-    private AccountResponseMapper accountResponseMapper;
-    private AccountRequestMapper accountRequestMapper;
-
-    public AccountServiceImpl(AccountRepository accountRepository, AccountResponseMapper accountResponseMapper, AccountRequestMapper accountRequestMapper) {
-        this.accountRepository = accountRepository;
-        this.accountResponseMapper = accountResponseMapper;
-        this.accountRequestMapper = accountRequestMapper;
-    }
 
     @Override
     public List<AccountResponseModel> getAllAccounts() {

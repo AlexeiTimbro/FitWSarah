@@ -23,6 +23,7 @@ import static org.mockito.Mockito.when;
 
 
 class AccountControllerUnitTest {
+
     @Mock
     AccountService AccountService;
 
@@ -51,5 +52,22 @@ class AccountControllerUnitTest {
 
         // Assert
         assertThat(result, is(account1));
+    }
+
+    @Test
+    void getAllAccounts_ShouldReturnAppointment() {
+
+        // Arrange
+        List<AccountResponseModel> AccountResponseModelList = Arrays.asList(
+                account1,
+                account2
+        );
+
+        when(AccountService.getAllAccounts()).thenReturn(AccountResponseModelList);
+
+        List<AccountResponseModel> result = accountController.getAllAccounts();
+
+        // Assert
+        assertThat(result, is(AccountResponseModelList));
     }
 }
