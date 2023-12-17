@@ -20,7 +20,7 @@ public class AccountController {
 
     @GetMapping("/{accountId}")
     public AccountResponseModel getAccountById(@PathVariable String accountId){
-        return null;
+        return accountService.getAccountByAccountId(accountId);
     }
 
     @PostMapping()
