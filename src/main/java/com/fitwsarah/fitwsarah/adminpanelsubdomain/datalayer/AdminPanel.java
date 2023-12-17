@@ -16,6 +16,7 @@ public class AdminPanel {
     private AdminPanelIdentifier adminPanelIdentifier;
 
     private String username;
+    private String password;
     private String email;
     private String role;
     private String city;
@@ -26,9 +27,10 @@ public class AdminPanel {
         this.adminPanelIdentifier = new AdminPanelIdentifier();
     }
 
-    public AdminPanel(String username, String email, String role, String city) {
+    public AdminPanel(String username, String password, String email, String role, String city) {
         this.adminPanelIdentifier =  new AdminPanelIdentifier();
         this.username = username;
+        this.password = password;
         this.email = email;
         this.role = role;
         this.city = city;

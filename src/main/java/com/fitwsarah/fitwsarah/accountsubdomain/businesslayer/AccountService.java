@@ -11,7 +11,7 @@ public interface AccountService {
 
     AccountResponseModel getAccountByAccountId(String accountId);
 
-    AccountResponseModel addAccount(AccountRequestModel accountRequestModel);
+    AccountResponseModel addAccount(AccountRequestModel accountRequestModel, String accountId);
 
     AccountResponseModel updateAccount(AccountRequestModel accountRequestModel, String accountId);
 
