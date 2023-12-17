@@ -25,7 +25,7 @@ public class Account {
 
 
 
-    Account() {
+    public Account() {
         this.accountIdentifier = new AccountIdentifier();
     }
 

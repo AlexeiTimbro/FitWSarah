@@ -16,4 +16,7 @@ public class AccountIdentifier {
     public String getAccountId(){
         return accountId;
     }
+
+    public void setAccountId(String accountId) {
+    }
 }

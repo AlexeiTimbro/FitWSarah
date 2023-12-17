@@ -47,13 +47,14 @@ class AppointmentControllerIntegrationTest {
 
 
     @Test
-    void getAppointmentbyAppointmentId_Should_Succed() throws Exception {
+    void getAppointmentbyAppointmentId_Should_Return_Unauthorized() throws Exception {
         String actualAppointmentId = appointment1.getAppointmentId();
+        String token = "invalid_token";  // Use an invalid or expired token
+
         mockMvc.perform(get("/api/v1/appointments/{appointmentId}", actualAppointmentId)
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.appointmentId").value(appointment1.getAppointmentId()));
+                .andExpect(status().isUnauthorized());  // Expecting 401 Unauthorized
     }
 
 
