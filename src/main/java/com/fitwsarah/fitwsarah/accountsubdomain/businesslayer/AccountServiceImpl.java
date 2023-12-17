@@ -34,11 +34,11 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public AccountResponseModel getAccountByAccountId(String accountId) {
-        return accountResponseMapper.entityToResponseModel(accountRepository.findByAccountIdentifier_AccountId(accountId));
+        return accountResponseMapper.entityToResponseModel(accountRepository.findAccountByAccountIdentifier_AccountId(accountId));
     }
 
     @Override
-    public AccountResponseModel addAccount(AccountRequestModel accountRequestModel, String accountId) {
+    public AccountResponseModel addAccount(AccountRequestModel accountRequestModel) {
         return null;
     }
 

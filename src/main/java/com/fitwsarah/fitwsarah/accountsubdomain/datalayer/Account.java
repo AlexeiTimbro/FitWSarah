@@ -18,21 +18,20 @@ public class Account {
     @Embedded
     private AccountIdentifier accountIdentifier;
 
+    private String userId;
     private String username;
-    private String password;
     private String email;
     private String city;
-
-
 
     public Account() {
         this.accountIdentifier = new AccountIdentifier();
     }
 
-    public Account(String username, String password, String email, String city) {
+
+    public Account(String userId, String username, String email, String city) {
         this.accountIdentifier = new AccountIdentifier();
+        this.userId = userId;
         this.username = username;
-        this.password = password;
         this.email = email;
         this.city = city;
     }
