@@ -107,6 +107,7 @@ function AdminAccounts() {
                     <td>{account.accountId}</td>
                     <td>{account.username}</td>
                     <td>{account.password}</td>
+                    <td>{account.email}</td>
                     <td>{account.city}</td>
                     <td>
                       <button className="button delete-button">Delete</button>
