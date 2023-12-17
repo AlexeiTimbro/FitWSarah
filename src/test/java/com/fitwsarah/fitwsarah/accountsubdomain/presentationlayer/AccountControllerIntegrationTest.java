@@ -3,9 +3,13 @@ package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountIdentifier;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountRepository;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountResponseMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -31,8 +35,13 @@ class AccountControllerIntegrationTest {
 
     private List<AccountResponseModel> accountResponseModelList;
 
+
     @Autowired
-    AccountResponseMapper accountResponseMapper;
+    private AccountRepository accountRepository;
+
+    private Account testAccount;
+    private String testAccountId;
+
 
 
 
@@ -53,11 +62,7 @@ class AccountControllerIntegrationTest {
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
+
     }
-
-
-
-
-
 
 }
