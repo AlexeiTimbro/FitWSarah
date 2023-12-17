@@ -30,12 +30,12 @@ INSERT INTO feeback_threads (feedback_id, account_id, stars, content) VALUES
 ('fdbk-uuid-4', 'uuid-acc4', 3, 'Good nutrition advice, but consultation felt rushed'),
 ('fdbk-uuid-5', 'uuid-acc5', 4, 'Fun group classes, but schedule is limited');
 
-INSERT INTO appointments (appointment_id, availability_id, admin_id, service_id, status, location) VALUES
-('uuid-appt1', 'uuid-avail1', 'uuid-admin1', 'uuid-service1', 'Scheduled', 'Location 1'),
-('uuid-appt2', 'uuid-avail2', 'uuid-admin2', 'uuid-service2', 'Completed', 'Location 2'),
-('uuid-appt3', 'uuid-avail3', 'uuid-admin3', 'uuid-service3', 'Cancelled', 'Location 3'),
-('uuid-appt4', 'uuid-avail4', 'uuid-admin4', 'uuid-service4', 'Scheduled', 'Location 4'),
-('uuid-appt5', 'uuid-avail5', 'uuid-admin5', 'uuid-service5', 'Completed', 'Location 5');
+INSERT INTO appointments (appointment_id, availability_id, account_id, admin_id, service_id, status, location) VALUES
+('uuid-appt1', 'uuid-avail1', 'dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2', 'uuid-admin1', 'uuid-service1', 'Scheduled', 'Location 1'),
+('uuid-appt2', 'uuid-avail2', 'uuid-account2', 'uuid-admin2', 'uuid-service2', 'Completed', 'Location 2'),
+('uuid-appt3', 'uuid-avail3', 'uuid-account3', 'uuid-admin3', 'uuid-service3', 'Cancelled', 'Location 3'),
+('uuid-appt4', 'uuid-avail4', 'uuid-account4', 'uuid-admin4', 'uuid-service4', 'Scheduled', 'Location 4'),
+('uuid-appt5', 'uuid-avail5', 'uuid-account5', 'uuid-admin5', 'uuid-service5', 'Completed', 'Location 5');
 
 
 INSERT INTO fitness_services (service_id, promo_id, title, duration, description, other_information, price) VALUES

@@ -38,6 +38,7 @@ create table if not exists feeback_threads(
 create table if not exists appointments(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     appointment_id VARCHAR(36) NOT NULL,
+    account_id VARCHAR(36) NOT NULL,
     availability_id VARCHAR(36) NOT NULL,
     admin_id VARCHAR(36) NOT NULL,
     service_id VARCHAR(36) NOT NULL,

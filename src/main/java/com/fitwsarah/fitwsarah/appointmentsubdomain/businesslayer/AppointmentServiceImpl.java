@@ -32,6 +32,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public List<AppointmentResponseModel> getAllAppointmentsByAccountId(String accountId) {
+        return appointmentResponseMapper.entityListToResponseModelList(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId));
+    }
+
+    @Override
     public AppointmentResponseModel getAppointmentByAppointmentId(String appointmentId) {
         return appointmentResponseMapper.entityToResponseModel(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId));
     }
