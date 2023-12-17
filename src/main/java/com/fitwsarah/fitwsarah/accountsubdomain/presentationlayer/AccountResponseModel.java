@@ -9,7 +9,7 @@ import lombok.Value;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class AccountResponseModel {
-    private String accountId;
+    private String account_Id;
     private String username;
     private String email;
     private String city;

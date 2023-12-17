@@ -35,7 +35,7 @@ class AccountControllerUnitTest {
 
         webTestClient.post()
                 .uri("/api/v1/accounts")
-                .header("Authorization", testToken)  // Include Authorization header with testToken
+                .header("Authorization", testToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(requestModel)
                 .exchange()
@@ -46,7 +46,6 @@ class AccountControllerUnitTest {
                     assertEquals(requestModel.getUsername(), responseModel.getUsername());
                 })
                 .consumeWith(responseResult -> {
-                    // Consume the response to avoid blocking read timeout
                 });
         }
     }

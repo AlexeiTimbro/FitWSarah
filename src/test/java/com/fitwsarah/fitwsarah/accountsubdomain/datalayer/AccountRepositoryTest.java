@@ -23,6 +23,7 @@ class AccountRepositoryTest {
         Account setup = accountRepository.save(newAccount);
         //Act and Assert
         assertNotNull(setup);
+        assertEquals("1", setup.getAccount_Id());
         assertEquals("user1", setup.getUsername());
         assertEquals("email@gmail.com", setup.getEmail());
         assertEquals("New York", setup.getCity());

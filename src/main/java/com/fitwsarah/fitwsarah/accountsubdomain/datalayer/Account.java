@@ -21,9 +21,6 @@ public class Account {
     private String city;
 
 
-
-    public Account() {}
-
     public Account(String account_Id, String username, String email, String city) {
         this.account_Id = account_Id;
         this.username = username;

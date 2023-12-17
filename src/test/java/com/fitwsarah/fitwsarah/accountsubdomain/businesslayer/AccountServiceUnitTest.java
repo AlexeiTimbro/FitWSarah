@@ -48,7 +48,7 @@ class AccountServiceUnitTest {
 
         Account entity = mock(Account.class);
 
-        AccountResponseModel mockedResponse = new AccountResponseModel("uuid-100","smith","john@gmail.com","John Ville");
+        AccountResponseModel mockedResponse = new AccountResponseModel("uuid-122","smith","john@gmail.com","John Ville");
         when(accountResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
         when(accountRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
         when(accountRepository.save(entity)).thenReturn(entity);
@@ -57,7 +57,7 @@ class AccountServiceUnitTest {
         AccountResponseModel result = accountService.addAccount(requestModel);
 
         assertNotNull(result);
-        assertNotNull(result.getAccountId());
+        assertNotNull(result.getAccount_Id());
         assertNotNull(result.getUsername());
 
     }

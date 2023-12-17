@@ -36,7 +36,7 @@ function AddMemberProfile() {
             }
 
             const {sub, nickname, email } = user;
-            const dataToSend = { accountId: sub, username: nickname, email: email};
+            const dataToSend = { account_Id: sub, username: nickname, email: email};
 
             const response = await fetch("http://localhost:8080/api/v1/accounts", {
                 method: "POST",
