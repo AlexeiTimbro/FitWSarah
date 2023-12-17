@@ -2,6 +2,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.codeborne.selenide.SelenideElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
@@ -14,7 +16,6 @@ public class EndToEndTesting {
         WebDriverManager.chromedriver().setup();
 
     }
-
     @Test
     public void signUpNewMember(){
         open("http://localhost:3000/");
@@ -48,6 +49,7 @@ public class EndToEndTesting {
     }
 
     @Test
+
     public void viewAllAppointmentInProfilePage(){
         open("http://localhost:3000/");
 
@@ -72,5 +74,7 @@ public class EndToEndTesting {
     }
 
     
+
+   
 
 }
