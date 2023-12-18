@@ -30,17 +30,13 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceUnitTest {
-
-    @Autowired
-    AccountService accountService;
-
-    @MockBean
-    AccountRepository accountRepository;
-
-    @MockBean
-    AccountResponseMapper accountResponseMapper;
-
-    @MockBean
+    @InjectMocks
+    private AccountServiceImpl accountService;
+    @Mock
+    private AccountRepository accountRepository;
+    @Mock
+    private AccountResponseMapper accountResponseMapper;
+    @Mock
     AccountRequestMapper accountRequestMapper;
 
 
@@ -55,8 +51,6 @@ class AccountServiceUnitTest {
 
         AccountResponseModel responseModel = new AccountResponseModel("uuid-appt1", "adms", "uuid-admin1", "uuid-service1", "Scheduled");
 
-        // Fix the method name in the following line (from appointment to account)
-
         // Fix the method name in the following line (from `appointment` to `account`)
 
         when(accountRepository.findAccountByAccountIdentifier_AccountId(accountId)).thenReturn(account);
@@ -64,6 +58,7 @@ class AccountServiceUnitTest {
         // Fix the method name in the following line (from appointment to account)
         when(accountResponseMapper.entityToResponseModel(account)).thenReturn(responseModel);
         AccountResponseModel result = accountService.getAccountByAccountId(accountId);
+        assertEquals(accountId, result.getAccountId());
 
     }
     @Test

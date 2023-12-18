@@ -39,7 +39,7 @@ function Profile() {
     }, [accessToken]);
     const { accountId } = useParams();
     const getAccountById = () => {
-        fetch(`http://localhost:8080/api/v1/accounts/${accountId}`, {
+        fetch("http://localhost:8080/api/v1/accounts/uuid-acc2", {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
