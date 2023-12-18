@@ -17,5 +17,6 @@ public class AppointmentIdentifier {
     }
 
     public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
     }
 }

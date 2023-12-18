@@ -11,6 +11,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +45,7 @@ class AppointmentServiceUnitTest {
         appointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
 
 
-        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1");
+        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1");
 
 
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
@@ -56,6 +60,33 @@ class AppointmentServiceUnitTest {
 
 
         assertEquals(appointmentId, result.getAppointmentId());
+    }
+
+    @Test
+    void getAllAppointmentsByAccountId_returnsNonEmptyList() {
+        String accountId = "uuid-account1";
+        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
+        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"));
+
+        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+        when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
+
+        List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
+
+        assertEquals(responseModels, result);
+    }
+
+    @Test
+    void getAllAppointmentsByAccountId_returnsEmptyList() {
+        String accountId = "uuid-account1";
+        List<Appointment> appointments = Collections.emptyList();
+
+        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+        when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(Collections.emptyList());
+
+        List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
+
+        assertEquals(Collections.emptyList(), result);
     }
 }
 

@@ -11,6 +11,7 @@ import lombok.Value;
 public class AppointmentRequestModel {
     private String availabilityId;
     private String adminId;
+    private String accountId;
     private String serviceId;
     private String status;
     private String location;

@@ -13,14 +13,11 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-
     @Embedded
     private AppointmentIdentifier appointmentIdentifier;
-
-
+    @Embedded
+    private AccountIdentifier accountIdentifier;
     private String availabilityId;
-
     @Embedded
     private AdminPanelIdentifier adminPanelIdentifier;
 

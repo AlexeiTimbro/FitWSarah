@@ -24,6 +24,14 @@ public class AppointmentController {
      return appointmentService.getAppointmentByAppointmentId(appointmentId);
 
     }
+
+    @GetMapping("/account/{accountId}")
+    public List<AppointmentResponseModel> getAllAppointmentsByAccountId(@PathVariable String accountId){
+        return appointmentService.getAllAppointmentsByAccountId(accountId);
+    }
+
+
+
     @PostMapping()
     public AppointmentResponseModel addAppointmentById(@RequestBody AppointmentResponseModel appointmentResponseModel){
         return null;
