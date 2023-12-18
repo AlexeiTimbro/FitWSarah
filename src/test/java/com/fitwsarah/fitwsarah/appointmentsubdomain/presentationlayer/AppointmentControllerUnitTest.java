@@ -31,8 +31,8 @@ class AppointmentControllerUnitTest {
     @InjectMocks
     private AppointmentController appointmentController;
 
-    AppointmentResponseModel appointment1 = new AppointmentResponseModel("appointmentID1", "avaiblity6","admin09", "s123", "Desc", "nyc");
-    AppointmentResponseModel appointment2 = new AppointmentResponseModel("appointmentID2", "avaiblity6","admin09", "s123", "Desc", "nyc");
+    AppointmentResponseModel appointment1 = new AppointmentResponseModel("appointmentID1", "avaiblity6", "accountId1", "admin09", "s123", "Desc", "nyc");
+    AppointmentResponseModel appointment2 = new AppointmentResponseModel("appointmentID2", "avaiblity6", "accountId2","admin09", "s123", "Desc", "nyc");
 
     @BeforeEach
     void setUp() {
@@ -55,6 +55,18 @@ class AppointmentControllerUnitTest {
         // Assert
         assertThat(result, is(appointment1));
     }
+
+    @Test
+    public void getAllAppointmentsByAccountId_ShouldReturnAppointments() {
+        String accountId = "testAccountId";
+        List<AppointmentResponseModel> expectedAppointments = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"));
+        when(appointmentService.getAllAppointmentsByAccountId(accountId)).thenReturn(expectedAppointments);
+
+        List<AppointmentResponseModel> actualAppointments = appointmentController.getAllAppointmentsByAccountId(accountId);
+
+        assertEquals(expectedAppointments, actualAppointments);
+    }
+
 }
 
 

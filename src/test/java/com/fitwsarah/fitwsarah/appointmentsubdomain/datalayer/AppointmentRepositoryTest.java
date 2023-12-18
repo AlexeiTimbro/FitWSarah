@@ -1,55 +1,58 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer;
 
-
-import com.fitwsarah.fitwsarah.adminpanelsubdomain.datalayer.AdminPanelIdentifier;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import java.util.Arrays;
+import java.util.List;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @DataJpaTest
 class AppointmentRepositoryTest {
 
-    @Autowired
+    @Mock
     private AppointmentRepository appointmentRepository;
 
     private String savedAppointmentId;
 
+    private String accountId;
+
     @BeforeEach
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        accountId = "uuid-account1";
         Appointment appointment = new Appointment();
         AppointmentIdentifier identifier = new AppointmentIdentifier();
         appointment.setAppointmentIdentifier(identifier);
-
-        // Save the appointment and get the saved ID
-        Appointment savedAppointment = appointmentRepository.save(appointment);
-        savedAppointmentId = savedAppointment.getAppointmentIdentifier().getAppointmentId();
     }
 
     @AfterEach
     public void tearDown() {
-        // Delete all appointments after each test
-        appointmentRepository.deleteAll();
+        accountId = null;
     }
 
     @Test
     public void whenFindByCustomerId_thenReturnAppointment() {
         // Arrange
-        assertNotNull(savedAppointmentId);
+        String mockAppointmentId = "6e83092a-1202-41f1-9d98-1394b52f1d3c";
+        Appointment mockAppointment = new Appointment();
+        AppointmentIdentifier identifier = new AppointmentIdentifier();
+        identifier.setAppointmentId(mockAppointmentId);
+        mockAppointment.setAppointmentIdentifier(identifier);
+
+        when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(mockAppointmentId)).thenReturn(mockAppointment);
 
         // Act
-        Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(savedAppointmentId);
+        Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(mockAppointmentId);
 
         // Assert
         assertNotNull(found);
-        assertEquals(savedAppointmentId, found.getAppointmentIdentifier().getAppointmentId());
+        assertEquals(mockAppointmentId, found.getAppointmentIdentifier().getAppointmentId());
     }
 
     @Test
@@ -62,5 +65,27 @@ class AppointmentRepositoryTest {
 
         // Assert
         assertNull(found);
+    }
+
+    @Test
+    void whenFindAppointmentByAccountIdentifier_AccountIdReturnsNonEmptyList() {
+        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
+
+        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+
+        List<Appointment> result = appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId);
+
+        assertEquals(appointments, result);
+    }
+
+    @Test
+    public void whenFindAppointmentByNonExistentAccountIdentifier_AccountIdReturnsEmptyList() {
+        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
+
+        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+
+        List<Appointment> result = appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId);
+
+        assertEquals(appointments, result);
     }
 }

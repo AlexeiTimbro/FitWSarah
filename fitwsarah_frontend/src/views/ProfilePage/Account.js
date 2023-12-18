@@ -111,7 +111,7 @@ function Profile() {
                     </h1>
                     <Row>
                         {profile && (
-                            <Col md={6}>
+                            <Col md={8}>
                                 <div id="serviceCard" className="service-card">
                                     <h2> Personal Info </h2>
                                     <p> Email Address: {profile.email}</p>
