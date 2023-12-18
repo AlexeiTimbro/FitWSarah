@@ -15,6 +15,7 @@ public class EndToEndTesting {
     void setup() {
         WebDriverManager.chromedriver().setup();
 
+
     }
     @Test
     public void signUpNewMember(){
@@ -96,10 +97,75 @@ public class EndToEndTesting {
 
         SelenideElement getAllAppointments = $("div[class='appointment-card card']");
         getAllAppointments.shouldBe(visible);
+
     }
 
-    
+    @Test
+    public void viewAllAccountsAdminPanel(){
+        open("http://localhost:3000/");
 
-   
 
+
+
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("emilegirars42@gmail.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Fy9u4e!6f.VTW:4");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+
+
+        SelenideElement adminPanelBtn = $("a[href='/adminPanel']");
+        adminPanelBtn.click();
+
+        sleep(1000);
+
+        SelenideElement profileBtn = $("a[href='/adminAccounts']");
+        profileBtn.click();
+
+        sleep(1000);
+
+    }
+
+    @Test
+    public void viewFitnessPackageById(){
+        open("http://localhost:3000/");
+
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("emilegirars42@gmail.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Fy9u4e!6f.VTW:4");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+
+        SelenideElement detailsButton = $$("div.service-card .book-button").get(1);
+        detailsButton.click();
+
+        sleep(1000);
+
+    }
 }
