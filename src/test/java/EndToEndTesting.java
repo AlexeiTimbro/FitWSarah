@@ -161,10 +161,10 @@ public class EndToEndTesting {
 
         sleep(1000);
 
-        SelenideElement fitnessPaackageDetails = $("<button class=\"book-button\">Book</button>\n");
+        SelenideElement detailsButton = $$("div.service-card .book-button").get(1);
+        detailsButton.click();
+
         sleep(1000);
-
-
 
     }
 }
