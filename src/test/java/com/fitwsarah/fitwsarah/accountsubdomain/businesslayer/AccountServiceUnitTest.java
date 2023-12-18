@@ -8,22 +8,13 @@ import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequest
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentServiceImpl;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,26 +23,25 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceUnitTest {
 
-    @InjectMocks
-    private AccountServiceImpl accountService;
+    @Autowired
+    AccountService accountService;
 
-    @Mock
-    private AccountRepository accountRepository;
+    @MockBean
+    AccountRepository accountRepository;
 
-    @Mock
-    private AccountResponseMapper accountResponseMapper;
-    @Mock
-    private AccountRequestMapper accountRequestMapper;
+    @MockBean
+    AccountResponseMapper accountResponseMapper;
+
+    @MockBean
+    AccountRequestMapper accountRequestMapper;
 
 
     @Test
@@ -82,8 +72,7 @@ class AccountServiceUnitTest {
         AccountRequestModel requestModel = new AccountRequestModel("uuid122","smith", "john@gmail.com", "John Ville");
 
         Account entity = mock(Account.class);
-
-        AccountResponseModel mockedResponse = new AccountResponseModel("uuid3","uuid-122","smith","john@gmail.com","John Ville");
+        AccountResponseModel mockedResponse = new AccountResponseModel("1","uuid-122","smith","john@gmail.com","John Ville");
         when(accountResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
         when(accountRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
         when(accountRepository.save(entity)).thenReturn(entity);
@@ -92,7 +81,7 @@ class AccountServiceUnitTest {
         AccountResponseModel result = accountService.addAccount(requestModel);
 
         assertNotNull(result);
-        assertNotNull(result.getCity());
+        assertNotNull(result.getAccountId());
         assertNotNull(result.getUsername());
 
     }

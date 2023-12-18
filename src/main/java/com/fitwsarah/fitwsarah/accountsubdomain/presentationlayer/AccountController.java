@@ -30,22 +30,22 @@ public class AccountController {
     }
 
     //This is for everything invoice, same logic can be applied for coach notes
-    @PostMapping("/{account_Id}")
-    public InvoiceResponseModel addInvoiceByAccountId(@RequestBody InvoiceRequestModel invoiceRequestModel, @PathVariable String account_Id){
+    @PostMapping("/{accountId}")
+    public InvoiceResponseModel addInvoiceByAccountId(@RequestBody InvoiceRequestModel invoiceRequestModel, @PathVariable String accountId){
         return null;
     }
-    @GetMapping("/{account_Id}/invoices")
-    public InvoiceResponseModel getAllInvoicesByAccountId(@PathVariable String account_Id){
+    @GetMapping("/{accountId}/invoices")
+    public InvoiceResponseModel getAllInvoicesByAccountId(@PathVariable String accountId){
         return null;
     }
     //------
-    @PutMapping("/{account_Id}")
-    public AccountResponseModel updateAccount(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String account_Id){
+    @PutMapping("/{accountId}")
+    public AccountResponseModel updateAccount(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String accountId){
         return null;
     }
 
-    @DeleteMapping("/{account_Id}")
-    public void deleteAccountById(@PathVariable String account_Id){
+    @DeleteMapping("/{accountId}")
+    public void deleteAccountById(@PathVariable String accountId){
 
     }
 

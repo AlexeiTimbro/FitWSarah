@@ -6,11 +6,12 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import ProfileSideBar from "../../components/clientProfile/profile";
+import { useParams } from "react-router-dom";
+
 import {Link} from "react-router-dom";
 
 function Profile() {
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-
     const [accessToken, setAccessToken] = useState(null);
     const [profile, setProfile] = useState(null);
 
@@ -36,9 +37,9 @@ function Profile() {
             getAccountById();
         }
     }, [accessToken]);
-
+    const { accountId } = useParams();
     const getAccountById = () => {
-        fetch("http://localhost:8080/api/v1/accounts/${accountId}", {
+        fetch(`http://localhost:8080/api/v1/accounts/${accountId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
