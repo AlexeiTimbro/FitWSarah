@@ -1,11 +1,13 @@
 USE `fitwsarah-db`;
 
-INSERT INTO accounts (account_id, username, password, email, city) VALUES
-('uuid-acc1', 'johnsmith', 'pass123', 'johnsmith@example.com', 'New York'),
-('uuid-acc2', 'emilyjones', 'pass234', 'emilyjones@example.com', 'Los Angeles'),
-('uuid-acc3', 'michaelbrown', 'pass345', 'michaelbrown@example.com', 'Chicago'),
-('uuid-acc4', 'sarahwhite', 'pass456', 'sarahwhite@example.com', 'Houston'),
-('uuid-acc5', 'davidjohnson', 'pass567', 'davidjohnson@example.com', 'Phoenix');
+
+INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
+('1','uuid-acc1', 'johnsmith','johnsmith@example.com', 'New York'),
+('2','uuid-acc2', 'emilyjones', 'emilyjones@example.com', 'Los Angeles'),
+('3','uuid-acc3', 'michaelbrown', 'michaelbrown@example.com', 'Chicago'),
+('4','uuid-acc4', 'sarahwhite', 'sarahwhite@example.com', 'Houston'),
+('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix');
+
 
 INSERT INTO admin_accounts (admin_id, username, password, email, role, city) VALUES
 ('uuid-admin1', 'admin1', 'adminpass1', 'admin1@example.com', 'Administrator', 'New York'),

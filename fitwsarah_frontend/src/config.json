@@ -2,5 +2,5 @@
     "domain": "dev-twa7h1nv0usycyum.us.auth0.com",
     "clientId": "uiI9dAvArjVkR8WW4Tv7vNo7KkZwE7MW",
     "audience": "https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/",
-    "scope": "read:users"
+    "scope": "read:users openid profile email"
 }

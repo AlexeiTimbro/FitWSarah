@@ -17,7 +17,6 @@ class AccountRepositoryTest {
     AccountRepository accountRepository;
 
 
-
     private String savedAccountId;
 
     @BeforeEach
@@ -43,11 +42,23 @@ class AccountRepositoryTest {
         assertNotNull(savedAccountId);
 
         // Act
-        Account found = accountRepository.findByAccountIdentifier_AccountId(savedAccountId);
+        Account found = accountRepository.findAccountByAccountIdentifier_AccountId(savedAccountId);
 
         // Assert
         assertNotNull(found);
         assertEquals(savedAccountId, found.getAccountIdentifier().getAccountId());
+    }
+
+    @Test
+    public void ShouldSaveSingleAccount() {
+        //arrange
+        Account newAccount = buildAccount("1", "user1", "email@gmail.com", "New York");
+        Account setup = accountRepository.save(newAccount);
+        //Act and Assert
+        assertNotNull(setup);
+        assertEquals("user1", setup.getUsername());
+        assertEquals("email@gmail.com", setup.getEmail());
+        assertEquals("New York", setup.getCity());
     }
 
     @Test
@@ -56,9 +67,13 @@ class AccountRepositoryTest {
         String nonExistentAcountId = "nonExistentId";
 
         // Act
-        Account found = accountRepository.findByAccountIdentifier_AccountId(nonExistentAcountId);
+        Account found = accountRepository.findAccountByAccountIdentifier_AccountId(nonExistentAcountId);
 
         // Assert
         assertNull(found);
     }
+    private Account buildAccount(String accountId, String username, String email, String city) {
+        return new Account(accountId, username, email, city);
+    }
 }
+

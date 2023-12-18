@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountRepository;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountRequestMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountResponseMapper;
@@ -34,19 +35,19 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public AccountResponseModel getAccountByAccountId(String accountId) {
-        return accountResponseMapper.entityToResponseModel(accountRepository.findByAccountIdentifier_AccountId(accountId));
+        return accountResponseMapper.entityToResponseModel(accountRepository.findAccountByAccountIdentifier_AccountId(accountId));
     }
-
     @Override
-    public AccountResponseModel addAccount(AccountRequestModel accountRequestModel, String accountId) {
-        return null;
+    public AccountResponseModel addAccount(AccountRequestModel accountRequestModel) {
+        Account account = accountRequestMapper.requestModelToEntity(accountRequestModel);
+        Account saved = accountRepository.save(account);
+        return accountResponseMapper.entityToResponseModel(saved);
     }
 
     @Override
     public AccountResponseModel updateAccount(AccountRequestModel accountRequestModel, String accountId) {
         return null;
     }
-
     @Override
     public void removeAccount(String accountId) {
 

@@ -10,8 +10,8 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class AccountResponseModel {
     private String accountId;
+    private String userId;
     private String username;
-    private String password;
     private String email;
     private String city;
 }

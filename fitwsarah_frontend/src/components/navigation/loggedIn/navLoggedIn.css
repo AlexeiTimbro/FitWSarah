@@ -1,10 +1,13 @@
 
 .signup-button {
-    color: white;
+    color: black;
     white-space: nowrap;
   }
 
-  
+  .adminPanel-button {
+    color: white;
+    white-space: nowrap;
+  }
 
 header {
   background-color: white;
@@ -49,6 +52,11 @@ nav .signup-button {
 }
 
 nav .signup-button:hover {
+  transform: scale(1.1); 
+}
+
+
+nav .login-button:hover {
   transform: scale(1.1); 
 }
 

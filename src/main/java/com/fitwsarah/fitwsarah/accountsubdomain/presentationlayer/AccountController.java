@@ -1,6 +1,8 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.AccountService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +24,21 @@ public class AccountController {
     public AccountResponseModel getAccountById(@PathVariable String accountId){
         return accountService.getAccountByAccountId(accountId);
     }
-
     @PostMapping()
-    public AccountResponseModel addAccount(@RequestBody AccountRequestModel accountRequestModel){
-        return null;
+    public ResponseEntity<AccountResponseModel> addAccount(@RequestBody AccountRequestModel accountRequestModel){
+        return ResponseEntity.status(HttpStatus.CREATED).body(accountService.addAccount(accountRequestModel));
     }
 
+    //This is for everything invoice, same logic can be applied for coach notes
+    @PostMapping("/{accountId}")
+    public InvoiceResponseModel addInvoiceByAccountId(@RequestBody InvoiceRequestModel invoiceRequestModel, @PathVariable String accountId){
+        return null;
+    }
+    @GetMapping("/{accountId}/invoices")
+    public InvoiceResponseModel getAllInvoicesByAccountId(@PathVariable String accountId){
+        return null;
+    }
+    //------
     @PutMapping("/{accountId}")
     public AccountResponseModel updateAccount(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String accountId){
         return null;
