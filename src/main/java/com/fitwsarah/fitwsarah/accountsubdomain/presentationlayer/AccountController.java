@@ -15,7 +15,7 @@ public class AccountController {
     }
     @GetMapping()
     public List<AccountResponseModel> getAllAccounts(){
-        return null;
+        return accountService.getAllAccounts();
     }
 
     @GetMapping("/{accountId}")

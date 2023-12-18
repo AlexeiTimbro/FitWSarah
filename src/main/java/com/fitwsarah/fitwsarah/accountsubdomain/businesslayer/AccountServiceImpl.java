@@ -5,6 +5,10 @@ import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountRequestMa
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountResponseMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequestModel;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageRequestMapper;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageResponseMapper;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +26,10 @@ public class AccountServiceImpl implements AccountService{
         this.accountRequestMapper = accountRequestMapper;
     }
 
+
     @Override
     public List<AccountResponseModel> getAllAccounts() {
-        return null;
+        return accountResponseMapper.entityListToResponseModelList(accountRepository.findAll());
     }
 
     @Override
