@@ -97,6 +97,7 @@ public class EndToEndTesting {
 
         SelenideElement getAllAppointments = $("div[class='appointment-card card']");
         getAllAppointments.shouldBe(visible);
+
     }
 
     @Test
