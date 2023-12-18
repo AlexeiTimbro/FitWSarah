@@ -49,6 +49,31 @@ public class EndToEndTesting {
     }
 
     @Test
+    public void viewProfilePage(){
+        open("http://localhost:3000/");
+
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("abdursiddiqui2003@gmail.com");
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Abd657@190");
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+
+        SelenideElement profileBtn = $("a[href='/profile']");
+        profileBtn.click();
+
+        SelenideElement viewprofile = $("div[class='service-card']");
+        viewprofile.shouldBe(visible);
+    }
+
+
+    @Test
 
     public void viewAllAppointmentInProfilePage(){
         open("http://localhost:3000/");
