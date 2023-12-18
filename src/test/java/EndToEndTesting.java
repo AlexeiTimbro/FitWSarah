@@ -15,6 +15,7 @@ public class EndToEndTesting {
     void setup() {
         WebDriverManager.chromedriver().setup();
 
+
     }
     @Test
     public void signUpNewMember(){
