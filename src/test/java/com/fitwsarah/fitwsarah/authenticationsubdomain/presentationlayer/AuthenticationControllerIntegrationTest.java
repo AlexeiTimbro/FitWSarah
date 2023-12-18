@@ -1,6 +1,5 @@
 package com.fitwsarah.fitwsarah.authenticationsubdomain.presentationlayer;
 
-import com.fitwsarah.fitwsarah.authenticationsubdomain.datalayer.AuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +11,4 @@ import static org.junit.jupiter.api.Assertions.*;
 class AuthenticationControllerIntegrationTest {
     @Autowired
     WebTestClient webTestClient;
-    @Autowired
-    AuthenticationRepository authenticationRepository;
 }
