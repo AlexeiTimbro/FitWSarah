@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import "./Account.css";
+import "../../css/Account.css";
 
 function AppointmentCard({ appointment, accessToken }) {
 

@@ -4,7 +4,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import Profile from '../../views/ProfilePage/Account';
 import AppointmentCard from '../../views/ProfilePage/AppointmentCard';
 import { useState } from 'react';
-import "../../views/ProfilePage/Account.css"
+import "../../css/Account.css"
 
 function ProfileSideBar({ appointments, accessToken }) {
     return (

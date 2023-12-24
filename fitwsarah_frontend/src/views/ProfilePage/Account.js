@@ -7,12 +7,11 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import ProfileSideBar from "../../components/clientProfile/profile";
 import { useParams } from "react-router-dom";
-
-import {Link} from "react-router-dom";
-import "./Account.css"
-
+import { Link } from "react-router-dom";
+import "../../css/style.css";
+import "../../css/Account.css";
 function Profile() {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const {isAuthenticated, getAccessTokenSilently} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const [profile, setProfile] = useState(null);
     const [appointments, setAppointments] = useState([]);
@@ -37,12 +36,14 @@ function Profile() {
     useEffect(() => {
         if (accessToken) {
             getAccountById();
-            getAppointmentsByAccountId("dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2");
+            getAppointmentsByAccountId();
         }
     }, [accessToken]);
-    const { accountId } = useParams();
+
+    const {accountId} = useParams();
+
     const getAccountById = () => {
-        fetch("http://localhost:8080/api/v1/accounts/uuid-acc2", {
+        fetch(`http://localhost:8080/api/v1/accounts/${accountId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -63,14 +64,15 @@ function Profile() {
             })
             .catch((error) => {
                 console.error(
-                    "Error fetching service details for serviceId",
+                    "Error fetching service details for accountId",
+                    accountId,
                     ":",
                     error
                 );
             });
     };
 
-    const getAppointmentsByAccountId = (accountId) => {
+    const getAppointmentsByAccountId = () => {
         fetch(`http://localhost:8080/api/v1/appointments/account/${accountId}`, {
             method: "GET",
             headers: new Headers({
@@ -78,50 +80,56 @@ function Profile() {
                 "Content-Type": "application/json",
             }),
         })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(
-                   "Network response was not ok " + response.statusText
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(
+                        "Network response was not ok " + response.statusText
+                    );
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                setAppointments(data);
+            })
+            .catch((error) => {
+                console.error(
+                    "Error fetching service details for serviceId",
+                    ":",
+                    error
                 );
-            }
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data)
-            setAppointments(data);
-        })
-        .catch((error) => {
-            console.error(
-                "Error fetching service details for serviceId",
-                ":",
-                error
-            );
-        });
+            });
     };
 
     return (
         <div>
             {!isAuthenticated && <NavNotLoggedIn />}
             {isAuthenticated && <NavLoggedIn />}
-            <section className="hero-section1"></section>
-            <section className="services-section">
-                <Container>
-                    <h1 style={{ color: "white" }}>
-                        Welcome {profile && profile.username}
-                    </h1>
-                    <Row>
-                        {profile && (
-                            <Col md={8}>
-                                <div id="serviceCard" className="service-card">
-                                    <h2> Personal Info </h2>
-                                    <p> Email Address: {profile.email}</p>
-                                    <p> City of Residence: {profile.city}</p>
+            <div className="box">
+                <div className="profile-header">
+                    <div className="overlap">
+                        <div className="overlap-group">
+                            <img className="rectangle" alt="Rectangle" src="Rectangle-9840.jpg" />
+                            <img className="ellipse" alt="Ellipse" src="Ellipse-1631.png" />
+                            <div className="group">
+                                <div className="div">
+                                    <div className="rectangle-2" />
+                                    <div className="text-wrapper">Edit Cover</div>
                                 </div>
-                            </Col>
-                        )}
-                    </Row>
-                </Container>
-            </section>
+                            </div>
+                        </div>
+                        <div className="overlap-group-wrapper">
+                            <div className="div-wrapper">
+                                <div className="text-wrapper-2">Edit Profile</div>
+                            </div>
+                        </div>
+                        <div className="group-2">
+                            <div className="text-wrapper-3">Profile Name {profile && profile.username}</div>
+                            <div className="text-wrapper-4">Welcome Back!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <section>
                 <div className="account-container">
                     <div className="tabs">
