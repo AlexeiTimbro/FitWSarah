@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/api/v1/fitnessPackages")
 @CrossOrigin(origins = "http://localhost:3000")
 public class FitnessPackageController {
+
     private FitnessPackageService fitnessPackageService;
 
     public FitnessPackageController(FitnessPackageService fitnessPackageService){
