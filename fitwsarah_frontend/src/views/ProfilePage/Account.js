@@ -8,6 +8,8 @@ import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerN
 import ProfileSideBar from "../../components/clientProfile/profile";
 import { useParams } from "react-router-dom";
 import './Account.css';
+import Sidebar from "./SideBar";
+
 
 function Profile() {
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -95,18 +97,8 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <div className="sidebar">
-                <div className="sidebar-item active">
-                    <ul>
-                    <li>Profile Settings</li>
-                    <li>Dark Mode</li>
-                    <li>Invoices</li>
-                    <li>Coach Notes</li>
-                    <li>Sign Out</li>
-                    </ul>
-                </div>
-
-            </div>
+            <div className="profile-page-container">
+            <Sidebar />
                 <div className="account-container">
                     <div className="tabs">
                         <button className="tab">Today</button>
@@ -115,6 +107,7 @@ function Profile() {
                     </div>
                     <ProfileSideBar appointments={appointments} accessToken={accessToken} />
                 </div>
+            </div>
 
             <FooterNotLoggedIn />
         </div>
