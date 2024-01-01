@@ -84,30 +84,29 @@ function Profile() {
         <div>
             {!isAuthenticated && <NavNotLoggedIn />}
             {isAuthenticated && <NavLoggedIn />}
-            <div className="profile-page-container">
-                <div className="profile-header">
-                    <div className="cover-image"></div>
-                    <button className="edit-profile-btn">Edit Profile</button>
+            <div className="box">
+                <div className="rectangle" />
+                <div className="cover-image"></div>
+                <div className="profile-content">
+                    <div className="profile-image"></div>
+                    <div className="profile-text">
+                        <div className="text-wrapper">Profile Name</div>
+                        <div className="div">Welcome Back!</div>
+                    </div>
                 </div>
-               </div>
-                <section className="services-section">
-                    <Container>
-                        <h1 style={{ color: "white" }}>
-                            Welcome {profile && profile.username}
-                        </h1>
-                        <Row>
-                            {profile && (
-                                <Col md={8}>
-                                    <div id="serviceCard" className="service-card">
-                                        <h2> Personal Info </h2>
-                                        <p> Email Address: {profile.email}</p>
-                                        <p> City of Residence: {profile.city}</p>
-                                    </div>
-                                </Col>
-                            )}
-                        </Row>
-                    </Container>
-                </section>
+            </div>
+            <div className="sidebar">
+                <div className="sidebar-item active">
+                    <ul>
+                    <li>Profile Settings</li>
+                    <li>Dark Mode</li>
+                    <li>Invoices</li>
+                    <li>Coach Notes</li>
+                    <li>Sign Out</li>
+                    </ul>
+                </div>
+
+            </div>
                 <div className="account-container">
                     <div className="tabs">
                         <button className="tab">Today</button>

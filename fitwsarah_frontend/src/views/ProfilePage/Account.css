@@ -1,4 +1,29 @@
 /* Main profile page container */
+
+.box {
+    height: 345px;
+    width: 1353px;
+}
+
+.box .rectangle {
+    position: fixed;
+    width: 1353px;
+    height: 345px;
+    top: 0;
+    left: 0;
+    box-shadow: 7px 7px 4px #00000040;
+}
+.box .ellipse {
+    height: 183px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 191px;
+    background-image: url('Ellipse-1631.jpg');
+}
+
+
+
 .profile-page-container {
     display: flex;
     flex-direction: row;
@@ -7,7 +32,15 @@
     max-width: 100%;
     box-sizing: border-box;
 }
+.profile-content {
+    display: flex; /* Enable flexbox for alignment */
+    align-items: center; /* Align items vertically */
+    padding-left: 20px; /* Add some padding on the left */
+}
 
+.profile-text {
+    margin-left: 20px; /* Space between image and text */
+}
 .profile-header {
     position: relative;
     width: 100%;
@@ -26,9 +59,10 @@
     height: 120px;
     border-radius: 50%;
     border: 3px solid #fff;
-    position: absolute;
+    position: static; /* Change to relative */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     top: 100px;
-    left: 30px;
+
     background-image: url('Ellipse-1631.jpg');
     background-size: cover;
     background-position: center;
@@ -154,10 +188,39 @@
     padding: 20px 0;
     gap: 20px;
 }
+
+
+.sidebar { /* Fixed position to the viewport */
+    top: 0;
+    left: 0;
+    width: 250px; /* Width of the sidebar */
+    height: 45vh; /* Full height of the viewport */
+    background-color: #333; /* Sidebar background color */
+
+}
+
+/* Style for the individual sidebar items */
+.sidebar-item {
+    padding: 10px 20px;
+    color: white; /* Text color for the sidebar items */
+    display: flex;
+    align-items: center;
+}
+
+/* Style for the active sidebar item */
+.sidebar-item.active {
+    background-color: #555; /* Slightly different background for active item */
+    border-left: 4px solid #007bff; /* Highlight for active item */
+}
+
+/* Icons in the sidebar items */
+.sidebar-icon {
+    margin-right: 10px; /* Space between icon and text */
+}
 /* Add more styles for the appointment cards, etc. */
 
 /* Remember to add responsiveness if needed */
-@media (max-width: 1000px) {
+@media (max-width: 729px) {
     .profile-page-container {
         flex-direction: column;
     }
@@ -166,14 +229,17 @@
         height: 100px;
     }
 
+
+
     .profile-image {
-        top: 60px;
+        margin-top: -30px; /* Adjust margin for smaller screens */
     }
 
-    .sidebar {
-        width: 100%;
-        height: auto;
+    .profile-text {
+        margin-left: 0; /* No space needed on small screens */
+        margin-top: 10px; /* Space between image and text */
     }
+
 
     .main-content {
         padding: 10px;
