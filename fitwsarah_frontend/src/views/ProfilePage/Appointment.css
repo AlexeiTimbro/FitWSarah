@@ -1,0 +1,129 @@
+.box {
+    height: 365px;
+    width: 246px;
+    position: relative; /* Make sure this is set */
+}
+
+
+.box .appointment {
+    height: 365px;
+    left: 0;
+    position: absolute; /* Changed from fixed to absolute */
+    top: 0;
+    width: 248px;
+}
+.card-detail1 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.card-title1 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.box .overlap-group {
+    background-color: #533747;
+    border-radius: 10px;
+    height: 365px;
+    position: relative;
+    width: 246px;
+}
+
+.box .group {
+    height: 98px;
+    left: 20px;
+    position: absolute;
+    top: 198px;
+    width: 187px;
+}
+
+.box .text-wrapper1 {
+    color: #ffffff;
+    font-family: "Poppins-Medium", Helvetica, cursive;
+    font-size: 18px;
+    font-weight: 500;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    width: 183px;
+}
+
+.box .div1 {
+    color: #ffdab9;
+    font-family: "Poppins-Medium", Helvetica, Sana, fantasy;
+    font-size: 20px;
+    font-weight: 500;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 68px;
+    width: 113px;
+}
+
+.box .group-2 {
+    height: 21px;
+    left: 0;
+    position: absolute;
+    top: 35px;
+    width: 171px;
+}
+
+.box .vuesax-bold-location {
+    height: 20px !important;
+    left: 0 !important;
+    position: absolute !important;
+    top: 0 !important;
+    width: 20px !important;
+}
+
+.box .text-wrapper-2 {
+    color: #ffffff;
+    font-family: "Poppins-Light", Helvetica, serif;
+    font-size: 14px;
+    font-weight: 300;
+    left: 30px;
+    letter-spacing: 0;
+    line-height: normal;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 139px;
+}
+
+.box .rectangle1 {
+    height: 170px;
+    left: 12px;
+    object-fit: cover;
+    position: absolute;
+    top: 12px;
+    width: 180px;
+    background-image: url('Rectangle-29852.png');
+}
+
+.box .text-wrapper-3 {
+    color: #499bfc;
+    font-family: "Poppins-Light", Helvetica, SansSerif, serif;
+    font-size: 14px;
+    font-weight: 300;
+    left: 85px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 328px;
+    width: 77px;
+}
+
+.box .vector {
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 311px;
+    width: 246px;
+    background-image: url('location.png');
+}

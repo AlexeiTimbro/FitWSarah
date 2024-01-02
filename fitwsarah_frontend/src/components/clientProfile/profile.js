@@ -5,7 +5,7 @@ import Profile from '../../views/ProfilePage/Account';
 import AppointmentCard from '../../views/ProfilePage/AppointmentCard';
 import { useState } from 'react';
 import "../../views/ProfilePage/Account.css"
-
+import "../../views/ProfilePage/Appointment.css"
 function ProfileSideBar({ appointments, accessToken }) {
     return (
         <div className="scroll-container">

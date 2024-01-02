@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import "./Appointment.css";
 import "./Account.css";
-
 function AppointmentCard({ appointment, accessToken }) {
 
     const [fitnessService, setFitnessService] = useState([]);
@@ -43,15 +43,18 @@ function AppointmentCard({ appointment, accessToken }) {
     };
 
     return (
-        <Card className="appointment-card">
-            <Card.Img variant="top" src={null} alt="Appointment Image" />
-            <Card.Body className="appointment-card-body">
-                <Card.Title className="appointment-card-title">{fitnessService.title}</Card.Title>
-                <Card.Text className="appointment-card-detail">{fitnessService.duration}</Card.Text>
+        <div className="box">
+            <div className="appointment">
+                <div className="overlap-group">
+                    <div className="group">
+                        <div className="card-title1">{fitnessService.title}</div>
+                        <div className="card-detail1">{fitnessService.duration}</div>
+                        </div>
+                    </div>
+                    <img className="rectangle1" />
                 <Button className="view-detail-button">View Detail</Button>
-            </Card.Body>
-        </Card>
-
+                </div>
+        </div>
     );
 }
 

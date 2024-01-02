@@ -22,18 +22,7 @@
     background-image: url('Ellipse-1631.jpg');
 }
 
-.box1 {
-    height: 670px;
-    width: 1023px;
-}
-.box .rectangle1 {
-    background-color: #ffffff;
-    height: 670px;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 1023px;
-}
+
 
 .profile-page-container {
     display: grid;
@@ -73,8 +62,6 @@
     position: static; /* Change to relative */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     top: 100px;
-
-    background-image: url('Ellipse-1631.jpg');
     background-size: cover;
     background-position: center;
 }
