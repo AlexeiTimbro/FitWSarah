@@ -83,7 +83,8 @@ function AdminAccounts() {
 
       <div className="accounts-section">
         <div className="container">
-          <h1>Accounts</h1>
+            <Link to="/adminPanel" className="button back-button">Back</Link>
+            <h1>Accounts</h1>
           <input
               type="text"
               className="search-bar"

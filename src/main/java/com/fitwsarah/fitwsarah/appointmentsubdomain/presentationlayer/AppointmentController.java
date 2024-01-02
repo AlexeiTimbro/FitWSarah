@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer;
 
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentService;
@@ -16,7 +17,7 @@ public class AppointmentController {
     }
     @GetMapping()
     public List<AppointmentResponseModel> getAllAppointments(){
-        return null;
+        return appointmentService.getAllAppointments();
     }
 
     @GetMapping("/{appointmentId}")

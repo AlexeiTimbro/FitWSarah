@@ -62,6 +62,12 @@ function AdminPanel() {
               <p>Last Month's Total: XX Accounts</p>
               <span className="more-options">...</span>
             </Link>
+            <Link className="section" to="/adminAppointments">
+              <h2>Appointments</h2>
+              <p>Current Total: XX Appointments</p>
+              <p>Last Month's Total: XX Appointments</p>
+              <span className="more-options">...</span>
+            </Link>
             <Link className="section" to="/analytics">
               <h2>Analytics</h2>
               <p>Current Total: XX Reports</p>
@@ -78,12 +84,6 @@ function AdminPanel() {
               <h2>Feedback</h2>
               <p>Current Total: XX Submissions</p>
               <p>Last Month's Total: XX Submissions</p>
-              <span className="more-options">...</span>
-            </Link>
-            <Link className="section" to="/appointments">
-              <h2>Appointments</h2>
-              <p>Current Total: XX Appointments</p>
-              <p>Last Month's Total: XX Appointments</p>
               <span className="more-options">...</span>
             </Link>
             <Link className="section" to="/services">
