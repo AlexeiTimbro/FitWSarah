@@ -67,6 +67,24 @@ class AppointmentControllerUnitTest {
         assertEquals(expectedAppointments, actualAppointments);
     }
 
+    @Test
+    void getAllAppointments_should_succeed() {
+        // Arrange
+        List<AppointmentResponseModel> appointmentResponseModelList = Arrays.asList(
+                appointment1,
+                appointment2
+        );
+
+        when(appointmentService.getAllAppointments()).thenReturn(appointmentResponseModelList);
+
+        // Act
+        List<AppointmentResponseModel> result = appointmentController.getAllAppointments();
+
+        // Assert
+        assertThat(result, hasSize(2));
+        assertThat(result.get(0), is(appointment1));
+        assertThat(result.get(1), is(appointment2));
+    }
 }
 
 

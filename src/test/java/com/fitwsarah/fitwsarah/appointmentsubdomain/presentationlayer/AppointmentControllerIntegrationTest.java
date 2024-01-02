@@ -74,7 +74,17 @@ class AppointmentControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
-    public String obtainAuthToken() throws Exception {
+    @Test
+    void getAllAppointments_should_succeed() throws Exception {
+        mockMvc.perform(get("/api/v1/appointments")
+                .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+
+
+        public String obtainAuthToken() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
