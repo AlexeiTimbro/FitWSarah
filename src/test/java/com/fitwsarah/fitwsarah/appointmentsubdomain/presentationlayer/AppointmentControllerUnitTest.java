@@ -1,6 +1,7 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentService;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,8 @@ class AppointmentControllerUnitTest {
     @InjectMocks
     private AppointmentController appointmentController;
 
-    AppointmentResponseModel appointment1 = new AppointmentResponseModel("appointmentID1", "avaiblity6", "accountId1", "admin09", "s123", "Desc", "nyc");
-    AppointmentResponseModel appointment2 = new AppointmentResponseModel("appointmentID2", "avaiblity6", "accountId2","admin09", "s123", "Desc", "nyc");
+    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1");
+    AppointmentResponseModel appointment2 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1");
 
     @BeforeEach
     void setUp() {
@@ -59,7 +60,7 @@ class AppointmentControllerUnitTest {
     @Test
     public void getAllAppointmentsByAccountId_ShouldReturnAppointments() {
         String accountId = "testAccountId";
-        List<AppointmentResponseModel> expectedAppointments = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"));
+        List<AppointmentResponseModel> expectedAppointments = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"));
         when(appointmentService.getAllAppointmentsByAccountId(accountId)).thenReturn(expectedAppointments);
 
         List<AppointmentResponseModel> actualAppointments = appointmentController.getAllAppointmentsByAccountId(accountId);
@@ -84,6 +85,22 @@ class AppointmentControllerUnitTest {
         assertThat(result, hasSize(2));
         assertThat(result.get(0), is(appointment1));
         assertThat(result.get(1), is(appointment2));
+    }
+
+    @Test
+    void updateAppointmentStatus_should_succeed() {
+        // Arrange
+        String appointmentId = "uuid-appt1";
+        String status = "COMPLETED";
+        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.valueOf(status), "Location 1");
+
+        when(appointmentService.updateAppointmentStatus(appointmentId, status)).thenReturn(expectedResponse);
+
+        // Act
+        AppointmentResponseModel result = appointmentController.updateAppointmentStatus(appointmentId, status);
+
+        // Assert
+        assertEquals(expectedResponse, result);
     }
 }
 

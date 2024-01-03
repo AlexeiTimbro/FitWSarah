@@ -198,4 +198,42 @@ public class EndToEndTesting {
         sleep(1000);
 
     }
+
+    @Test
+    public void updateAppointmentStatusToCancelledTrainerPanel(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("emilegirars42@gmail.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Fy9u4e!6f.VTW:4");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+
+        SelenideElement adminPanelBtn = $("a[href='/trainerPanel']");
+        adminPanelBtn.click();
+
+        sleep(1000);
+
+        SelenideElement profileBtn = $("a[href='/trainerAppointments']");
+        profileBtn.click();
+
+        sleep(1000);
+
+        SelenideElement cancelBtn = $("button[class='cancel-button']");
+        cancelBtn.click();
+
+        sleep(1000);
+    }
 }

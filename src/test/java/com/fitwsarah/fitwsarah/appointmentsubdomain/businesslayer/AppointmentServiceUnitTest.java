@@ -2,6 +2,7 @@ package com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer;
 
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ class AppointmentServiceUnitTest {
         appointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
 
 
-        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1");
+        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1");
 
 
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
@@ -66,7 +67,7 @@ class AppointmentServiceUnitTest {
     void getAllAppointmentsByAccountId_returnsNonEmptyList() {
         String accountId = "uuid-account1";
         List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
-        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"));
+        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"));
 
         when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
@@ -92,7 +93,7 @@ class AppointmentServiceUnitTest {
     @Test
     void getAllAppointments_should_succeed(){
             List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
-        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"));
+        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED,"Location 1"));
 
         when(appointmentRepository.findAll()).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
@@ -100,6 +101,33 @@ class AppointmentServiceUnitTest {
         List<AppointmentResponseModel> result = appointmentService.getAllAppointments();
 
         assertEquals(responseModels, result); }
+
+    @Test
+    void updateAppointmentStatus_should_succeed(){
+        String appointmentId = "uuid-appt1";
+        String status = "AnyStatus";
+
+        Appointment appointment = new Appointment();
+        appointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
+
+        AppointmentResponseModel responseModel = new AppointmentResponseModel(
+                "uuid-appt1",
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-admin1",
+                "uuid-service1",
+                Status.CANCELLED,
+                "Location 1"
+        );
+
+        when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
+        when(appointmentResponseMapper.entityToResponseModel(appointment)).thenReturn(responseModel);
+
+        AppointmentResponseModel result = appointmentService.updateAppointmentStatus(appointmentId, status);
+
+        assertEquals(Status.CANCELLED, result.getStatus());
+    }
+
 
 }
 
