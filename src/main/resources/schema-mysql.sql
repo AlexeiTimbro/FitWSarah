@@ -2,10 +2,10 @@ USE `fitwsarah-db`;
 
 create table if not exists accounts(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id VARCHAR(100) ,
-    account_id VARCHAR(150) ,
-    username VARCHAR(50) ,
-    email VARCHAR(50) ,
+    user_id VARCHAR(100) NOT NULL,
+    account_id VARCHAR(150) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     city VARCHAR(50)
 );
 
