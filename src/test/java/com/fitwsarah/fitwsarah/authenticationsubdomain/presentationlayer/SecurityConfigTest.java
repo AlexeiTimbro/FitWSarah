@@ -7,10 +7,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -67,5 +69,38 @@ public class SecurityConfigTest {
         OAuth2TokenValidatorResult result = securityConfig.new AudienceValidator("correct-audience").validate(jwt);
         assertTrue(result.hasErrors());
         assertEquals("invalid_token", result.getErrors().iterator().next().getErrorCode());
+    }
+
+    @Test
+    public void shouldConvertJwtAuthenticationWithCorrectRoles() {
+        Jwt jwt = mock(Jwt.class);
+        when(jwt.getClaimAsString("http://dev-twa7h1nv0usycyum.us.auth0.com/roles")).thenReturn("Admin");
+
+        JwtAuthenticationConverter converter = securityConfig.customJwtAuthenticationConverter();
+        Authentication authentication = converter.convert(jwt);
+
+        assertTrue(authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Admin")));
+    }
+
+    @Test
+    public void shouldNotConvertJwtAuthenticationWithIncorrectRoles() {
+        Jwt jwt = mock(Jwt.class);
+        when(jwt.getClaimAsString("http://dev-twa7h1nv0usycyum.us.auth0.com/roles")).thenReturn("User");
+
+        JwtAuthenticationConverter converter = securityConfig.customJwtAuthenticationConverter();
+        Authentication authentication = converter.convert(jwt);
+
+        assertFalse(authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Admin")));
+    }
+
+    @Test
+    public void shouldNotConvertJwtAuthenticationWithMissingRoles() {
+        Jwt jwt = mock(Jwt.class);
+        when(jwt.getClaimAsString("http://dev-twa7h1nv0usycyum.us.auth0.com/roles")).thenReturn(null);
+
+        JwtAuthenticationConverter converter = securityConfig.customJwtAuthenticationConverter();
+        Authentication authentication = converter.convert(jwt);
+
+        assertTrue(authentication.getAuthorities().isEmpty());
     }
 }

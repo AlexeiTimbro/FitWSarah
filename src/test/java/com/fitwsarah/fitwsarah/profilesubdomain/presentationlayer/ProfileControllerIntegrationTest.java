@@ -13,6 +13,5 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProfileControllerIntegrationTest {
     @Autowired
     WebTestClient webTestClient;
-    @Autowired
-    ProfileRepository profileRepository;
+
 }
