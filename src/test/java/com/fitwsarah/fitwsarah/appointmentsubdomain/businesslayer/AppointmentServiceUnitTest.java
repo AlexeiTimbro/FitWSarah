@@ -100,5 +100,6 @@ class AppointmentServiceUnitTest {
         List<AppointmentResponseModel> result = appointmentService.getAllAppointments();
 
         assertEquals(responseModels, result); }
+
 }
 
