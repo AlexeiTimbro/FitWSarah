@@ -27,7 +27,7 @@ const root = createRoot(document.getElementById('root'));
 root.render(
 <Auth0Provider
     domain="dev-twa7h1nv0usycyum.us.auth0.com"
-    clientId="uiI9dAvArjVkR8WW4Tv7vNo7KkZwE7MW"
+    clientId="G48IOcWYllMsX3UPo5jTRkC2mUkd4LJ5"
     authorizationParams={{
       redirect_uri: window.location.origin,
       audience: "https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/",
