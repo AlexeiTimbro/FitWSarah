@@ -2,6 +2,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -235,5 +236,12 @@ public class EndToEndTesting {
         cancelBtn.click();
 
         sleep(1000);
+
+        Alert alert = switchTo().alert();
+
+        alert.accept();
+
+        sleep(1000);
+
     }
 }
