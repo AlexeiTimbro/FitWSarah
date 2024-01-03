@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer;
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,6 @@ public class AppointmentRequestModel {
     private String adminId;
     private String accountId;
     private String serviceId;
-    private String status;
+    private Status status;
     private String location;
 }

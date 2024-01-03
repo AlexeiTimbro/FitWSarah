@@ -23,7 +23,8 @@ public class Appointment {
 
     private String serviceId;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     private String location;
 
@@ -34,7 +35,7 @@ public class Appointment {
 
     // Add this constructor in your Appointment class
 
-    public Appointment( String availabilityId,AdminPanelIdentifier adminPanelIdentifier,  String serviceId, String status, String location) {
+    public Appointment( String availabilityId,AdminPanelIdentifier adminPanelIdentifier,  String serviceId, Status status, String location) {
 
         this.appointmentIdentifier = new AppointmentIdentifier();
         this.adminPanelIdentifier = adminPanelIdentifier;

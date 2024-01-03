@@ -48,6 +48,12 @@ function AdminAccounts() {
     }, [accessToken]);
 
 
+    const handleCancelAppointment = (appointmentId) => {
+        const isConfirmed = window.confirm("Are you sure you want to cancel this appointment?");
+        if (isConfirmed) {
+            updateAppointmentStatus(appointmentId, 'cancelled');
+        }
+    };
 
 
     const getAllAppointments = () => {
@@ -73,6 +79,31 @@ function AdminAccounts() {
 
             });
     };
+
+    const updateAppointmentStatus = (appointmentId, status) => {
+        fetch("http://localhost:8080/api/v1/appointments/" + appointmentId + "/status", {
+            method: "PUT",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(status)
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                getAllAppointments();
+            })
+            .catch((error) => {
+                console.log(error);
+
+            });
+    }
 
 
     return (
@@ -113,7 +144,9 @@ function AdminAccounts() {
                                     <td>{appointments.status}</td>
                                     <td>{appointments.location}</td>
                                     <td>
-                                        <button className="button delete-button">Cancel Appointment</button>
+                                        <button className="button delete-button" onClick={() => handleCancelAppointment(appointments.appointmentId)}>
+                                            Cancel Appointment
+                                        </button>
                                         <button className="button details-button">Appointment Details</button>
                                     </td>
                                 </tr>

@@ -43,6 +43,11 @@ public class AppointmentController {
         return null;
     }
 
+    @PutMapping("/{appointmentId}/status")
+    public AppointmentResponseModel updateAppointmentStatus(@PathVariable String appointmentId, @RequestBody String status){
+        return appointmentService.updateAppointmentStatus(appointmentId, status);
+    }
+
     @DeleteMapping("/{appointmentId}")
     public void cancelAppointmentById(@PathVariable String appointmentId){
 
