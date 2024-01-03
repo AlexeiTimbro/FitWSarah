@@ -88,5 +88,17 @@ class AppointmentServiceUnitTest {
 
         assertEquals(Collections.emptyList(), result);
     }
+
+    @Test
+    void getAllAppointments_should_succeed(){
+            List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
+        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", "Scheduled", "Location 1"));
+
+        when(appointmentRepository.findAll()).thenReturn(appointments);
+        when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
+
+        List<AppointmentResponseModel> result = appointmentService.getAllAppointments();
+
+        assertEquals(responseModels, result); }
 }
 

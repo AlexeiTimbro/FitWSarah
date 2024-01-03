@@ -1,0 +1,134 @@
+/* Sets the overall background and font for the admin accounts page */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+/* Styles for the account section container */
+.accounts-section {
+    padding: 20px;
+    background-color: #fff; /* White background for contrast */
+}
+
+/* Styles for each account card */
+.account-card {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1; /* Slight border for definition */
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between; /* Space out content and actions */
+    align-items: center; /* Center items vertically */
+}
+
+/* Header styles */
+.account-card h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* Paragraph styles */
+.account-card p {
+    color: #666;
+    margin: 5px 0;
+}
+
+/* Style for the action buttons */
+.button {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+}
+
+/* Specific styles for delete and details buttons */
+.delete-button {
+    background-color: #d9534f; /* Bootstrap 'btn-danger' color */
+}
+
+.details-button {
+    background-color: #5bc0de; /* Bootstrap 'btn-info' color */
+}
+
+/* Responsive table styles */
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+/* Container adjustments for Bootstrap if used */
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .account-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+
+/* Styles for the search bar container */
+.search-bar-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px 40px 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #333;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #333;
+    font-size: 20px;
+}
+
+.back-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}

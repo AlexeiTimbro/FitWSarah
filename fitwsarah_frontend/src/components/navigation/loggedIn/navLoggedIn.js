@@ -18,8 +18,9 @@ function NavLoggedIn() {
             <Link to="/profile">Profile</Link>
           </div>
   <div className="right-links">
-  <Link className="adminPanel-button" to="/adminPanel">Admin Panel</Link>
-  <button className="signup-button" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+    <Link className="adminPanel-button" to="/trainerPanel">Trainer Panel</Link>
+    <Link className="adminPanel-button" to="/adminPanel">Admin Panel</Link>
+    <button className="signup-button" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
       Log Out
   </button>    
   </div>
