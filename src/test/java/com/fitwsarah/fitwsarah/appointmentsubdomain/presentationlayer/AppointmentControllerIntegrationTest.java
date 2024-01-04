@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentService;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer.FitnessPackageService;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageController;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
@@ -28,6 +29,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AppointmentController.class)
@@ -38,7 +40,7 @@ class AppointmentControllerIntegrationTest {
     @MockBean
     private AppointmentService appointmentService;
 
-    AppointmentResponseModel appointment1 = new AppointmentResponseModel("appointmentID1", "avaiblity6", "accoundid", "admin09", "s123", "Desc", "nyc");
+    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1");
 
     private String testToken = "Bearer ";
     private List<AppointmentResponseModel> appointmentResponseModelList;
@@ -82,9 +84,18 @@ class AppointmentControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void updateAppointmentStatus_should_succeed() throws Exception {
+        mockMvc.perform(put("/api/v1/appointments/{appointmentId}/status", appointment1.getAppointmentId())
+                        .content("COMPLETED")  // Assuming "COMPLETED" is a valid status
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 
-        public String obtainAuthToken() throws Exception {
+
+    public String obtainAuthToken() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

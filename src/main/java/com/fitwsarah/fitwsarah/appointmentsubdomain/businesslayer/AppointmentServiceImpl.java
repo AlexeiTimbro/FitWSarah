@@ -2,6 +2,7 @@ package com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer;
 
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentRequestMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
@@ -50,6 +51,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     public AppointmentResponseModel updateAppointment(AppointmentRequestModel appointmentRequestModel, String appointmentId) {
         return null;
     }
+
+    @Override
+    public AppointmentResponseModel updateAppointmentStatus(String appointmentId, String status) {
+        Appointment appointment = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId);
+        appointment.setStatus(Status.valueOf(Status.CANCELLED.toString()));
+        appointmentRepository.save(appointment);
+        return appointmentResponseMapper.entityToResponseModel(appointment);
+    }
+
 
     @Override
     public void removeAppointment(String appointmentId) {
