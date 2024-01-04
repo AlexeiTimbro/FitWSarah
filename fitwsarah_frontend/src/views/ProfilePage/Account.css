@@ -70,9 +70,17 @@
     position: absolute;
     right: 20px;
     top: 20px;
-
+    background-color: #557A95;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
+.edit-profile-btn:hover {
+    background-color: #6A8DAD;
+}
 
 
 
@@ -146,6 +154,39 @@
     margin-bottom: 15px;
 }
 
+.editbox {
+    height: 61px;
+    width: 162px;
+}
+.editbox .group1 {
+    height: 61px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 164px;
+}
+.editbox .overlap-group1 {
+    background-color: #c8c4c4;
+    height: 61px;
+    position: relative;
+    width: 162px;
+}
+.editbox .text-wrapper1 {
+    color: #000000;
+    font-family: "Poppins-Regular", Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    height: 61px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 162px;
+}
+
+
 .view-detail-button {
     border: none;
     background-color: #557A95;
@@ -172,7 +213,7 @@
 }
 
 .sidebar {
-    height: 45vh;
+    height: 30vh;
     left: 0;
     top: 0;
     width: 250px;

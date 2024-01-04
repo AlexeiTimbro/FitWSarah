@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
-import { Container, Row, Col } from "react-bootstrap";
+import {Container, Row, Col, Button} from "react-bootstrap";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
@@ -138,7 +138,9 @@ function Profile() {
                     <div className="profile-image" style={{backgroundImage: `url(${profilePicUrl})`}}></div>
                     <div className="profile-text">
                         <div className="text-wrapper">Welcome{user ? ` ${user.nickname}` : ''}</div>
-                        <div className="div">Welcome Back!</div>
+                        <button className="edit-profile-btn" onClick={() => console.log('Edit profile clicked')}>
+                            Edit Profile
+                        </button>
                     </div>
                 </div>
             </div>
