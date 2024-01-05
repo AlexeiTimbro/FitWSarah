@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import FitnessServiceList from './views/HomePage/FitnessService';
+import Home from './views/HomePage/Home';
 import Profile from './views/ProfilePage/Account';
 import Settings from './components/clientProfile/setting';
 import AdminPanel from "./views/AdminPanelPage/AdminPanel";
@@ -14,7 +14,7 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<FitnessServiceList/>}/>
+                <Route path="/" element={<Home/>}/>
                 <Route path="/profile" element={<Profile/>}/>
                 <Route path="/settings" element={<Settings/>}/>
                 <Route path="/adminPanel" element={<AdminPanel/>}/>

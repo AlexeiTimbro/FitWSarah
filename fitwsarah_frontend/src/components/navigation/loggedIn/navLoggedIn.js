@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 
 function NavLoggedIn() {
-  const { logout } = useAuth0();
+  const { logout, user } = useAuth0();
 
   return (
       <header>
@@ -18,8 +18,8 @@ function NavLoggedIn() {
             <Link to="/profile">Profile</Link>
           </div>
   <div className="right-links">
-    <Link className="adminPanel-button" to="/trainerPanel">Trainer Panel</Link>
-    <Link className="adminPanel-button" to="/adminPanel">Admin Panel</Link>
+    {user["https://fitwsarah.com/roles"][0] == "Personal Trainer" && <Link className="adminPanel-button" to="/trainerPanel">Trainer Panel</Link>}
+    {user["https://fitwsarah.com/roles"][0] == "Admin" && <Link className="adminPanel-button" to="/adminPanel">Admin Panel</Link>}
     <button className="signup-button" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
       Log Out
   </button>    

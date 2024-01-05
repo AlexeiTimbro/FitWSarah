@@ -78,7 +78,8 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("api/v1/fitnessPackages").hasAuthority("ROLE_User")
+                        .requestMatchers("api/v1/fitnessPackages").permitAll()
+                        .requestMatchers("api/v1/fitnessPackages/{id}").permitAll()
                         .anyRequest().authenticated()
 
                 )
