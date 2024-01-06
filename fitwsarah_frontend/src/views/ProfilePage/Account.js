@@ -7,6 +7,7 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import ProfileSideBar from "../../components/clientProfile/profile";
 import { useParams } from "react-router-dom";
+import { useGetAccessToken } from "../../components/authentication/authUtils";
 import './Account.css';
 import Sidebar from "./SideBar";
 
@@ -23,24 +24,16 @@ function Profile() {
             setProfilePicUrl(user.picture); // Set the profile picture URL
         }
     }, [user]);
+    const getAccessToken = useGetAccessToken();
 
     useEffect(() => {
-        if (isAuthenticated) {
-            const getAccessToken = async () => {
-                try {
-                    const token = await getAccessTokenSilently({
-                        audience: configData.audience,
-                        scope: configData.scope,
-                    });
-                    setAccessToken(token);
-                    console.log(user);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            };
-            getAccessToken();
-        }
-    }, [getAccessTokenSilently, isAuthenticated]);
+        const fetchToken = async () => {
+          const token = await getAccessToken();
+          if (token) setAccessToken(token);
+        };
+
+        fetchToken();
+      }, [getAccessToken]);
 
     useEffect(() => {
         if (accessToken) {

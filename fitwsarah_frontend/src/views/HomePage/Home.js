@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import configData from '../../config.json'
 import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import "../../css/style.css";
+import useGetAccessToken from "../../components/authentication/authUtils";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
@@ -11,35 +12,13 @@ import AddMemberProfile from "../authentication/Signup";
 
 function Home() {
 
-    const {
-        isAuthenticated,
-        getAccessTokenSilently,
-      } = useAuth0();
+    const { isAuthenticated } = useAuth0();
 
     const [services, setServices] = useState([]);
-    const [accessToken, setAccessToken] = useState(null);
-
-    useEffect(() => {
-        if (isAuthenticated) {
-          const getAccessToken = async () => {
-            try {
-              const token = await getAccessTokenSilently({
-                audience: configData.audience,
-                scope: configData.scope,
-              });
-              setAccessToken(token);
-            } catch (e) {
-              console.error(e.message);
-            }
-          };
-          getAccessToken();
-        }
-      }, [getAccessTokenSilently, isAuthenticated]);
 
     useEffect(() => {
       getAllFitnessServices();
     }, []);
-
 
     const getAllFitnessServices = () => {
       fetch("http://localhost:8080/api/v1/fitnessPackages", {
