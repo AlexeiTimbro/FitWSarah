@@ -16,7 +16,6 @@ create table if not exists admin_accounts(
     username VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    role VARCHAR(50) NOT NULL,
     city VARCHAR(50) NOT NULL
 );
 
