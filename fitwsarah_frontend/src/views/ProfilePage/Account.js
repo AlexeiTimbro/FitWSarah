@@ -13,15 +13,15 @@ import Sidebar from "./SideBar";
 
 
 function Profile() {
-    const {isAuthenticated, getAccessTokenSilently, user} = useAuth0();
+    const {isAuthenticated, user} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const [profile, setProfile] = useState(null);
     const [appointments, setAppointments] = useState([]);
-    const [profilePicUrl, setProfilePicUrl] = useState(''); // State to store profile picture URL
+    const [profilePicUrl, setProfilePicUrl] = useState('');
 
     useEffect(() => {
         if (user && user.picture) {
-            setProfilePicUrl(user.picture); // Set the profile picture URL
+            setProfilePicUrl(user.picture);
         }
     }, [user]);
     const getAccessToken = useGetAccessToken();
