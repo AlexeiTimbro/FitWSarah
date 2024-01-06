@@ -1,6 +1,6 @@
 package com.fitwsarah.fitwsarah.profilesubdomain.presentationlayer;
 
-import com.fitwsarah.fitwsarah.authenticationsubdomain.datalayer.AuthenticationRepository;
+
 import com.fitwsarah.fitwsarah.profilesubdomain.datalayer.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;

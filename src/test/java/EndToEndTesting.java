@@ -84,10 +84,10 @@ public class EndToEndTesting {
         loginBtn.click();
 
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("emilegirars42@gmail.com");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Fy9u4e!6f.VTW:4");
+        passwordInput.setValue("Habs@1290");
 
         SelenideElement continueButton = $("button[name='action']");
         executeJavaScript("arguments[0].click();", continueButton);
@@ -109,12 +109,12 @@ public class EndToEndTesting {
 
         sleep(1000);
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("emilegirars42@gmail.com");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
 
         sleep(1000);
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Fy9u4e!6f.VTW:4");
+        passwordInput.setValue("Habs@1290");
 
         sleep(1000);
 
@@ -145,12 +145,12 @@ public class EndToEndTesting {
 
         sleep(1000);
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("emilegirars42@gmail.com");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
 
         sleep(1000);
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Fy9u4e!6f.VTW:4");
+        passwordInput.setValue("Habs@1290");
 
         sleep(1000);
 
@@ -174,12 +174,12 @@ public class EndToEndTesting {
 
         sleep(1000);
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("emilegirars42@gmail.com");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
 
         sleep(1000);
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Fy9u4e!6f.VTW:4");
+        passwordInput.setValue("Habs@1290");
 
         sleep(1000);
 
@@ -208,12 +208,12 @@ public class EndToEndTesting {
 
         sleep(1000);
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("emilegirars42@gmail.com");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
 
         sleep(1000);
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Fy9u4e!6f.VTW:4");
+        passwordInput.setValue("Habs@1290");
 
         sleep(1000);
 

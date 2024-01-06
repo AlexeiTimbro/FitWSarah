@@ -37,6 +37,11 @@ public class AccountServiceImpl implements AccountService{
     public AccountResponseModel getAccountByAccountId(String accountId) {
         return accountResponseMapper.entityToResponseModel(accountRepository.findAccountByAccountIdentifier_AccountId(accountId));
     }
+
+    @Override
+    public AccountResponseModel getAccountByUserId(String userId) {
+        return accountResponseMapper.entityToResponseModel(accountRepository.findAccountByUserId(userId));
+    }
     @Override
     public AccountResponseModel addAccount(AccountRequestModel accountRequestModel) {
         Account account = accountRequestMapper.requestModelToEntity(accountRequestModel);
