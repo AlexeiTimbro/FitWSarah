@@ -62,7 +62,7 @@ function Profile() {
 
                 const userDetails = await metadataResponse.json();
 
-                if (userDetails && userDetails.accountId) { // Assuming accountId is directly under userDetails
+                if (userDetails && userDetails.accountId) {
                     getAccountById(userDetails.accountId);
                     getAppointmentsByAccountId(userDetails.accountId);
                 }

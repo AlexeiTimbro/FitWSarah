@@ -93,11 +93,11 @@
 
 
 .account-container {
+    margin-bottom: 50px;
     background-color: #f0f0f0;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    margin: 0 auto;
     width: 90%;
     max-width: 1200px;
     grid-column: 2 / 3;
@@ -214,7 +214,7 @@
 
 .sidebar {
     height: 30vh;
-    left: 0;
+    left: 10%;
     top: 0;
     width: 250px;
     padding: 20px;

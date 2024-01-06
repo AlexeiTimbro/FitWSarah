@@ -25,7 +25,6 @@ function NavLoggedIn() {
   </button>    
   </div>
 </nav>
-<div className="divider"></div>
 </header>
   );
 }
