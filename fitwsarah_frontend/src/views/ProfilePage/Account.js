@@ -7,40 +7,33 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import ProfileSideBar from "../../components/clientProfile/profile";
 import { useParams } from "react-router-dom";
+import { useGetAccessToken } from "../../components/authentication/authUtils";
 import './Account.css';
 import Sidebar from "./SideBar";
 
 
 function Profile() {
-    const {isAuthenticated, getAccessTokenSilently, user} = useAuth0();
+    const {isAuthenticated, user} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const [profile, setProfile] = useState(null);
     const [appointments, setAppointments] = useState([]);
-    const [profilePicUrl, setProfilePicUrl] = useState(''); // State to store profile picture URL
+    const [profilePicUrl, setProfilePicUrl] = useState('');
 
     useEffect(() => {
         if (user && user.picture) {
-            setProfilePicUrl(user.picture); // Set the profile picture URL
+            setProfilePicUrl(user.picture);
         }
     }, [user]);
+    const getAccessToken = useGetAccessToken();
 
     useEffect(() => {
-        if (isAuthenticated) {
-            const getAccessToken = async () => {
-                try {
-                    const token = await getAccessTokenSilently({
-                        audience: configData.audience,
-                        scope: configData.scope,
-                    });
-                    setAccessToken(token);
-                    console.log(user);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            };
-            getAccessToken();
-        }
-    }, [getAccessTokenSilently, isAuthenticated]);
+        const fetchToken = async () => {
+          const token = await getAccessToken();
+          if (token) setAccessToken(token);
+        };
+
+        fetchToken();
+      }, [getAccessToken]);
 
     useEffect(() => {
         if (accessToken) {

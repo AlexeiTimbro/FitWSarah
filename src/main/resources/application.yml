@@ -13,7 +13,7 @@ logging:
 okta:
   oauth2:
     issuer: https://dev-twa7h1nv0usycyum.us.auth0.com/
-    audience: https://fitwsarah/api/v1
+    audience: https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/
 
 ---
 # for docker
@@ -36,6 +36,9 @@ spring:
     init:
       platform: mysql
       mode: always
+
+  main:
+    allow-bean-definition-overriding: true
 
 server.port: 8080
 

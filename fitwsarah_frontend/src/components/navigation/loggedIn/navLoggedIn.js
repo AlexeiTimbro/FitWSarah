@@ -3,10 +3,12 @@ import './navLoggedIn.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import logo from './image-24.png';
 import { Link } from 'react-router-dom';
+import { ROLES } from '../../authentication/roles';
+import RoleBasedLink from '../../authentication/RoleBasedLink';
 
 
 function NavLoggedIn() {
-  const { logout } = useAuth0();
+  const { logout, user } = useAuth0();
 
   return (
       <header>
@@ -18,8 +20,8 @@ function NavLoggedIn() {
             <Link to="/profile">Profile</Link>
           </div>
   <div className="right-links">
-    <Link className="adminPanel-button" to="/trainerPanel">Trainer Panel</Link>
-    <Link className="adminPanel-button" to="/adminPanel">Admin Panel</Link>
+    <RoleBasedLink className="adminPanel-button" user={user} role={ROLES.PERSONAL_TRAINER} to="/trainerPanel">Trainer Panel</RoleBasedLink>
+    <RoleBasedLink className="adminPanel-button" user={user} role={ROLES.ADMIN} to="/adminPanel">Admin Panel</RoleBasedLink>
     <button className="signup-button" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
       Log Out
   </button>    

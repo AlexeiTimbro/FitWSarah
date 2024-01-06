@@ -14,6 +14,4 @@ class ProfileServiceUnitTest {
 //@Autowired
 //ProfileService profileService;
 
-    @MockBean
-    ProfileRepository profileRepository;
 }
