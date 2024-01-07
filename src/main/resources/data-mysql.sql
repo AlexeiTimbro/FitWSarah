@@ -9,12 +9,12 @@ INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
 ('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix');
 
 
-INSERT INTO admin_accounts (admin_id, username, password, email, role, city) VALUES
-('uuid-admin1', 'admin1', 'adminpass1', 'admin1@example.com', 'Administrator', 'New York'),
-('uuid-admin2', 'admin2', 'adminpass2', 'admin2@example.com', 'Manager', 'Los Angeles'),
-('uuid-admin3', 'admin3', 'adminpass3', 'admin3@example.com', 'Coordinator', 'Chicago'),
-('uuid-admin4', 'admin4', 'adminpass4', 'admin4@example.com', 'Supervisor', 'Houston'),
-('uuid-admin5', 'admin5', 'adminpass5', 'admin5@example.com', 'Director', 'Phoenix');
+INSERT INTO admin_accounts (admin_id, username, password, email,  city) VALUES
+('uuid-admin1', 'admin1', 'adminpass1', 'admin1@example.com', 'New York'),
+('uuid-admin2', 'admin2', 'adminpass2', 'admin2@example.com', 'Los Angeles'),
+('uuid-admin3', 'admin3', 'adminpass3', 'admin3@example.com', 'Chicago'),
+('uuid-admin4', 'admin4', 'adminpass4', 'admin4@example.com', 'Houston'),
+('uuid-admin5', 'admin5', 'adminpass5', 'admin5@example.com', 'Phoenix');
 
 INSERT INTO invoices (invoice_id, account_id, amount, content) VALUES
 ('inv-uuid-1', 'uuid-acc1', 100.00, 'Fitness Training Session'),
