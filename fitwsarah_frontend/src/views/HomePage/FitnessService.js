@@ -10,7 +10,8 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import AddMemberProfile from "../authentication/Signup";
-
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function FitnessServiceList() {
 
@@ -23,7 +24,7 @@ function FitnessServiceList() {
     const [services, setServices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [hasCalledAddMemberProfile, setHasCalledAddMemberProfile] = useState(false);
-
+    const history = useHistory();  
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -48,6 +49,12 @@ function FitnessServiceList() {
         }
     }, [accessToken]);
 
+    useEffect(() => {
+      if (isAuthenticated && !hasCalledAddMemberProfile) {
+          // Calling the addMember only once
+          setHasCalledAddMemberProfile(true);
+      }
+  }, [isAuthenticated, hasCalledAddMemberProfile]);
 
     const getAllFitnessServices = () => {
       fetch("http://localhost:8080/api/v1/fitnessPackages", {
@@ -102,8 +109,7 @@ function FitnessServiceList() {
     };
     
     const handleNewAppointment = (serviceId) => {
-
-      
+      history.push('/appointments?serviceId=${serviceId}')
     }
   
 //Calls the AddMember function only once
@@ -112,9 +118,7 @@ function FitnessServiceList() {
 
     {!isAuthenticated && <NavNotLoggedIn/>}
     {isAuthenticated && <NavLoggedIn/>}
-    {!hasCalledAddMemberProfile && isAuthenticated && (
-                <AddMemberProfile />
-            )}
+    {!hasCalledAddMemberProfile && isAuthenticated && <AddMemberProfile />}
     <section className="hero-section">
     </section>
 
