@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import "../../css/style.css";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
@@ -16,7 +16,20 @@ function Settings() {
     const [profile, setProfile] = useState(null);
     const [appointments, setAppointments] = useState([]);
     const [profilePicUrl, setProfilePicUrl] = useState('');
+;
+    const [username, setUsername] = useState(user ? user.nickname : '');
+    const [firstName, setFirstName] = useState(user ? user.given_name : '');
+    const [lastName, setLastName] = useState(user ? user.family_name : '');
+    const [email, setEmail] = useState(user ? user.email : '');
 
+    const handleUpdate = () => {
+        // Implement your logic to update user information here
+        console.log('Update clicked');
+        console.log('New username:', username);
+        console.log('New first name:', firstName);
+        console.log('New last name:', lastName);
+        console.log('New email:', email);
+    };
     useEffect(() => {
         if (user && user.picture) {
             setProfilePicUrl(user.picture);
@@ -43,25 +56,27 @@ function Settings() {
         }
     }, [user]);
 
-    const getAccountByUserId = async (userId) => {
-        try {
-            const response = await fetch(`http://localhost:8080/api/v1/accounts/${userId}`, {
-                method: "GET",
-                headers: new Headers({
-                    Authorization: "Bearer " + accessToken,
-                    "Content-Type": "application/json",
-                }),
+    const getAccountByUserId = (userId) => {
+        fetch(`http://localhost:8080/api/v1/accounts/${userId.replace("|","%7c")}`, {
+            method: "GET",
+            headers: new Headers({
+                "Authorization": `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            })
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setProfile(data);
+                console.log(data)
+            })
+            .catch((error) => {
+                console.error("Error fetching service details for userId", userId, ":", error);
             });
-
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-
-            const data = await response.json();
-            setProfile(data);
-        } catch (error) {
-            console.error("Error fetching account details for userId", userId, ":", error);
-        }
     };
 
     const getAppointmentsByAccountId = (accountId) => {
@@ -111,24 +126,41 @@ function Settings() {
                     </div>
                 </div>
             </div>
-            <div className="profile-page-container">
+
+            <Container className="profile-page-container">
                 <Sidebar/>
                 <div className="account-container">
-                    <div className="tabs">
-                        <button className="tab">Today</button>
-                        <button className="tab">Scheduled</button>
-                        <button className="tab">Finished</button>
-                    </div>
-                    <ProfileSideBar appointments={appointments} accessToken={accessToken}/>
+                    <h1>Account Settings</h1>
+                    <Form>
+                        <Form.Group controlId="formUsername">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group controlId="formFirstName">
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group controlId="formLastName">
+                            <Form.Label>Last Name</Form.Label>
+                            <Form.Control type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group controlId="formEmail">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <Button variant="primary" onClick={handleUpdate}>
+                                Update
+                            </Button>
+                        </Form.Group>
+                    </Form>
                 </div>
-            </div>
+            </Container>
 
             <FooterNotLoggedIn/>
         </div>
     );
 }
 
-
 export default Settings;
-
-

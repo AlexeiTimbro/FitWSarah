@@ -34,13 +34,15 @@ function AddMemberProfile() {
                 return;
             }
 
-            const {sub, nickname, email } = user;
-            const dataToSend = { userId: sub, username: nickname, email: email};
+            const { sub, nickname, email } = user;
+            const RegexUsername = nickname.replace(/^[^|]*|/, '');
+            const dataToSend = { userId: sub, username: RegexUsername, email: email };
+
 
             const response = await fetch("http://localhost:8080/api/v1/accounts", {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${accessToken}`,
+                    Authorization: "Bearer " + accessToken,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(dataToSend)

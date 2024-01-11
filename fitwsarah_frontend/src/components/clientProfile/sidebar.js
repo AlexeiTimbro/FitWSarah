@@ -11,17 +11,17 @@ function SideBar() {
                         <Link to="/settings">Profile Settings</Link>
                     </li>
                     <li>
-                        <Link to="/invoices">Dark mode</Link>
+                        <Link to="/invoices">Invoices</Link>
                     </li>
                     <li>
-                        <Link to="/appointments"> appointments</Link>
+                        <Link to="/profile"> Back</Link>
                     </li>
                     <li>
                         <Link to="/sign out">Sign Out</Link>
                     </li>
                 </ul>
             </div>
-            {/* Add the rest of your content here */}
+
         </div>
     );
 }

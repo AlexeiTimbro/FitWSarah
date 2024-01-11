@@ -20,10 +20,12 @@ public class AccountController {
         return accountService.getAllAccounts();
     }
 
-    @GetMapping("/{accountId}")
+    /*@GetMapping("/{accountId}")
     public AccountResponseModel getAccountById(@PathVariable String accountId){
         return accountService.getAccountByAccountId(accountId);
     }
+
+     */
 
     @GetMapping("/{userId}")
     public AccountResponseModel getAccountByUserId(@PathVariable String userId){

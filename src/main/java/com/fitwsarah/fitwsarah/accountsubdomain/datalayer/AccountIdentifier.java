@@ -12,10 +12,6 @@ public class AccountIdentifier {
         this.accountId = UUID.randomUUID().toString();
 
     }
-
-
-
-
     public String getAccountId(){
         return accountId;
     }
