@@ -6,8 +6,7 @@ create table if not exists accounts(
     account_id VARCHAR(150) ,
     username VARCHAR(50) ,
     email VARCHAR(50) ,
-    city VARCHAR(50),
-    role VARCHAR(50)
+    city VARCHAR(50)
 );
 
 create table if not exists admin_accounts(

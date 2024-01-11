@@ -1,16 +1,11 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import configData from '../../config.json'
-import LoginButton from "../../components/authentication/login";
-import LogoutButton from "../../components/authentication/logout";
-import axios from 'axios'; 
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import './AdminAccounts.css'; 
-import { FaSearch } from 'react-icons/fa';
+import Filter from "../../components/AdminPanel/Filter";
 
 
 
@@ -23,6 +18,9 @@ function AdminAccounts() {
 
     const [accounts, setAccounts] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const [searchTerm, setSearchTerm] = useState([["Account ID",""], ["Username",""], ["Email",""], ["City",""]]);
+
+    const labels = ["Account ID", "Username", "Email", "City"];
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -45,36 +43,53 @@ function AdminAccounts() {
         if (accessToken) {
             getAllAccounts();
         }
-    }, [accessToken]);
+    }, [accessToken, searchTerm]);
 
 
     
 
     const getAllAccounts = () => {
-        fetch("http://localhost:8080/api/v1/accounts", {
-            method: "GET",
-            headers: new Headers({
-                Authorization: "Bearer " + accessToken,
-                "Content-Type": "application/json"
-            })
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data);
-            setAccounts(data);
-        })
-        .catch((error) => {
-            console.log(error);
-            
-        });
-    };
-    
+      const params = new URLSearchParams();
+      searchTerm.forEach(term => {
+          if (term[1]) {
+              params.append(term[0], term[1]);
+          }
+      });
+  
+      fetch(`http://localhost:8080/api/v1/accounts?${params.toString()}`, {
+          method: "GET",
+          headers: new Headers({
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json"
+          })
+      })
+      .then((response) => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+      })
+      .then((data) => {
+          console.log(data);
+          setAccounts(data);
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+  };
 
+    function onInputChange(label, value) {
+        const newSearchTerm = searchTerm.map((term) => {
+            if (term[0] === label) {
+                return [term[0], value];
+            }
+            return term;
+        });
+        setSearchTerm(newSearchTerm);
+        console.log(newSearchTerm);
+    }
+
+    
     return (
         <div>
 
@@ -84,13 +99,10 @@ function AdminAccounts() {
       <div className="accounts-section">
         <div className="container">
             <Link to="/adminPanel" className="button back-button">Back</Link>
-            <h1>Accounts</h1>
-          <input
-              type="text"
-              className="search-bar"
-              placeholder="Search..."
-            />
-            <FaSearch className="search-icon" />
+            <div className="header-section">
+              <h1>Accounts</h1>
+              <Filter labels={labels} onInputChange={onInputChange}/>
+            </div>
           <div className="table-responsive">
             <table className="table">
               <thead>

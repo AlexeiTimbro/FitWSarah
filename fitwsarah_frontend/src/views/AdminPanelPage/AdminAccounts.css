@@ -21,6 +21,16 @@ body {
     justify-content: space-between; /* Space out content and actions */
     align-items: center; /* Center items vertically */
   }
+
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-section h1 {
+    margin: 0; /* Adjust as needed */
+}
   
   /* Header styles */
   .account-card h3 {
