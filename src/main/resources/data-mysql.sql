@@ -9,7 +9,7 @@ INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
 ('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix');
 
 
-INSERT INTO admin_accounts (admin_id, username, password, email,  city) VALUES
+INSERT INTO admin_accounts (admin_id, username, password, email, city) VALUES
 ('uuid-admin1', 'admin1', 'adminpass1', 'admin1@example.com', 'New York'),
 ('uuid-admin2', 'admin2', 'adminpass2', 'admin2@example.com', 'Los Angeles'),
 ('uuid-admin3', 'admin3', 'adminpass3', 'admin3@example.com', 'Chicago'),

@@ -12,6 +12,7 @@ import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPa
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,9 +30,34 @@ public class AccountServiceImpl implements AccountService{
 
 
     @Override
-    public List<AccountResponseModel> getAllAccounts() {
-        return accountResponseMapper.entityListToResponseModelList(accountRepository.findAll());
+    public List<AccountResponseModel> getAllAccounts(String accountId, String username, String email, String city) {
+        List<Account> filteredAccounts;
+
+        if (accountId != null) {
+            filteredAccounts = accountRepository.findAllAccountByAccountIdentifier_AccountIdStartingWith(accountId);
+        } else {
+            if (username != null && email != null && city != null) {
+                filteredAccounts = accountRepository.findAllAccountByUsernameEmailAndCityStartingWith(username, email, city);
+            } else if (username != null && email != null) {
+                filteredAccounts = accountRepository.findAllAccountByUsernameAndEmailStartingWith(username, email);
+            } else if (username != null && city != null) {
+                filteredAccounts = accountRepository.findAllAccountByUsernameAndCityStartingWith(username, city);
+            } else if (email != null && city != null) {
+                filteredAccounts = accountRepository.findAllAccountByEmailAndCityStartingWith(email, city);
+            } else if (username != null) {
+                filteredAccounts = accountRepository.findAllAccountByUsernameStartingWith(username);
+            } else if (email != null) {
+                filteredAccounts = accountRepository.findAllAccountByEmailStartingWith(email);
+            } else if (city != null) {
+                filteredAccounts = accountRepository.findAllAccountByCityStartingWith(city);
+            } else {
+                filteredAccounts = accountRepository.findAll();
+            }
+        }
+
+        return accountResponseMapper.entityListToResponseModelList(filteredAccounts);
     }
+
 
     @Override
     public AccountResponseModel getAccountByAccountId(String accountId) {

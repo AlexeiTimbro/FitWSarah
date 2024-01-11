@@ -18,7 +18,7 @@ function AdminAccounts() {
 
     const [accounts, setAccounts] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
-    const [searchTerm, setSearchTerm] = useState([["Account ID",""], ["Username",""], ["Email",""], ["City",""]]);
+    const [searchTerm, setSearchTerm] = useState([["accountid",""], ["username",""], ["email",""], ["city",""]]);
 
     const labels = ["Account ID", "Username", "Email", "City"];
 
@@ -56,7 +56,7 @@ function AdminAccounts() {
           }
       });
   
-      fetch(`http://localhost:8080/api/v1/accounts?${params.toString()}`, {
+      fetch(`http://localhost:8080/api/v1/accounts${params.toString() && "?" + params.toString()}`, {
           method: "GET",
           headers: new Headers({
               Authorization: "Bearer " + accessToken,
@@ -80,7 +80,7 @@ function AdminAccounts() {
 
     function onInputChange(label, value) {
         const newSearchTerm = searchTerm.map((term) => {
-            if (term[0] === label) {
+            if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
                 return [term[0], value];
             }
             return term;
