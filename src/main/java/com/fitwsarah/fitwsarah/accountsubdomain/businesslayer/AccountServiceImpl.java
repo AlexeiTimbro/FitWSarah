@@ -12,13 +12,11 @@ import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPa
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
-
     private AccountResponseMapper accountResponseMapper;
     private AccountRequestMapper accountRequestMapper;
 
@@ -31,31 +29,22 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public List<AccountResponseModel> getAllAccounts(String accountId, String username, String email, String city) {
-        List<Account> filteredAccounts;
+        Set<Account> filteredAccounts = new HashSet<>();
 
         if (accountId != null) {
-            filteredAccounts = accountRepository.findAllAccountByAccountIdentifier_AccountIdStartingWith(accountId);
+            filteredAccounts.addAll(accountRepository.findAllAccountsByAccountIdentifier_AccountIdStartingWith(accountId));
         } else {
-            if (username != null && email != null && city != null) {
-                filteredAccounts = accountRepository.findAllAccountByUsernameEmailAndCityStartingWith(username, email, city);
-            } else if (username != null && email != null) {
-                filteredAccounts = accountRepository.findAllAccountByUsernameAndEmailStartingWith(username, email);
-            } else if (username != null && city != null) {
-                filteredAccounts = accountRepository.findAllAccountByUsernameAndCityStartingWith(username, city);
-            } else if (email != null && city != null) {
-                filteredAccounts = accountRepository.findAllAccountByEmailAndCityStartingWith(email, city);
-            } else if (username != null) {
-                filteredAccounts = accountRepository.findAllAccountByUsernameStartingWith(username);
+             if (username != null) {
+                filteredAccounts.addAll(accountRepository.findAllAccountByUsernameStartingWith(username));
             } else if (email != null) {
-                filteredAccounts = accountRepository.findAllAccountByEmailStartingWith(email);
+                filteredAccounts.addAll(accountRepository.findAllAccountByEmailStartingWith(email));
             } else if (city != null) {
-                filteredAccounts = accountRepository.findAllAccountByCityStartingWith(city);
+                filteredAccounts.addAll(accountRepository.findAllAccountByCityStartingWith(city));
             } else {
-                filteredAccounts = accountRepository.findAll();
+                filteredAccounts.addAll(accountRepository.findAll());
             }
         }
-
-        return accountResponseMapper.entityListToResponseModelList(filteredAccounts);
+        return accountResponseMapper.entityListToResponseModelList(filteredAccounts.stream().sorted(Comparator.comparing(account -> account.getAccountIdentifier().getAccountId())).toList());
     }
 
 
@@ -80,7 +69,4 @@ public class AccountServiceImpl implements AccountService{
     public void removeAccount(String accountId) {
 
     }
-
-
-
 }

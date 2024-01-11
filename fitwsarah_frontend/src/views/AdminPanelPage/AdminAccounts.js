@@ -70,7 +70,6 @@ function AdminAccounts() {
           return response.json();
       })
       .then((data) => {
-          console.log(data);
           setAccounts(data);
       })
       .catch((error) => {
@@ -86,7 +85,6 @@ function AdminAccounts() {
             return term;
         });
         setSearchTerm(newSearchTerm);
-        console.log(newSearchTerm);
     }
 
     
@@ -101,7 +99,7 @@ function AdminAccounts() {
             <Link to="/adminPanel" className="button back-button">Back</Link>
             <div className="header-section">
               <h1>Accounts</h1>
-              <Filter labels={labels} onInputChange={onInputChange}/>
+              <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm}/>
             </div>
           <div className="table-responsive">
             <table className="table">
@@ -109,9 +107,8 @@ function AdminAccounts() {
                 <tr>
                   <th>Account ID</th>
                   <th>Username</th>
-                  <th>Password</th>
-                  <th>email</th>
-                  <th>city</th>
+                  <th>Email</th>
+                  <th>City</th>
                 </tr>
               </thead>
               <tbody>
@@ -119,7 +116,6 @@ function AdminAccounts() {
                   <tr key={account.id}>
                     <td>{account.accountId}</td>
                     <td>{account.username}</td>
-                    <td>{account.password}</td>
                     <td>{account.email}</td>
                     <td>{account.city}</td>
                     <td>

@@ -16,8 +16,8 @@ public class AccountController {
         this.accountService = accountService;
     }
     @GetMapping()
-    public List<AccountResponseModel> getAllAccounts(@RequestParam(required = false) String accountId, @RequestParam(required = false) String username, @RequestParam(required = false) String email, @RequestParam(required = false) String city){
-        return accountService.getAllAccounts(accountId, username, email, city);
+    public List<AccountResponseModel> getAllAccounts(@RequestParam(required = false) String accountid, @RequestParam(required = false) String username, @RequestParam(required = false) String email, @RequestParam(required = false) String city){
+        return accountService.getAllAccounts(accountid, username, email, city);
     }
 
     @GetMapping("/{accountId}")
