@@ -43,17 +43,17 @@ function Profile() {
 
 
     useEffect(() => {
-        const getUserMetadata =  () => {
+        const getUserMetadata = async () => {
             try {
                 const userDetailsByIdUrl = `https://${configData.domain}/api/v2/users/${user.sub}`;
 
-                const metadataResponse =  fetch(userDetailsByIdUrl, {
+                const metadataResponse = await fetch(userDetailsByIdUrl, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
                 });
 
-                const userDetails =  metadataResponse.json();
+                const userDetails = await metadataResponse.json();
 
                 if (userDetails && userDetails.accountId) {
                     getAccountById(userDetails.accountId);

@@ -2,7 +2,7 @@ USE `fitwsarah-db`;
 
 
 INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
-('101188348963819843921','uuid-acc1', 'johnsmith','johnsmith@example.com', 'New York'),
+('1','uuid-acc1', 'johnsmith','johnsmith@example.com', 'New York'),
 ('2','uuid-acc2', 'emilyjones', 'emilyjones@example.com', 'Los Angeles'),
 ('3','uuid-acc3', 'michaelbrown', 'michaelbrown@example.com', 'Chicago'),
 ('4','uuid-acc4', 'sarahwhite', 'sarahwhite@example.com', 'Houston'),
