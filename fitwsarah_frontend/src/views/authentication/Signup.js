@@ -34,8 +34,12 @@ function AddMemberProfile() {
                 return;
             }
 
+
+
+
             const {sub, nickname, email } = user;
             const dataToSend = { userId: sub, username: nickname, email: email};
+
 
             const response = await fetch("http://localhost:8080/api/v1/accounts", {
                 method: "POST",

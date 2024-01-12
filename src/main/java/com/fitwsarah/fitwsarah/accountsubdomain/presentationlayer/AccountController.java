@@ -27,14 +27,15 @@ public class AccountController {
 
     @GetMapping("/{userId}")
     public AccountResponseModel getAccountByUserId(@PathVariable String userId){
-        return accountService.getAccountByUserId(userId);
+        return accountService.getByUserId(userId);
     }
+
+
     @PostMapping()
     public ResponseEntity<AccountResponseModel> addAccount(@RequestBody AccountRequestModel accountRequestModel){
         return ResponseEntity.status(HttpStatus.CREATED).body(accountService.addAccount(accountRequestModel));
     }
 
-    //This is for everything invoice, same logic can be applied for coach notes
     @PostMapping("/{accountId}")
     public InvoiceResponseModel addInvoiceByAccountId(@RequestBody InvoiceRequestModel invoiceRequestModel, @PathVariable String accountId){
         return null;
@@ -44,10 +45,7 @@ public class AccountController {
         return null;
     }
     //------
-    @PutMapping("/{accountId}")
-    public AccountResponseModel updateAccount(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String accountId){
-        return null;
-    }
+
 
     @DeleteMapping("/{accountId}")
     public void deleteAccountById(@PathVariable String accountId){
