@@ -23,7 +23,6 @@ function Settings() {
     const [email, setEmail] = useState(user ? user.email : '');
 
     const handleUpdate = () => {
-        // Implement your logic to update user information here
         console.log('Update clicked');
         console.log('New username:', username);
         console.log('New first name:', firstName);
@@ -110,7 +109,7 @@ function Settings() {
             });
     };
 
-   
+
     return (
         <div>
             {!isAuthenticated && <NavNotLoggedIn/>}
