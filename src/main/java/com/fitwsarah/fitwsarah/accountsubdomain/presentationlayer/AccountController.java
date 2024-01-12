@@ -27,8 +27,10 @@ public class AccountController {
 
     @GetMapping("/{userId}")
     public AccountResponseModel getAccountByUserId(@PathVariable String userId){
-        return accountService.getAccountByUserId(userId);
+        return accountService.getByUserId(userId);
     }
+
+
     @PostMapping()
     public ResponseEntity<AccountResponseModel> addAccount(@RequestBody AccountRequestModel accountRequestModel){
         return ResponseEntity.status(HttpStatus.CREATED).body(accountService.addAccount(accountRequestModel));
@@ -43,10 +45,7 @@ public class AccountController {
         return null;
     }
     //------
-    @PutMapping("/{userId}")
-    public AccountResponseModel updateAccountByUserId(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String userId){
-        return accountService.updateAccountByUserId(accountRequestModel, userId);
-    }
+
 
     @DeleteMapping("/{accountId}")
     public void deleteAccountById(@PathVariable String accountId){

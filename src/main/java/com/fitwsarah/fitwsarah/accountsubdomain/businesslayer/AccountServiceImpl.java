@@ -39,7 +39,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public AccountResponseModel getAccountByUserId(String userId) {
+    public AccountResponseModel getByUserId(String userId) {
         return accountResponseMapper.entityToResponseModel(accountRepository.findAccountByUserId(userId));
     }
     @Override
@@ -49,17 +49,7 @@ public class AccountServiceImpl implements AccountService{
         return accountResponseMapper.entityToResponseModel(saved);
     }
 
-    @Override
-    public AccountResponseModel updateAccountByUserId(AccountRequestModel accountRequestModel, String userId) {
-        Account existingAccount = accountRepository.findAccountByUserId((userId));
-        if(existingAccount == null){
-            return  null;
-        }
-        Account account = accountRequestMapper.requestModelToEntity(accountRequestModel);
-        account.setId(existingAccount.getId());
-        account.setUserId(existingAccount.getUserId());
-        return accountResponseMapper.entityToResponseModel(accountRepository.save(account));
-    }
+
     @Override
     public void removeAccount(String accountId) {
 

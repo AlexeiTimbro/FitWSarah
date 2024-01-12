@@ -11,12 +11,12 @@ public interface AccountService {
 
     AccountResponseModel getAccountByAccountId(String accountId);
 
-    AccountResponseModel getAccountByUserId(String userId);
+    AccountResponseModel getByUserId(String userId);
 
     AccountResponseModel addAccount(AccountRequestModel accountRequestModel);
 
 
-    AccountResponseModel updateAccountByUserId(AccountRequestModel accountRequestModel, String userId);
+
 
     void removeAccount(String accountId);
 }
