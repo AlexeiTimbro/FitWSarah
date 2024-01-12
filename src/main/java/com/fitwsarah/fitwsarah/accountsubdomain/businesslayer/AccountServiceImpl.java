@@ -50,8 +50,15 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public AccountResponseModel updateAccount(AccountRequestModel accountRequestModel, String accountId) {
-        return null;
+    public AccountResponseModel updateAccountByUserId(AccountRequestModel accountRequestModel, String userId) {
+        Account existingAccount = accountRepository.findAccountByUserId((userId));
+        if(existingAccount == null){
+            return  null;
+        }
+        Account account = accountRequestMapper.requestModelToEntity(accountRequestModel);
+        account.setId(existingAccount.getId());
+        account.setUserId(existingAccount.getUserId());
+        return accountResponseMapper.entityToResponseModel(accountRepository.save(account));
     }
     @Override
     public void removeAccount(String accountId) {

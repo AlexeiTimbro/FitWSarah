@@ -150,10 +150,11 @@ function Settings() {
                         <Form.Group controlId="formEmail">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <Button variant="primary" onClick={handleUpdate}>
-                                Update
-                            </Button>
                         </Form.Group>
+
+                        <Button variant="primary" onClick={handleUpdate}>
+                            Update
+                        </Button>
                     </Form>
                 </div>
             </Container>
