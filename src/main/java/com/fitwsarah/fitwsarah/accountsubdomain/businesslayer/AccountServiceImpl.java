@@ -12,12 +12,11 @@ import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPa
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
-
     private AccountResponseMapper accountResponseMapper;
     private AccountRequestMapper accountRequestMapper;
 
@@ -29,9 +28,24 @@ public class AccountServiceImpl implements AccountService{
 
 
     @Override
-    public List<AccountResponseModel> getAllAccounts() {
-        return accountResponseMapper.entityListToResponseModelList(accountRepository.findAll());
+    public List<AccountResponseModel> getAllAccounts(String accountId, String username, String email, String city) {
+        Set<Account> filteredAccounts = new HashSet<>();
+
+        if (accountId != null) {
+            filteredAccounts.addAll(accountRepository.findAllAccountsByAccountIdentifier_AccountIdStartingWith(accountId));
+        } else if (username != null) {
+            filteredAccounts.addAll(accountRepository.findAllAccountByUsernameStartingWith(username));
+        } else if (email != null) {
+            filteredAccounts.addAll(accountRepository.findAllAccountByEmailStartingWith(email));
+        } else if (city != null) {
+            filteredAccounts.addAll(accountRepository.findAllAccountByCityStartingWith(city));
+        } else {
+            filteredAccounts.addAll(accountRepository.findAll());
+        }
+
+        return accountResponseMapper.entityListToResponseModelList(filteredAccounts.stream().sorted(Comparator.comparing(account -> account.getAccountIdentifier().getAccountId())).toList());
     }
+
 
     @Override
     public AccountResponseModel getAccountByAccountId(String accountId) {
@@ -54,7 +68,4 @@ public class AccountServiceImpl implements AccountService{
     public void removeAccount(String accountId) {
 
     }
-
-
-
 }

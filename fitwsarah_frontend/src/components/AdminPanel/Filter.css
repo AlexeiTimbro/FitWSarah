@@ -1,0 +1,154 @@
+.filter-popup {
+    position: flex; 
+    margin-top: 471px;
+    top: 50%;
+    left: 50%;
+    background-color: #fffdfd;
+    border: 1px solid #ccc;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 100%;
+    border-radius: 8px;
+    max-width: 350px;
+    font-family: 'Arial', sans-serif;
+}
+
+.filter-popup section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filter-popup label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.filter-popup input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+.filter-popup input[type="text"]:hover {
+    border-color: #888;
+}
+
+.filter-popup input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+.filter-popup-button {
+    padding: 8px 15px;
+    background-color: #00a531;
+    position: relative;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.3s;
+}
+
+.filter-popup-button:hover {
+    background-color: #007e26;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 100px;
+    background-color: rgb(133, 133, 133);
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 3px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 5%;
+    left: 50%;
+    margin-left: 30px;
+    margin-bottom: 50px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 15px;
+}
+
+
+.filter-popup-button:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.filter-popup .filter-section > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-popup label, .filter-popup input[type="text"] {
+    width: 100%;
+}
+
+.filter-button {
+    padding: 8px 15px;
+    background-color: #00a531;
+    position: relative;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.status-button {
+    padding: 8px 15px;
+    background-color: #00a531;
+    position: relative;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.status-button:hover {
+    background-color: #007e26;
+}
+
+.status-button.active {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .filter-popup {
+        width: 100%; 
+        margin-top: 0; 
+        top: 0; 
+        left: 0;
+    }
+
+    .filter-popup-button, .clear-button {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+    .filter-popup-button, .clear-button {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 900px) {
+    .filter-popup-button, .clear-button {
+        font-size: 20px;
+    }
+}

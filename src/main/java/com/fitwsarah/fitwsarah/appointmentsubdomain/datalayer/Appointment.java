@@ -15,12 +15,8 @@ public class Appointment {
     private Integer id;
     @Embedded
     private AppointmentIdentifier appointmentIdentifier;
-    @Embedded
-    private AccountIdentifier accountIdentifier;
+    private String accountId;
     private String availabilityId;
-    @Embedded
-    private AdminPanelIdentifier adminPanelIdentifier;
-
     private String serviceId;
 
     @Enumerated(EnumType.STRING)
@@ -35,10 +31,10 @@ public class Appointment {
 
     // Add this constructor in your Appointment class
 
-    public Appointment( String availabilityId,AdminPanelIdentifier adminPanelIdentifier,  String serviceId, Status status, String location) {
+    public Appointment( String availabilityId, String accountId, String serviceId, Status status, String location) {
 
         this.appointmentIdentifier = new AppointmentIdentifier();
-        this.adminPanelIdentifier = adminPanelIdentifier;
+        this.accountId = accountId;
         this.availabilityId = availabilityId;
         this.serviceId = serviceId;
         this.status = status;

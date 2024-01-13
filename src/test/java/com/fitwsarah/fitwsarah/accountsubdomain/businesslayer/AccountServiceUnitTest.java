@@ -8,6 +8,7 @@ import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequest
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -28,90 +29,204 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+
 class AccountServiceUnitTest {
     @InjectMocks
-    private AccountServiceImpl accountService;
+    AccountServiceImpl accountService;
     @Mock
-    private AccountRepository accountRepository;
+    AccountRepository accountRepository;
     @Mock
-    private AccountResponseMapper accountResponseMapper;
+    AccountResponseMapper accountResponseMapper;
     @Mock
     AccountRequestMapper accountRequestMapper;
 
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
-    public void getAccountByAccountId_Should_Succeed() {
-
-        String accountId = "uuid-appt1";
-
-
+    void getAccountByAccountId_Should_Return_Correct_Account() {
+        String accountId = "uuid-test1";
         Account account = new Account();
         account.getAccountIdentifier().setAccountId(accountId);
-
-        AccountResponseModel responseModel = new AccountResponseModel("uuid-appt1", "adms", "uuid-admin1", "uuid-service1", "Scheduled");
-
-        // Fix the method name in the following line (from `appointment` to `account`)
+        AccountResponseModel responseModel = new AccountResponseModel("uuid-test1", "testUser", "uuid-admin1", "uuid-service1", "Active");
 
         when(accountRepository.findAccountByAccountIdentifier_AccountId(accountId)).thenReturn(account);
-
-        // Fix the method name in the following line (from appointment to account)
         when(accountResponseMapper.entityToResponseModel(account)).thenReturn(responseModel);
+
         AccountResponseModel result = accountService.getAccountByAccountId(accountId);
+
         assertEquals(accountId, result.getAccountId());
-
     }
+
     @Test
-    void addAccount_ShouldSucceed() {
+    void getAccountByAccountId_Should_Return_Null_When_Account_Not_Found() {
+        String accountId = "uuid-test1";
 
-        AccountRequestModel requestModel = new AccountRequestModel("uuid122","smith", "john@gmail.com", "John Ville");
+        when(accountRepository.findAccountByAccountIdentifier_AccountId(accountId)).thenReturn(null);
 
+        AccountResponseModel result = accountService.getAccountByAccountId(accountId);
+
+        assertNull(result);
+    }
+
+    @Test
+    void addAccount_Should_Return_Correct_Account() {
+        AccountRequestModel requestModel = new AccountRequestModel("uuid-test1","testUser", "test@gmail.com", "Test City");
         Account entity = mock(Account.class);
-        AccountResponseModel mockedResponse = new AccountResponseModel("1","uuid-122","smith","john@gmail.com","John Ville");
+        AccountResponseModel mockedResponse = new AccountResponseModel("1","uuid-test1","testUser","test@gmail.com","Test City");
+
         when(accountResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
         when(accountRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
         when(accountRepository.save(entity)).thenReturn(entity);
 
-
         AccountResponseModel result = accountService.addAccount(requestModel);
 
         assertNotNull(result);
-        assertNotNull(result.getAccountId());
-        assertNotNull(result.getUsername());
-
+        assertEquals("1", result.getAccountId());
+        assertEquals(requestModel.getUsername(), result.getUsername());
     }
 
     @Test
-    void getAllAccounts_Should_Succeed() {
-        // Act
-        Account account = new Account("Sarah", "Fitzpatrick", "s", "s");
-
+    void getAllAccounts_Should_Return_All_Accounts_When_No_Filter_Is_Provided() {
+        Account account = new Account("Test", "User", "test", "test");
         List<Account> accounts = Collections.singletonList(account);
         when(accountRepository.findAll()).thenReturn(accounts);
 
         AccountResponseModel responseModel = AccountResponseModel.builder()
                 .accountId("1")
-                .username("s")
-                .email("s")
-                .city("s")
+                .username("test")
+                .email("test")
+                .city("test")
                 .build();
 
-        //Arrange
         List<AccountResponseModel> responseModels = Collections.singletonList(responseModel);
-
         when(accountResponseMapper.entityListToResponseModelList(accounts)).thenReturn(responseModels);
 
-        List<AccountResponseModel> result = accountService.getAllAccounts();
-
-        // Assert
+        List<AccountResponseModel> result = accountService.getAllAccounts(null, null, null, null);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(responseModels.size(), result.size());
         assertEquals(responseModels.get(0).getAccountId(), result.get(0).getAccountId());
-
-        verify(accountRepository, times(1)).findAll();
-        verify(accountResponseMapper, times(1)).entityListToResponseModelList(accounts);
     }
+
+    @Test
+    void getAllAccounts_Should_Return_Filtered_Accounts_When_Filter_Is_Provided_AccountId() {
+        String accountId = "uuid-test1";
+        String userId = "uuid-admin1";
+        String username = "user";
+        String email = "email";
+        String city = "Montreal";
+
+        Account account = new Account();
+        account.getAccountIdentifier().setAccountId(accountId);
+        List<Account> accounts = Collections.singletonList(account);
+
+        when(accountRepository.findAllAccountsByAccountIdentifier_AccountIdStartingWith(accountId)).thenReturn(accounts);
+        when(accountRepository.findAllAccountByUsernameStartingWith(username)).thenReturn(accounts);
+        when(accountRepository.findAllAccountByEmailStartingWith(email)).thenReturn(accounts);
+        when(accountRepository.findAllAccountByCityStartingWith(city)).thenReturn(accounts);
+
+        AccountResponseModel responseModel = new AccountResponseModel(accountId, userId, username, email, city);
+        List<AccountResponseModel> responseModels = Collections.singletonList(responseModel);
+        when(accountResponseMapper.entityListToResponseModelList(accounts)).thenReturn(responseModels);
+
+        List<AccountResponseModel> result = accountService.getAllAccounts(accountId, username, email, city);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(responseModels.size(), result.size());
+        assertEquals(responseModels.get(0).getAccountId(), result.get(0).getAccountId());
+        assertEquals(responseModels.get(0).getUsername(), result.get(0).getUsername());
+        assertEquals(responseModels.get(0).getEmail(), result.get(0).getEmail());
+        assertEquals(responseModels.get(0).getCity(), result.get(0).getCity());
+    }
+
+    @Test
+    void getAllAccounts_Should_Return_Filtered_Accounts_When_Username_Is_Not_Null() {
+        String userId = "uuid-admin1";
+        String username = "user";
+        String email = "email";
+        String city = "Montreal";
+
+
+        Account account = new Account();
+        account.setUsername(username);
+        account.setEmail(email);
+        account.setCity(city);
+        List<Account> accounts = Collections.singletonList(account);
+
+        when(accountRepository.findAllAccountByUsernameStartingWith(username)).thenReturn(accounts);
+        when(accountRepository.findAllAccountByEmailStartingWith(email)).thenReturn(accounts);
+        when(accountRepository.findAllAccountByCityStartingWith(city)).thenReturn(accounts);
+
+        AccountResponseModel responseModel = new AccountResponseModel(null, userId, username, email, city);
+        List<AccountResponseModel> responseModels = Collections.singletonList(responseModel);
+        when(accountResponseMapper.entityListToResponseModelList(accounts)).thenReturn(responseModels);
+
+        List<AccountResponseModel> result = accountService.getAllAccounts(null, username, null, null);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(responseModels.size(), result.size());
+        assertEquals(responseModels.get(0).getUsername(), result.get(0).getUsername());
+        assertEquals(responseModels.get(0).getEmail(), result.get(0).getEmail());
+        assertEquals(responseModels.get(0).getCity(), result.get(0).getCity());
+
+        result = accountService.getAllAccounts(null, null, email, null);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(responseModels.size(), result.size());
+        assertEquals(responseModels.get(0).getUsername(), result.get(0).getUsername());
+        assertEquals(responseModels.get(0).getEmail(), result.get(0).getEmail());
+        assertEquals(responseModels.get(0).getCity(), result.get(0).getCity());
+
+        result = accountService.getAllAccounts(null, null, null, city);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(responseModels.size(), result.size());
+        assertEquals(responseModels.get(0).getUsername(), result.get(0).getUsername());
+        assertEquals(responseModels.get(0).getEmail(), result.get(0).getEmail());
+        assertEquals(responseModels.get(0).getCity(), result.get(0).getCity());
+
+
+    }
+
+    @Test
+    void getAllAccounts_Should_Return_Filtered_Accounts_When_email_Is_Not_Null() {
+        String userId = "uuid-admin1";
+        String username = "user";
+        String email = "email";
+        String city = "Montreal";
+
+
+        Account account = new Account();
+        account.setUsername(username);
+        account.setEmail(email);
+        account.setCity(city);
+        List<Account> accounts = Collections.singletonList(account);
+
+        when(accountRepository.findAllAccountByUsernameStartingWith(username)).thenReturn(accounts);
+        when(accountRepository.findAllAccountByEmailStartingWith(email)).thenReturn(accounts);
+        when(accountRepository.findAllAccountByCityStartingWith(city)).thenReturn(accounts);
+
+        AccountResponseModel responseModel = new AccountResponseModel(null, userId, username, email, city);
+        List<AccountResponseModel> responseModels = Collections.singletonList(responseModel);
+        when(accountResponseMapper.entityListToResponseModelList(accounts)).thenReturn(responseModels);
+
+        List<AccountResponseModel> result = accountService.getAllAccounts(null, null, email, null);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(responseModels.size(), result.size());
+        assertEquals(responseModels.get(0).getUsername(), result.get(0).getUsername());
+        assertEquals(responseModels.get(0).getEmail(), result.get(0).getEmail());
+        assertEquals(responseModels.get(0).getCity(), result.get(0).getCity());
+    }
+
 
 }

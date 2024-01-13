@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
-import configData from '../../config.json'
-import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
+import { Container, Row, Col, Modal } from 'react-bootstrap';
 import "../../css/style.css";
-import useGetAccessToken from "../../components/authentication/authUtils";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
@@ -106,9 +104,9 @@ function Home() {
     <Modal.Body>{selectedService?.otherInformation}</Modal.Body>
     <Modal.Body>{selectedService?.duration}</Modal.Body>
     <Modal.Body><p>{selectedService?.price}$</p></Modal.Body>
-    <Modal.Footer style={{textAlign: 'right'}}>
-    {isAuthenticated && <button className="book-button">Book</button>}
-    </Modal.Footer>
+    {isAuthenticated && <Modal.Footer style={{textAlign: 'right'}}>
+    <button className="book-button">Book</button>
+    </Modal.Footer>}
     </Modal>
     <FooterNotLoggedIn/>
   </div>

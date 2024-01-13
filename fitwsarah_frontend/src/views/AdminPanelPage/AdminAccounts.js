@@ -1,16 +1,11 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
-import configData from '../../config.json'
-import LoginButton from "../../components/authentication/login";
-import LogoutButton from "../../components/authentication/logout";
-import axios from 'axios'; 
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import './AdminAccounts.css'; 
-import { FaSearch } from 'react-icons/fa';
+import Filter from "../../components/AdminPanel/Filter";
+import { useGetAccessToken } from "../../components/authentication/authUtils";
 
 
 
@@ -18,63 +13,75 @@ function AdminAccounts() {
 
     const {
         isAuthenticated,
-        getAccessTokenSilently,
       } = useAuth0();
 
     const [accounts, setAccounts] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const [searchTerm, setSearchTerm] = useState([["accountid",""], ["username",""], ["email",""], ["city",""]]);
+
+    const getAccessToken = useGetAccessToken();
+
+    const labels = ["Account ID", "Username", "Email", "City"];
 
     useEffect(() => {
-        if (isAuthenticated) {
-          const getAccessToken = async () => {
-            try {
-              const token = await getAccessTokenSilently({
-                audience: configData.audience,
-                scope: configData.scope,
-              });
-              setAccessToken(token);
-            } catch (e) {
-              console.error(e.message);
-            }
-          };
-          getAccessToken();
-        }
-      }, [getAccessTokenSilently, isAuthenticated]);
+      const fetchToken = async () => {
+        const token = await getAccessToken();
+        if (token) setAccessToken(token);
+      };
+
+      fetchToken();
+    }, [getAccessToken]);
 
     useEffect(() => {
         if (accessToken) {
             getAllAccounts();
         }
-    }, [accessToken]);
-
-
-    
+    }, [accessToken, searchTerm]);
 
     const getAllAccounts = () => {
-        fetch("http://localhost:8080/api/v1/accounts", {
-            method: "GET",
-            headers: new Headers({
-                Authorization: "Bearer " + accessToken,
-                "Content-Type": "application/json"
-            })
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data);
-            setAccounts(data);
-        })
-        .catch((error) => {
-            console.log(error);
-            
-        });
-    };
-    
+      const params = new URLSearchParams();
+      searchTerm.forEach(term => {
+          if (term[1]) {
+              params.append(term[0], term[1]);
+          }
+      });
+  
+      fetch(`http://localhost:8080/api/v1/accounts${params.toString() && "?" + params.toString()}`, {
+          method: "GET",
+          headers: new Headers({
+              Authorization: "Bearer " + accessToken,
+              "Content-Type": "application/json"
+          })
+      })
+      .then((response) => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+      })
+      .then((data) => {
+          setAccounts(data);
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+  };
 
+    function onInputChange(label, value) {
+        const newSearchTerm = searchTerm.map((term) => {
+            if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
+                return [term[0], value];
+            }
+            return term;
+        });
+        setSearchTerm(newSearchTerm);
+    }
+
+    function clearFilters() {
+        setSearchTerm([["accountid",""], ["username",""], ["email",""], ["city",""]]);
+    }
+
+    
     return (
         <div>
 
@@ -84,22 +91,18 @@ function AdminAccounts() {
       <div className="accounts-section">
         <div className="container">
             <Link to="/adminPanel" className="button back-button">Back</Link>
-            <h1>Accounts</h1>
-          <input
-              type="text"
-              className="search-bar"
-              placeholder="Search..."
-            />
-            <FaSearch className="search-icon" />
+            <div className="header-section">
+              <h1>Accounts</h1>
+              <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
+            </div>
           <div className="table-responsive">
             <table className="table">
               <thead>
                 <tr>
                   <th>Account ID</th>
                   <th>Username</th>
-                  <th>Password</th>
-                  <th>email</th>
-                  <th>city</th>
+                  <th>Email</th>
+                  <th>City</th>
                 </tr>
               </thead>
               <tbody>
@@ -107,7 +110,6 @@ function AdminAccounts() {
                   <tr key={account.id}>
                     <td>{account.accountId}</td>
                     <td>{account.username}</td>
-                    <td>{account.password}</td>
                     <td>{account.email}</td>
                     <td>{account.city}</td>
                     <td>

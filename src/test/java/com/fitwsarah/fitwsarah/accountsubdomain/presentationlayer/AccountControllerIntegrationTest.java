@@ -40,6 +40,7 @@ package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
         import static org.hamcrest.Matchers.hasSize;
 
         import org.springframework.http.*;
+        import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
         import org.springframework.web.client.RestTemplate;
         import com.fasterxml.jackson.databind.JsonNode;
         import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,11 +59,6 @@ class AccountControllerIntegrationTest {
     private String testAccountId;
 
     private String testToken = "Bearer ";
-
-    private List<AccountResponseModel> accountResponseModelList;
-
-    AccountResponseModel accountResponseModel1 = new AccountResponseModel("1","3","john","john@gmail.com",  "John City");
-    AccountResponseModel accountResponseModel2 = new AccountResponseModel("2","4","john2","john2@gmail.com",  "John2 City");
 
     @BeforeEach
     void setUp() throws Exception {
@@ -95,7 +91,6 @@ class AccountControllerIntegrationTest {
                         .header("Authorization", testToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-        // Additional assertions can be added here
     }
     @Test
     public void addAccount_shouldSucceed() throws Exception {
@@ -108,6 +103,18 @@ class AccountControllerIntegrationTest {
                 .andExpect(status().isCreated());
 
     }
+
+    @Test
+    public void getAllAccounts_ShouldReturnOk() throws Exception {
+        AccountRequestModel requestModel = new AccountRequestModel("3","smith", "john@gmail.com", "John Ville");
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/accounts")
+                .header("Authorization", testToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(requestModel)))
+                .andExpect(status().isOk());
+    }
+
     private String asJsonString(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(obj);

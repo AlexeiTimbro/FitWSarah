@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AccountService {
 
-    List<AccountResponseModel> getAllAccounts();
+    List<AccountResponseModel> getAllAccounts(String userId, String username, String email, String city);
 
     AccountResponseModel getAccountByAccountId(String accountId);
 

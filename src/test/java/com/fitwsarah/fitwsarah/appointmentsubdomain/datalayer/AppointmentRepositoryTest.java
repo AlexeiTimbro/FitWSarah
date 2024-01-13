@@ -1,39 +1,48 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer;
 
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @DataJpaTest
 class AppointmentRepositoryTest {
 
-    @Mock
+    @Autowired
     private AppointmentRepository appointmentRepository;
-
     private String savedAppointmentId;
-
-    private String accountId;
+    Appointment savedAppointment;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        accountId = "uuid-account1";
         Appointment appointment = new Appointment();
         AppointmentIdentifier identifier = new AppointmentIdentifier();
-        appointment.setAppointmentIdentifier(identifier);
+        identifier.setAppointmentId(savedAppointmentId);
+        appointment.setLocation("Location 1");
+        appointment.setStatus(Status.COMPLETED);
+        appointment.setAvailabilityId("uuid-avail1");
+        appointment.setAccountId("uuid-account1");
+        appointment.setServiceId("uuid-service1");
+
+        savedAppointment = appointmentRepository.save(appointment);
+        savedAppointmentId = savedAppointment.getAppointmentIdentifier().getAppointmentId();
     }
 
     @AfterEach
     public void tearDown() {
-        accountId = null;
+        appointmentRepository.deleteAll();
     }
 
     @Test
@@ -45,7 +54,8 @@ class AppointmentRepositoryTest {
         identifier.setAppointmentId(mockAppointmentId);
         mockAppointment.setAppointmentIdentifier(identifier);
 
-        when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(mockAppointmentId)).thenReturn(mockAppointment);
+        // Save the mockAppointment in the repository
+        appointmentRepository.save(mockAppointment);
 
         // Act
         Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(mockAppointmentId);
@@ -69,23 +79,31 @@ class AppointmentRepositoryTest {
 
     @Test
     void whenFindAppointmentByAccountIdentifier_AccountIdReturnsNonEmptyList() {
-        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
+        // Act
+        Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(savedAppointmentId);
 
-        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
-
-        List<Appointment> result = appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId);
-
-        assertEquals(appointments, result);
+        // Assert
+        assertNotNull(found);
+        assertEquals(savedAppointmentId, found.getAppointmentIdentifier().getAppointmentId());
     }
 
     @Test
     public void whenFindAppointmentByNonExistentAccountIdentifier_AccountIdReturnsEmptyList() {
-        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
+        // Arrange
+        String nonExistentAccountId = "nonExistentId";
 
-        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+        // Act
+        List<Appointment> result = appointmentRepository.findAppointmentByAccountId(nonExistentAccountId);
 
-        List<Appointment> result = appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId);
+        // Assert
+        assertTrue(result.isEmpty());
+    }
 
-        assertEquals(appointments, result);
+    @Test
+    void findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith_Should_Return_Correct_Appointments() {
+        List<Appointment> result = appointmentRepository.findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith(savedAppointmentId);
+
+        assertEquals(1, result.size());
+        assertTrue(result.stream().allMatch(appointment -> appointment.getAppointmentIdentifier().getAppointmentId().equals(savedAppointmentId)));
     }
 }

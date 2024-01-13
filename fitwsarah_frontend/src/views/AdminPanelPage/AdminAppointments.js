@@ -1,51 +1,40 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
-import configData from '../../config.json'
-import LoginButton from "../../components/authentication/login";
-import LogoutButton from "../../components/authentication/logout";
-import axios from 'axios';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import './AdminAppointment.css';
-import { FaSearch } from 'react-icons/fa';
-
+import Filter from "../../components/AdminPanel/Filter";
+import { useGetAccessToken } from "../../components/authentication/authUtils";
 
 
 function AdminAccounts() {
 
     const {
         isAuthenticated,
-        getAccessTokenSilently,
     } = useAuth0();
 
     const [appointments, setAppointments] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const getAccessToken = useGetAccessToken();
+
+    const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["accountid",""], ["status",""]]);
+
+    const labels = ["Appointment ID", "Account ID", "Status"];
 
     useEffect(() => {
-        if (isAuthenticated) {
-            const getAccessToken = async () => {
-                try {
-                    const token = await getAccessTokenSilently({
-                        audience: configData.audience,
-                        scope: configData.scope,
-                    });
-                    setAccessToken(token);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            };
-            getAccessToken();
-        }
-    }, [getAccessTokenSilently, isAuthenticated]);
+        const fetchToken = async () => {
+          const token = await getAccessToken();
+          if (token) setAccessToken(token);
+        };
+        fetchToken();
+      }, [getAccessToken]);
 
     useEffect(() => {
         if (accessToken) {
-            getAllAppointments();
+            getAppointments();
         }
-    }, [accessToken]);
+    }, [accessToken, searchTerm]);
 
     const handleCancelAppointment = (appointmentId) => {
         const isConfirmed = window.confirm("Are you sure you want to cancel this appointment?");
@@ -55,28 +44,34 @@ function AdminAccounts() {
     };
 
 
-    const getAllAppointments = () => {
-        fetch("http://localhost:8080/api/v1/appointments", {
+    const getAppointments = () => {
+        const params = new URLSearchParams();
+        searchTerm.forEach(term => {
+          if (term[1]) {
+              params.append(term[0], term[1]);
+          }
+        });
+
+        fetch(`http://localhost:8080/api/v1/appointments${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
                 "Content-Type": "application/json"
             })
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                setAppointments(data);
-            })
-            .catch((error) => {
-                console.log(error);
-
-            });
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            setAppointments(data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     };
 
     const updateAppointmentStatus = (appointmentId, status) => {
@@ -96,12 +91,30 @@ function AdminAccounts() {
             })
             .then((data) => {
                 console.log(data);
-                getAllAppointments();
+                getAppointments();
             })
             .catch((error) => {
                 console.log(error);
 
             });
+    }
+
+    function onInputChange(label, value) {
+        const newSearchTerm = searchTerm.map((term) => {
+            if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
+                if (label === "Status") {
+                    console.log(value.toUpperCase());
+                    return [term[0], value.toUpperCase()];
+                }
+                return [term[0], value];
+            }
+            return term;
+        });
+        setSearchTerm(newSearchTerm);
+    }
+
+    function clearFilters() {
+        setSearchTerm([["accountid",""], ["username",""], ["email",""], ["city",""]]);
     }
 
     return (
@@ -111,21 +124,17 @@ function AdminAccounts() {
             <div className="accounts-section">
                 <div className="container">
                     <Link to="/adminPanel" className="button back-button">Back</Link>
-                    <h1>Appointments</h1>
-                    <input
-                        type="text"
-                        className="search-bar"
-                        placeholder="Search..."
-                    />
-                    <FaSearch className="search-icon" />
+                    <div className="header-section">
+                        <h1>Appointments</h1>
+                        <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
+                    </div>
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Appointment Id</th>
-                                <th>Account Id</th>
+                                <th>Appointment ID</th>
+                                <th>Account ID</th>
                                 <th>Availability Id</th>
-                                <th>Admin Id</th>
                                 <th>Service Id</th>
                                 <th>Status</th>
                                 <th>Location</th>
@@ -137,7 +146,6 @@ function AdminAccounts() {
                                     <td>{appointments.appointmentId}</td>
                                     <td>{appointments.accountId}</td>
                                     <td>{appointments.availabilityId}</td>
-                                    <td>{appointments.adminId}</td>
                                     <td>{appointments.serviceId}</td>
                                     <td>{appointments.status}</td>
                                     <td>{appointments.location}</td>
@@ -156,6 +164,7 @@ function AdminAccounts() {
                 </div>
             </div>
         </div>
-    );}
+    );
+};
 
 export default AdminAccounts;
