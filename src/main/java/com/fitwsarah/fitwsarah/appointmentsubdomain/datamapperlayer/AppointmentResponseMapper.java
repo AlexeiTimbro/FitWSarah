@@ -10,8 +10,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AppointmentResponseMapper {
     @Mapping(expression = "java(appointment.getAppointmentIdentifier().getAppointmentId())", target = "appointmentId")
-    @Mapping(expression = "java(appointment.getAdminPanelIdentifier().getAdminId())", target = "adminId")
-    @Mapping(expression = "java(appointment.getAccountIdentifier().getAccountId())", target = "accountId")
     AppointmentResponseModel entityToResponseModel(Appointment appointment);
 
     List<AppointmentResponseModel> entityListToResponseModelList(List<Appointment> appointments);

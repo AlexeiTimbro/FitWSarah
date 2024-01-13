@@ -16,8 +16,8 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
     @GetMapping()
-    public List<AppointmentResponseModel> getAllAppointments(){
-        return appointmentService.getAllAppointments();
+    public List<AppointmentResponseModel> getAllAppointments(@RequestParam(required = false) String appointmentid, @RequestParam(required = false) String accountid, @RequestParam(required = false) String status){
+        return appointmentService.getAllAppointments(appointmentid, accountid, status);
     }
 
     @GetMapping("/{appointmentId}")

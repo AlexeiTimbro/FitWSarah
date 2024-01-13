@@ -71,9 +71,9 @@ class AppointmentRepositoryTest {
     void whenFindAppointmentByAccountIdentifier_AccountIdReturnsNonEmptyList() {
         List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
 
-        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAppointmentByAccountId(accountId)).thenReturn(appointments);
 
-        List<Appointment> result = appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId);
+        List<Appointment> result = appointmentRepository.findAppointmentByAccountId(accountId);
 
         assertEquals(appointments, result);
     }
@@ -82,9 +82,9 @@ class AppointmentRepositoryTest {
     public void whenFindAppointmentByNonExistentAccountIdentifier_AccountIdReturnsEmptyList() {
         List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
 
-        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAppointmentByAccountId(accountId)).thenReturn(appointments);
 
-        List<Appointment> result = appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId);
+        List<Appointment> result = appointmentRepository.findAppointmentByAccountId(accountId);
 
         assertEquals(appointments, result);
     }

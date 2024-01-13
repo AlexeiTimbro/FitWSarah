@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,7 +68,7 @@ class AppointmentServiceUnitTest {
         List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
         List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"));
 
-        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAppointmentByAccountId(accountId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
 
         List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
@@ -82,7 +81,7 @@ class AppointmentServiceUnitTest {
         String accountId = "uuid-account1";
         List<Appointment> appointments = Collections.emptyList();
 
-        when(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAppointmentByAccountId(accountId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(Collections.emptyList());
 
         List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
@@ -114,7 +113,6 @@ class AppointmentServiceUnitTest {
                 "uuid-appt1",
                 "uuid-avail1",
                 "uuid-account1",
-                "uuid-admin1",
                 "uuid-service1",
                 Status.CANCELLED,
                 "Location 1"

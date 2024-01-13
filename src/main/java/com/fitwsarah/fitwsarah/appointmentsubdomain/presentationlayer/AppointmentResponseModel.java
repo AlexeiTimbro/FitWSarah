@@ -13,7 +13,6 @@ public class AppointmentResponseModel {
     private String appointmentId;
     private String availabilityId;
     private String accountId;
-    private String adminId;
     private String serviceId;
     private Status status;
     private String location;

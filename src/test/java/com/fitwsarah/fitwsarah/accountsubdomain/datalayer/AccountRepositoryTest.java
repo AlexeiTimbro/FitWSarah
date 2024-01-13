@@ -9,7 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 @DataJpaTest
 class AccountRepositoryTest {
@@ -18,15 +22,19 @@ class AccountRepositoryTest {
 
 
     private String savedAccountId;
+    Account savedAccount;
 
     @BeforeEach
     public void setUp() {
         Account account = new Account();
         AccountIdentifier identifier = new AccountIdentifier();
         identifier.setAccountId(savedAccountId);
+        account.setUsername("user1");
+        account.setEmail("email");
+        account.setCity("New York");
 
         // Save the appointment and get the saved ID
-        Account savedAccount = accountRepository.save(account);
+        savedAccount = accountRepository.save(account);
         savedAccountId = savedAccount.getAccountIdentifier().getAccountId();
     }
 
@@ -74,6 +82,38 @@ class AccountRepositoryTest {
     }
     private Account buildAccount(String accountId, String username, String email, String city) {
         return new Account(accountId, username, email, city);
+    }
+
+    @Test
+    void findAllAccountsByAccountIdentifier_AccountIdStartingWith_Should_Return_Correct_Accounts() {
+        List<Account> result = accountRepository.findAllAccountsByAccountIdentifier_AccountIdStartingWith(savedAccountId);
+
+        assertEquals(1, result.size());
+        assertTrue(result.stream().allMatch(account -> account.getAccountIdentifier().getAccountId().equals(savedAccountId)));
+    }
+
+    @Test
+    void findAllAccountByUsernameStartingWith_Should_Return_Correct_Accounts() {
+        List<Account> result = accountRepository.findAllAccountByUsernameStartingWith(savedAccount.getUsername());
+
+        assertEquals(1, result.size());
+        assertTrue(result.stream().allMatch(account -> account.getUsername().equals(savedAccount.getUsername())));
+    }
+
+    @Test
+    void findAllAccountByEmailStartingWith_Should_Return_Correct_Accounts() {
+        List<Account> result = accountRepository.findAllAccountByEmailStartingWith(savedAccount.getEmail());
+
+        assertEquals(1, result.size());
+        assertTrue(result.stream().allMatch(account -> account.getEmail().equals(savedAccount.getEmail())));
+    }
+
+    @Test
+    void findAllAccountByCityStartingWith_Should_Return_Correct_Accounts() {
+        List<Account> result = accountRepository.findAllAccountByCityStartingWith(savedAccount.getCity());
+
+        assertEquals(1, result.size());
+        assertTrue(result.stream().allMatch(account -> account.getCity().equals(savedAccount.getCity())));
     }
 }
 

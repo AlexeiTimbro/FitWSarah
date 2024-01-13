@@ -9,7 +9,10 @@ import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.Appointmen
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -28,13 +31,25 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<AppointmentResponseModel> getAllAppointments() {
-        return appointmentResponseMapper.entityListToResponseModelList(appointmentRepository.findAll());
+    public List<AppointmentResponseModel> getAllAppointments(String appointmentId, String accountId, String status){
+        Set<Appointment> appointments = new HashSet<>();
+
+        if(appointmentId != null){
+            appointments.addAll(appointmentRepository.findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith(appointmentId));
+        } else if(accountId != null){
+            appointments.addAll(appointmentRepository.findAllAppointmentsByAccountIdStartingWith(accountId));
+        } else if(status != null){
+            appointments.addAll(appointmentRepository.findAllAppointmentsByStatus(Status.valueOf(status)));
+        } else {
+            appointments.addAll(appointmentRepository.findAll());
+        }
+
+        return appointmentResponseMapper.entityListToResponseModelList(appointments.stream().sorted(Comparator.comparing(appointment -> appointment.getAppointmentIdentifier().getAppointmentId())).toList());
     }
 
     @Override
     public List<AppointmentResponseModel> getAllAppointmentsByAccountId(String accountId) {
-        return appointmentResponseMapper.entityListToResponseModelList(appointmentRepository.findAppointmentByAccountIdentifier_AccountId(accountId));
+        return appointmentResponseMapper.entityListToResponseModelList(appointmentRepository.findAppointmentByAccountId(accountId));
     }
 
     @Override

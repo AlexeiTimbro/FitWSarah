@@ -1,6 +1,6 @@
 .filter-popup {
     position: flex; 
-    margin-top: 460px;
+    margin-top: 471px;
     top: 50%;
     left: 50%;
     background-color: #fffdfd;
@@ -8,8 +8,9 @@
     padding: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    width: 350px;
+    width: 100%;
     border-radius: 8px;
+    max-width: 350px;
     font-family: 'Arial', sans-serif;
 }
 
@@ -68,8 +69,9 @@
     position: absolute;
     z-index: 1;
     bottom: 5%;
-    left: -110%;
-    margin-left: -50px;
+    left: 50%;
+    margin-left: 30px;
+    margin-bottom: 50px;
     opacity: 0;
     transition: opacity 0.3s;
     font-size: 15px;
@@ -88,4 +90,65 @@
 
 .filter-popup label, .filter-popup input[type="text"] {
     width: 100%;
+}
+
+.filter-button {
+    padding: 8px 15px;
+    background-color: #00a531;
+    position: relative;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.status-button {
+    padding: 8px 15px;
+    background-color: #00a531;
+    position: relative;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.status-button:hover {
+    background-color: #007e26;
+}
+
+.status-button.active {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .filter-popup {
+        width: 100%; 
+        margin-top: 0; 
+        top: 0; 
+        left: 0;
+    }
+
+    .filter-popup-button, .clear-button {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+    .filter-popup-button, .clear-button {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 900px) {
+    .filter-popup-button, .clear-button {
+        font-size: 20px;
+    }
 }

@@ -33,17 +33,16 @@ public class AccountServiceImpl implements AccountService {
 
         if (accountId != null) {
             filteredAccounts.addAll(accountRepository.findAllAccountsByAccountIdentifier_AccountIdStartingWith(accountId));
+        } else if (username != null) {
+            filteredAccounts.addAll(accountRepository.findAllAccountByUsernameStartingWith(username));
+        } else if (email != null) {
+            filteredAccounts.addAll(accountRepository.findAllAccountByEmailStartingWith(email));
+        } else if (city != null) {
+            filteredAccounts.addAll(accountRepository.findAllAccountByCityStartingWith(city));
         } else {
-             if (username != null) {
-                filteredAccounts.addAll(accountRepository.findAllAccountByUsernameStartingWith(username));
-            } else if (email != null) {
-                filteredAccounts.addAll(accountRepository.findAllAccountByEmailStartingWith(email));
-            } else if (city != null) {
-                filteredAccounts.addAll(accountRepository.findAllAccountByCityStartingWith(city));
-            } else {
-                filteredAccounts.addAll(accountRepository.findAll());
-            }
+            filteredAccounts.addAll(accountRepository.findAll());
         }
+
         return accountResponseMapper.entityListToResponseModelList(filteredAccounts.stream().sorted(Comparator.comparing(account -> account.getAccountIdentifier().getAccountId())).toList());
     }
 

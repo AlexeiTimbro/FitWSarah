@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
-import configData from '../../config.json'
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './AdminAccounts.css'; 
 import Filter from "../../components/AdminPanel/Filter";
+import { useGetAccessToken } from "../../components/authentication/authUtils";
 
 
 
@@ -13,40 +13,30 @@ function AdminAccounts() {
 
     const {
         isAuthenticated,
-        getAccessTokenSilently,
       } = useAuth0();
 
     const [accounts, setAccounts] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [searchTerm, setSearchTerm] = useState([["accountid",""], ["username",""], ["email",""], ["city",""]]);
 
+    const getAccessToken = useGetAccessToken();
+
     const labels = ["Account ID", "Username", "Email", "City"];
 
     useEffect(() => {
-        if (isAuthenticated) {
-          const getAccessToken = async () => {
-            try {
-              const token = await getAccessTokenSilently({
-                audience: configData.audience,
-                scope: configData.scope,
-              });
-              setAccessToken(token);
-            } catch (e) {
-              console.error(e.message);
-            }
-          };
-          getAccessToken();
-        }
-      }, [getAccessTokenSilently, isAuthenticated]);
+      const fetchToken = async () => {
+        const token = await getAccessToken();
+        if (token) setAccessToken(token);
+      };
+
+      fetchToken();
+    }, [getAccessToken]);
 
     useEffect(() => {
         if (accessToken) {
             getAllAccounts();
         }
     }, [accessToken, searchTerm]);
-
-
-    
 
     const getAllAccounts = () => {
       const params = new URLSearchParams();
@@ -87,6 +77,10 @@ function AdminAccounts() {
         setSearchTerm(newSearchTerm);
     }
 
+    function clearFilters() {
+        setSearchTerm([["accountid",""], ["username",""], ["email",""], ["city",""]]);
+    }
+
     
     return (
         <div>
@@ -99,7 +93,7 @@ function AdminAccounts() {
             <Link to="/adminPanel" className="button back-button">Back</Link>
             <div className="header-section">
               <h1>Accounts</h1>
-              <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm}/>
+              <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
             </div>
           <div className="table-responsive">
             <table className="table">
