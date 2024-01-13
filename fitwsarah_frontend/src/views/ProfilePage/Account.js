@@ -13,90 +13,76 @@ import Sidebar from "./SideBar";
 
 
 function Profile() {
-    const {isAuthenticated, user} = useAuth0();
+    const {isAuthenticated,  getAccessTokenSilently, user} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const [profile, setProfile] = useState(null);
     const [appointments, setAppointments] = useState([]);
     const [profilePicUrl, setProfilePicUrl] = useState('');
-
+    const [accountId, setAccountId] = useState(null);
     useEffect(() => {
         if (user && user.picture) {
             setProfilePicUrl(user.picture);
         }
     }, [user]);
-    const getAccessToken = useGetAccessToken();
 
     useEffect(() => {
-        const fetchToken = async () => {
-          const token = await getAccessToken();
-          if (token) setAccessToken(token);
-        };
+        if (isAuthenticated) {
+            const getAccessToken = async () => {
+                try {
+                    const token = await getAccessTokenSilently({
+                        audience: configData.audience,
+                        scope: configData.scope,
+                    });
+                    setAccessToken(token);
+                } catch (e) {
+                    console.error(e.message);
+                }
+            };
+            getAccessToken();
+        }
+    }, [getAccessTokenSilently, isAuthenticated]);
 
-        fetchToken();
-      }, [getAccessToken]);
 
     useEffect(() => {
         if (accessToken) {
-            getAppointmentsByAccountId("dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2");
+            getAccountByUserId(extractAfterPipe(user.sub));
         }
-    }, [accessToken]);
+        if (accessToken) {
+            getAppointmentsByAccountId(accountId);
+        }
+    }, [user]);
 
-
-    useEffect(() => {
-        const getUserMetadata = async () => {
-            try {
-                const userDetailsByIdUrl = `https://${configData.domain}/api/v2/users/${user.sub}`;
-
-                const metadataResponse = await fetch(userDetailsByIdUrl, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    }
-                });
-
-                const userDetails = await metadataResponse.json();
-
-                if (userDetails && userDetails.accountId) {
-                    getAccountById(userDetails.accountId);
-                    getAppointmentsByAccountId(userDetails.accountId);
+    const getAccountByUserId = (userId) => {
+        fetch(`http://localhost:8080/api/v1/accounts/users/${userId}`, {
+            method: "GET",
+            headers: new Headers({
+                "Authorization": "Bearer"  + accessToken,
+                "Content-Type": "application/json"
+            })
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
                 }
-            } catch (e) {
-                console.log(e.message);
-            }
-        };
-
-        if (accessToken && isAuthenticated) {
-            getUserMetadata();
-        }
-    }, [accessToken, isAuthenticated, user]);
-
-    const getAccountById = async (accountId) => {
-        try {
-            const response = await fetch(`http://localhost:8080/api/v1/accounts/${accountId}`, {
-                method: "GET",
-                headers: new Headers({
-                    Authorization: "Bearer " + accessToken,
-                    "Content-Type": "application/json",
-                }),
+                return response.json();
+            })
+            .then((data) => {
+                setProfile(data);
+                console.log(data)
+            })
+            .catch((error) => {
+                console.error("Error fetching service details for userId", userId, ":", error);
             });
-
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-
-            const data = await response.json();
-            setProfile(data);
-        } catch (error) {
-            console.error("Error fetching account details for accountId", accountId, ":", error);
-        }
     };
+
 
     const getAppointmentsByAccountId = (accountId) => {
         fetch(`http://localhost:8080/api/v1/appointments/account/${accountId}`, {
             method: "GET",
-            headers: new Headers({
+            headers: {
                 Authorization: "Bearer " + accessToken,
                 "Content-Type": "application/json",
-            }),
+            },
         })
             .then((response) => {
                 if (!response.ok) {
@@ -107,7 +93,6 @@ function Profile() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data)
                 setAppointments(data);
             })
             .catch((error) => {
@@ -118,6 +103,16 @@ function Profile() {
                 );
             });
     };
+
+
+    function extractAfterPipe(userId) {
+        const parts = userId.split('|');
+        if (parts.length === 2) {
+            return parts[1];
+        } else {
+            return userId;
+        }
+    }
 
 
     return (

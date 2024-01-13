@@ -1,11 +1,24 @@
+
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Spinner } from 'react-bootstrap';
 import configData from '../../config.json';
 //i have to fix sign up issue
+
+import React, { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Container, Spinner } from "react-bootstrap";
+import configData from "../../config.json";
+
 function AddMemberProfile() {
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
+    useEffect(() => {
+        if (isAuthenticated) {
+            localStorage.setItem("userData", JSON.stringify(user));
+            fetchData();
+        }
+    }, [user, isAuthenticated, getAccessTokenSilently, accessToken]);
 
     const fetchData = async () => {
         try {
@@ -18,6 +31,7 @@ function AddMemberProfile() {
             console.error("Error getting access token: ", error);
         }
     };
+
 
     useEffect(() => {  
         if (isAuthenticated) {
@@ -34,6 +48,7 @@ function AddMemberProfile() {
         }
     }
 
+
     const addMember = async () => {
         try {
             await fetchData();
@@ -44,18 +59,28 @@ function AddMemberProfile() {
             }
 
             const { sub, nickname, email } = user;
-            const RegexUserId = extractAfterPipe(sub)
 
-            const dataToSend = { userId: RegexUserId, username: nickname, email: email };
+
+
+            const regexUserId = extractAfterPipe(sub);
+            const dataToSend = {
+                userId: regexUserId,
+                username: nickname,
+                email: email,
+            };
+
 
             const response = await fetch("http://localhost:8080/api/v1/accounts", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
+
                 body: JSON.stringify(dataToSend)
             }, [accessToken, fetchData]);
+
+
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -71,11 +96,26 @@ function AddMemberProfile() {
 
     useEffect(() => {
         if (accessToken) {
+            const storedUserData = localStorage.getItem("userData");
+            if (storedUserData) {
+                const userData = JSON.parse(storedUserData);
+                console.log(userData);
+            }
+
             addMember();
             console.log(user);
             console.log("Added Member");
         }
     }, [isAuthenticated, accessToken, user, addMember]);
+
+    function extractAfterPipe(userId) {
+        const parts = userId.split("|");
+        if (parts.length === 2) {
+            return parts[1];
+        } else {
+            return userId;
+        }
+    }
 
     return null;
 }
