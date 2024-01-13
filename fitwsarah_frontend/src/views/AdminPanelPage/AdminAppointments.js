@@ -27,7 +27,6 @@ function AdminAccounts() {
           const token = await getAccessToken();
           if (token) setAccessToken(token);
         };
-
         fetchToken();
       }, [getAccessToken]);
 
