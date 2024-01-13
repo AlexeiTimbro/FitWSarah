@@ -91,7 +91,6 @@ class AccountControllerIntegrationTest {
                         .header("Authorization", testToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-        // Additional assertions can be added here
     }
     @Test
     public void addAccount_shouldSucceed() throws Exception {

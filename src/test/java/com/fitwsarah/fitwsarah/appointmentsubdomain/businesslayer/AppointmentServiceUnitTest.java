@@ -1,5 +1,7 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
+import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
@@ -15,7 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 
@@ -45,7 +47,7 @@ class AppointmentServiceUnitTest {
         appointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
 
 
-        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1");
+        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
 
 
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
@@ -66,7 +68,7 @@ class AppointmentServiceUnitTest {
     void getAllAppointmentsByAccountId_returnsNonEmptyList() {
         String accountId = "uuid-account1";
         List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
-        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"));
+        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1"));
 
         when(appointmentRepository.findAppointmentByAccountId(accountId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
@@ -91,15 +93,63 @@ class AppointmentServiceUnitTest {
 
     @Test
     void getAllAppointments_should_succeed(){
-            List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
-        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED,"Location 1"));
+        String appointmentId = "uuid-appt1";
+        String availabilityId = "uuid-avail1";
+        String accountId = "uuid-account1";
+        String serviceId = "uuid-service1";
+        Status status = Status.COMPLETED;
+        String location = "Location 1";
 
-        when(appointmentRepository.findAll()).thenReturn(appointments);
+        Appointment appointment = new Appointment();
+        appointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
+        List<Appointment> appointments = Collections.singletonList(appointment);
+
+        when(appointmentRepository.findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith(appointmentId)).thenReturn(appointments);
+        when(appointmentRepository.findAllAppointmentsByStatus(status)).thenReturn(appointments);
+        when(appointmentRepository.findAllAppointmentsByAccountIdStartingWith(accountId)).thenReturn(appointments);
+
+        AppointmentResponseModel responseModel = new AppointmentResponseModel(null, availabilityId, accountId, serviceId, status, location);
+        List<AppointmentResponseModel> responseModels = Collections.singletonList(responseModel);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
 
-        List<AppointmentResponseModel> result = appointmentService.getAllAppointments();
+        List<AppointmentResponseModel> result = appointmentService.getAllAppointments(appointmentId, null, null);
 
-        assertEquals(responseModels, result); }
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(responseModels.size(), result.size());
+        assertEquals(responseModels.get(0).getAppointmentId(), result.get(0).getAppointmentId());
+        assertEquals(responseModels.get(0).getAvailabilityId(), result.get(0).getAvailabilityId());
+        assertEquals(responseModels.get(0).getAccountId(), result.get(0).getAccountId());
+        assertEquals(responseModels.get(0).getServiceId(), result.get(0).getServiceId());
+        assertEquals(responseModels.get(0).getStatus(), result.get(0).getStatus());
+        assertEquals(responseModels.get(0).getLocation(), result.get(0).getLocation());
+
+        result = appointmentService.getAllAppointments(null, accountId, null);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(responseModels.size(), result.size());
+        assertEquals(responseModels.get(0).getAppointmentId(), result.get(0).getAppointmentId());
+        assertEquals(responseModels.get(0).getAvailabilityId(), result.get(0).getAvailabilityId());
+        assertEquals(responseModels.get(0).getAccountId(), result.get(0).getAccountId());
+        assertEquals(responseModels.get(0).getServiceId(), result.get(0).getServiceId());
+        assertEquals(responseModels.get(0).getStatus(), result.get(0).getStatus());
+        assertEquals(responseModels.get(0).getLocation(), result.get(0).getLocation());
+
+        result = appointmentService.getAllAppointments(null, null, status.toString());
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(responseModels.size(), result.size());
+        assertEquals(responseModels.get(0).getAppointmentId(), result.get(0).getAppointmentId());
+        assertEquals(responseModels.get(0).getAvailabilityId(), result.get(0).getAvailabilityId());
+        assertEquals(responseModels.get(0).getAccountId(), result.get(0).getAccountId());
+        assertEquals(responseModels.get(0).getServiceId(), result.get(0).getServiceId());
+        assertEquals(responseModels.get(0).getStatus(), result.get(0).getStatus());
+        assertEquals(responseModels.get(0).getLocation(), result.get(0).getLocation());
+
+        result = appointmentService.getAllAppointments(null, null, null);
+    }
 
     @Test
     void updateAppointmentStatus_should_succeed(){

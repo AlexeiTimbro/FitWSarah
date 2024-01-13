@@ -19,8 +19,6 @@ import static org.mockito.Mockito.when;
 class AccountRepositoryTest {
     @Autowired
     AccountRepository accountRepository;
-
-
     private String savedAccountId;
     Account savedAccount;
 

@@ -40,7 +40,7 @@ class AppointmentControllerIntegrationTest {
     @MockBean
     private AppointmentService appointmentService;
 
-    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-admin1", "uuid-service1", Status.COMPLETED, "Location 1");
+    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
 
     private String testToken = "Bearer ";
     private List<AppointmentResponseModel> appointmentResponseModelList;
@@ -49,7 +49,7 @@ class AppointmentControllerIntegrationTest {
         appointmentResponseModelList = Arrays.asList(appointment1);
 
 
-        given(appointmentService.getAllAppointments()).willReturn(appointmentResponseModelList);
+        given(appointmentService.getAllAppointments(null, null, null)).willReturn(appointmentResponseModelList);
         given(appointmentService.getAppointmentByAppointmentId(appointment1.getAppointmentId()))
                 .willReturn(appointment1);
 
@@ -60,12 +60,12 @@ class AppointmentControllerIntegrationTest {
     @Test
     void getAppointmentByAppointmentId_Should_Return_Unauthorized() throws Exception {
         String actualAppointmentId = appointment1.getAppointmentId();
-        String token = "invalid_token";  // Use an invalid or expired token
+        String token = "invalid_token";
 
         mockMvc.perform(get("/api/v1/appointments/{appointmentId}", actualAppointmentId)
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isUnauthorized());  // Expecting 401 Unauthorized
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
@@ -87,7 +87,7 @@ class AppointmentControllerIntegrationTest {
     @Test
     void updateAppointmentStatus_should_succeed() throws Exception {
         mockMvc.perform(put("/api/v1/appointments/{appointmentId}/status", appointment1.getAppointmentId())
-                        .content("COMPLETED")  // Assuming "COMPLETED" is a valid status
+                        .content("COMPLETED")
                         .header("Authorization", testToken)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
