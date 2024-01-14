@@ -1,6 +1,6 @@
 import './index.css';
 import './App.js';
-import './components/booking/bookingAppointment.js';
+import './components/booking/bookingButton.js';
 import './components/clientProfile/clientCoachNotes.js';
 import './components/home/home.js';
 import './components/clientProfile/clientInvoices.js';

@@ -20,4 +20,5 @@ public class AppointmentResponseModel {
     private String lastName;
     private String phoneNum;
     private String date;
+    private String time;
 }

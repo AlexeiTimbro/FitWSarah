@@ -26,13 +26,13 @@ public class Appointment {
     private String lastName;
     private String phoneNum;
     private String date;
+    private String time;
 
     public Appointment() {
         this.appointmentIdentifier = new AppointmentIdentifier();
     }
 
-
-    public Appointment(String availabilityId, String accountId, String serviceId, Status status, String location, String firstName, String lastName, String phoneNum, String date) {
+    public Appointment(String availabilityId, String accountId, String serviceId, Status status, String location, String firstName, String lastName, String phoneNum, String date, String time) {
         this.appointmentIdentifier = new AppointmentIdentifier();
         this.availabilityId = availabilityId;
         this.accountId = accountId;
@@ -43,5 +43,6 @@ public class Appointment {
         this.lastName = lastName;
         this.phoneNum = phoneNum;
         this.date = date;
+        this.time = time;
     }
 }

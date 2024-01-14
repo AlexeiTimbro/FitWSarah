@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Spinner } from 'react-bootstrap';
 import configData from '../../config.json';
-
+//i have to fix sign up issue
 function AddMemberProfile() {
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
@@ -25,6 +25,15 @@ function AddMemberProfile() {
         }
     }, [user, isAuthenticated, getAccessTokenSilently, accessToken]);
 
+    function extractAfterPipe(originalString) {
+        const parts = originalString.split('|');
+        if (parts.length === 2) {
+            return parts[1]; 
+        } else {
+            return originalString; 
+        }
+    }
+
     const addMember = async () => {
         try {
             await fetchData();
@@ -35,33 +44,9 @@ function AddMemberProfile() {
             }
 
             const { sub, nickname, email } = user;
-            const RegexUsername = nickname.replace(/^[^|]*\|/, '');
+            const RegexUserId = extractAfterPipe(sub)
 
-            const dataToSend = { userId: sub, username: RegexUsername, email: email };
-
-
-            //Check if user exists
-        const checkResponse = await fetch(`https://${configData.domain}/api/v2/users/${user.sub}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                "Content-Type": "application/json"
-            },
-        });
-
-        if (!checkResponse.ok) {
-            throw new Error(`HTTP error during check! Status: ${checkResponse.status}`);
-        }
-
-        const checkData = await checkResponse.json();
-
-        if (checkData.exists) {
-            console.log("Member already exists");
-            return null; 
-            // returns null if the member already exists
-        }
-
-
+            const dataToSend = { userId: RegexUserId, username: nickname, email: email };
 
             const response = await fetch("http://localhost:8080/api/v1/accounts", {
                 method: "POST",
@@ -70,7 +55,7 @@ function AddMemberProfile() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(dataToSend)
-            });
+            }, [accessToken, fetchData]);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -86,13 +71,11 @@ function AddMemberProfile() {
 
     useEffect(() => {
         if (accessToken) {
-            
             addMember();
-            console.log(user)
-            console.log("Added Member")
-            console.log(`Bearer ${accessToken}`)
+            console.log(user);
+            console.log("Added Member");
         }
-    }, [user, accessToken]);
+    }, [isAuthenticated, accessToken, user, addMember]);
 
     return null;
 }

@@ -39,6 +39,7 @@ nav .signup-button {
     border-radius: 10px;
     font-weight: bold;
     margin-left: 0px;
+    background-color: #ffffff;
     transition: transform 0.3s ease;
   }
 
@@ -58,6 +59,7 @@ nav .signup-button {
   height: 35px; 
   padding: 0;
   display: flex;
+  background-color: #ffffff;
   justify-content: center;
   align-items: center;
   margin-right: 10px; 

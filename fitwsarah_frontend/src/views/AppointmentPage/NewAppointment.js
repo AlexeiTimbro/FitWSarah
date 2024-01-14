@@ -5,21 +5,27 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
+import BookingButton from "../../components/booking/bookingButton";
+import './NewAppointment.css';
 import { useParams } from "react-router-dom";
-import {Link} from "react-router-dom";
-import AddMemberProfile from "../authentication/Signup";
+import AvailabilitiesCalendar from "./Calendar";
 
 function BookAppointment() {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const {isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const { serviceId, accountId } = useParams();
     const [accessToken, setAccessToken] = useState(null);
     const [appointmentData, setAppointmentData] = useState({
+        availabilityId:"",
+        accountId: accountId,
+        serviceId: serviceId,
         firstName: "",
         lastName: "",
         location: "",
         date: "",
+        time: "",
         phoneNum: ""
     });
-//Maybe have phone num?
+
     useEffect(() => {
         if (isAuthenticated) {
             const getAccessToken = async () => {
@@ -37,113 +43,60 @@ function BookAppointment() {
         }
     }, [getAccessTokenSilently, isAuthenticated]);
 
-    const addNewAppointment = () => {
-        fetch("http://localhost:8080/api/v1/appointments", {
-            method: "POST",
-            headers: {
-                 Authorization: `Bearer ${accessToken}`,
-               "Content-Type": "application/json"
-            },
-             body: JSON.stringify(appointmentData)
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(
-                   "Network response was not ok " + response.statusText
-                );
-            }
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data)
-            setAppointmentData(data);
-        })
-        .catch((error) => {
-            console.error(
-                "Error fetching service details for serviceId",
-                ":",
-                error
-            );
-        });
+   
+    const handleInputChange = (e, selectedDate, selectedTime) => {
+        if (e) {
+            const { name, value } = e.target;
+            setAppointmentData({
+              ...appointmentData,
+              [name]: value,
+              date: selectedDate,
+              time: selectedTime,
+            });
+          } else {
+            setAppointmentData({ ...appointmentData,
+                date: selectedDate, 
+                time: selectedTime
+            });
+          }
     };
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setAppointmentData({ ...appointmentData, [name]: value });
-    };
-
-    useEffect(() => {
-        if (accessToken) {
-            addNewAppointment();
-        }
-    }, [accessToken]);
-
-//Location should be Dropbar, or map, date should be the calendar
     return (
         <div>
             {!isAuthenticated && <NavNotLoggedIn />}
             {isAuthenticated && <NavLoggedIn />}
-            <section className="hero-section1"></section>
-            <section className="services-section">
+            <section className="appointmentSection">
                 <Container>
-        
-<form id="appointmentForm" style="margin-top: 20px;" enctype="multipart/form-data">
-    <div style="margin-bottom: 15px;">
-        <label style="width: 10%;" class="control-label">First Name</label>
-        <div style="width: 60%;" class="appointment">
-        <input style={{ width: "40%" }} name="firstName" maxLength="50" pattern="^[\x20-\x7F]+$" 
-        required value={appointmentData.firstName} onChange={handleInputChange}/>
-            <span ng-show="appointmentForm.firstName.$error.required">First name is required.</span>
+                <div className="reservation-form">
+      
+    <AvailabilitiesCalendar onChange={(selectedDate, selectedTime) => handleInputChange(null, selectedDate, selectedTime)} />
+      <form>
+      <div className="form-group">
+            <select id="address" name="location" value={appointmentData.location} onChange={handleInputChange} required>
+                <option value="" disabled>Select an available location</option>
+                <option value="Buzzfit, Brossard QC">Buzzfit, Brossard QC</option>
+                <option value="Nautilus Plus, Brossard QC">Nautilus Plus, Brossard QC</option>
+            </select>
         </div>
+        <div className="form-group">
+          <input type="text" id="firstName" placeholder="First Name" name="firstName" value={appointmentData.firstName} onChange={handleInputChange} required />
+        </div>
+        <div className="form-group">
+          <input type="text" id="lastName" placeholder="Last Name" name="lastName"  value={appointmentData.lastName} onChange={handleInputChange} required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone"></label>
+          <input type="tel" id="phone" placeholder="Phone Number" name="phoneNum"  value={appointmentData.phoneNum} onChange={handleInputChange} required />
+        </div>
+        <div>
+        <BookingButton appointmentData={appointmentData} setAppointmentData={setAppointmentData}/>
+    </div>
+    </form>
     </div>
 
-    <div style="margin-bottom: 15px;">
-        <label style="width: 10%;" class="control-label">Last Name</label>
-        <div style="width: 60%;" class="appointment">
-        <input style={{ width: "40%" }} name="lastName" maxLength="50" pattern="^[\x20-\x7F]+$" 
-        required value={appointmentData.lastName} onChange={handleInputChange}/>
-            <span ng-show="appointmentForm.lastName.$error.required">Last name is required.</span>
-        </div>
-    </div>
-   
-    <div style="margin-bottom: 15px;">
-        <label style="width: 10%;" class="control-label">Location</label>
-        <div style="width: 60%;" class="appointment">
-        <input style={{ width: "40%" }} name="location" maxLength="50" pattern="^[\x20-\x7F]+$" 
-        required value={appointmentData.location} onChange={handleInputChange}/>
-            <span ng-show="appointmentForm.address.$error.required">Address is required.</span>
-        </div>
-    </div>
-
-    <div style="margin-bottom: 15px;">
-        <label style="width: 10%;" class="control-label">Available Dates</label>
-        <div style="width: 60%;" class="appointment">
-        <input style={{ width: "40%" }} name="date" maxLength="50" pattern="^[\x20-\x7F]+$" 
-        required value={appointmentData.date} onChange={handleInputChange}/>
-            <span ng-show="appointmentForm.address.$error.required">Date is required.</span>
-            <span>Date could be subject to change.</span>
-        </div>
-    </div>    
-
-    <div style="margin-bottom: 15px;">
-        <label style="width: 10%;" class="control-label">Phone Number</label>
-        <div style="width: 60%;" class="appointment">
-        <input style={{ width: "40%" }} name="phoneNum" maxLength="50" pattern="^[\x20-\x7F]+$" 
-        required value={appointmentData.phoneNum} onChange={handleInputChange}/>
-            <span ng-show="appointmentForm.telephone.$error.required">Phone Number is required.</span>
-        </div>
-    </div>
-
-    <div style="margin-bottom: 15px;">
-        <div style="width: 60%;" class="appointment">
-            <button style="width: 100%;" id="newBtn" class="btn btn-default" type="submit" onClick={addNewAppointment()}>Reserve</button>
-        </div>
-    </div>
-</form>
     </Container>
             </section>
             <FooterNotLoggedIn/>
         </div>
     );
 }
-
 export default BookAppointment;

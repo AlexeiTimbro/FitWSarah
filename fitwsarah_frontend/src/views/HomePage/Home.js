@@ -18,17 +18,32 @@ function Home() {
         isAuthenticated,
         getAccessTokenSilently,
         loginWithRedirect,
+        user
       } = useAuth0();
 
     const [services, setServices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [hasCalledAddMemberProfile, setHasCalledAddMemberProfile] = useState(false);
-   // const history = useHistory();  
     
     useEffect(() => {
       getAllFitnessServices();
     }, []);
+    
+    useEffect(() => {
+      if (isAuthenticated && !hasCalledAddMemberProfile) {
+          setHasCalledAddMemberProfile(true);
+      }
+  }, [isAuthenticated, hasCalledAddMemberProfile]);
 
+      function extractAfterPipe(originalString) {
+        const parts = originalString.split('|');
+        if (parts.length === 2) {
+            return parts[1]; 
+        } else {
+            return originalString; 
+        }
+    }
+    const RegexUserId = extractAfterPipe(user.sub)
     const getAllFitnessServices = () => {
       fetch("http://localhost:8080/api/v1/fitnessPackages", {
           method: "GET",
@@ -78,17 +93,12 @@ function Home() {
     
     useEffect(() => {
       if (isAuthenticated && !hasCalledAddMemberProfile) {
-          // Calling the addMember only once
           setHasCalledAddMemberProfile(true);
       }
   }, [isAuthenticated, hasCalledAddMemberProfile]);
-
-    const handleNewAppointment = (serviceId) => {
-     
-    }
   
-//Calls the AddMember function only once
-    return (
+//Calls the AddMember function only once   
+return (
         <div>
 
     {!isAuthenticated && <NavNotLoggedIn/>}
@@ -110,7 +120,7 @@ function Home() {
                 <p style={{display: 'none'}}>{service.duration}</p>
                 <div className="price">{service.price}$</div>
                 {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>Book</button>}
-                {isAuthenticated && <Link to="/appointments"><button className="book-button">Book</button></Link>}
+                {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&accountId=${RegexUserId}`}><button className="book-button">Book</button></Link>}
                 <button className="book-button" onClick={() => handleShow(service.serviceId)}>Details</button>
               </div>
             </Col>

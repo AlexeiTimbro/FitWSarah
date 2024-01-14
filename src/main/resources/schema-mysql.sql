@@ -29,14 +29,15 @@ create table if not exists appointments(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     appointment_id VARCHAR(36) NOT NULL,
     account_id VARCHAR(36),
-    availability_id VARCHAR(36) NOT NULL,
+    availability_id VARCHAR(36),
     service_id VARCHAR(36) NOT NULL,
     status VARCHAR(50) NOT NULL,
-    location VARCHAR(50) NOT NULL,
+    location VARCHAR(50),
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     phone_num VARCHAR(50),
-    date VARCHAR(50)
+    date VARCHAR(50),
+    time VARCHAR(50)
 );
 
 create table if not exists fitness_services(
