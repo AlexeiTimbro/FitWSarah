@@ -1,7 +1,5 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer;
 
-import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
-import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
@@ -80,7 +78,8 @@ class AppointmentServiceUnitTest {
         List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00"));
 
 
-        when(appointmentRepository.findAllAppointmentsByAccountId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAllAppointmentsByUserId(accountId)).thenReturn(appointments);
+
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
 
         List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
@@ -93,7 +92,7 @@ class AppointmentServiceUnitTest {
         String accountId = "uuid-account1";
         List<Appointment> appointments = Collections.emptyList();
 
-        when(appointmentRepository.findAllAppointmentsByAccountId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAllAppointmentsByUserId(accountId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(Collections.emptyList());
 
         List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
@@ -116,7 +115,7 @@ class AppointmentServiceUnitTest {
 
         when(appointmentRepository.findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith(appointmentId)).thenReturn(appointments);
         when(appointmentRepository.findAllAppointmentsByStatus(status)).thenReturn(appointments);
-        when(appointmentRepository.findAllAppointmentsByAccountIdStartingWith(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAllAppointmentsByUserIdStartingWith(accountId)).thenReturn(appointments);
 
         AppointmentResponseModel responseModel = new AppointmentResponseModel(null, availabilityId, accountId, serviceId, status, location,"","","","","");
         List<AppointmentResponseModel> responseModels = Collections.singletonList(responseModel);
@@ -129,7 +128,7 @@ class AppointmentServiceUnitTest {
         assertEquals(responseModels.size(), result.size());
         assertEquals(responseModels.get(0).getAppointmentId(), result.get(0).getAppointmentId());
         assertEquals(responseModels.get(0).getAvailabilityId(), result.get(0).getAvailabilityId());
-        assertEquals(responseModels.get(0).getAccountId(), result.get(0).getAccountId());
+        assertEquals(responseModels.get(0).getUserId(), result.get(0).getUserId());
         assertEquals(responseModels.get(0).getServiceId(), result.get(0).getServiceId());
         assertEquals(responseModels.get(0).getStatus(), result.get(0).getStatus());
         assertEquals(responseModels.get(0).getLocation(), result.get(0).getLocation());
@@ -141,7 +140,7 @@ class AppointmentServiceUnitTest {
         assertEquals(responseModels.size(), result.size());
         assertEquals(responseModels.get(0).getAppointmentId(), result.get(0).getAppointmentId());
         assertEquals(responseModels.get(0).getAvailabilityId(), result.get(0).getAvailabilityId());
-        assertEquals(responseModels.get(0).getAccountId(), result.get(0).getAccountId());
+        assertEquals(responseModels.get(0).getUserId(), result.get(0).getUserId());
         assertEquals(responseModels.get(0).getServiceId(), result.get(0).getServiceId());
         assertEquals(responseModels.get(0).getStatus(), result.get(0).getStatus());
         assertEquals(responseModels.get(0).getLocation(), result.get(0).getLocation());
@@ -153,7 +152,7 @@ class AppointmentServiceUnitTest {
         assertEquals(responseModels.size(), result.size());
         assertEquals(responseModels.get(0).getAppointmentId(), result.get(0).getAppointmentId());
         assertEquals(responseModels.get(0).getAvailabilityId(), result.get(0).getAvailabilityId());
-        assertEquals(responseModels.get(0).getAccountId(), result.get(0).getAccountId());
+        assertEquals(responseModels.get(0).getUserId(), result.get(0).getUserId());
         assertEquals(responseModels.get(0).getServiceId(), result.get(0).getServiceId());
         assertEquals(responseModels.get(0).getStatus(), result.get(0).getStatus());
         assertEquals(responseModels.get(0).getLocation(), result.get(0).getLocation());
@@ -205,7 +204,7 @@ class AppointmentServiceUnitTest {
         AppointmentResponseModel result = appointmentService.addAppointment(requestModel);
         assertNotNull(result);
         assertNotNull(result.getAppointmentId());
-        assertNotNull(result.getAccountId());
+        assertNotNull(result.getUserId());
         assertNotNull(result.getFirstName());
         assertNotNull(result.getLastName());
     }

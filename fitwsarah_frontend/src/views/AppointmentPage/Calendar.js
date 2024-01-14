@@ -9,13 +9,15 @@ const AvailabilitiesCalendar = ({onChange}) => {
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
-    onChange(newDate, time)
+    const formattedDate = newDate.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    onChange(formattedDate, time)
   };
 
   const handleTimeChange = (e) => {
     const newTime = e.target.value;
     setTime(newTime);
-    onChange(date, newTime);
+    const formattedDate = date.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    onChange(formattedDate, newTime);
   };
 
   const isSameDay = (date1, date2) => {

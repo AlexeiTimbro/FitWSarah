@@ -12,7 +12,7 @@ import lombok.Value;
 public class AppointmentResponseModel {
     private String appointmentId;
     private String availabilityId;
-    private String accountId;
+    private String userId;
     private String serviceId;
     private Status status;
     private String location;

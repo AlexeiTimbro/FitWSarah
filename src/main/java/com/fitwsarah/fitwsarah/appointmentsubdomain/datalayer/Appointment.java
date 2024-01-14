@@ -14,7 +14,12 @@ public class Appointment {
     private Integer id;
     @Embedded
     private AppointmentIdentifier appointmentIdentifier;
-    private String accountId;
+
+    //Change this ELIAS WAS DUM AND SHOULD NOT BE NEAR SOCIETY
+    //@Embedded
+    //private AccountIdentifier accountIdentifier;
+    private String userId;
+
     private String availabilityId;
     private String serviceId;
 
@@ -32,10 +37,10 @@ public class Appointment {
         this.appointmentIdentifier = new AppointmentIdentifier();
     }
 
-    public Appointment(String availabilityId, String accountId, String serviceId, Status status, String location, String firstName, String lastName, String phoneNum, String date, String time) {
+    public Appointment(String availabilityId, String userId, String serviceId, Status status, String location, String firstName, String lastName, String phoneNum, String date, String time) {
         this.appointmentIdentifier = new AppointmentIdentifier();
         this.availabilityId = availabilityId;
-        this.accountId = accountId;
+        this.userId = userId;
         this.serviceId = serviceId;
         this.status = status;
         this.location = location;

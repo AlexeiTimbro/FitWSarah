@@ -37,7 +37,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         if(appointmentId != null){
             appointments.addAll(appointmentRepository.findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith(appointmentId));
         } else if(accountId != null){
-            appointments.addAll(appointmentRepository.findAllAppointmentsByAccountIdStartingWith(accountId));
+            appointments.addAll(appointmentRepository.findAllAppointmentsByUserIdStartingWith(accountId));
         } else if(status != null){
             appointments.addAll(appointmentRepository.findAllAppointmentsByStatus(Status.valueOf(status)));
         } else {
@@ -49,7 +49,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentResponseModel> getAllAppointmentsByAccountId(String accountId) {
-        return appointmentResponseMapper.entityListToResponseModelList(appointmentRepository.findAllAppointmentsByAccountId(accountId));
+        return appointmentResponseMapper.entityListToResponseModelList(appointmentRepository.findAllAppointmentsByUserId(accountId));
     }
 
     @Override

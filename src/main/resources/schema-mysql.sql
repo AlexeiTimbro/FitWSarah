@@ -28,7 +28,7 @@ create table if not exists feedback_threads(
 create table if not exists appointments(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     appointment_id VARCHAR(36) NOT NULL,
-    account_id VARCHAR(36),
+    user_id VARCHAR(36),
     availability_id VARCHAR(36),
     service_id VARCHAR(36) NOT NULL,
     status VARCHAR(50) NOT NULL,

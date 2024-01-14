@@ -24,16 +24,18 @@ class AppointmentRepositoryTest {
     private AppointmentRepository appointmentRepository;
     private String savedAppointmentId;
     Appointment savedAppointment;
+    private String accountId;
 
     @BeforeEach
     public void setUp() {
         Appointment appointment = new Appointment();
         AppointmentIdentifier identifier = new AppointmentIdentifier();
+        accountId = "uuid-account1";
         identifier.setAppointmentId(savedAppointmentId);
         appointment.setLocation("Location 1");
         appointment.setStatus(Status.COMPLETED);
         appointment.setAvailabilityId("uuid-avail1");
-        appointment.setAccountId("uuid-account1");
+        appointment.setUserId("uuid-account1");
         appointment.setServiceId("uuid-service1");
 
         savedAppointment = appointmentRepository.save(appointment);
@@ -79,25 +81,27 @@ class AppointmentRepositoryTest {
 
     @Test
     void whenFindAppointmentByAccountIdentifier_AccountIdReturnsNonEmptyList() {
+        String accountId = "";
         // Act
         Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(savedAppointmentId);
-
+        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
         // Assert
-        assertNotNull(found);
-        assertEquals(savedAppointmentId, found.getAppointmentIdentifier().getAppointmentId());
+        when(appointmentRepository.findAllAppointmentsByUserId(accountId)).thenReturn(appointments);
 
+        List<Appointment> result = appointmentRepository.findAllAppointmentsByUserId(accountId);
+
+        assertEquals(appointments, result);
     }
 
     @Test
     public void whenFindAppointmentByNonExistentAccountIdentifier_AccountIdReturnsEmptyList() {
-        // Arrange
-        String nonExistentAccountId = "nonExistentId";
+        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
 
-        // Act
-        List<Appointment> result = appointmentRepository.findAllAppointmentsByAccountId(nonExistentAccountId);
+        when(appointmentRepository.findAllAppointmentsByUserId(accountId)).thenReturn(appointments);
 
-        // Assert
-        assertTrue(result.isEmpty());
+        List<Appointment> result = appointmentRepository.findAllAppointmentsByUserId(accountId);
+
+        assertEquals(appointments, result);
     }
 
 

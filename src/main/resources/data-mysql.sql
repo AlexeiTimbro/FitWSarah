@@ -23,7 +23,7 @@ INSERT INTO feedback_threads (feedback_id, account_id, stars, content) VALUES
 ('fdbk-uuid-4', 'uuid-acc4', 3, 'Good nutrition advice, but consultation felt rushed'),
 ('fdbk-uuid-5', 'uuid-acc5', 4, 'Fun group classes, but schedule is limited');
 
-INSERT INTO appointments (appointment_id, availability_id, account_id, service_id, status, location, first_name, last_name, phone_num, date, time) VALUES
+INSERT INTO appointments (appointment_id, availability_id, user_id, service_id, status, location, first_name, last_name, phone_num, date, time) VALUES
 ('uuid-appt1', 'uuid-avail1', 'dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2', '99a836ab-8f83-4e63-b266-3f56b1396df4', 'SCHEDULED', 'Location 1', 'Emily', 'Jones', '514-223-3322', '2023-12-01','10:00'),
 ('uuid-appt2', 'uuid-avail2', '7ab87f1e-7a5c-4c5a-bddc-8b1c5c8d8d9a', 'd2a5b28a-04b5-4f4e-ba27-983fb825a6f0', 'COMPLETED', 'Location 2', 'John', 'Smith', '416-555-1234', '2023-12-02','14:30'),
 ('uuid-appt3', 'uuid-avail3', 'f9b6c841-2d18-4d6f-902a-1c1c8a0cfa82', 'b19a7e31-90b8-4d52-b738-215d23967e34', 'CANCELLED', 'Location 3', 'Alice', 'Johnson', '647-789-4567', '2023-12-03','09:45'),

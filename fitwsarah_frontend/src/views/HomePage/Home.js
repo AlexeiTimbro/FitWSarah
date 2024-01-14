@@ -28,22 +28,13 @@ function Home() {
     useEffect(() => {
       getAllFitnessServices();
     }, []);
-    
+
     useEffect(() => {
       if (isAuthenticated && !hasCalledAddMemberProfile) {
           setHasCalledAddMemberProfile(true);
       }
   }, [isAuthenticated, hasCalledAddMemberProfile]);
 
-      function extractAfterPipe(originalString) {
-        const parts = originalString.split('|');
-        if (parts.length === 2) {
-            return parts[1]; 
-        } else {
-            return originalString; 
-        }
-    }
-    const RegexUserId = extractAfterPipe(user.sub)
     const getAllFitnessServices = () => {
       fetch("http://localhost:8080/api/v1/fitnessPackages", {
           method: "GET",
@@ -64,6 +55,17 @@ function Home() {
           console.log(error);
       });
   };
+
+  function extractAfterPipe(originalString) {
+    const parts = originalString.split('|');
+    if (parts.length === 2) {
+        return parts[1]; 
+    } else {
+        return originalString; 
+    }
+}
+    const { sub } = isAuthenticated ? user : {};
+    const RegexUserId = sub ? extractAfterPipe(sub) : null;
 
     const [selectedService, setSelectedService] = useState(null);
     const [show, setShow] = useState(false);
@@ -96,8 +98,7 @@ function Home() {
           setHasCalledAddMemberProfile(true);
       }
   }, [isAuthenticated, hasCalledAddMemberProfile]);
-  
-//Calls the AddMember function only once   
+   
 return (
         <div>
 
@@ -120,7 +121,7 @@ return (
                 <p style={{display: 'none'}}>{service.duration}</p>
                 <div className="price">{service.price}$</div>
                 {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>Book</button>}
-                {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&accountId=${RegexUserId}`}><button className="book-button">Book</button></Link>}
+                {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}><button className="book-button">Book</button></Link>}
                 <button className="book-button" onClick={() => handleShow(service.serviceId)}>Details</button>
               </div>
             </Col>

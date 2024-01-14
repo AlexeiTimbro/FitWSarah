@@ -244,4 +244,26 @@ public class EndToEndTesting {
         sleep(1000);
 
     }
+    @Test
+    void bookNewAppointment(){
+        open("http://localhost:3000/");
+        SelenideElement bookBtn = $("button[class='book-button']");
+        bookBtn.click();
+        sleep(1000);
+        SelenideElement email = $("input[id='email']");
+        SelenideElement password = $("input[id='password']");
+        email.shouldBe(visible);
+        sleep(1000);
+        email.setValue("2132206@champlaincollege.qc.ca");
+        password.setValue("Habs@1290");
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+        sleep(1000);
+        bookBtn.click();
+      //  SelenideElement appointmentSection = $("section[class='appoitnmentSection']");
+
+
+    }
 }
