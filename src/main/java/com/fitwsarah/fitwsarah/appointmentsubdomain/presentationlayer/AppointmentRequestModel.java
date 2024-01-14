@@ -15,4 +15,8 @@ public class AppointmentRequestModel {
     private String serviceId;
     private Status status;
     private String location;
+    private String firstName;
+    private String lastName;
+    private String phoneNum;
+    private String date;
 }

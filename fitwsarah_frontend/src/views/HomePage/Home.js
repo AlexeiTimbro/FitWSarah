@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Row, Col, Modal } from 'react-bootstrap';
 import "../../css/style.css";
+<<<<<<< HEAD
+=======
+import { Link } from 'react-router-dom';
+import useGetAccessToken from "../../components/authentication/authUtils";
+>>>>>>> 2b5dfa6 (Fixed Backend AccountId Issue)
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
@@ -79,7 +84,7 @@ function Home() {
   }, [isAuthenticated, hasCalledAddMemberProfile]);
 
     const handleNewAppointment = (serviceId) => {
-     // history.push('/appointments?serviceId=${serviceId}')
+     
     }
   
 //Calls the AddMember function only once
@@ -88,7 +93,7 @@ function Home() {
 
     {!isAuthenticated && <NavNotLoggedIn/>}
     {isAuthenticated && <NavLoggedIn/>}
-    {!hasCalledAddMemberProfile && isAuthenticated && <AddMemberProfile />}
+    {isAuthenticated && <AddMemberProfile />}
     <section className="hero-section">
     </section>
 
@@ -104,7 +109,8 @@ function Home() {
                 <p style={{display: 'none'}}>{service.otherInformation}</p>
                 <p style={{display: 'none'}}>{service.duration}</p>
                 <div className="price">{service.price}$</div>
-                <button className="book-button" onClick={() => isAuthenticated ? handleNewAppointment(service.serviceId) : loginWithRedirect({authorizationParams: { screen_hint: "signup"}})}>Book</button>
+                {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>Book</button>}
+                {isAuthenticated && <Link to="/appointments"><button className="book-button">Book</button></Link>}
                 <button className="book-button" onClick={() => handleShow(service.serviceId)}>Details</button>
               </div>
             </Col>

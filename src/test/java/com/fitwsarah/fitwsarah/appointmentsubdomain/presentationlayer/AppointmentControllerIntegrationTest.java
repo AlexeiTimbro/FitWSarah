@@ -40,7 +40,9 @@ class AppointmentControllerIntegrationTest {
     @MockBean
     private AppointmentService appointmentService;
 
-    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
+
+    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1", "", "", "", "");
+
 
     private String testToken = "Bearer ";
     private List<AppointmentResponseModel> appointmentResponseModelList;

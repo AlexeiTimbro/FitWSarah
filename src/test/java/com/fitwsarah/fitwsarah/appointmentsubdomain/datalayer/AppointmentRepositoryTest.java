@@ -85,6 +85,7 @@ class AppointmentRepositoryTest {
         // Assert
         assertNotNull(found);
         assertEquals(savedAppointmentId, found.getAppointmentIdentifier().getAppointmentId());
+
     }
 
     @Test
@@ -93,11 +94,12 @@ class AppointmentRepositoryTest {
         String nonExistentAccountId = "nonExistentId";
 
         // Act
-        List<Appointment> result = appointmentRepository.findAppointmentByAccountId(nonExistentAccountId);
+        List<Appointment> result = appointmentRepository.findAllAppointmentsByAccountId(nonExistentAccountId);
 
         // Assert
         assertTrue(result.isEmpty());
     }
+
 
     @Test
     void findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith_Should_Return_Correct_Appointments() {

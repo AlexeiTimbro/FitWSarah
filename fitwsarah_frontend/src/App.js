@@ -8,6 +8,7 @@ import TrainerAppointments from "./views/PersonalTrainerPanel/TrainerAppointment
 import TrainerAccounts from "./views/PersonalTrainerPanel/TrainerAccounts";
 import TrainerPanel from "./views/PersonalTrainerPanel/TrainerPanel";
 import AdminAppointments from "./views/AdminPanelPage/AdminAppointments";
+import BookAppointment from "./views/AppointmentPage/NewAppointment";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/profile" element={<Profile/>}/>
+                <Route path="/newAppointment" element={<BookAppointment/>}/>
                 <Route path="/settings" element={<Settings/>}/>
                 <Route path="/adminPanel" element={<AdminPanel/>}/>
                 <Route path="/adminAccounts" element={<AdminAccounts/>}/>

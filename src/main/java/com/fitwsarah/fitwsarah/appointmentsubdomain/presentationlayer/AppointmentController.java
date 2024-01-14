@@ -1,6 +1,8 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentService;
@@ -34,8 +36,8 @@ public class AppointmentController {
 
 
     @PostMapping()
-    public AppointmentResponseModel addAppointment(@RequestBody AppointmentRequestModel appointmentRequestModel){
-        return appointmentService.addAppointment(appointmentRequestModel);
+    public ResponseEntity<AppointmentResponseModel> addAppointment(@RequestBody AppointmentRequestModel appointmentRequestModel){
+        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.addAppointment(appointmentRequestModel));
     }
 
     @PutMapping("/{appointmentId}")

@@ -14,7 +14,7 @@ function NavLoggedIn() {
       <header>
         <nav className="navbar-container">
           <div className="left-links">
-            <img src={logo} alt="app logo" />
+            <Link to="/home"><img className="signup-button" src={logo} alt="app logo" /></Link>
             <a href="#">About</a>
             <a href="#">Contact Me</a>
             <Link to="/profile">Profile</Link>

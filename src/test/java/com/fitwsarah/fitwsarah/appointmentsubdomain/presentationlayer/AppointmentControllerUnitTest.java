@@ -32,8 +32,10 @@ class AppointmentControllerUnitTest {
     @InjectMocks
     private AppointmentController appointmentController;
 
-    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
-    AppointmentResponseModel appointment2 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
+
+    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","","");
+    AppointmentResponseModel appointment2 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","","");
+
 
     @BeforeEach
     void setUp() {
@@ -60,7 +62,9 @@ class AppointmentControllerUnitTest {
     @Test
     public void getAllAppointmentsByAccountId_ShouldReturnAppointments() {
         String accountId = "testAccountId";
-        List<AppointmentResponseModel> expectedAppointments = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1"));
+
+        List<AppointmentResponseModel> expectedAppointments = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","",""), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","",""));
+
         when(appointmentService.getAllAppointmentsByAccountId(accountId)).thenReturn(expectedAppointments);
 
         List<AppointmentResponseModel> actualAppointments = appointmentController.getAllAppointmentsByAccountId(accountId);
@@ -92,7 +96,8 @@ class AppointmentControllerUnitTest {
         // Arrange
         String appointmentId = "uuid-appt1";
         String status = "COMPLETED";
-        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1", "uuid-service1", Status.valueOf(status), "Location 1");
+        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1", "uuid-service1", Status.valueOf(status), "Location 1", "","","","");
+
 
         when(appointmentService.updateAppointmentStatus(appointmentId, status)).thenReturn(expectedResponse);
 

@@ -1,7 +1,6 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer;
 
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountIdentifier;
-import com.fitwsarah.fitwsarah.adminpanelsubdomain.datalayer.AdminPanelIdentifier;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,22 +22,26 @@ public class Appointment {
     private Status status;
 
     private String location;
+    private String firstName;
+    private String lastName;
+    private String phoneNum;
+    private String date;
 
-    public Appointment(){
+    public Appointment() {
         this.appointmentIdentifier = new AppointmentIdentifier();
     }
 
 
-    // Add this constructor in your Appointment class
-
-    public Appointment( String availabilityId, String accountId, String serviceId, Status status, String location) {
-
+    public Appointment(String availabilityId, String accountId, String serviceId, Status status, String location, String firstName, String lastName, String phoneNum, String date) {
         this.appointmentIdentifier = new AppointmentIdentifier();
-        this.accountId = accountId;
         this.availabilityId = availabilityId;
+        this.accountId = accountId;
         this.serviceId = serviceId;
         this.status = status;
         this.location = location;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNum = phoneNum;
+        this.date = date;
     }
-
 }

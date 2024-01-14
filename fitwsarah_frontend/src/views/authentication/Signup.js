@@ -34,11 +34,33 @@ function AddMemberProfile() {
                 return;
             }
 
+            const { sub, nickname, email } = user;
+            const RegexUsername = nickname.replace(/^[^|]*\|/, '');
+
+            const dataToSend = { userId: sub, username: RegexUsername, email: email };
 
 
+            //Check if user exists
+        const checkResponse = await fetch(`https://${configData.domain}/api/v2/users/${user.sub}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            },
+        });
 
-            const {sub, nickname, email } = user;
-            const dataToSend = { userId: sub, username: nickname, email: email};
+        if (!checkResponse.ok) {
+            throw new Error(`HTTP error during check! Status: ${checkResponse.status}`);
+        }
+
+        const checkData = await checkResponse.json();
+
+        if (checkData.exists) {
+            console.log("Member already exists");
+            return null; 
+            // returns null if the member already exists
+        }
+
 
 
             const response = await fetch("http://localhost:8080/api/v1/accounts", {
@@ -64,9 +86,11 @@ function AddMemberProfile() {
 
     useEffect(() => {
         if (accessToken) {
+            
             addMember();
             console.log(user)
             console.log("Added Member")
+            console.log(`Bearer ${accessToken}`)
         }
     }, [user, accessToken]);
 

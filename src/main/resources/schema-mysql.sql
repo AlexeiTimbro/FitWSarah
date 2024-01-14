@@ -9,15 +9,6 @@ create table if not exists accounts(
     city VARCHAR(50)
 );
 
-create table if not exists admin_accounts(
-    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    admin_id VARCHAR(35) NOT NULL,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    city VARCHAR(50) NOT NULL
-);
-
 create table if not exists invoices(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     invoice_id VARCHAR(36) NOT NULL,
@@ -26,7 +17,7 @@ create table if not exists invoices(
     content VARCHAR(120) NOT NULL
 );
 
-create table if not exists feeback_threads(
+create table if not exists feedback_threads(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     feedback_id VARCHAR(36) NOT NULL,
     account_id VARCHAR(36) NOT NULL,
@@ -37,12 +28,15 @@ create table if not exists feeback_threads(
 create table if not exists appointments(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     appointment_id VARCHAR(36) NOT NULL,
-    account_id VARCHAR(36) NOT NULL,
+    account_id VARCHAR(36),
     availability_id VARCHAR(36) NOT NULL,
-    admin_id VARCHAR(36) NOT NULL,
     service_id VARCHAR(36) NOT NULL,
     status VARCHAR(50) NOT NULL,
-    location VARCHAR(50) NOT NULL
+    location VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    phone_num VARCHAR(50),
+    date VARCHAR(50)
 );
 
 create table if not exists fitness_services(
@@ -69,6 +63,6 @@ create table if not exists availabilities(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     availability_id VARCHAR(36) NOT NULL,
     available TINYINT(1) NOT NULL,
-    admin_id VARCHAR(36) NOT NULL,
+    account_id VARCHAR(36) NOT NULL,
     datetime DATETIME NOT NULL
 );

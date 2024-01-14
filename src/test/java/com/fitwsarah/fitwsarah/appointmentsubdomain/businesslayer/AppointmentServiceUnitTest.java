@@ -47,7 +47,7 @@ class AppointmentServiceUnitTest {
         appointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
 
 
-        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
+        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","","");
 
 
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
@@ -68,9 +68,9 @@ class AppointmentServiceUnitTest {
     void getAllAppointmentsByAccountId_returnsNonEmptyList() {
         String accountId = "uuid-account1";
         List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
-        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1"));
+        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","",""), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","",""));
 
-        when(appointmentRepository.findAppointmentByAccountId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAllAppointmentsByAccountId(accountId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
 
         List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
@@ -83,7 +83,7 @@ class AppointmentServiceUnitTest {
         String accountId = "uuid-account1";
         List<Appointment> appointments = Collections.emptyList();
 
-        when(appointmentRepository.findAppointmentByAccountId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAllAppointmentsByAccountId(accountId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(Collections.emptyList());
 
         List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
@@ -108,7 +108,7 @@ class AppointmentServiceUnitTest {
         when(appointmentRepository.findAllAppointmentsByStatus(status)).thenReturn(appointments);
         when(appointmentRepository.findAllAppointmentsByAccountIdStartingWith(accountId)).thenReturn(appointments);
 
-        AppointmentResponseModel responseModel = new AppointmentResponseModel(null, availabilityId, accountId, serviceId, status, location);
+        AppointmentResponseModel responseModel = new AppointmentResponseModel(null, availabilityId, accountId, serviceId, status, location,"","","","");
         List<AppointmentResponseModel> responseModels = Collections.singletonList(responseModel);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
 
@@ -165,7 +165,11 @@ class AppointmentServiceUnitTest {
                 "uuid-account1",
                 "uuid-service1",
                 Status.CANCELLED,
-                "Location 1"
+                "Location 1",
+                "",
+                "",
+                "",
+                ""
         );
 
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
