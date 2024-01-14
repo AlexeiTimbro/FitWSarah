@@ -3,7 +3,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Spinner } from 'react-bootstrap';
 import configData from '../../config.json';
-//i have to fix sign up issue
 
 
 function AddMemberProfile() {
