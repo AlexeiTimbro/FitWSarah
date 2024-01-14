@@ -80,13 +80,13 @@ function BookAppointment() {
             </select>
         </div>
         <div className="form-group">
-          <input type="text" id="firstName" placeholder="First Name" name="firstName" required  onChange={(e) => handleInputChange(e)} />
+          <input type="text" id="firstName" maxLength="50" placeholder="First Name" name="firstName" required  onChange={(e) => handleInputChange(e)} />
         </div>
         <div className="form-group">
-          <input type="text" id="lastName" placeholder="Last Name" name="lastName" required   onChange={(e) => handleInputChange(e)} />
+          <input type="text" id="lastName" maxLength="50" placeholder="Last Name" name="lastName" required   onChange={(e) => handleInputChange(e)} />
         </div>
         <div className="form-group">
-          <input type="tel" id="phone" placeholder="Phone Number" name="phoneNum" required  onChange={(e) => handleInputChange(e)} />
+          <input type="tel" id="phone" maxLength="10" placeholder="Phone Number" name="phoneNum" required  onChange={(e) => handleInputChange(e)} />
         </div>
     </form>
     <div>

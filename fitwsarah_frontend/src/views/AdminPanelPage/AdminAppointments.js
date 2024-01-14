@@ -18,7 +18,7 @@ function AdminAccounts() {
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
 
-    const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["accountid",""], ["status",""]]);
+    const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["userid",""], ["status",""]]);
 
     const labels = ["Appointment ID", "User ID", "Status"];
 
@@ -100,9 +100,12 @@ function AdminAccounts() {
     }
 
     function onInputChange(label, value) {
+        const formattedLabel = label.toLowerCase().replace(/\s+/g, '');
         const newSearchTerm = searchTerm.map((term) => {
             if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
-                if (label === "Status") {
+                if (formattedLabel === "userid") {
+                    return [formattedLabel, value];
+                } else if (label === "Status") {
                     console.log(value.toUpperCase());
                     return [term[0], value.toUpperCase()];
                 }
