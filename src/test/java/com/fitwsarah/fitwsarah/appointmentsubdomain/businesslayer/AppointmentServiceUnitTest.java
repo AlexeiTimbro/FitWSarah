@@ -5,7 +5,9 @@ import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRespons
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentRequestMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
@@ -30,6 +35,9 @@ class AppointmentServiceUnitTest {
 
     @Mock
     private AppointmentResponseMapper appointmentResponseMapper;
+
+    @Mock
+    private AppointmentRequestMapper appointmentRequestMapper;
 
     @BeforeEach
     public void setup() {
@@ -47,7 +55,7 @@ class AppointmentServiceUnitTest {
         appointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
 
 
-        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","","");
+        AppointmentResponseModel responseModel = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","John", "Smith", "444-444-444","2023-03-20","10:00");
 
 
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
@@ -68,7 +76,9 @@ class AppointmentServiceUnitTest {
     void getAllAppointmentsByAccountId_returnsNonEmptyList() {
         String accountId = "uuid-account1";
         List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
-        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","",""), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1","","","",""));
+
+        List<AppointmentResponseModel> responseModels = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00"));
+
 
         when(appointmentRepository.findAllAppointmentsByAccountId(accountId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
@@ -108,7 +118,7 @@ class AppointmentServiceUnitTest {
         when(appointmentRepository.findAllAppointmentsByStatus(status)).thenReturn(appointments);
         when(appointmentRepository.findAllAppointmentsByAccountIdStartingWith(accountId)).thenReturn(appointments);
 
-        AppointmentResponseModel responseModel = new AppointmentResponseModel(null, availabilityId, accountId, serviceId, status, location,"","","","");
+        AppointmentResponseModel responseModel = new AppointmentResponseModel(null, availabilityId, accountId, serviceId, status, location,"","","","","");
         List<AppointmentResponseModel> responseModels = Collections.singletonList(responseModel);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
 
@@ -166,10 +176,11 @@ class AppointmentServiceUnitTest {
                 "uuid-service1",
                 Status.CANCELLED,
                 "Location 1",
-                "",
-                "",
-                "",
-                ""
+                "John",
+                "Smith",
+                "455-444-333",
+                "2023-03-03",
+                "10:00"
         );
 
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
@@ -180,6 +191,24 @@ class AppointmentServiceUnitTest {
         assertEquals(Status.CANCELLED, result.getStatus());
     }
 
+    @Test
+    public void addAppointment_shouldSucceed(){
+        String status = "REQUESTED";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel("uuid-avail1", "uuid-account1",  "uuid-service1",Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+
+        Appointment entity = mock(Appointment.class);
+        AppointmentResponseModel mockedResponse = new AppointmentResponseModel("app-id1", "uuid-avail1", "uuid-account1",  "uuid-service1", Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+        when(appointmentResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
+        when(appointmentRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
+        when(appointmentRepository.save(entity)).thenReturn(entity);
+
+        AppointmentResponseModel result = appointmentService.addAppointment(requestModel);
+        assertNotNull(result);
+        assertNotNull(result.getAppointmentId());
+        assertNotNull(result.getAccountId());
+        assertNotNull(result.getFirstName());
+        assertNotNull(result.getLastName());
+    }
 
 }
 

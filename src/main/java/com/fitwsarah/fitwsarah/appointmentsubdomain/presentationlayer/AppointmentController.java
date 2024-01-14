@@ -36,8 +36,8 @@ public class AppointmentController {
 
 
     @PostMapping()
-    public ResponseEntity<AppointmentResponseModel> addAppointment(@RequestParam String serviceId, @RequestBody AppointmentRequestModel appointmentRequestModel){
-        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.addAppointment(serviceId, appointmentRequestModel));
+    public ResponseEntity<AppointmentResponseModel> addAppointment(@RequestBody AppointmentRequestModel appointmentRequestModel){
+        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.addAppointment(appointmentRequestModel));
     }
 
     @PutMapping("/{appointmentId}")

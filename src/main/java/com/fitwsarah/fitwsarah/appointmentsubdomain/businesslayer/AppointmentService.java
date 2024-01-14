@@ -14,7 +14,7 @@ public interface AppointmentService {
 
     AppointmentResponseModel getAppointmentByAppointmentId(String appointmentId);
 
-    AppointmentResponseModel addAppointment(String serviceId, AppointmentRequestModel appointmentRequestModel);
+    AppointmentResponseModel addAppointment(AppointmentRequestModel appointmentRequestModel);
 
     AppointmentResponseModel updateAppointment(AppointmentRequestModel appointmentRequestModel, String appointmentId);
 
