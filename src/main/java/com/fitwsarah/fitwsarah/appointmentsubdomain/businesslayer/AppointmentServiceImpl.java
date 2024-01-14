@@ -58,8 +58,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public AppointmentResponseModel addAppointment(AppointmentRequestModel appointmentRequestModel, String appointmentId) {
-        return null;
+    public AppointmentResponseModel addAppointment(AppointmentRequestModel appointmentRequestModel) {
+        Appointment appointment = appointmentRequestMapper.requestModelToEntity(appointmentRequestModel);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        return appointmentResponseMapper.entityToResponseModel(savedAppointment);
     }
 
     @Override

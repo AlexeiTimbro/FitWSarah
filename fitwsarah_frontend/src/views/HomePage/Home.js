@@ -9,11 +9,16 @@ import AddMemberProfile from "../authentication/Signup";
 
 
 function Home() {
-
-    const { isAuthenticated } = useAuth0();
+    const {
+        isAuthenticated,
+        getAccessTokenSilently,
+        loginWithRedirect,
+      } = useAuth0();
 
     const [services, setServices] = useState([]);
-
+    const [accessToken, setAccessToken] = useState(null);
+    const [hasCalledAddMemberProfile, setHasCalledAddMemberProfile] = useState(false);
+    
     useEffect(() => {
       getAllFitnessServices();
     }, []);
@@ -64,14 +69,21 @@ function Home() {
             console.error("Error fetching service details for serviceId", serviceId, ":", error);
         });
     };
-  
+    
+    const handleNewAppointment = (serviceId) => {
 
+      
+    }
+  
+//Calls the AddMember function only once
     return (
         <div>
 
     {!isAuthenticated && <NavNotLoggedIn/>}
     {isAuthenticated && <NavLoggedIn/>}
-    {isAuthenticated && <AddMemberProfile/>}
+    {!hasCalledAddMemberProfile && isAuthenticated && (
+                <AddMemberProfile />
+            )}
     <section className="hero-section">
     </section>
 
@@ -87,7 +99,7 @@ function Home() {
                 <p style={{display: 'none'}}>{service.otherInformation}</p>
                 <p style={{display: 'none'}}>{service.duration}</p>
                 <div className="price">{service.price}$</div>
-                {isAuthenticated && <button className="book-button">Book</button>}
+                <button className="book-button" onClick={() => isAuthenticated ? handleNewAppointment(service.serviceId) : loginWithRedirect({authorizationParams: { screen_hint: "signup"}})}>Book</button>
                 <button className="book-button" onClick={() => handleShow(service.serviceId)}>Details</button>
               </div>
             </Col>
