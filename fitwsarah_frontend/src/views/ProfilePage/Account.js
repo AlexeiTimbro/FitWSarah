@@ -81,8 +81,8 @@ function Profile() {
             });
     };
 
-    const getAppointmentsByAccountId = (accountId) => {
-        fetch(`http://localhost:8080/api/v1/appointments/account/${accountId}`, {
+    const getAppointmentsByAccountId = (userId) => {
+        fetch(`http://localhost:8080/api/v1/appointments/account/users/${userId}`, {
             method: "GET",
             headers: {
                 Authorization: "Bearer " + accessToken,

@@ -53,8 +53,8 @@ public class AccountController {
     }
 
     @PutMapping("/users/{userId}")
-    public AccountResponseModel updateAccountByUserId(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String userId){
-        return accountService.updateAccount(accountRequestModel, userId);
+    public  ResponseEntity<AccountResponseModel> updateAccountByUserId(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String userId){
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.updateAccount(accountRequestModel, userId));
     }
 
     @DeleteMapping()
