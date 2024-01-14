@@ -3,6 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -243,5 +244,28 @@ public class EndToEndTesting {
 
         sleep(1000);
 
+    }
+    @Test
+    void bookNewAppointmentPage(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+        sleep(1000);
+        SelenideElement email = $("input[id='username']");
+        SelenideElement password = $("input[id='password']");
+        email.shouldBe(visible);
+        sleep(1000);
+        email.setValue("2132206@champlaincollege.qc.ca");
+        password.setValue("Habs@1290");
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+        sleep(1000);
+        SelenideElement bookBtn = $("button[class='book-button']");
+        bookBtn.click();
+        bookBtn.click();
+        SelenideElement locationDropbar = $("select[name='location']");
+        locationDropbar.shouldBe(visible);
     }
 }

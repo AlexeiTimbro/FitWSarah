@@ -11,6 +11,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.Arrays;
@@ -32,8 +34,10 @@ class AppointmentControllerUnitTest {
     @InjectMocks
     private AppointmentController appointmentController;
 
-    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
-    AppointmentResponseModel appointment2 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
+
+    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1",  "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+    AppointmentResponseModel appointment2 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1",  "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+
 
     @BeforeEach
     void setUp() {
@@ -60,7 +64,9 @@ class AppointmentControllerUnitTest {
     @Test
     public void getAllAppointmentsByAccountId_ShouldReturnAppointments() {
         String accountId = "testAccountId";
-        List<AppointmentResponseModel> expectedAppointments = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1"));
+
+        List<AppointmentResponseModel> expectedAppointments = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1",  "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1",  "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00"));
+
         when(appointmentService.getAllAppointmentsByAccountId(accountId)).thenReturn(expectedAppointments);
 
         List<AppointmentResponseModel> actualAppointments = appointmentController.getAllAppointmentsByAccountId(accountId);
@@ -92,7 +98,8 @@ class AppointmentControllerUnitTest {
         // Arrange
         String appointmentId = "uuid-appt1";
         String status = "COMPLETED";
-        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1", "uuid-service1", Status.valueOf(status), "Location 1");
+
+        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1",  "uuid-service1", Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
 
         when(appointmentService.updateAppointmentStatus(appointmentId, status)).thenReturn(expectedResponse);
 
@@ -101,6 +108,20 @@ class AppointmentControllerUnitTest {
 
         // Assert
         assertEquals(expectedResponse, result);
+    }
+
+    @Test
+    void addAppointment_shouldSucceed(){
+        String appointmentId = "uuid-appt1";
+        String status = "REQUESTED";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel("uuid-avail1", "uuid-account1",  "uuid-service1",Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1",  "uuid-service1", Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+        when(appointmentService.addAppointment(requestModel)).thenReturn(expectedResponse);
+
+        ResponseEntity<AppointmentResponseModel> result = appointmentController.addAppointment(requestModel);
+
+        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+        assertEquals(expectedResponse, result.getBody());
     }
 }
 

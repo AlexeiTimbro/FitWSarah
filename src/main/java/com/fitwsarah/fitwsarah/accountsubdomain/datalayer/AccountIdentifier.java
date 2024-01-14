@@ -12,7 +12,9 @@ public class AccountIdentifier {
         this.accountId = UUID.randomUUID().toString();
 
     }
-
+    public AccountIdentifier(String accountId){
+        this.accountId = accountId;
+    }
 
 
 
@@ -21,5 +23,6 @@ public class AccountIdentifier {
     }
 
     public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 }

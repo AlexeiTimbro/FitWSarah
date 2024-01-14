@@ -33,7 +33,7 @@ class AppointmentRepositoryTest {
         appointment.setLocation("Location 1");
         appointment.setStatus(Status.COMPLETED);
         appointment.setAvailabilityId("uuid-avail1");
-        appointment.setAccountId("uuid-account1");
+        appointment.setUserId("uuid-account1");
         appointment.setServiceId("uuid-service1");
 
         savedAppointment = appointmentRepository.save(appointment);
@@ -81,7 +81,6 @@ class AppointmentRepositoryTest {
     void whenFindAppointmentByAccountIdentifier_AccountIdReturnsNonEmptyList() {
         // Act
         Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(savedAppointmentId);
-
         // Assert
         assertNotNull(found);
         assertEquals(savedAppointmentId, found.getAppointmentIdentifier().getAppointmentId());
@@ -93,11 +92,10 @@ class AppointmentRepositoryTest {
         String nonExistentAccountId = "nonExistentId";
 
         // Act
-        List<Appointment> result = appointmentRepository.findAppointmentByAccountId(nonExistentAccountId);
-
-        // Assert
+        List<Appointment> result = appointmentRepository.findAllAppointmentsByUserId(nonExistentAccountId);
         assertTrue(result.isEmpty());
     }
+
 
     @Test
     void findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith_Should_Return_Correct_Appointments() {

@@ -18,9 +18,9 @@ function AdminAccounts() {
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
 
-    const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["accountid",""], ["status",""]]);
+    const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["userid",""], ["status",""]]);
 
-    const labels = ["Appointment ID", "Account ID", "Status"];
+    const labels = ["Appointment ID", "User ID", "Status"];
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -100,9 +100,12 @@ function AdminAccounts() {
     }
 
     function onInputChange(label, value) {
+        const formattedLabel = label.toLowerCase().replace(/\s+/g, '');
         const newSearchTerm = searchTerm.map((term) => {
             if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
-                if (label === "Status") {
+                if (formattedLabel === "userid") {
+                    return [formattedLabel, value];
+                } else if (label === "Status") {
                     console.log(value.toUpperCase());
                     return [term[0], value.toUpperCase()];
                 }
@@ -133,7 +136,7 @@ function AdminAccounts() {
                             <thead>
                             <tr>
                                 <th>Appointment ID</th>
-                                <th>Account ID</th>
+                                <th>User ID</th>
                                 <th>Availability Id</th>
                                 <th>Service Id</th>
                                 <th>Status</th>
@@ -144,7 +147,7 @@ function AdminAccounts() {
                             {appointments.map(appointments => (
                                 <tr key={appointments.id}>
                                     <td>{appointments.appointmentId}</td>
-                                    <td>{appointments.accountId}</td>
+                                    <td>{appointments.userId}</td>
                                     <td>{appointments.availabilityId}</td>
                                     <td>{appointments.serviceId}</td>
                                     <td>{appointments.status}</td>

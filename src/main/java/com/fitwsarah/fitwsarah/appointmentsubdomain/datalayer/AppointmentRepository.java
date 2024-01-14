@@ -8,8 +8,10 @@ import java.util.List;
 @Embeddable
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
     Appointment findAppointmentsByAppointmentIdentifier_AppointmentId( String appointmentId);
-    List<Appointment> findAppointmentByAccountId(String accountId);
+
     List<Appointment> findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith(String appointmentId);
     List<Appointment> findAllAppointmentsByStatus(Status status);
-    List<Appointment> findAllAppointmentsByAccountIdStartingWith(String accountId);
+    List<Appointment> findAllAppointmentsByUserIdStartingWith(String accountId);
+    List<Appointment> findAllAppointmentsByUserId(String accountId);
+
 }

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Spinner } from 'react-bootstrap';
 import configData from '../../config.json';
-
+//i have to fix sign up issue
 function AddMemberProfile() {
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
@@ -25,6 +25,15 @@ function AddMemberProfile() {
         }
     }, [user, isAuthenticated, getAccessTokenSilently, accessToken]);
 
+    function extractAfterPipe(originalString) {
+        const parts = originalString.split('|');
+        if (parts.length === 2) {
+            return parts[1]; 
+        } else {
+            return originalString; 
+        }
+    }
+
     const addMember = async () => {
         try {
             await fetchData();
@@ -34,12 +43,10 @@ function AddMemberProfile() {
                 return;
             }
 
+            const { sub, nickname, email } = user;
+            const RegexUserId = extractAfterPipe(sub)
 
-
-
-            const {sub, nickname, email } = user;
-            const dataToSend = { userId: sub, username: nickname, email: email};
-
+            const dataToSend = { userId: RegexUserId, username: nickname, email: email };
 
             const response = await fetch("http://localhost:8080/api/v1/accounts", {
                 method: "POST",
@@ -48,7 +55,7 @@ function AddMemberProfile() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(dataToSend)
-            });
+            }, [accessToken, fetchData]);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -65,10 +72,10 @@ function AddMemberProfile() {
     useEffect(() => {
         if (accessToken) {
             addMember();
-            console.log(user)
-            console.log("Added Member")
+            console.log(user);
+            console.log("Added Member");
         }
-    }, [user, accessToken]);
+    }, [isAuthenticated, accessToken, user, addMember]);
 
     return null;
 }

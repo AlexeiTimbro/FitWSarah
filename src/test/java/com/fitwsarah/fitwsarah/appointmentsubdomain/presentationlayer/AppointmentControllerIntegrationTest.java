@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentService;
@@ -28,8 +29,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AppointmentController.class)
@@ -40,7 +40,8 @@ class AppointmentControllerIntegrationTest {
     @MockBean
     private AppointmentService appointmentService;
 
-    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.COMPLETED, "Location 1");
+
+    AppointmentResponseModel appointment1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1",  "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
 
     private String testToken = "Bearer ";
     private List<AppointmentResponseModel> appointmentResponseModelList;
@@ -93,8 +94,20 @@ class AppointmentControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
-
-
+    @Test
+    void addAppointment_shouldSucceed() throws Exception{
+        String status = "REQUESTED";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel("uuid-avail1", "uuid-account1",  "uuid-service1",Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+        mockMvc.perform(post("/api/v1/appointments")
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(requestModel)))
+                .andExpect(status().isCreated());
+    }
+    private String asJsonString(Object obj) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(obj);
+    }
     public String obtainAuthToken() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
