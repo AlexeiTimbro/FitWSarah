@@ -5,13 +5,9 @@ import { Container, Spinner } from 'react-bootstrap';
 import configData from '../../config.json';
 //i have to fix sign up issue
 
-import React, { useState, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Container, Spinner } from "react-bootstrap";
-import configData from "../../config.json";
 
 function AddMemberProfile() {
-    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const {user, isAuthenticated, getAccessTokenSilently} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     useEffect(() => {
         if (isAuthenticated) {
@@ -33,7 +29,7 @@ function AddMemberProfile() {
     };
 
 
-    useEffect(() => {  
+    useEffect(() => {
         if (isAuthenticated) {
             fetchData();
         }
@@ -42,9 +38,9 @@ function AddMemberProfile() {
     function extractAfterPipe(originalString) {
         const parts = originalString.split('|');
         if (parts.length === 2) {
-            return parts[1]; 
+            return parts[1];
         } else {
-            return originalString; 
+            return originalString;
         }
     }
 
@@ -58,8 +54,7 @@ function AddMemberProfile() {
                 return;
             }
 
-            const { sub, nickname, email } = user;
-
+            const {sub, nickname, email} = user;
 
 
             const regexUserId = extractAfterPipe(sub);
@@ -79,7 +74,6 @@ function AddMemberProfile() {
 
                 body: JSON.stringify(dataToSend)
             }, [accessToken, fetchData]);
-
 
 
             if (!response.ok) {
@@ -108,16 +102,6 @@ function AddMemberProfile() {
         }
     }, [isAuthenticated, accessToken, user, addMember]);
 
-    function extractAfterPipe(userId) {
-        const parts = userId.split("|");
-        if (parts.length === 2) {
-            return parts[1];
-        } else {
-            return userId;
-        }
-    }
-
-    return null;
 }
 
 export default AddMemberProfile;
