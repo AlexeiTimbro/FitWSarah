@@ -36,7 +36,7 @@ function BookAppointment() {
         }
     }, [getAccessTokenSilently, isAuthenticated]);
 
-    const handleInputChange = (e, selectedDate = null, selectedTime = null) => {
+    const handleInputChange = (e) => {
         const { name, value } = e?.target || {};
         const updatedData = {
             ...appointmentDataToSend,
@@ -44,6 +44,18 @@ function BookAppointment() {
             userId: userId, 
             serviceId: serviceId,
             [name]: value,
+        };
+        console.log(updatedData)
+        if (name === 'location' && value === '1') {
+            window.alert("No location has been selected.")
+            
+        } else {
+            setAppointmentDataToSend(updatedData);
+        }
+    };
+    const handleDateInputChange = (selectedDate, selectedTime) => {
+        const updatedData = {
+            ...appointmentDataToSend,
             date: selectedDate, 
             time: selectedTime
         };
@@ -58,28 +70,27 @@ function BookAppointment() {
                 <Container>
                 <div className="reservation-form">
       
-    <AvailabilitiesCalendar onChange={(selectedDate, selectedTime, e) => handleInputChange(e, selectedDate, selectedTime)} />
+    <AvailabilitiesCalendar onChange={(selectedDate, selectedTime) => handleDateInputChange(selectedDate, selectedTime)} />
       <form>
       <div className="form-group">
-            <select id="address" name="location"  onChange={(e) => handleInputChange(e)}  required>
-                <option value="1" disabled >Select an available location</option>
+            <select id="address" name="location"  onChange={(e) => handleInputChange(e)}  required defaultValue="1">
+                <option value="1" disabled>Select an available location</option>
                 <option value="Buzzfit, Brossard QC">Buzzfit, Brossard QC</option>
                 <option value="Nautilus Plus, Brossard QC">Nautilus Plus, Brossard QC</option>
             </select>
         </div>
         <div className="form-group">
-          <input type="text" id="firstName" placeholder="First Name" name="firstName"  onChange={(e) => handleInputChange(e)}  required />
+          <input type="text" id="firstName" placeholder="First Name" name="firstName" required  onChange={(e) => handleInputChange(e)} />
         </div>
         <div className="form-group">
-          <input type="text" id="lastName" placeholder="Last Name" name="lastName"   onChange={(e) => handleInputChange(e)}  required />
+          <input type="text" id="lastName" placeholder="Last Name" name="lastName" required   onChange={(e) => handleInputChange(e)} />
         </div>
         <div className="form-group">
-          <label htmlFor="phone"></label>
-          <input type="tel" id="phone" placeholder="Phone Number" name="phoneNum"   onChange={(e) => handleInputChange(e)}  required />
+          <input type="tel" id="phone" placeholder="Phone Number" name="phoneNum" required  onChange={(e) => handleInputChange(e)} />
         </div>
     </form>
     <div>
-        <BookingButton appointmentDataToSend={appointmentDataToSend}/>
+        <BookingButton id="bookBtn" appointmentDataToSend={appointmentDataToSend}/>
     </div>
     </div>
 
