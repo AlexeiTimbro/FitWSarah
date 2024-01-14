@@ -70,7 +70,6 @@ function Settings() {
                 setUsername(userData.username || '');
                 setEmail(userData.email || '');
                 setCity(userData.city || '');
-                setAccountId(userData.accountId || '');
             })
             .catch((error) => {
                 console.error("Error message:", error.message);

@@ -19,6 +19,9 @@ function Profile() {
     const [appointments, setAppointments] = useState([]);
     const [profilePicUrl, setProfilePicUrl] = useState('');
     const [accountId, setAccountId] = useState(null);
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [city, setCity] = useState('');
     useEffect(() => {
         if (user && user.picture) {
             setProfilePicUrl(user.picture);
@@ -48,33 +51,35 @@ function Profile() {
             getAccountByUserId(extractAfterPipe(user.sub));
         }
         if (accessToken) {
-            getAppointmentsByAccountId(accountId);
+            getAppointmentsByAccountId(extractAfterPipe(user.sub));
         }
     }, [user]);
 
     const getAccountByUserId = (userId) => {
         fetch(`http://localhost:8080/api/v1/accounts/users/${userId}`, {
             method: "GET",
-            headers: new Headers({
-                "Authorization": "Bearer"  + accessToken,
+            headers: {
+                "Authorization": "Bearer " + accessToken,
                 "Content-Type": "application/json"
-            })
+            }
         })
             .then((response) => {
                 if (!response.ok) {
+                    console.error("Response status: " + response.status);
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
                 return response.json();
             })
-            .then((data) => {
-                setProfile(data);
-                console.log(data)
+            .then((userData) => {
+                setUsername(userData.username || '');
+                setEmail(userData.email || '');
+                setCity(userData.city || '');
+                setAccountId(userData.accountId || '');
             })
             .catch((error) => {
-                console.error("Error fetching service details for userId", userId, ":", error);
+                console.error("Error message:", error.message);
             });
     };
-
 
     const getAppointmentsByAccountId = (accountId) => {
         fetch(`http://localhost:8080/api/v1/appointments/account/${accountId}`, {

@@ -26,15 +26,17 @@ class AccountRepositoryTest {
     public void setUp() {
         Account account = new Account();
         AccountIdentifier identifier = new AccountIdentifier();
-        identifier.setAccountId(savedAccountId);
+        identifier.setAccountId("generatedAccountId"); // Set a specific or generated accountId
+        account.setAccountIdentifier(identifier);
+        account.setUserId("user1");
         account.setUsername("user1");
         account.setEmail("email");
         account.setCity("New York");
 
-        // Save the appointment and get the saved ID
         savedAccount = accountRepository.save(account);
         savedAccountId = savedAccount.getAccountIdentifier().getAccountId();
     }
+
 
     @AfterEach
     public void tearDown() {
@@ -58,11 +60,12 @@ class AccountRepositoryTest {
     @Test
     public void ShouldSaveSingleAccount() {
         //arrange
-        Account newAccount = buildAccount("1", "user1", "email@gmail.com", "New York");
+        Account newAccount = buildAccount("1",  "user1", "user", "email@gmail.com", "New York");
         Account setup = accountRepository.save(newAccount);
         //Act and Assert
         assertNotNull(setup);
-        assertEquals("user1", setup.getUsername());
+        assertEquals("user1", setup.getUserId());
+        assertEquals("user", setup.getUsername());
         assertEquals("email@gmail.com", setup.getEmail());
         assertEquals("New York", setup.getCity());
     }
@@ -78,9 +81,22 @@ class AccountRepositoryTest {
         // Assert
         assertNull(found);
     }
-    private Account buildAccount(String accountId, String username, String email, String city) {
-        return new Account(accountId, username, email, city);
+
+    private Account buildAccount(String accountId, String userId, String username, String email, String city) {
+        Account account = new Account();
+        AccountIdentifier identifier = new AccountIdentifier();
+        identifier.setAccountId(accountId);
+        account.setAccountIdentifier(identifier);
+        account.setUserId(userId);
+        account.setUsername(username);
+        account.setEmail(email);
+        account.setCity(city);
+        return account;
     }
+
+
+
+
 
     @Test
     void findAllAccountsByAccountIdentifier_AccountIdStartingWith_Should_Return_Correct_Accounts() {
@@ -112,6 +128,32 @@ class AccountRepositoryTest {
 
         assertEquals(1, result.size());
         assertTrue(result.stream().allMatch(account -> account.getCity().equals(savedAccount.getCity())));
+    }
+@Test
+    public void whenFindByUserId_thenReturnAccount() {
+        // Arrange
+        String userId = "user-id"; // Ensure this is the userId of savedAccount
+        savedAccount.setUserId(userId);
+        accountRepository.save(savedAccount);
+
+        // Act
+        Account found = accountRepository.findAccountByUserId(userId);
+
+        // Assert
+        assertNotNull(found);
+        assertEquals(userId, found.getUserId());
+    }
+
+    @Test
+    public void whenFindByNonExistentUserId_thenReturnNull() {
+        // Arrange
+        String nonExistentUserId = "nonExistentUserId";
+
+        // Act
+        Account found = accountRepository.findAccountByUserId(nonExistentUserId);
+
+        // Assert
+        assertNull(found);
     }
 }
 
