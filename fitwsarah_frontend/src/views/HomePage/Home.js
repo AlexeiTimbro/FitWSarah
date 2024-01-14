@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Row, Col, Modal } from 'react-bootstrap';
 import "../../css/style.css";
-<<<<<<< HEAD
-=======
 import { Link } from 'react-router-dom';
-import useGetAccessToken from "../../components/authentication/authUtils";
->>>>>>> 2b5dfa6 (Fixed Backend AccountId Issue)
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";

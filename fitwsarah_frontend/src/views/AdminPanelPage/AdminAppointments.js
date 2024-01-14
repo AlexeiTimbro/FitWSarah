@@ -20,7 +20,7 @@ function AdminAccounts() {
 
     const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["accountid",""], ["status",""]]);
 
-    const labels = ["Appointment ID", "Account ID", "Status"];
+    const labels = ["Appointment ID", "User ID", "Status"];
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -133,7 +133,7 @@ function AdminAccounts() {
                             <thead>
                             <tr>
                                 <th>Appointment ID</th>
-                                <th>Account ID</th>
+                                <th>User ID</th>
                                 <th>Availability Id</th>
                                 <th>Service Id</th>
                                 <th>Status</th>
@@ -144,7 +144,7 @@ function AdminAccounts() {
                             {appointments.map(appointments => (
                                 <tr key={appointments.id}>
                                     <td>{appointments.appointmentId}</td>
-                                    <td>{appointments.accountId}</td>
+                                    <td>{appointments.userId}</td>
                                     <td>{appointments.availabilityId}</td>
                                     <td>{appointments.serviceId}</td>
                                     <td>{appointments.status}</td>
