@@ -24,13 +24,11 @@ class AppointmentRepositoryTest {
     private AppointmentRepository appointmentRepository;
     private String savedAppointmentId;
     Appointment savedAppointment;
-    private String accountId;
 
     @BeforeEach
     public void setUp() {
         Appointment appointment = new Appointment();
         AppointmentIdentifier identifier = new AppointmentIdentifier();
-        accountId = "uuid-account1";
         identifier.setAppointmentId(savedAppointmentId);
         appointment.setLocation("Location 1");
         appointment.setStatus(Status.COMPLETED);
@@ -81,27 +79,21 @@ class AppointmentRepositoryTest {
 
     @Test
     void whenFindAppointmentByAccountIdentifier_AccountIdReturnsNonEmptyList() {
-        String accountId = "";
         // Act
         Appointment found = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(savedAppointmentId);
-        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
         // Assert
-        when(appointmentRepository.findAllAppointmentsByUserId(accountId)).thenReturn(appointments);
-
-        List<Appointment> result = appointmentRepository.findAllAppointmentsByUserId(accountId);
-
-        assertEquals(appointments, result);
+        assertNotNull(found);
+        assertEquals(savedAppointmentId, found.getAppointmentIdentifier().getAppointmentId());
     }
 
     @Test
     public void whenFindAppointmentByNonExistentAccountIdentifier_AccountIdReturnsEmptyList() {
-        List<Appointment> appointments = Arrays.asList(new Appointment(), new Appointment());
+        // Arrange
+        String nonExistentAccountId = "nonExistentId";
 
-        when(appointmentRepository.findAllAppointmentsByUserId(accountId)).thenReturn(appointments);
-
-        List<Appointment> result = appointmentRepository.findAllAppointmentsByUserId(accountId);
-
-        assertEquals(appointments, result);
+        // Act
+        List<Appointment> result = appointmentRepository.findAllAppointmentsByUserId(nonExistentAccountId);
+        assertTrue(result.isEmpty());
     }
 
 
