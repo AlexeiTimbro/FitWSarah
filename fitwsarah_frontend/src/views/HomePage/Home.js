@@ -6,8 +6,7 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import AddMemberProfile from "../authentication/Signup";
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+
 
 function Home() {
     const {
@@ -19,37 +18,11 @@ function Home() {
     const [services, setServices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [hasCalledAddMemberProfile, setHasCalledAddMemberProfile] = useState(false);
-    const history = useHistory();  
-
+   // const history = useHistory();  
+    
     useEffect(() => {
-        if (isAuthenticated) {
-          const getAccessToken = async () => {
-            try {
-              const token = await getAccessTokenSilently({
-                audience: configData.audience,
-                scope: configData.scope,
-              });
-              setAccessToken(token);
-            } catch (e) {
-              console.error(e.message);
-            }
-          };
-          getAccessToken();
-        }
-      }, [getAccessTokenSilently, isAuthenticated]);
-
-    useEffect(() => {
-        if (accessToken) {
-            getAllFitnessServices();
-        }
-    }, [accessToken]);
-
-    useEffect(() => {
-      if (isAuthenticated && !hasCalledAddMemberProfile) {
-          // Calling the addMember only once
-          setHasCalledAddMemberProfile(true);
-      }
-  }, [isAuthenticated, hasCalledAddMemberProfile]);
+      getAllFitnessServices();
+    }, []);
 
     const getAllFitnessServices = () => {
       fetch("http://localhost:8080/api/v1/fitnessPackages", {
@@ -98,8 +71,15 @@ function Home() {
         });
     };
     
+    useEffect(() => {
+      if (isAuthenticated && !hasCalledAddMemberProfile) {
+          // Calling the addMember only once
+          setHasCalledAddMemberProfile(true);
+      }
+  }, [isAuthenticated, hasCalledAddMemberProfile]);
+
     const handleNewAppointment = (serviceId) => {
-      history.push('/appointments?serviceId=${serviceId}')
+     // history.push('/appointments?serviceId=${serviceId}')
     }
   
 //Calls the AddMember function only once

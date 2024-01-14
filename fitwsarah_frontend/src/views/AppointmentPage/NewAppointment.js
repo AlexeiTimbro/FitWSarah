@@ -105,12 +105,7 @@ function Profile() {
             <section className="hero-section1"></section>
             <section className="services-section">
                 <Container>
-                <div class="bColor"><h2 class="titleappointment form">Edit appointment</h2></div>
-    
-                <div style="background-color: bColor;">
-    <h2 style="text-align: center; margin: 0;" class="titleappointment form">Edit appointment</h2>
-</div>
-
+        
 <form id="appointmentForm" style="margin-top: 20px;" enctype="multipart/form-data">
     <div style="margin-bottom: 15px;">
         <label style="width: 10%;" class="control-label">First Name</label>
@@ -160,7 +155,7 @@ function Profile() {
 
     <div style="margin-bottom: 15px;">
         <div style="width: 60%;" class="appointment">
-            <button style="width: 100%;" id="newBtn" class="btn btn-default" type="submit" ng-disabled="appointmentForm.$invalid">Submit</button>
+            <button style="width: 100%;" id="newBtn" class="btn btn-default" type="submit">Submit</button>
         </div>
     </div>
 </form>
