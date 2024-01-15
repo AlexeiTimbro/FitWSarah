@@ -52,17 +52,17 @@ public class EndToEndTesting {
     }
 
     @Test
-    public void viewProfilePage(){
+    public void viewProfilePage()  {
         open("http://localhost:3000/");
 
         SelenideElement loginBtn = $("button[class='login-button']");
         loginBtn.click();
 
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("abdursiddiqui2003@gmail.com");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Abd657@190");
+        passwordInput.setValue("Habs@1290");
 
         SelenideElement continueButton = $("button[name='action']");
         executeJavaScript("arguments[0].click();", continueButton);
@@ -71,10 +71,59 @@ public class EndToEndTesting {
         SelenideElement profileBtn = $("a[href='/profile']");
         profileBtn.click();
 
-        SelenideElement viewprofile = $("div[class='service-card']");
-        viewprofile.shouldBe(visible);
+        SelenideElement viewProfile = $("div[class='profile-page-container']");
+        viewProfile.shouldBe(visible);
+
+
+        sleep(1000);
     }
 
+
+    @Test
+    public void viewProfileSettings() {
+        open("http://localhost:3000/");
+
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Habs@1290");
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+
+        SelenideElement profileBtn = $("a[href='/profile']");
+        profileBtn.click();
+
+        SelenideElement viewProfile = $("div[class='profile-page-container']");
+        viewProfile.shouldBe(visible);
+        SelenideElement settingsBtn = $("a[href='/settings']");
+        settingsBtn.click();
+
+        SelenideElement viewSettings = $("div[class='account-container']");
+        viewSettings.shouldBe(visible);
+
+
+        SelenideElement username = $("#formUsername");
+        username.setValue("Abs");
+
+
+        SelenideElement email = $("#formEmail");
+        email.setValue("John17@gmail.com");
+
+
+        SelenideElement cityInput = $("#formCity");
+        cityInput.setValue("Toronto");
+
+        SelenideElement updateBtn = $("button[class='btn btn-primary']");
+        updateBtn.click();
+
+        sleep(1000);
+    }
 
     @Test
 
@@ -97,7 +146,7 @@ public class EndToEndTesting {
         SelenideElement profileBtn = $("a[href='/profile']");
         profileBtn.click();
 
-        SelenideElement getAllAppointments = $("div[class='appointment-card card']");
+        SelenideElement getAllAppointments = $("div[class='profile-page-container']");
         getAllAppointments.shouldBe(visible);
 
     }

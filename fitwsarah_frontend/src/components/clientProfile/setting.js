@@ -173,9 +173,9 @@ function Settings() {
                     {showModal && (
                         <div style={{
                             position: 'fixed',
-                            top: 0, // Position at the top
+                            top: 0,
                             left: '50%',
-                            transform: 'translateX(-50%)', // Center horizontally
+                            transform: 'translateX(-50%)',
                             backgroundColor: 'white',
                             padding: '20px',
                             zIndex: 1000,
