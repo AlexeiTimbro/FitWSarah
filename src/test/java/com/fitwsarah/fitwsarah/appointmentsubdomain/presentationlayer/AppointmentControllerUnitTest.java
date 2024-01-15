@@ -3,6 +3,7 @@ package com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentService;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,6 +24,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 
@@ -122,6 +124,34 @@ class AppointmentControllerUnitTest {
 
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
         assertEquals(expectedResponse, result.getBody());
+    }
+
+    @Test
+    void updateAppointmentById_shouldSucceed() {
+        // Arrange
+        String appointmentId = "uuid-appt1";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel("uuid-avail1", "uuid-account1", "uuid-service1", Status.REQUESTED, "Location 1", "John", "Smith", "444-444-4444", "2023-03-20", "10:00");
+        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1", "uuid-service1", Status.REQUESTED, "Location 1", "John", "Smith", "444-444-4444", "2023-03-20", "10:00");
+
+        when(appointmentService.updateAppointmentDetails(eq(requestModel), eq(appointmentId))).thenReturn(expectedResponse);
+
+        // Act
+        AppointmentResponseModel result = appointmentController.updateAppointmentById(requestModel, appointmentId);
+
+        // Assert
+        assertEquals(expectedResponse, result);
+    }
+
+    @Test
+    void updateAppointmentById_shouldThrowExceptionWhenAppointmentNotFound() {
+        // Arrange
+        String appointmentId = "uuid-nonexistent";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel("uuid-avail1", "uuid-account1", "uuid-service1", Status.REQUESTED, "Location 1", "John", "Smith", "444-444-4444", "2023-03-20", "10:00");
+
+        when(appointmentService.updateAppointmentDetails(eq(requestModel), eq(appointmentId))).thenThrow(new EntityNotFoundException("Appointment with ID " + appointmentId + " not found"));
+
+        // Act & Assert
+        assertThrows(EntityNotFoundException.class, () -> appointmentController.updateAppointmentById(requestModel, appointmentId));
     }
 }
 

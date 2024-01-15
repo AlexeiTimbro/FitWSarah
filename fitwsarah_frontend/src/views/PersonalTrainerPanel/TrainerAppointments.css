@@ -36,12 +36,25 @@ body {
 }
 
 /* Style for the action buttons */
-.button {
+.saveButton {
     display: inline-block;
     padding: 8px 15px;
     margin: 0 5px;
     border-radius: 4px;
-    color: #fff;
+    color: #00d2ff;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+}
+
+.cancelButton{
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 4px;
+    color: #ee2400;
     font-size: 0.9em;
     cursor: pointer;
     text-align: center;
@@ -97,7 +110,6 @@ body {
 }
 
 
-/* Styles for the search bar container */
 .search-bar-container {
     position: relative;
     margin-bottom: 20px;
@@ -132,3 +144,77 @@ body {
     text-decoration: none;
     display: inline-block;
 }
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+    min-width: 120px;
+}
+
+.table td.date-time-picker-column {
+    min-width: 200px;
+}
+
+.saveButton, .cancelButton {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.mui-datepicker {
+    width: auto;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .table th, .table td {
+        min-width: auto;
+    }
+}
+
+.date-time-picker-container {
+    min-width: 250px;
+    max-width: 100%;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.saveButton, .cancelButton {
+    margin: 5px;
+    flex-basis: 48%;
+}
+
+
+@media (max-width: 768px) {
+    .date-time-picker-container {
+        min-width: auto;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .saveButton, .cancelButton {
+        flex-basis: auto;
+        width: 100%;
+    }
+}
+
+.filter-popup-button {
+    background-color: #00a531;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 8px 15px;
+    position: relative;
+    transition: background-color .3s;
+    margin-left: 83%;
+}
+

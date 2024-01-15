@@ -41,8 +41,8 @@ public class AppointmentController {
     }
 
     @PutMapping("/{appointmentId}")
-    public AppointmentResponseModel updateAppointmentById(@RequestBody AppointmentResponseModel appointmentResponseModel, @PathVariable String appointmentId){
-        return null;
+    public AppointmentResponseModel updateAppointmentById(@RequestBody AppointmentRequestModel appointmentRequestModel, @PathVariable String appointmentId){
+        return appointmentService.updateAppointmentDetails(appointmentRequestModel, appointmentId);
     }
 
     @PutMapping("/{appointmentId}/status")

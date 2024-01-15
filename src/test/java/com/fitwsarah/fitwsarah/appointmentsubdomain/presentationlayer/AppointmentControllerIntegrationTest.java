@@ -104,6 +104,18 @@ class AppointmentControllerIntegrationTest {
                         .content(asJsonString(requestModel)))
                 .andExpect(status().isCreated());
     }
+
+    @Test
+    void updateAppointmentDetails_shouldSucceed() throws Exception{
+        String status = "REQUESTED";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel("uuid-avail1", "uuid-account1",  "uuid-service1",Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+        mockMvc.perform(put("/api/v1/appointments/{appointmentId}", appointment1.getAppointmentId())
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(requestModel)))
+                .andExpect(status().isOk());
+    }
+
     private String asJsonString(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(obj);

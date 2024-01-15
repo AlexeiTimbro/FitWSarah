@@ -4,8 +4,8 @@ create table if not exists accounts(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id VARCHAR(100) NOT NULL,
     account_id VARCHAR(150) NOT NULL,
-    username VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    username VARCHAR(50) ,
+    email VARCHAR(50) ,
     city VARCHAR(50)
 );
 
@@ -39,6 +39,8 @@ create table if not exists appointments(
     date VARCHAR(50),
     time VARCHAR(50)
 );
+
+
 
 create table if not exists fitness_services(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,

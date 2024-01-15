@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
-import configData from '../../config.json'
-import LoginButton from "../../components/authentication/login";
-import LogoutButton from "../../components/authentication/logout";
-import axios from 'axios';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import './TrainerAppointments.css';
-import { FaSearch } from 'react-icons/fa';
+import Filter from "../../components/AdminPanel/Filter";
+import {useGetAccessToken} from "../../components/authentication/authUtils";
+import { parse, format } from 'date-fns';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 
 
 
@@ -18,34 +18,119 @@ function AdminAccounts() {
 
     const {
         isAuthenticated,
-        getAccessTokenSilently,
     } = useAuth0();
 
     const [appointments, setAppointments] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const getAccessToken = useGetAccessToken();
 
+    const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["userid",""], ["status",""]]);
+
+    const labels = ["Appointment ID", "User ID", "Status"];
+
+    const [editAppointmentId, setEditAppointmentId] = useState(null);
+    const [editFormData, setEditFormData] = useState({
+        status: '',
+        location: '',
+        firstName: '',
+        lastName: '',
+        phoneNum: '',
+        date: '',
+        time: '',
+    });
     useEffect(() => {
-        if (isAuthenticated) {
-            const getAccessToken = async () => {
-                try {
-                    const token = await getAccessTokenSilently({
-                        audience: configData.audience,
-                        scope: configData.scope,
-                    });
-                    setAccessToken(token);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            };
-            getAccessToken();
-        }
-    }, [getAccessTokenSilently, isAuthenticated]);
+        const fetchToken = async () => {
+            const token = await getAccessToken();
+            if (token) setAccessToken(token);
+        };
+        fetchToken();
+    }, [getAccessToken]);
 
     useEffect(() => {
         if (accessToken) {
-            getAllAppointments();
+            getAppointments();
         }
-    }, [accessToken]);
+    }, [accessToken, searchTerm]);
+
+    const handleEditClick = (appointment) => {
+        fetch(`http://localhost:8080/api/v1/appointments/${appointment.appointmentId}`, {
+            method: "GET",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            })
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setEditAppointmentId(appointment.appointmentId);
+                const combinedDateTime = parse(`${data.date} ${data.time}`, 'yyyy-MM-dd HH:mm', new Date());
+                setEditFormData({
+                    status: data.status,
+                    location: data.location,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    phoneNum: data.phoneNum,
+                    dateTime: combinedDateTime, // Use a single Date object for both date and time
+                });
+            })
+            .catch((error) => {
+                console.error('Error fetching appointment details:', error);
+            });
+    };
+
+
+
+    const handleSaveClick = (appointmentId) => {
+        const updatedAppointment = {
+            ...editFormData,
+            date: format(editFormData.dateTime, 'yyyy-MM-dd'),
+            time: format(editFormData.dateTime, 'HH:mm'),
+        };
+
+        fetch(`http://localhost:8080/api/v1/appointments/${appointmentId}`, {
+            method: "PUT",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(updatedAppointment)
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(() => {
+                getAppointments();
+                setEditAppointmentId(null); // Exit edit mode
+            })
+            .catch((error) => {
+                console.error('Error updating appointment:', error);
+            });
+    };
+
+    const handleChange = (event) => {
+        const fieldName = event.target.name;
+        const fieldValue = event.target.value;
+        setEditFormData({
+            ...editFormData,
+            [fieldName]: fieldValue,
+        });
+    };
+
+
+    const handleDateTimeChange = (dateTime) => {
+        setEditFormData({
+            ...editFormData,
+            dateTime,
+        });
+    };
 
 
     const handleCancelAppointment = (appointmentId) => {
@@ -56,8 +141,15 @@ function AdminAccounts() {
     };
 
 
-    const getAllAppointments = () => {
-        fetch("http://localhost:8080/api/v1/appointments", {
+    const getAppointments = () => {
+        const params = new URLSearchParams();
+        searchTerm.forEach(term => {
+            if (term[1]) {
+                params.append(term[0], term[1]);
+            }
+        });
+
+        fetch(`http://localhost:8080/api/v1/appointments${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -76,7 +168,6 @@ function AdminAccounts() {
             })
             .catch((error) => {
                 console.log(error);
-
             });
     };
 
@@ -97,7 +188,7 @@ function AdminAccounts() {
             })
             .then((data) => {
                 console.log(data);
-                getAllAppointments();
+                getAppointments();
             })
             .catch((error) => {
                 console.log(error);
@@ -105,51 +196,141 @@ function AdminAccounts() {
             });
     }
 
+    function onInputChange(label, value) {
+        const formattedLabel = label.toLowerCase().replace(/\s+/g, '');
+        const newSearchTerm = searchTerm.map((term) => {
+            if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
+                if (formattedLabel === "userid") {
+                    return [formattedLabel, value];
+                } else if (label === "Status") {
+                    console.log(value.toUpperCase());
+                    return [term[0], value.toUpperCase()];
+                }
+                return [term[0], value];
+            }
+            return term;
+        });
+        setSearchTerm(newSearchTerm);
+    }
+
+    function clearFilters() {
+        setSearchTerm([["accountid",""], ["username",""], ["email",""], ["city",""]]);
+    }
+
 
     return (
         <div>
-            {!isAuthenticated && <NavNotLoggedIn/>}
-            {isAuthenticated && <NavLoggedIn/>}
+            {!isAuthenticated && <NavNotLoggedIn />}
+            {isAuthenticated && <NavLoggedIn />}
             <div className="accounts-section">
                 <div className="container">
                     <Link to="/trainerPanel" className="button back-button">Back</Link>
                     <h1>Appointments</h1>
-                    <input
-                        type="text"
-                        className="search-bar"
-                        placeholder="Search..."
-                    />
-                    <FaSearch className="search-icon" />
+                    <div className="filter-container">
+                        <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
+                    </div>
+
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
                                 <th>Appointment Id</th>
-                                <th>Account Id</th>
-                                <th>Availability Id</th>
-                                <th>Admin Id</th>
-                                <th>Service Id</th>
                                 <th>Status</th>
                                 <th>Location</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Phone Number</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {appointments.map(appointments => (
-                                <tr key={appointments.id}>
-                                    <td>{appointments.appointmentId}</td>
-                                    <td>{appointments.accountId}</td>
-                                    <td>{appointments.availabilityId}</td>
-                                    <td>{appointments.adminId}</td>
-                                    <td>{appointments.serviceId}</td>
-                                    <td>{appointments.status}</td>
-                                    <td>{appointments.location}</td>
-                                    <td>
-                                        <button className="button delete-button" onClick={() => handleCancelAppointment(appointments.appointmentId)}>
-                                            Cancel Appointment
-                                        </button>
-                                        <button className="button details-button">Appointment Details</button>
-                                    </td>
-                                </tr>
+                            {appointments.map((appointment) => (
+                                editAppointmentId === appointment.appointmentId ? (
+                                    <tr key={appointment.appointmentId}>
+                                        <td>{appointment.appointmentId}</td>
+                                        <td>
+                                            <select
+                                                name="status"
+                                                value={editFormData.status}
+                                                onChange={handleChange}
+                                            >
+                                                <option value="SCHEDULED">SCHEDULED</option>
+                                                <option value="COMPLETED">COMPLETED</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                name="location"
+                                                value={editFormData.location}
+                                                onChange={handleChange}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                name="firstName"
+                                                value={editFormData.firstName}
+                                                onChange={handleChange}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                value={editFormData.lastName}
+                                                onChange={handleChange}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                name="phoneNum"
+                                                value={editFormData.phoneNum}
+                                                onChange={handleChange}
+                                            />
+                                        </td>
+                                        <td className="date-time-picker-column">
+                                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                <DateTimePicker
+                                                    label="Date & Time picker"
+                                                    value={editFormData.dateTime}
+                                                    onChange={handleDateTimeChange}
+                                                    renderInput={(params) => <TextField {...params} />}
+                                                />
+                                            </LocalizationProvider>
+                                        </td>
+                                        <td className="button-container">
+                                            <button className="saveButton" onClick={() => handleSaveClick(appointment.appointmentId)}>
+                                                Save
+                                            </button>
+                                            <button className="cancelButton" onClick={() => setEditAppointmentId(null)}>
+                                                Cancel
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    <tr key={appointment.appointmentId}>
+                                        <td>{appointment.appointmentId}</td>
+                                        <td>{appointment.status}</td>
+                                        <td>{appointment.location}</td>
+                                        <td>{appointment.firstName}</td>
+                                        <td>{appointment.lastName}</td>
+                                        <td>{appointment.phoneNum}</td>
+                                        <td>{appointment.date}</td>
+                                        <td>{appointment.time}</td>
+                                        <td className="edit-button-container">
+                                            <button className="saveButton" onClick={() => handleEditClick(appointment)}>
+                                                Edit
+                                            </button>
+                                            <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
+                                                Cancel Appointment
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
                             ))}
                             </tbody>
                         </table>

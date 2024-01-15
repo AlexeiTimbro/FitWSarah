@@ -268,4 +268,59 @@ public class EndToEndTesting {
         SelenideElement locationDropbar = $("select[name='location']");
         locationDropbar.shouldBe(visible);
     }
+
+    @Test
+    public void updateAppointmentDetailsTrainerPanel() {
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("pt@admin.com");
+        sleep(1000);
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        sleep(1000);
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+        SelenideElement adminPanelBtn = $("a[href='/trainerPanel']");
+        adminPanelBtn.click();
+
+        sleep(1000);
+        SelenideElement profileBtn = $("a[href='/trainerAppointments']");
+        profileBtn.click();
+
+        sleep(1000);
+        SelenideElement editButton = $("button[class='saveButton']");
+        editButton.click();
+        /*
+        sleep(1000);
+        $("select[name='status']").selectOption("CANCELLED");
+         */
+        sleep(1000);
+        $("input[name='location']").setValue("New Location");
+        $("input[name='firstName']").setValue("New FirstName");
+        $("input[name='lastName']").setValue("New LastName");
+        $("input[name='phoneNum']").setValue("1234567890");
+
+        /*
+        SelenideElement datePickerInput = $("input[name='date']");
+        datePickerInput.click();
+        sleep(1000);
+
+        executeJavaScript("document.querySelectorAll('.MuiPickersDay-day')[15].click();");
+        sleep(1000);
+
+         */
+
+        SelenideElement saveButton = $("button[class='saveButton']");
+        saveButton.click();
+
+        sleep(1000);
+    }
+
 }
