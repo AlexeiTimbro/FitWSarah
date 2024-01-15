@@ -13,6 +13,7 @@ function ProfileSideBar({ appointments, accessToken }) {
                 <AppointmentCard key={index} appointment={appointment} accessToken={accessToken}/>
             ))}
         </div>
+
     );
 }
 

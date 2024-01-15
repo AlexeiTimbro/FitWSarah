@@ -69,9 +69,9 @@ class AppointmentControllerUnitTest {
 
         List<AppointmentResponseModel> expectedAppointments = Arrays.asList(new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1",  "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00"), new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1",  "uuid-service1", Status.COMPLETED, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00"));
 
-        when(appointmentService.getAllAppointmentsByAccountId(accountId)).thenReturn(expectedAppointments);
+        when(appointmentService.getAllAppointmentsByUserId(accountId)).thenReturn(expectedAppointments);
 
-        List<AppointmentResponseModel> actualAppointments = appointmentController.getAllAppointmentsByAccountId(accountId);
+        List<AppointmentResponseModel> actualAppointments = appointmentController.getAllAppointmentsByUserId(accountId);
 
         assertEquals(expectedAppointments, actualAppointments);
     }

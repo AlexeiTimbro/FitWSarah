@@ -26,6 +26,8 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -45,6 +47,7 @@ class AccountServiceUnitTest {
         MockitoAnnotations.openMocks(this);
     }
 
+
     @Test
     void getAccountByAccountId_Should_Return_Correct_Account() {
         String accountId = "uuid-test1";
@@ -59,6 +62,9 @@ class AccountServiceUnitTest {
 
         assertEquals(accountId, result.getAccountId());
     }
+
+
+
 
     @Test
     void getAccountByAccountId_Should_Return_Null_When_Account_Not_Found() {
@@ -228,5 +234,47 @@ class AccountServiceUnitTest {
         assertEquals(responseModels.get(0).getCity(), result.get(0).getCity());
     }
 
+
+    @Test
+    void updateAccountByUserId_Should_Update_Account_Correctly() {
+        // Arrange
+        String userId = "uuid-test1";
+        AccountRequestModel requestModel = new AccountRequestModel(userId, "999", "00", "Brossard");
+        Account mockedAccountEntity = mock(Account.class);
+        AccountResponseModel expectedResponse = new AccountResponseModel("000", "999", "00", "Brossard", "China");
+        when(accountRequestMapper.requestModelToEntity(requestModel)).thenReturn(mockedAccountEntity);
+        when(accountRepository.findAccountByUserId(userId)).thenReturn(mockedAccountEntity); // Updated line
+        when(accountRepository.save(mockedAccountEntity)).thenReturn(mockedAccountEntity);
+        when(accountResponseMapper.entityToResponseModel(mockedAccountEntity)).thenReturn(expectedResponse);
+
+        // Act
+        AccountResponseModel result = accountService.updateAccount(requestModel, userId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expectedResponse, result);
+        verify(accountRepository).save(mockedAccountEntity);
+        verify(accountRequestMapper).requestModelToEntity(requestModel);
+        verify(accountResponseMapper).entityToResponseModel(mockedAccountEntity);
+    }
+
+
+    @Test
+    void updateAccountByUserId_WhenNoAccountFound_ShouldReturnNull() {
+        // Arrange
+        String userId = "uuid-test2";
+        AccountRequestModel requestModel = new AccountRequestModel(userId, "999", "00", "Brossard");
+
+        when(accountRepository.findAccountByUserId(userId)).thenReturn(null);
+
+        // Act
+        AccountResponseModel result = accountService.updateAccount(requestModel, userId);
+
+        // Assert
+        assertNull(result);
+        verify(accountRepository, never()).save(any(Account.class));
+        verify(accountRequestMapper, never()).requestModelToEntity(any(AccountRequestModel.class));
+        verify(accountResponseMapper, never()).entityToResponseModel(any(Account.class));
+    }
 
 }

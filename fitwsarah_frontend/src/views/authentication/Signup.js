@@ -1,11 +1,19 @@
+
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Spinner } from 'react-bootstrap';
 import configData from '../../config.json';
-//i have to fix sign up issue
+
+
 function AddMemberProfile() {
-    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const {user, isAuthenticated, getAccessTokenSilently} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
+    useEffect(() => {
+        if (isAuthenticated) {
+            localStorage.setItem("userData", JSON.stringify(user));
+            fetchData();
+        }
+    }, [user, isAuthenticated, getAccessTokenSilently, accessToken]);
 
     const fetchData = async () => {
         try {
@@ -19,7 +27,8 @@ function AddMemberProfile() {
         }
     };
 
-    useEffect(() => {  
+
+    useEffect(() => {
         if (isAuthenticated) {
             fetchData();
         }
@@ -28,11 +37,12 @@ function AddMemberProfile() {
     function extractAfterPipe(originalString) {
         const parts = originalString.split('|');
         if (parts.length === 2) {
-            return parts[1]; 
+            return parts[1];
         } else {
-            return originalString; 
+            return originalString;
         }
     }
+
 
     const addMember = async () => {
         try {
@@ -43,19 +53,27 @@ function AddMemberProfile() {
                 return;
             }
 
-            const { sub, nickname, email } = user;
-            const RegexUserId = extractAfterPipe(sub)
+            const {sub, nickname, email} = user;
 
-            const dataToSend = { userId: RegexUserId, username: nickname, email: email };
+
+            const regexUserId = extractAfterPipe(sub);
+            const dataToSend = {
+                userId: regexUserId,
+                username: nickname,
+                email: email,
+            };
+
 
             const response = await fetch("http://localhost:8080/api/v1/accounts", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
+
                 body: JSON.stringify(dataToSend)
             }, [accessToken, fetchData]);
+
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -71,13 +89,18 @@ function AddMemberProfile() {
 
     useEffect(() => {
         if (accessToken) {
+            const storedUserData = localStorage.getItem("userData");
+            if (storedUserData) {
+                const userData = JSON.parse(storedUserData);
+                console.log(userData);
+            }
+
             addMember();
             console.log(user);
             console.log("Added Member");
         }
     }, [isAuthenticated, accessToken, user, addMember]);
 
-    return null;
 }
 
 export default AddMemberProfile;

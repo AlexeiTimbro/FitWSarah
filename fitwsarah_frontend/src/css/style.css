@@ -212,3 +212,11 @@
 .non-link-text:hover {
     text-decoration: underline; /* Underline on hover */
 }
+
+.update-confirmation-box {
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    text-align: center;
+}

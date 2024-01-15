@@ -32,6 +32,8 @@ package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
         import static org.hamcrest.Matchers.hasSize;
 
 
+        import static org.junit.Assert.assertEquals;
+        import static org.junit.Assert.assertNotNull;
         import static org.mockito.Mockito.mock;
         import static org.mockito.Mockito.verify;
         import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -115,6 +117,9 @@ class AccountControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
+
+
+
     private String asJsonString(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(obj);
@@ -141,6 +146,26 @@ class AccountControllerIntegrationTest {
         JsonNode rootNode = mapper.readTree(response.getBody());
         return rootNode.path("access_token").asText();
     }
+
+
+
+    @Test
+    public void updateAccountByUserId_ShouldUpdateAccount_WhenCalledWithValidData() throws Exception {
+        String userId = "1";
+        AccountRequestModel updatedAccount = new AccountRequestModel("1", "newLastName", "newEmail@gmail.com", "New Address");
+        mockMvc.perform(put("/api/v1/accounts/users/{userId}", userId)
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(updatedAccount)))
+                .andExpect(status().isOk());
+
+
+
+    }
+
+
+
+
 
 }
 

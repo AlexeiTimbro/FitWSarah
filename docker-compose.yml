@@ -25,7 +25,6 @@ services:
 
 
 
-
     healthcheck:
       test:
         [

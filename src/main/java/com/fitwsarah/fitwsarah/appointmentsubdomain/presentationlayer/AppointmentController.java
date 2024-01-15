@@ -28,10 +28,13 @@ public class AppointmentController {
 
     }
 
-    @GetMapping("/account/{accountId}")
-    public List<AppointmentResponseModel> getAllAppointmentsByAccountId(@PathVariable String accountId){
-        return appointmentService.getAllAppointmentsByAccountId(accountId);
+    @GetMapping("/accounts/users/{userId}")
+    public List<AppointmentResponseModel> getAllAppointmentsByUserId(@PathVariable String userId){
+        return appointmentService.getAllAppointmentsByUserId(userId);
     }
+
+
+
 
 
 

@@ -21,11 +21,11 @@ public class AccountController {
     }
 
     @GetMapping("/{accountId}")
-    public AccountResponseModel getAccountById(@PathVariable String accountId){
+    public AccountResponseModel getAccountByAccountId(@PathVariable String accountId){
         return accountService.getAccountByAccountId(accountId);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/users/{userId}")
     public AccountResponseModel getAccountByUserId(@PathVariable String userId){
         return accountService.getByUserId(userId);
     }
@@ -44,12 +44,17 @@ public class AccountController {
     public InvoiceResponseModel getAllInvoicesByAccountId(@PathVariable String accountId){
         return null;
     }
-    //------
+
 
 
     @DeleteMapping("/{accountId}")
     public void deleteAccountById(@PathVariable String accountId){
 
+    }
+
+    @PutMapping("/users/{userId}")
+    public  ResponseEntity<AccountResponseModel> updateAccountByUserId(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String userId){
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.updateAccount(accountRequestModel, userId));
     }
 
     @DeleteMapping()

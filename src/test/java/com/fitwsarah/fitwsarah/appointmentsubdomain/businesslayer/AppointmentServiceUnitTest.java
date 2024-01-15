@@ -85,20 +85,20 @@ class AppointmentServiceUnitTest {
 
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(responseModels);
 
-        List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
+        List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByUserId(accountId);
 
         assertEquals(responseModels, result);
     }
 
     @Test
     void getAllAppointmentsByAccountId_returnsEmptyList() {
-        String accountId = "uuid-account1";
+        String userId = "uuid-account1";
         List<Appointment> appointments = Collections.emptyList();
 
-        when(appointmentRepository.findAllAppointmentsByUserId(accountId)).thenReturn(appointments);
+        when(appointmentRepository.findAllAppointmentsByUserId(userId)).thenReturn(appointments);
         when(appointmentResponseMapper.entityListToResponseModelList(appointments)).thenReturn(Collections.emptyList());
 
-        List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByAccountId(accountId);
+        List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByUserId(userId);
 
         assertEquals(Collections.emptyList(), result);
     }
