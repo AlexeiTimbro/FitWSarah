@@ -7,10 +7,12 @@ import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentR
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
@@ -20,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -209,5 +212,90 @@ class AppointmentServiceUnitTest {
         assertNotNull(result.getLastName());
     }
 
+    @Test
+    public void updateAppointmentDetails_shouldSucceed(){
+
+        String appointmentId = "uuid-appt1";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel(
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-service1",
+                Status.COMPLETED,
+                "New Location",
+                "Jane",
+                "Doe",
+                "555-555-5555",
+                "2023-03-25",
+                "12:00"
+        );
+
+        Appointment existingAppointment = new Appointment();
+        existingAppointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
+        existingAppointment.setStatus(Status.SCHEDULED);
+
+        when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId))
+                .thenReturn(existingAppointment);
+
+        when(appointmentRepository.save(any(Appointment.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        AppointmentResponseModel responseModel = new AppointmentResponseModel(
+                appointmentId,
+                requestModel.getAvailabilityId(),
+                requestModel.getUserId(),
+                requestModel.getServiceId(),
+                requestModel.getStatus(),
+                requestModel.getLocation(),
+                requestModel.getFirstName(),
+                requestModel.getLastName(),
+                requestModel.getPhoneNum(),
+                requestModel.getDate(),
+                requestModel.getTime()
+        );
+
+        when(appointmentResponseMapper.entityToResponseModel(any(Appointment.class)))
+                .thenReturn(responseModel);
+
+        AppointmentResponseModel result = appointmentService.updateAppointmentDetails(requestModel, appointmentId);
+
+        assertNotNull(result);
+        assertEquals(requestModel.getLocation(), result.getLocation());
+        assertEquals(requestModel.getFirstName(), result.getFirstName());
+        assertEquals(requestModel.getLastName(), result.getLastName());
+        assertEquals(requestModel.getPhoneNum(), result.getPhoneNum());
+        assertEquals(requestModel.getDate(), result.getDate());
+        assertEquals(requestModel.getTime(), result.getTime());
+        assertEquals(requestModel.getStatus(), result.getStatus());
+
+        // Verify if save method was called with updated details
+        Mockito.verify(appointmentRepository).save(existingAppointment);
+    }
+
+    @Test
+    public void updateAppointmentDetails_shouldThrowEntityNotFoundException() {
+        // Given
+        String nonExistentAppointmentId = "non-existent-id";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel(
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-service1",
+                Status.COMPLETED,
+                "New Location",
+                "Jane",
+                "Doe",
+                "555-555-5555",
+                "2023-03-25",
+                "12:00"
+        );
+
+        // Simulate repository returning null for a non-existent appointment
+        when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(nonExistentAppointmentId)).thenReturn(null);
+
+        // Assert that the method throws an EntityNotFoundException
+        assertThrows(EntityNotFoundException.class, () -> {
+            // When
+            appointmentService.updateAppointmentDetails(requestModel, nonExistentAppointmentId);
+        });
+    }
 }
 

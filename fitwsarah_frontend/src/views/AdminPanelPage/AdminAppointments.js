@@ -109,7 +109,7 @@ function AdminAccounts() {
                 return response.json();
             })
             .then(() => {
-                getAllAppointments();
+                getAppointments();
                 setEditAppointmentId(null); // Exit edit mode
             })
             .catch((error) => {
@@ -226,18 +226,11 @@ function AdminAccounts() {
             <div className="accounts-section">
                 <div className="container">
                     <Link to="/adminPanel" className="button back-button">Back</Link>
-                    <div className="header-section">
                         <h1>Appointments</h1>
+                    <div className="filter-container">
                         <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
                     </div>
-                    <Link to="/trainerPanel" className="button back-button">Back</Link>
-                    <h1>Appointments</h1>
-                    <input
-                        type="text"
-                        className="search-bar"
-                        placeholder="Search..."
-                    />
-                    <FaSearch className="search-icon" />
+
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
