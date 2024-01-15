@@ -9,7 +9,7 @@ import ProfileSideBar from "../../components/clientProfile/profile";
 import { useGetAccessToken } from "../authentication/authUtils";
 import configData from "../../config.json";
 import Sidebar from "../../views/ProfilePage/SideBar";
-
+import { Alert } from 'flowbite-react';
 function Settings() {
     const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
@@ -21,7 +21,7 @@ function Settings() {
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
     const [updateConfirmation, setUpdateConfirmation] = useState('');
-
+    const [showModal, setShowModal] = useState(false);
     useEffect(() => {
         if (isAuthenticated) {
             const getAccessToken = async () => {
@@ -79,16 +79,23 @@ function Settings() {
 
 
     const handleUpdate = () => {
+       /// window.alert(`Profile updated successfully! Username: ${username}, /n , Email: ${email}, /n  City: ${city}`);
+
+        setShowModal(true);
 
         console.log('Update clicked');
         console.log('New username:', username);
         console.log('New email:', email);
+
+
 
         const updatedProfile = {
             username,
             email,
             city,
         };
+
+
 
         fetch(`http://localhost:8080/api/v1/accounts/users/${extractAfterPipe(user.sub)}`, {
             method: "PUT",
@@ -136,9 +143,6 @@ function Settings() {
                     <div className="profile-image" style={{ backgroundImage: `url(${profilePicUrl})` }}></div>
                     <div className="profile-text">
                         <div className="text-wrapper">Welcome{username}</div>
-                        <button className="edit-profile-btn" onClick={() => console.log('Edit profile clicked')}>
-                            Edit Profile
-                        </button>
                     </div>
                 </div>
             </div>
@@ -166,10 +170,37 @@ function Settings() {
                             Update
                         </Button>
                     </Form>
-                    {updateConfirmation && (
-                        <div className="update-confirmation-box">
-                            {updateConfirmation}
+                    {showModal && (
+                        <div style={{
+                            position: 'fixed',
+                            top: 0, // Position at the top
+                            left: '50%',
+                            transform: 'translateX(-50%)', // Center horizontally
+                            backgroundColor: 'white',
+                            padding: '20px',
+                            zIndex: 1000,
+                            border: '1px solid #ccc',
+                            boxShadow: '0px 4px 6px rgba(0,0,0,0.1)'
+                        }}>
+                            <p>Profile updated successfully!</p>
+                            <p>Username: {username}</p>
+                            <p>Email: {email}</p>
+                            <p>City: {city}</p>
+                            <button onClick={() => setShowModal(false)}>Close</button>
                         </div>
+                    )}
+
+                   
+                    {showModal && (
+                        <div style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: 'rgba(0,0,0,0.3)',
+                            zIndex: 999
+                        }} onClick={() => setShowModal(false)} />
                     )}
                 </div>
             </div>

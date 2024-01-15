@@ -22,6 +22,7 @@ function Profile() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
+
     useEffect(() => {
         if (user && user.picture) {
             setProfilePicUrl(user.picture);
@@ -51,7 +52,7 @@ function Profile() {
             getAccountByUserId(extractAfterPipe(user.sub));
         }
         if (accessToken) {
-            getAppointmentsByAccountId(extractAfterPipe(user.sub));
+            getAppointmentsByAccountId("dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2");
         }
     }, [user]);
 
@@ -82,7 +83,7 @@ function Profile() {
     };
 
     const getAppointmentsByAccountId = (userId) => {
-        fetch(`http://localhost:8080/api/v1/appointments/account/users/${userId}`, {
+        fetch(`http://localhost:8080/api/v1/appointments/users/${userId}`, {
             method: "GET",
             headers: {
                 Authorization: "Bearer " + accessToken,
@@ -102,7 +103,7 @@ function Profile() {
             })
             .catch((error) => {
                 console.error(
-                    "Error fetching service details for serviceId",
+                    "Error fetching account details for accountId",
                     ":",
                     error
                 );
@@ -131,9 +132,6 @@ function Profile() {
                     <div className="profile-image" style={{backgroundImage: `url(${profilePicUrl})`}}></div>
                     <div className="profile-text">
                         <div className="text-wrapper">Welcome{user ? ` ${user.nickname}` : ''}</div>
-                        <button className="edit-profile-btn" onClick={() => console.log('Edit profile clicked')}>
-                            Edit Profile
-                        </button>
                     </div>
                 </div>
             </div>
