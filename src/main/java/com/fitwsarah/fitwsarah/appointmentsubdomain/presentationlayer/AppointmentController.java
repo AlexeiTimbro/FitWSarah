@@ -33,10 +33,7 @@ public class AppointmentController {
         return appointmentService.getAllAppointmentsByUserId(userId);
     }
 
-    @GetMapping("/accounts/{accountId}")
-    public List<AppointmentResponseModel> getAllAppointmentsByAccountId(@PathVariable String accountId){
-        return appointmentService.getAllAppointmentsByAccountId(accountId);
-    }
+
 
 
 

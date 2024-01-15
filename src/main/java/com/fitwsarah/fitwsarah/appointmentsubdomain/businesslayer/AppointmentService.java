@@ -12,7 +12,6 @@ public interface AppointmentService {
     List<AppointmentResponseModel> getAllAppointments(String appointmentId, String accountId, String status);
     List<AppointmentResponseModel> getAllAppointmentsByUserId(String userId);
 
-    List<AppointmentResponseModel> getAllAppointmentsByAccountId(String accountId);
 
 
     AppointmentResponseModel getAppointmentByAppointmentId(String appointmentId);

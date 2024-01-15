@@ -43,17 +43,19 @@ function AppointmentCard({ appointment, accessToken }) {
     };
 
     return (
+        <div className="scroll-container">
         <div className="box">
             <div className="appointment">
                 <div className="overlap-group">
                     <div className="group">
-                        <div className="card-title1">{fitnessService.title}</div>
-                        <div className="card-detail1">{fitnessService.duration}</div>
+                        <div className="card-title1">Cardio Workout</div>
+                        <div className="card-detail1"> Duration: 1:00 pm</div>
                         </div>
                     </div>
                     <img className="rectangle1" />
                 <Button className="view-detail-button">View Detail</Button>
                 </div>
+        </div>
         </div>
     );
 }

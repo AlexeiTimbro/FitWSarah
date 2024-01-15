@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
 import './Account.css';
 import Sidebar from "./SideBar";
+import AppointmentCard from '../../views/ProfilePage/AppointmentCard';
 
 
 function Profile() {
@@ -83,7 +84,7 @@ function Profile() {
     };
 
     const getAppointmentsByAccountId = (userId) => {
-        fetch(`http://localhost:8080/api/v1/appointments/users/${userId}`, {
+        fetch(`http://localhost:8080/api/v1/appointments/account/users/${userId}`, {
             method: "GET",
             headers: {
                 Authorization: "Bearer " + accessToken,
@@ -143,7 +144,7 @@ function Profile() {
                         <button className="tab">Scheduled</button>
                         <button className="tab">Finished</button>
                     </div>
-                    <ProfileSideBar appointments={appointments} accessToken={accessToken}/>
+                    <AppointmentCard/>
                 </div>
             </div>
 
