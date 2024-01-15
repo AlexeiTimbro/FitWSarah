@@ -49,7 +49,7 @@ function AppointmentCard({ appointment, accessToken }) {
                 <div className="overlap-group">
                     <div className="group">
                         <div className="card-title1">Cardio Workout</div>
-                        <div className="card-detail1"> Duration: 1:00 pm</div>
+                        <div className="card-detail1"> Location: BuzzFit Brossard</div>
                         </div>
                     </div>
                     <img className="rectangle1" />
