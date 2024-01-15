@@ -6,6 +6,14 @@ import { Link } from 'react-router-dom';
 import './AdminAppointment.css';
 import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
+import { FaSearch } from 'react-icons/fa';
+import { parse, format } from 'date-fns';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+
+
 
 
 function AdminAccounts() {
@@ -26,6 +34,11 @@ function AdminAccounts() {
     const [editFormData, setEditFormData] = useState({
         status: '',
         location: '',
+        firstName: '',
+        lastName: '',
+        phoneNum: '',
+        date: '',
+        time: '',
     });
     useEffect(() => {
         const fetchToken = async () => {
@@ -57,10 +70,14 @@ function AdminAccounts() {
             })
             .then((data) => {
                 setEditAppointmentId(appointment.appointmentId);
-                // Set form data with fetched values for status and location
+                const combinedDateTime = parse(`${data.date} ${data.time}`, 'yyyy-MM-dd HH:mm', new Date());
                 setEditFormData({
-                    status: data.status, // Assuming status is already in the correct format
+                    status: data.status,
                     location: data.location,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    phoneNum: data.phoneNum,
+                    dateTime: combinedDateTime, // Use a single Date object for both date and time
                 });
             })
             .catch((error) => {
@@ -69,15 +86,21 @@ function AdminAccounts() {
     };
 
 
+
     const handleSaveClick = (appointmentId) => {
-        // Assuming your API endpoint can handle the full update, not just the status
+        const updatedAppointment = {
+            ...editFormData,
+            date: format(editFormData.dateTime, 'yyyy-MM-dd'),
+            time: format(editFormData.dateTime, 'HH:mm'),
+        };
+
         fetch(`http://localhost:8080/api/v1/appointments/${appointmentId}`, {
             method: "PUT",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
                 "Content-Type": "application/json"
             }),
-            body: JSON.stringify(editFormData) // Send the updated form data
+            body: JSON.stringify(updatedAppointment)
         })
             .then((response) => {
                 if (!response.ok) {
@@ -86,22 +109,31 @@ function AdminAccounts() {
                 return response.json();
             })
             .then(() => {
-                getAllAppointments(); // Refresh the list of appointments
+                getAllAppointments();
+                setEditAppointmentId(null); // Exit edit mode
             })
             .catch((error) => {
                 console.error('Error updating appointment:', error);
             });
-
-        setEditAppointmentId(null); // Exit edit mode
     };
 
-    const handleChange = (event, appointmentId) => {
-        const fieldName = event.target.getAttribute("name");
+    const handleChange = (event) => {
+        const fieldName = event.target.name;
         const fieldValue = event.target.value;
-        const newFormData = { ...editFormData };
-        newFormData[fieldName] = fieldValue;
-        setEditFormData(newFormData);
+        setEditFormData({
+            ...editFormData,
+            [fieldName]: fieldValue,
+        });
     };
+
+
+    const handleDateTimeChange = (dateTime) => {
+        setEditFormData({
+            ...editFormData,
+            dateTime,
+        });
+    };
+
 
     const handleCancelAppointment = (appointmentId) => {
         const isConfirmed = window.confirm("Are you sure you want to cancel this appointment?");

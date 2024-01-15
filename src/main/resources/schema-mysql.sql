@@ -50,6 +50,8 @@ create table if not exists appointments(
     time VARCHAR(50)
 );
 
+
+
 create table if not exists fitness_services(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     service_id VARCHAR(36) NOT NULL,

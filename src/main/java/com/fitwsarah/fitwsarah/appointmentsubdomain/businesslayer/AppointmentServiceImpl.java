@@ -76,8 +76,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
         // Update appointment details
-        appointment.setAppointmentStatus(appointmentRequestModel.getStatus());
-        appointment.setAppointmentLocation(appointmentRequestModel.getLocation());
+        appointment.setStatus(appointmentRequestModel.getStatus());
+        appointment.setLocation(appointmentRequestModel.getLocation());
+        appointment.setFirstName(appointmentRequestModel.getFirstName());
+        appointment.setLastName(appointmentRequestModel.getLastName());
+        appointment.setPhoneNum(appointmentRequestModel.getPhoneNum());
+        appointment.setDate(appointmentRequestModel.getDate());
+        appointment.setTime(appointmentRequestModel.getTime());
 
         // Save the updated appointment
         appointmentRepository.save(appointment);

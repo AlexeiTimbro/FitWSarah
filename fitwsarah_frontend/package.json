@@ -24,7 +24,15 @@
     "react-scripts": "^5.0.1",
     "reactjs-popup": "^2.0.6",
     "web-vitals": "^2.1.4",
-    "webpack": "^5.89.0"
+    "webpack": "^5.89.0",
+    "react-datetime-picker":"^5.6.0",
+    "date-fns": "2.27.0",
+    "@mui/material": "^5.9.2",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/lab": "^5.0.0-alpha.83",
+    "@date-io/date-fns": "^2.14.0",
+    "@mui/x-date-pickers": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
