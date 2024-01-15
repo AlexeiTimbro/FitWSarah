@@ -20,4 +20,12 @@ public class AppointmentRequestModel {
     private String phoneNum;
     private String date;
     private String time;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 }

@@ -7,6 +7,7 @@ import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentR
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -66,9 +67,25 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public AppointmentResponseModel updateAppointment(AppointmentRequestModel appointmentRequestModel, String appointmentId) {
-        return null;
+    public AppointmentResponseModel updateAppointmentDetails(AppointmentRequestModel appointmentRequestModel, String appointmentId) {
+        Appointment appointment = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId);
+
+        // Check if the appointment exists
+        if (appointment == null) {
+            throw new EntityNotFoundException("Appointment with ID " + appointmentId + " not found");
+        }
+
+        // Update appointment details
+        appointment.setAppointmentStatus(appointmentRequestModel.getStatus());
+        appointment.setAppointmentLocation(appointmentRequestModel.getLocation());
+
+        // Save the updated appointment
+        appointmentRepository.save(appointment);
+
+        // Return the updated appointment details
+        return appointmentResponseMapper.entityToResponseModel(appointment);
     }
+
 
     @Override
     public AppointmentResponseModel updateAppointmentStatus(String appointmentId, String status) {

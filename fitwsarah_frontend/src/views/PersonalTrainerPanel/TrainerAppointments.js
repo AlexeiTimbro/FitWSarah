@@ -24,6 +24,11 @@ function AdminAccounts() {
     const [appointments, setAppointments] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
 
+    const [editAppointmentId, setEditAppointmentId] = useState(null);
+    const [editFormData, setEditFormData] = useState({
+        status: '',
+        location: '',
+    });
     useEffect(() => {
         if (isAuthenticated) {
             const getAccessToken = async () => {
@@ -47,6 +52,67 @@ function AdminAccounts() {
         }
     }, [accessToken]);
 
+    const handleEditClick = (appointment) => {
+        fetch(`http://localhost:8080/api/v1/appointments/${appointment.appointmentId}`, {
+            method: "GET",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            })
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setEditAppointmentId(appointment.appointmentId);
+                // Set form data with fetched values for status and location
+                setEditFormData({
+                    status: data.status, // Assuming status is already in the correct format
+                    location: data.location,
+                });
+            })
+            .catch((error) => {
+                console.error('Error fetching appointment details:', error);
+            });
+    };
+
+
+    const handleSaveClick = (appointmentId) => {
+        // Assuming your API endpoint can handle the full update, not just the status
+        fetch(`http://localhost:8080/api/v1/appointments/${appointmentId}`, {
+            method: "PUT",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(editFormData) // Send the updated form data
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(() => {
+                getAllAppointments(); // Refresh the list of appointments
+            })
+            .catch((error) => {
+                console.error('Error updating appointment:', error);
+            });
+
+        setEditAppointmentId(null); // Exit edit mode
+    };
+
+    const handleChange = (event, appointmentId) => {
+        const fieldName = event.target.getAttribute("name");
+        const fieldValue = event.target.value;
+        const newFormData = { ...editFormData };
+        newFormData[fieldName] = fieldValue;
+        setEditFormData(newFormData);
+    };
 
     const handleCancelAppointment = (appointmentId) => {
         const isConfirmed = window.confirm("Are you sure you want to cancel this appointment?");
@@ -108,8 +174,8 @@ function AdminAccounts() {
 
     return (
         <div>
-            {!isAuthenticated && <NavNotLoggedIn/>}
-            {isAuthenticated && <NavLoggedIn/>}
+            {!isAuthenticated && <NavNotLoggedIn />}
+            {isAuthenticated && <NavLoggedIn />}
             <div className="accounts-section">
                 <div className="container">
                     <Link to="/trainerPanel" className="button back-button">Back</Link>
@@ -131,25 +197,60 @@ function AdminAccounts() {
                                 <th>Service Id</th>
                                 <th>Status</th>
                                 <th>Location</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {appointments.map(appointments => (
-                                <tr key={appointments.id}>
-                                    <td>{appointments.appointmentId}</td>
-                                    <td>{appointments.accountId}</td>
-                                    <td>{appointments.availabilityId}</td>
-                                    <td>{appointments.adminId}</td>
-                                    <td>{appointments.serviceId}</td>
-                                    <td>{appointments.status}</td>
-                                    <td>{appointments.location}</td>
-                                    <td>
-                                        <button className="button delete-button" onClick={() => handleCancelAppointment(appointments.appointmentId)}>
-                                            Cancel Appointment
-                                        </button>
-                                        <button className="button details-button">Appointment Details</button>
-                                    </td>
-                                </tr>
+                            {appointments.map((appointment) => (
+                                editAppointmentId === appointment.appointmentId ? (
+                                    <tr key={appointment.appointmentId}>
+                                        <td>
+                                            <select
+                                                name="status"
+                                                value={editFormData.status}
+                                                onChange={handleChange}
+                                            >
+                                                <option value="SCHEDULED">SCHEDULED</option>
+                                                <option value="CANCELLED">CANCELLED</option>
+                                                <option value="COMPLETED">COMPLETED</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                name="location"
+                                                value={editFormData.location}
+                                                onChange={handleChange}
+                                            />
+                                        </td>
+                                        <td>
+                                            <button className="button" onClick={() => handleSaveClick(appointment.appointmentId)}>
+                                                Save
+                                            </button>
+                                            <button className="button" onClick={() => setEditAppointmentId(null)}>
+                                                Cancel
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    <tr key={appointment.appointmentId}>
+                                        <td>{appointment.appointmentId}</td>
+                                        <td>{appointment.accountId}</td>
+                                        <td>{appointment.availabilityId}</td>
+                                        <td>{appointment.adminId}</td>
+                                        <td>{appointment.serviceId}</td>
+                                        <td>{appointment.status}</td>
+                                        <td>{appointment.location}</td>
+                                        <td>
+                                            <button className="button" onClick={() => handleEditClick(appointment)}>
+                                                Edit
+                                            </button>
+                                            <button className="button" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
+                                                Cancel Appointment
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
                             ))}
                             </tbody>
                         </table>

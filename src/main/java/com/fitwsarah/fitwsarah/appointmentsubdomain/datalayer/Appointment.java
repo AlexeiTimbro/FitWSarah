@@ -14,13 +14,17 @@ public class Appointment {
     private Integer id;
     @Embedded
     private AppointmentIdentifier appointmentIdentifier;
+    @Embedded
+    private AccountIdentifier accountIdentifier;
+
+    private String availabilityId;
+
 
     //Change this ELIAS WAS DUM AND SHOULD NOT BE NEAR SOCIETY
     //@Embedded
     //private AccountIdentifier accountIdentifier;
     private String userId;
 
-    private String availabilityId;
     private String serviceId;
 
     @Enumerated(EnumType.STRING)
@@ -33,7 +37,7 @@ public class Appointment {
     private String date;
     private String time;
 
-    public Appointment() {
+    public Appointment(){
         this.appointmentIdentifier = new AppointmentIdentifier();
     }
 
@@ -49,5 +53,13 @@ public class Appointment {
         this.phoneNum = phoneNum;
         this.date = date;
         this.time = time;
+    }
+
+    public void setAppointmentStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setAppointmentLocation(String location) {
+        this.location = location;
     }
 }

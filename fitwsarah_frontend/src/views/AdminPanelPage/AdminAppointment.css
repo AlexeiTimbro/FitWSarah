@@ -97,7 +97,6 @@ body {
 }
 
 
-/* Styles for the search bar container */
 .search-bar-container {
     position: relative;
     margin-bottom: 20px;
@@ -131,4 +130,11 @@ body {
     border-radius: 4px;
     text-decoration: none;
     display: inline-block;
+}
+
+.saveButton{
+    background-color: #4CAF50;
+}
+.cancelButton{
+    background-color: #f44336;
 }
