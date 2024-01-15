@@ -10,7 +10,7 @@ import java.util.List;
 public interface AppointmentService {
 
     List<AppointmentResponseModel> getAllAppointments(String appointmentId, String accountId, String status);
-    List<AppointmentResponseModel> getAllAppointmentsByAccountId(String accountId);
+    List<AppointmentResponseModel> getAllAppointmentsByAccountId(String userId);
 
     AppointmentResponseModel getAppointmentByAppointmentId(String appointmentId);
 

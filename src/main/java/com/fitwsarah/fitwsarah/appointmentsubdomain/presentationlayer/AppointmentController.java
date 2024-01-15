@@ -28,9 +28,9 @@ public class AppointmentController {
 
     }
 
-    @GetMapping("/account/{accountId}")
-    public List<AppointmentResponseModel> getAllAppointmentsByAccountId(@PathVariable String accountId){
-        return appointmentService.getAllAppointmentsByAccountId(accountId);
+    @GetMapping("/accounts/users/{userId}")
+    public List<AppointmentResponseModel> getAllAppointmentsByAccountId(@PathVariable String userId){
+        return appointmentService.getAllAppointmentsByAccountId(userId);
     }
 
 

@@ -2,6 +2,7 @@ package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.AccountService;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentController;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,6 +23,8 @@ import java.util.List;
 import static io.netty.handler.codec.http.HttpResponseStatus.CREATED;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 
@@ -32,8 +35,8 @@ class AccountControllerUnitTest {
     @InjectMocks
     private AccountController accountController;
 
-    AccountResponseModel account1 = new AccountResponseModel("uuid-1","appt1", "adms", "uuid-admin1",  "Scheduled");
-    AccountResponseModel account2 = new AccountResponseModel("uuid-2","appt1", "adms", "uuid-admin1", "Scheduled");
+    AccountResponseModel account1 = new AccountResponseModel("uuid-1", "appt1", "adms", "uuid-admin1", "Scheduled");
+    AccountResponseModel account2 = new AccountResponseModel("uuid-2", "appt1", "adms", "uuid-admin1", "Scheduled");
 
     @BeforeEach
     void setUp() {
@@ -50,9 +53,9 @@ class AccountControllerUnitTest {
     }
 
     @Test
-    public void AddAccount_withInvalidKey_ShouldFail(){
+    public void AddAccount_withInvalidKey_ShouldFail() {
         AccountRequestModel requestModel = new AccountRequestModel("3", "smith", "john@gmail.com", "John Ville");
-        AccountResponseModel addedAccount = new AccountResponseModel("3","3", "smith", "john@gmail.com", "John Ville");
+        AccountResponseModel addedAccount = new AccountResponseModel("3", "3", "smith", "john@gmail.com", "John Ville");
 
         when(accountService.addAccount(requestModel)).thenReturn(addedAccount);
 
@@ -77,4 +80,24 @@ class AccountControllerUnitTest {
 
         assertThat(result, is(AccountResponseModelList));
     }
+
+    @Test
+    void updateAccountByUserId_ShouldUpdateAccount() {
+        // Arrange
+        String userId = "uuid-1";
+        AccountRequestModel updateRequestModel = new AccountRequestModel("JohnDoe", "johndoe@example.com", "123 Main St", "tonrnot");
+        AccountResponseModel updatedAccount = new AccountResponseModel("uuid-1", "JohnDoe", "johndoe@example.com", "123 Main St" , "tonrnot");
+
+        when(accountService.updateAccount(updateRequestModel, userId)).thenReturn(updatedAccount);
+
+        // Act
+        ResponseEntity<AccountResponseModel> result = accountController.updateAccountByUserId(updateRequestModel, userId);
+
+        // Assert
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+        Assertions.assertEquals(updatedAccount, result.getBody());
+    }
+
+
 }

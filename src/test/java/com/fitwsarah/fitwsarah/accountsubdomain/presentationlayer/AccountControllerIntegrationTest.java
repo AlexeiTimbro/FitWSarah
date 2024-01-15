@@ -153,8 +153,6 @@ class AccountControllerIntegrationTest {
     public void updateAccountByUserId_ShouldUpdateAccount_WhenCalledWithValidData() throws Exception {
         String userId = "1";
         AccountRequestModel updatedAccount = new AccountRequestModel("1", "newLastName", "newEmail@gmail.com", "New Address");
-
-
         mockMvc.perform(put("/api/v1/accounts/users/{userId}", userId)
                         .header("Authorization", testToken)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -164,7 +162,6 @@ class AccountControllerIntegrationTest {
 
 
     }
-
 
 
 

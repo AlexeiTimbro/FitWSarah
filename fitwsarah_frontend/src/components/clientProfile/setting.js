@@ -20,6 +20,7 @@ function Settings() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
+    const [updateConfirmation, setUpdateConfirmation] = useState('');
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -41,7 +42,7 @@ function Settings() {
     useEffect(() => {
         if (accessToken) {
             fetchUserDataFromDatabase(extractAfterPipe(user.sub));
-            getAppointmentsByAccountId(accountId);
+
         }
     }, [user, accessToken]);
 
@@ -76,33 +77,7 @@ function Settings() {
             });
     };
 
-    const getAppointmentsByAccountId = (accountId) => {
-        fetch(`http://localhost:8080/api/v1/appointments/account/${accountId}`, {
-            method: "GET",
-            headers: {
-                Authorization: "Bearer " + accessToken,
-                "Content-Type": "application/json",
-            },
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(
-                        "Network response was not ok " + response.statusText
-                    );
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setAppointments(data);
-            })
-            .catch((error) => {
-                console.error(
-                    "Error fetching service details for serviceId",
-                    ":",
-                    error
-                );
-            });
-    };
+
     const handleUpdate = () => {
 
         console.log('Update clicked');
@@ -131,7 +106,7 @@ function Settings() {
             })
             .then((data) => {
                 if (data && data.success) {
-                    console.log('Profile update successful:', data.message);
+                    setUpdateConfirmation(`Profile updated successfully! Username: ${username}, Email: ${email}, City: ${city}`);
                     setProfile(data.updatedProfile);
                     window.location.reload();
                 }
@@ -182,15 +157,20 @@ function Settings() {
                             <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </Form.Group>
 
-                        <Form.Group controlId="formCity">
+                        <Form.Group controlId="formCity" style={{ marginBottom: '10px' }}> {/* Add margin to the bottom */}
                             <Form.Label>City</Form.Label>
                             <Form.Control type="text" value={city} onChange={(e) => setCity(e.target.value)} />
                         </Form.Group>
 
-                        <Button variant="primary" onClick={() => handleUpdate(extractAfterPipe(user.sub))}>
+                        <Button variant="primary" onClick={() => handleUpdate(extractAfterPipe(user.sub))} style={{ marginTop: '20px' }}> {/* Add margin to the top */}
                             Update
                         </Button>
                     </Form>
+                    {updateConfirmation && (
+                        <div className="update-confirmation-box">
+                            {updateConfirmation}
+                        </div>
+                    )}
                 </div>
             </div>
             <FooterNotLoggedIn />

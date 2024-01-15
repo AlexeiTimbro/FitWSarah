@@ -259,4 +259,22 @@ class AccountServiceUnitTest {
     }
 
 
+    @Test
+    void updateAccountByUserId_WhenNoAccountFound_ShouldReturnNull() {
+        // Arrange
+        String userId = "uuid-test2";
+        AccountRequestModel requestModel = new AccountRequestModel(userId, "999", "00", "Brossard");
+
+        when(accountRepository.findAccountByUserId(userId)).thenReturn(null);
+
+        // Act
+        AccountResponseModel result = accountService.updateAccount(requestModel, userId);
+
+        // Assert
+        assertNull(result);
+        verify(accountRepository, never()).save(any(Account.class));
+        verify(accountRequestMapper, never()).requestModelToEntity(any(AccountRequestModel.class));
+        verify(accountResponseMapper, never()).entityToResponseModel(any(Account.class));
+    }
+
 }
