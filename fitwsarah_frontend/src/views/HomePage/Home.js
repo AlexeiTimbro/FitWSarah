@@ -88,19 +88,13 @@ function Home() {
             console.error("Error fetching service details for serviceId", serviceId, ":", error);
         });
     };
-    
-    useEffect(() => {
-      if (isAuthenticated && !hasCalledAddMemberProfile) {
-          setHasCalledAddMemberProfile(true);
-      }
-  }, [isAuthenticated, hasCalledAddMemberProfile]);
    
 return (
         <div>
 
     {!isAuthenticated && <NavNotLoggedIn/>}
     {isAuthenticated && <NavLoggedIn/>}
-    {isAuthenticated && <AddMemberProfile />}
+    {isAuthenticated && user["https://fitwsarah.com/roles"].length == 0 && <AddMemberProfile />}
     <section className="hero-section">
     </section>
 
