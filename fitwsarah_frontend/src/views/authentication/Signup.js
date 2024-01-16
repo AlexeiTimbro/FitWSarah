@@ -3,8 +3,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Spinner } from 'react-bootstrap';
 import configData from '../../config.json';
-
-
+import { isRole } from "../../components/authentication/authUtils";
+import { ROLES } from "../../components/authentication/roles";
+//i have to fix sign up issue
 function AddMemberProfile() {
     const {user, isAuthenticated, getAccessTokenSilently} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
@@ -96,10 +97,12 @@ function AddMemberProfile() {
             }
 
             addMember();
+            isRole(user, ROLES.MEMBER)
+            window.location.reload()
             console.log(user);
             console.log("Added Member");
         }
-    }, [isAuthenticated, accessToken, user, addMember]);
+    }, [isAuthenticated, accessToken, user, addMember, isRole]);
 
 }
 
