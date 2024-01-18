@@ -29,7 +29,7 @@ root.render(
     domain="dev-twa7h1nv0usycyum.us.auth0.com"
     clientId="G48IOcWYllMsX3UPo5jTRkC2mUkd4LJ5"
     authorizationParams={{
-      redirect_uri: "https://fitwsarah.onrender.com/",
+      redirect_uri: window.location.origin,
       audience: "https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/",
       scope: "read:users update:current_user_metadata openid profile email"
     }}
