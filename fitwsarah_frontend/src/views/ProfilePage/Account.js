@@ -58,7 +58,7 @@ function Profile() {
     }, [user]);
 
     const getAccountByUserId = (userId) => {
-        fetch(`http://localhost:8080/api/v1/accounts/users/${userId}`, {
+        fetch(`https://fitwsarah.onrender.com/api/v1/accounts/users/${userId}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + accessToken,
@@ -84,7 +84,7 @@ function Profile() {
     };
 
     const getAppointmentsByAccountId = (userId) => {
-        fetch(`http://localhost:8080/api/v1/appointments/account/users/${userId}`, {
+        fetch(`https://fitwsarah.onrender.com/api/v1/appointments/account/users/${userId}`, {
             method: "GET",
             headers: {
                 Authorization: "Bearer " + accessToken,

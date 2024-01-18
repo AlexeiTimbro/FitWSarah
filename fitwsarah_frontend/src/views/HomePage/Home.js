@@ -68,7 +68,7 @@ function Home() {
 
     const handleShow = (serviceId) => {
 
-    fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}`, {
+    fetch(`https://fitwsarah.onrender.com/api/v1/fitnessPackages/${serviceId}`, {
           method: "GET",
           headers: new Headers({
               "Content-Type": "application/json"

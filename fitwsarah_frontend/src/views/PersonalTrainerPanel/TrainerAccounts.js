@@ -51,7 +51,7 @@ function AdminAccounts() {
 
 
     const getAllAccounts = () => {
-        fetch("http://localhost:8080/api/v1/accounts", {
+        fetch("https://fitwsarah.onrender.com/api/v1/accounts", {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,

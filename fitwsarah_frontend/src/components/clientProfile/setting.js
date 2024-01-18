@@ -53,7 +53,7 @@ function Settings() {
     }, [user]);
 
     const fetchUserDataFromDatabase = (userId) => {
-        fetch(`http://localhost:8080/api/v1/accounts/users/${userId}`, {
+        fetch(`https://fitwsarah.onrender.com/api/v1/accounts/users/${userId}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + accessToken,
@@ -97,7 +97,7 @@ function Settings() {
 
 
 
-        fetch(`http://localhost:8080/api/v1/accounts/users/${extractAfterPipe(user.sub)}`, {
+        fetch(`https://fitwsarah.onrender.com/api/v1/accounts/users/${extractAfterPipe(user.sub)}`, {
             method: "PUT",
             headers: {
                 "Authorization": "Bearer " + accessToken,

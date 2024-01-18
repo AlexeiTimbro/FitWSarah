@@ -46,7 +46,7 @@ function AdminAccounts() {
           }
       });
   
-      fetch(`http://localhost:8080/api/v1/accounts${params.toString() && "?" + params.toString()}`, {
+      fetch(`https://fitwsarah.onrender.com/api/v1/accounts${params.toString() && "?" + params.toString()}`, {
           method: "GET",
           headers: new Headers({
               Authorization: "Bearer " + accessToken,
