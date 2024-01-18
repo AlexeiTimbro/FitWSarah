@@ -24,7 +24,6 @@ import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const root = createRoot(document.getElementById('root'));
-App.listen(process.env.PORT || 3000);
 root.render(
 <Auth0Provider
     domain="dev-twa7h1nv0usycyum.us.auth0.com"
