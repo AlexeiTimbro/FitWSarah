@@ -65,7 +65,7 @@ function AddMemberProfile() {
             };
 
 
-            const response = await fetch("http://localhost:8080/api/v1/accounts", {
+            const response = await fetch("https://fitwsarah.onrender.com/api/v1/accounts", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
