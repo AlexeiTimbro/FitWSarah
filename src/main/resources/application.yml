@@ -8,7 +8,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:mysql://avnadmin:AVNS__XXPepyHbcL_QFVOk2o@fitwsarah-fitwsarahdb.a.aivencloud.com:20883/defaultdb?ssl-mode=REQUIRED
+    url: ${DATABASE_URL}
     username: avnadmin
     password: AVNS__XXPepyHbcL_QFVOk2o
     driver-class-name: com.mysql.cj.jdbc.Driver
