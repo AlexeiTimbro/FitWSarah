@@ -1,4 +1,4 @@
-USE `brrxxmh3hcgspalv0jkt`;
+USE `defaultdb`;
 
 
 INSERT INTO accounts (user_id, account_id, username, email, city) VALUES

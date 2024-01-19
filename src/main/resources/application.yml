@@ -8,16 +8,16 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:mysql://ufoi51cd4vdjv72c:PGPr4sCr6c6pI6qJpjco@brrxxmh3hcgspalv0jkt-mysql.services.clever-cloud.com:3306/brrxxmh3hcgspalv0jkt
-    username: ufoi51cd4vdjv72c
-    password: PGPr4sCr6c6pI6qJpjco
+    url: mysql://avnadmin:AVNS__XXPepyHbcL_QFVOk2o@fitwsarah-fitwsarahdb.a.aivencloud.com:20883/defaultdb?ssl-mode=REQUIRED
+    username: avnadmin
+    password: AVNS__XXPepyHbcL_QFVOk2o
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       initializationFailTimeout: 60000
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
 
 logging:
   level:
