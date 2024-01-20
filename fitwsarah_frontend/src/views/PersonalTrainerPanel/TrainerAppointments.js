@@ -172,7 +172,7 @@ function AdminAccounts() {
     };
 
     const updateAppointmentStatus = (appointmentId, status) => {
-        fetch(`https://fitwsarah.onrender.com/api/v1/appointments/${appointmentId}/${status}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/${status}`, {
             method: "PUT",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
