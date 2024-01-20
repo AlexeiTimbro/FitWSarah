@@ -64,7 +64,7 @@ function Services() {
                             <th>Duration</th>
                             <th>Other Information</th>
                             <th>Price</th>
-                            <th>Actions</th>
+                            
                         </tr>
                         </thead>
                         <tbody>
