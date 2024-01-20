@@ -11,7 +11,7 @@ const BookingButton = ({appointmentDataToSend}) => {
       const getAccessToken = async () => {
         try {
           const token = await getAccessTokenSilently({
-            audience: configData.audience,
+            audience: process.env.REACT_APP_AUTH0_AUDIENCE,
             scope: configData.scope,
           });
           setAccessToken(token);
@@ -44,7 +44,7 @@ const BookingButton = ({appointmentDataToSend}) => {
           return;
       }
 
-      const response = await fetch(`http://localhost:8080/api/v1/appointments`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,

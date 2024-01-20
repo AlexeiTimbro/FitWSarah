@@ -35,7 +35,7 @@ function Profile() {
             const getAccessToken = async () => {
                 try {
                     const token = await getAccessTokenSilently({
-                        audience: configData.audience,
+                        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
                         scope: configData.scope,
                     });
                     setAccessToken(token);
@@ -58,7 +58,7 @@ function Profile() {
     }, [user]);
 
     const getAccountByUserId = (userId) => {
-        fetch(`http://localhost:8080/api/v1/accounts/users/${userId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/users/${userId}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + accessToken,
@@ -84,7 +84,7 @@ function Profile() {
     };
 
     const getAppointmentsByAccountId = (userId) => {
-        fetch(`http://localhost:8080/api/v1/appointments/account/users/${userId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/account/users/${userId}`, {
             method: "GET",
             headers: {
                 Authorization: "Bearer " + accessToken,
