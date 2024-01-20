@@ -27,7 +27,7 @@ function Settings() {
             const getAccessToken = async () => {
                 try {
                     const token = await getAccessTokenSilently({
-                        audience: {REACT_APP_AUTH0_AUDIENCE},
+                        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
                         scope: configData.scope,
                     });
                     setAccessToken(token);
