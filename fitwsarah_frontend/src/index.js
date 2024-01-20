@@ -26,11 +26,11 @@ import { Auth0Provider } from '@auth0/auth0-react';
 const root = createRoot(document.getElementById('root'));
 root.render(
 <Auth0Provider
-    domain="dev-twa7h1nv0usycyum.us.auth0.com"
-    clientId="G48IOcWYllMsX3UPo5jTRkC2mUkd4LJ5"
+    domain={process.env.REACT_APP_AUTH0_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: "https://dev-twa7h1nv0usycyum.us.auth0.com/api/v2/",
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       scope: "read:users update:current_user_metadata openid profile email"
     }}
   >

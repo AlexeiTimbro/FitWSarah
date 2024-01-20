@@ -1,4 +1,4 @@
-HELP.md
+### Gradle ###
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -22,6 +22,8 @@ bin/
 *.iws
 *.iml
 *.ipr
+# Ignore environment variables file
+.env
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
@@ -35,3 +37,4 @@ out/
 
 ### VS Code ###
 .vscode/
+

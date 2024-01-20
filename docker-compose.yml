@@ -4,8 +4,8 @@ services:
     hostname: fitwsarah
     ports:
       - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
+    env_file:
+      - .env
 
     healthcheck:
       test:
@@ -26,6 +26,10 @@ services:
     build:
       context: ./fitwsarah_frontend
       dockerfile: Dockerfile.react
+      args:
+        - REACT_APP_AUTH0_DOMAIN=${AUTH0_DOMAIN}
+        - REACT_APP_AUTH0_CLIENT_ID=${AUTH0_CLIENT_ID}
+        - REACT_APP_AUTH0_AUDIENCE=${AUTH0_AUDIENCE}
     ports:
       - "3000:80"
     depends_on:

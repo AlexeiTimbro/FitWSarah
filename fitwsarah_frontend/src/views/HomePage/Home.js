@@ -45,6 +45,9 @@ function Home() {
           return response.json();
       })
       .then((data) => {
+        console.log("Domain: " + process.env.REACT_APP_AUTH0_DOMAIN);
+        console.log("ClientID: " + process.env.REACT_APP_AUTH0_CLIENT_ID);
+        console.log("Audience: " + process.env.REACT_APP_AUTH0_AUDIENCE);
           setServices(data);
       })
       .catch((error) => {
