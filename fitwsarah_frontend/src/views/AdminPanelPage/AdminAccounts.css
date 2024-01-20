@@ -58,7 +58,7 @@ body {
     text-decoration: none;
     border: none;
   }
-  
+
   /* Specific styles for delete and details buttons */
   .delete-button {
     background-color: #d9534f; /* Bootstrap 'btn-danger' color */
