@@ -32,7 +32,7 @@ function Home() {
   }, [isAuthenticated, hasCalledAddMemberProfile]);
 
     const getAllFitnessServices = () => {
-      fetch("https://fitwsarah.onrender.com/api/v1/fitnessPackages", {
+      fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
           method: "GET",
           headers: new Headers({
               "Content-Type": "application/json"
@@ -68,7 +68,7 @@ function Home() {
 
     const handleShow = (serviceId) => {
 
-    fetch(`https://fitwsarah.onrender.com/api/v1/fitnessPackages/${serviceId}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
           method: "GET",
           headers: new Headers({
               "Content-Type": "application/json"

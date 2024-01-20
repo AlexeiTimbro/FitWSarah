@@ -44,7 +44,7 @@ const BookingButton = ({appointmentDataToSend}) => {
           return;
       }
 
-      const response = await fetch(`https://fitwsarah.onrender.com/api/v1/appointments`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,

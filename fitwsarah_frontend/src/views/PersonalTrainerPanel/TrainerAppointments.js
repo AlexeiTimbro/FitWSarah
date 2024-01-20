@@ -53,7 +53,7 @@ function AdminAccounts() {
     }, [accessToken, searchTerm]);
 
     const handleEditClick = (appointment) => {
-        fetch(`https://fitwsarah.onrender.com/api/v1/appointments/${appointment.appointmentId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointment.appointmentId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -92,7 +92,7 @@ function AdminAccounts() {
             time: format(editFormData.dateTime, 'HH:mm'),
         };
 
-        fetch(`https://fitwsarah.onrender.com/api/v1/appointments/${appointmentId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}`, {
             method: "PUT",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -149,7 +149,7 @@ function AdminAccounts() {
             }
         });
 
-        fetch(`https://fitwsarah.onrender.com/api/v1/appointments${params.toString() && "?" + params.toString()}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -172,7 +172,7 @@ function AdminAccounts() {
     };
 
     const updateAppointmentStatus = (appointmentId, status) => {
-        fetch("https://fitwsarah.onrender.com/api/v1/appointments/" + appointmentId + "/status", {
+        fetch(`https://fitwsarah.onrender.com/api/v1/appointments/${appointmentId}/${status}`, {
             method: "PUT",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,

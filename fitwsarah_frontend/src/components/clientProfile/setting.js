@@ -53,7 +53,7 @@ function Settings() {
     }, [user]);
 
     const fetchUserDataFromDatabase = (userId) => {
-        fetch(`https://fitwsarah.onrender.com/api/v1/accounts/users/${userId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/users/${userId}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + accessToken,

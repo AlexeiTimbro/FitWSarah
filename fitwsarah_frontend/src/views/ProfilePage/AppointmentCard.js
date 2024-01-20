@@ -14,7 +14,7 @@ function AppointmentCard({ appointment, accessToken }) {
     }, [accessToken]);
 
     const getFitnessServiceById = (serviceId) => {
-        fetch(`https://fitwsarah.onrender.com/api/v1/fitnessPackages/${serviceId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
