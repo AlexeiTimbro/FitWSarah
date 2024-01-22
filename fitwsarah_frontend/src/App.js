@@ -11,6 +11,7 @@ import AdminAppointments from "./views/AdminPanelPage/AdminAppointments";
 import BookAppointment from "./views/AppointmentPage/NewAppointment";
 import Services from "./views/AdminPanelPage/FitnessServices";
 import TrainerFitnessServices from "./views/PersonalTrainerPanel/TrainerFitnessServices";
+import CoachNote from './components/CoahNote/CoahNote';
 function App() {
     return (
         <Router>
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/trainerAccounts" element={<TrainerAccounts/>}/>
                 <Route path="/services" element={<Services/>}/>
                 <Route path="/trainerServices" element={<TrainerFitnessServices/>}/>
+                <Route path="/coachnotes" element={<CoachNote/>}/>
             </Routes>
         </Router>
     );

@@ -69,3 +69,10 @@ create table if not exists availabilities(
     account_id VARCHAR(36) NOT NULL,
     datetime DATETIME NOT NULL
 );
+
+create table if not exists coach_notes(
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    coach_note_id VARCHAR(36) NOT NULL,
+    user_id VARCHAR(36) NOT NULL,
+    content VARCHAR(120) NOT NULL
+);

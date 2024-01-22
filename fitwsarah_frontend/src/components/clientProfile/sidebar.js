@@ -14,7 +14,7 @@ function SideBar() {
                         <Link to="/invoices">Dark mode</Link>
                     </li>
                     <li>
-                        <Link to="/appointments"> appointments</Link>
+                        <Link to="/coachnotes"> appointments</Link>
                     </li>
                     <li>
                         <Link to="/sign out">Sign Out</Link>

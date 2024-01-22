@@ -97,7 +97,7 @@ function Settings() {
 
 
 
-        fetch(`https://fitwsarah.onrender.com/api/v1/accounts/users/${extractAfterPipe(user.sub)}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/users/${extractAfterPipe(user.sub)}`, {
             method: "PUT",
             headers: {
                 "Authorization": "Bearer " + accessToken,
@@ -161,7 +161,7 @@ function Settings() {
                             <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </Form.Group>
 
-                        <Form.Group controlId="formCity" style={{ marginBottom: '10px' }}> {/* Add margin to the bottom */}
+                        <Form.Group controlId="formCity" style={{ marginBottom: '10px' }}>
                             <Form.Label>City</Form.Label>
                             <Form.Control type="text" value={city} onChange={(e) => setCity(e.target.value)} />
                         </Form.Group>
