@@ -3,10 +3,6 @@ package com.fitwsarah.fitwsarah.accountsubdomain.datalayer;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
-import jakarta.persistence.*;
-import lombok.Data;
-
 @Entity
 @Table(name="invoices")
 @Data
@@ -17,22 +13,21 @@ public class Invoices {
     private Integer id;
 
     @Embedded
-    private InvoiceIndentifier invoiceIdentifier;
+    private InvoiceIdentifier invoiceIdentifier;
 
-    @Embedded
-    private AccountIdentifier accountIdentifier;
+    private String userId;
 
     private double amount;
 
     private double content;
 
     Invoices() {
-        this.invoiceIdentifier = new InvoiceIndentifier();
+        this.invoiceIdentifier = new InvoiceIdentifier();
     }
 
-    public Invoices(AccountIdentifier accountIdentifier, double amount, double content) {
-        this.invoiceIdentifier = new InvoiceIndentifier();
-        this.accountIdentifier = accountIdentifier;
+    public Invoices(String userId, double amount, double content) {
+        this.invoiceIdentifier = new InvoiceIdentifier();
+        this.userId = userId;
         this.amount = amount;
         this.content = content;
     }

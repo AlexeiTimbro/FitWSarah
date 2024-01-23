@@ -7,11 +7,11 @@ import lombok.Value;
 
 @Value
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class InvoiceResponseModel {
-    private String invoiceId;
-    private String accountId;
-    private double amount;
+ String invoiceId;
+   String userId;
+   double amount;
 
-    private double content;
+   double content;
 }
