@@ -53,9 +53,9 @@ function CoachNote({userId}) {
             <div className="box">
             {contents && contents.map((content, index) => (
                 <div className="coachnote" key={index}>
-                        <div className="group">
-                             <div className="card-title1">Coach Note {index + 1}</div>
-                                <div className="card-detail1">{content.content}</div>
+                    <div className="group">
+                        <div className="card-title1">Coach Note {index + 1}</div>
+                        <div className="card-detail1">{content.content}</div>
                     </div>
                 </div>
                 ))}
