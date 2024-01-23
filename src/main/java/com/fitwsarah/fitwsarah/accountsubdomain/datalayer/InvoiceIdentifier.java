@@ -5,10 +5,10 @@ import jakarta.persistence.Embeddable;
 import java.util.UUID;
 
 @Embeddable
-public class InvoiceIndentifier {
+public class InvoiceIdentifier {
     private String invoiceId;
 
-     InvoiceIndentifier(){
+     InvoiceIdentifier(){
          this.invoiceId = UUID.randomUUID().toString();
      }
 
