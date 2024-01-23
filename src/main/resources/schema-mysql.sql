@@ -12,7 +12,7 @@ create table if not exists accounts(
 create table if not exists invoices(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     invoice_id VARCHAR(36) NOT NULL,
-    account_id VARCHAR(36) NOT NULL,
+    user_id VARCHAR(36) NOT NULL,
     amount DECIMAL NOT NULL,
     content VARCHAR(120) NOT NULL
 );

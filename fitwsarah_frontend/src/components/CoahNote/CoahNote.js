@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import "./coachNote.css"
+import "./CoachNote.css"
+import { useGetAccessToken } from "../../components/authentication/authUtils";
 
 
 function CoachNote() {
     
     const { user } = useAuth0();
     const [contents, setContents] = useState([]);
-    const [access, setAccess] = useState(false);
+    const [accessToken, setAccessToken] = useState(false);
+    const getAccessToken = useGetAccessToken();
 
     useEffect(() => {
         const fetchToken = async () => {
