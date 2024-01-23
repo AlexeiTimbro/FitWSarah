@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./CoachNote.css"
-import { useGetAccessToken } from "../../components/authentication/authUtils";
+import { useGetAccessToken } from "../authentication/authUtils";
 
 
-function CoachNote() {
+function CoachNote({userId}) {
     
-    const { user } = useAuth0();
     const [contents, setContents] = useState([]);
     const [accessToken, setAccessToken] = useState(false);
     const getAccessToken = useGetAccessToken();
@@ -22,21 +21,12 @@ function CoachNote() {
 
     useEffect(() => {
         if (accessToken) {
-            getCoachNote(extractAfterPipe(user.sub));
+            getCoachNote(userId);
         }
     }, [accessToken]);
 
-    function extractAfterPipe(userId) {
-        const parts = userId.split('|');
-        if (parts.length === 2) {
-            return parts[1];
-        } else {
-            return userId;
-        }
-    }
-
     function getCoachNote(userId) {
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes/uses/${userId}`, {
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes/users/${userId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -50,7 +40,7 @@ function CoachNote() {
             return response.json();
         })
         .then((data) => {
-            setContents(data.content);
+            setContents(data);
         })
         .catch((error) => {
             console.log(error);
@@ -61,15 +51,13 @@ function CoachNote() {
     return (
         <div className="scroll-container">
             <div className="box">
-                {contents.map((content, index) => (
-                    <div className="coachnote" key={index}>
-                        <div className="overlap-group">
-                            <div className="group">
-                                <div className="card-title1">Coach Note {index + 1}</div>
-                                <div className="card-detail1">{content}</div>
-                            </div>
-                        </div>
+            {contents && contents.map((content, index) => (
+                <div className="coachnote" key={index}>
+                        <div className="group">
+                             <div className="card-title1">Coach Note {index + 1}</div>
+                                <div className="card-detail1">{content.content}</div>
                     </div>
+                </div>
                 ))}
             </div>
         </div>

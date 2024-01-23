@@ -11,7 +11,7 @@ import AdminAppointments from "./views/AdminPanelPage/AdminAppointments";
 import BookAppointment from "./views/AppointmentPage/NewAppointment";
 import Services from "./views/AdminPanelPage/FitnessServices";
 import TrainerFitnessServices from "./views/PersonalTrainerPanel/TrainerFitnessServices";
-import CoachNote from './components/CoahNote/CoahNote';
+import CoachNote from './components/CoachNote/CoachNote.js';
 function App() {
     return (
         <Router>
