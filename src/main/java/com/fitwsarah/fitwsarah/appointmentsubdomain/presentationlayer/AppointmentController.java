@@ -33,11 +33,6 @@ public class AppointmentController {
         return appointmentService.getAllAppointmentsByUserId(userId);
     }
 
-
-
-
-
-
     @PostMapping()
     public ResponseEntity<AppointmentResponseModel> addAppointment(@RequestBody AppointmentRequestModel appointmentRequestModel){
         return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.addAppointment(appointmentRequestModel));
@@ -48,9 +43,14 @@ public class AppointmentController {
         return appointmentService.updateAppointmentDetails(appointmentRequestModel, appointmentId);
     }
 
-    @PutMapping("/{appointmentId}/status")
-    public AppointmentResponseModel updateAppointmentStatus(@PathVariable String appointmentId, @RequestBody String status){
-        return appointmentService.updateAppointmentStatus(appointmentId, status);
+    @PutMapping("/{appointmentId}/cancelled")
+    public AppointmentResponseModel updateAppointmentStatus(@PathVariable String appointmentId){
+        return appointmentService.updateAppointmentStatus(appointmentId);
+    }
+
+    @PutMapping("/{appointmentId}/scheduled")
+    public AppointmentResponseModel handleAppointmentRequest(@PathVariable String appointmentId){
+        return appointmentService.updateAppointmentStatus(appointmentId);
     }
 
     @DeleteMapping("/{appointmentId}")

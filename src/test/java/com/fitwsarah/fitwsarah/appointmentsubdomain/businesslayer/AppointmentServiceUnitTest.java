@@ -188,7 +188,7 @@ class AppointmentServiceUnitTest {
         when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
         when(appointmentResponseMapper.entityToResponseModel(appointment)).thenReturn(responseModel);
 
-        AppointmentResponseModel result = appointmentService.updateAppointmentStatus(appointmentId, status);
+        AppointmentResponseModel result = appointmentService.updateAppointmentStatus(appointmentId);
 
         assertEquals(Status.CANCELLED, result.getStatus());
     }

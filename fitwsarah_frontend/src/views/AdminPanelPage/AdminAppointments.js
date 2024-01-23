@@ -142,6 +142,13 @@ function AdminAccounts() {
         }
     };
 
+    const handleAcceptedAppointment = (appointmentId) => {
+        const isConfirmed = window.confirm("Are you sure you want to accept this appointment?");
+        if (isConfirmed) {
+            handleAppointmentRequest(appointmentId, 'scheduled');
+        }
+    };
+
 
     const getAppointments = () => {
         const params = new URLSearchParams();
@@ -173,18 +180,41 @@ function AdminAccounts() {
         });
     };
 
-    const updateAppointmentStatus = (appointmentId, status) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/${status}`, {
+    const updateAppointmentStatus = (appointmentId) => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/cancelled`, {
             method: "PUT",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
                 "Content-Type": "application/json"
             }),
-            body: JSON.stringify(status)
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                getAppointments();
+            })
+            .catch((error) => {
+                console.log(error);
+
+            });
+    }
+
+    const handleAppointmentRequest = (appointmentId) => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/scheduled`, {
+            method: "PUT",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
@@ -228,7 +258,7 @@ function AdminAccounts() {
                         <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
                     </div>
 
-                    <div className="table-responsive">
+                    <div className="table-scroll-container">
                         <table className="table">
                             <thead>
                             <tr>
@@ -320,12 +350,25 @@ function AdminAccounts() {
                                         <td>{appointment.date}</td>
                                         <td>{appointment.time}</td>
                                         <td className="edit-button-container">
-                                            <button className="saveButton" onClick={() => handleEditClick(appointment)}>
-                                                Edit
-                                            </button>
-                                            <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
-                                                Cancel Appointment
-                                            </button>
+                                            {appointment.status === "REQUESTED" ? (
+                                                <>
+                                                    <button className="saveButton" onClick={() => handleAcceptedAppointment(appointment.appointmentId)}>
+                                                        Accept
+                                                    </button>
+                                                    <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
+                                                        Deny
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <button className="saveButton" onClick={() => handleEditClick(appointment)}>
+                                                        Edit
+                                                    </button>
+                                                    <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
+                                                        Cancel Appointment
+                                                    </button>
+                                                </>
+                                            )}
                                         </td>
                                     </tr>
                                 )

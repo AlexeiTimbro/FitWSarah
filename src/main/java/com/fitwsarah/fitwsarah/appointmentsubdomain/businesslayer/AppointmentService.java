@@ -20,7 +20,9 @@ public interface AppointmentService {
 
     AppointmentResponseModel updateAppointmentDetails(AppointmentRequestModel appointmentRequestModel, String appointmentId);
 
-    AppointmentResponseModel updateAppointmentStatus(String appointmentId, String status);
+    AppointmentResponseModel updateAppointmentStatus(String appointmentId);
+
+    AppointmentResponseModel handleAppointmentRequest(String appointmentId);
 
     void removeAppointment(String appointmentId);
 }

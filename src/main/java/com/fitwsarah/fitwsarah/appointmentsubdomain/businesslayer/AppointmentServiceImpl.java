@@ -37,8 +37,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         if(appointmentId != null){
             appointments.addAll(appointmentRepository.findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith(appointmentId));
-        } else if(accountId != null){
-            appointments.addAll(appointmentRepository.findAllAppointmentsByUserIdStartingWith(accountId));
         } else if(status != null){
             appointments.addAll(appointmentRepository.findAllAppointmentsByStatus(Status.valueOf(status)));
         } else {
@@ -95,9 +93,19 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
     @Override
-    public AppointmentResponseModel updateAppointmentStatus(String appointmentId, String status) {
+    public AppointmentResponseModel updateAppointmentStatus(String appointmentId) {
         Appointment appointment = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId);
-        appointment.setStatus(Status.valueOf(Status.CANCELLED.toString()));
+
+        appointment.setStatus(Status.CANCELLED);
+        appointmentRepository.save(appointment);
+        return appointmentResponseMapper.entityToResponseModel(appointment);
+    }
+
+    @Override
+    public AppointmentResponseModel handleAppointmentRequest(String appointmentId) {
+        Appointment appointment = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId);
+
+        appointment.setStatus(Status.SCHEDULED);
         appointmentRepository.save(appointment);
         return appointmentResponseMapper.entityToResponseModel(appointment);
     }

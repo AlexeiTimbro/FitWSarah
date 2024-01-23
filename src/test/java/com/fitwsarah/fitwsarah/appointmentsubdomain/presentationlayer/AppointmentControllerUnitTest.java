@@ -103,10 +103,10 @@ class AppointmentControllerUnitTest {
 
         AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1",  "uuid-service1", Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
 
-        when(appointmentService.updateAppointmentStatus(appointmentId, status)).thenReturn(expectedResponse);
+        when(appointmentService.updateAppointmentStatus(appointmentId)).thenReturn(expectedResponse);
 
         // Act
-        AppointmentResponseModel result = appointmentController.updateAppointmentStatus(appointmentId, status);
+        AppointmentResponseModel result = appointmentController.updateAppointmentStatus(appointmentId);
 
         // Assert
         assertEquals(expectedResponse, result);
