@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageRequestMapper;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageResponseMapper;
@@ -33,8 +34,10 @@ public class FitnessPackageServiceImpl implements FitnessPackageService{
     }
 
     @Override
-    public FitnessPackageResponseModel addFitnessPackage(FitnessPackageRequestModel fitnessPackageRequestModel, String fitnessPackageId) {
-        return null;
+    public FitnessPackageResponseModel addFitnessPackage(FitnessPackageRequestModel fitnessPackageRequestModel) {
+        FitnessPackage fitnessPackage = fitnessPackageRequestMapper.requestModelToEntity(fitnessPackageRequestModel);
+        FitnessPackage savedFitnessPackage = fitnessPackageRepository.save(fitnessPackage);
+        return fitnessPackageResponseMapper.entityToResponseModel(savedFitnessPackage);
     }
 
     @Override

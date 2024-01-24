@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +29,8 @@ public class FitnessPackageController {
     }
 
     @PostMapping()
-    public FitnessPackageResponseModel addFitnessService(@RequestBody FitnessPackageResponseModel fitnessPackageResponseModel){
-        return null;
+    public ResponseEntity<FitnessPackageResponseModel> addFitnessService(@RequestBody FitnessPackageRequestModel fitnessPackageRequestModel){
+        return ResponseEntity.status(HttpStatus.CREATED).body(fitnessPackageService.addFitnessPackage(fitnessPackageRequestModel));
     }
 
     @PutMapping("/{serviceId}")

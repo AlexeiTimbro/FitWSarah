@@ -84,8 +84,8 @@
 }
 
 .services-section h1 {
-    text-align: center; /* Center the welcome text */
-    margin-bottom: 30px; /* Add space below the welcome message */
+    text-align: center; 
+    margin-bottom: 30px; 
 }
 
 .services-section .section-heading {
@@ -183,7 +183,7 @@
 }
 
 .book-button {
-    margin-right: 10px; /* Adjust the value as needed */
+    margin-right: 10px; 
   }
 
   .modal-content {
@@ -200,17 +200,17 @@
     color: white;
   }
 
-/* Add this to your stylesheet or inside a style tag in the component */
+
 .non-link-text {
-    margin-bottom: 10px; /* Adjust the spacing as needed */
-    display: block; /* Ensures each link is on a new line */
-    color: white; /* Set the text color */
-    text-decoration: none; /* Remove underline */
-    cursor: pointer; /* Show pointer cursor on hover */
+    margin-bottom: 10px;
+    display: block; 
+    color: white;
+    text-decoration: none; 
+    cursor: pointer; 
 }
 
 .non-link-text:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline; 
 }
 
 .update-confirmation-box {
@@ -220,3 +220,29 @@
     background-color: #f8f8f8;
     text-align: center;
 }
+.form-group {
+    margin-bottom: 16px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="tel"],
+  .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-group.checkbox {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-group.checkbox label {
+    margin-left: 8px;
+  }

@@ -7,7 +7,10 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import AddMemberProfile from "../authentication/Signup";
-
+import { ROLES } from "../../components/authentication/roles";
+import RoleBasedButton from "../../components/authentication/RoleBasedButton";
+import RoleBasedSwitch from "../../components/authentication/RoleBasedSwitch";
+import RequestNewFitnessService from "../HomePage/newServiceBtn";
 
 function Home() {
     const {
@@ -18,18 +21,11 @@ function Home() {
       } = useAuth0();
 
     const [services, setServices] = useState([]);
-    const [accessToken, setAccessToken] = useState(null);
-    const [hasCalledAddMemberProfile, setHasCalledAddMemberProfile] = useState(false);
+    const [editMode, setEditMode] = useState(false);
     
     useEffect(() => {
       getAllFitnessServices();
     }, []);
-
-    useEffect(() => {
-      if (isAuthenticated && !hasCalledAddMemberProfile) {
-          setHasCalledAddMemberProfile(true);
-      }
-  }, [isAuthenticated, hasCalledAddMemberProfile]);
 
     const getAllFitnessServices = () => {
       fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
@@ -88,7 +84,8 @@ function Home() {
             console.error("Error fetching service details for serviceId", serviceId, ":", error);
         });
     };
-   
+
+
 return (
         <div>
 
@@ -101,6 +98,7 @@ return (
     <section className="services-section">
       <Container>
       <h2 className="white-text">Services & Prices</h2>
+      <RoleBasedSwitch user={user} role={ROLES.PERSONAL_TRAINER} onClick={() => setEditMode((prevEditMode) => !prevEditMode)}></RoleBasedSwitch>
         <Row>
           {services.map(service => (
             <Col key={service.id} md={4}>
@@ -117,6 +115,9 @@ return (
             </Col>
           ))}
         </Row>
+        
+        {editMode && <button onClick={<RequestNewFitnessService />} className="my-button">Click me</button>}
+      
       </Container>
     </section>
 
