@@ -36,7 +36,7 @@ body {
 }
 
 /* Style for the action buttons */
-.saveButton {
+.saveButton , .acceptButton{
     display: inline-block;
     padding: 8px 15px;
     margin: 0 5px;
@@ -145,7 +145,7 @@ body {
     min-width: 200px;
 }
 
-.saveButton, .cancelButton {
+.saveButton, .cancelButton, .acceptButton {
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -172,7 +172,7 @@ body {
     width: 100%;
 }
 
-.saveButton, .cancelButton {
+.saveButton, .cancelButton, .acceptButton {
     margin: 5px;
     flex-basis: 48%;
 }

@@ -357,7 +357,7 @@ function AdminAccounts() {
                                         <td className="edit-button-container">
                                             {appointment.status === "REQUESTED" && (
                                                 <>
-                                                    <button className="saveButton" onClick={() => handleAcceptedAppointment(appointment.appointmentId)}>
+                                                    <button className="acceptButton" onClick={() => handleAcceptedAppointment(appointment.appointmentId)}>
                                                         Accept
                                                     </button>
                                                     <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
