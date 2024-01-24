@@ -49,14 +49,12 @@ function CoachNote({userId}) {
 
 
     return (
-        <div className="scroll-container">
-            <div className="box">
-            {contents && contents.map((content, index) => (
-                <div className="coachnote" key={index}>
-                    <div className="group">
-                        <div className="card-title1">Coach Note {index + 1}</div>
-                        <div className="card-detail1">{content.content}</div>
-                    </div>
+        <div className="notes-container">
+            <div className="note-row">
+                {contents && contents.map((content, index) => (
+                    <div className="note-card" key={index}>
+                    <div className="note-title">Coach Note {index + 1}</div>
+                    <div className="note-content">{content.content}</div>
                 </div>
                 ))}
             </div>
