@@ -242,7 +242,6 @@ function AdminAccounts() {
         setSearchTerm(newSearchTerm);
     }
 
-
     function clearFilters() {
         setSearchTerm([["appointmentid",""], ["status",""]]);
     }
