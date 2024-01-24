@@ -134,77 +134,58 @@ function Settings() {
 
     return (
         <div>
-            {!isAuthenticated && <NavNotLoggedIn />}
-            {isAuthenticated && <NavLoggedIn />}
-            <div className="box">
-                <div className="rectangle" />
-                <div className="cover-image"></div>
-                <div className="profile-content">
-                    <div className="profile-image" style={{ backgroundImage: `url(${profilePicUrl})` }}></div>
-                    <div className="profile-text">
-                        <div className="text-wrapper">Welcome{username}</div>
-                    </div>
+            <h1>Account Settings</h1>
+            <Form>
+                <Form.Group controlId="formUsername">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                </Form.Group>
+
+                <Form.Group controlId="formEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </Form.Group>
+
+                <Form.Group controlId="formCity" style={{ marginBottom: '10px' }}>
+                    <Form.Label>City</Form.Label>
+                    <Form.Control type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+                </Form.Group>
+
+                <Button variant="primary" onClick={() => handleUpdate(extractAfterPipe(user.sub))} style={{ marginTop: '20px' }}> {/* Add margin to the top */}
+                    Update
+                </Button>
+            </Form>
+            {showModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    backgroundColor: 'white',
+                    padding: '20px',
+                    zIndex: 1000,
+                    border: '1px solid #ccc',
+                    boxShadow: '0px 4px 6px rgba(0,0,0,0.1)'
+                }}>
+                    <p>Profile updated successfully!</p>
+                    <p>Username: {username}</p>
+                    <p>Email: {email}</p>
+                    <p>City: {city}</p>
+                    <button onClick={() => setShowModal(false)}>Close</button>
                 </div>
-            </div>
-            <div className="profile-page-container">
-                <Sidebar />
-                <div className="account-container">
-                    <h1>Account Settings</h1>
-                    <Form>
-                        <Form.Group controlId="formUsername">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="formEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="formCity" style={{ marginBottom: '10px' }}>
-                            <Form.Label>City</Form.Label>
-                            <Form.Control type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-                        </Form.Group>
-
-                        <Button variant="primary" onClick={() => handleUpdate(extractAfterPipe(user.sub))} style={{ marginTop: '20px' }}> {/* Add margin to the top */}
-                            Update
-                        </Button>
-                    </Form>
-                    {showModal && (
-                        <div style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            backgroundColor: 'white',
-                            padding: '20px',
-                            zIndex: 1000,
-                            border: '1px solid #ccc',
-                            boxShadow: '0px 4px 6px rgba(0,0,0,0.1)'
-                        }}>
-                            <p>Profile updated successfully!</p>
-                            <p>Username: {username}</p>
-                            <p>Email: {email}</p>
-                            <p>City: {city}</p>
-                            <button onClick={() => setShowModal(false)}>Close</button>
-                        </div>
-                    )}
-
-                   
-                    {showModal && (
-                        <div style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundColor: 'rgba(0,0,0,0.3)',
-                            zIndex: 999
-                        }} onClick={() => setShowModal(false)} />
-                    )}
-                </div>
-            </div>
-            <FooterNotLoggedIn />
+            )}
+     
+            {showModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.3)',
+                    zIndex: 999
+                }} onClick={() => setShowModal(false)} />
+            )}
         </div>
     );
 }

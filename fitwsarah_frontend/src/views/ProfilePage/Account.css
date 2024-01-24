@@ -1,4 +1,3 @@
-/* Main profile page container */
 
 .box {
     height: 270px;
@@ -7,7 +6,7 @@
 
 .box .rectangle {
     position: absolute;
-    /*width: 1353px;*/
+
     height: 345px;
     top: 0;
     left: 0;
@@ -25,21 +24,21 @@
 
 
 .profile-page-container {
-    display: grid;
-    grid-template-columns: 250px 1fr; /* Adjust 250px to match the width of your sidebar */
-    grid-gap: 20px; /* This is the spacing between the sidebar and the appointments */
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
     max-width: 100%;
     box-sizing: border-box;
-    padding-top: 20px; /* Or adjust as needed to position below your header/nav */
+    padding-top: 20px;
 }
 .profile-content {
-    display: flex; /* Enable flexbox for alignment */
-    align-items: center; /* Align items vertically */
-    padding-left: 20px; /* Add some padding on the left */
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
 }
 
 .profile-text {
-    margin-left: 20px; /* Space between image and text */
+    margin-left: 20px;
 }
 .profile-header {
     position: relative;
@@ -59,7 +58,7 @@
     height: 120px;
     border-radius: 50%;
     border: 3px solid #fff;
-    position: static; /* Change to relative */
+    position: static;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     top: 100px;
     background-size: cover;
@@ -86,13 +85,16 @@
 
 
 .main-content {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     padding: 20px;
-    background-color: #f9f9f9; /* Light grey background */
+    background-color: #f9f9f9;
 }
 
 
 .account-container {
+    flex-grow: 1;
     margin-bottom: 50px;
     background-color: #f0f0f0;
     padding: 20px;
@@ -213,17 +215,17 @@
 }
 
 .sidebar {
-    height: 30vh;
-    left: 10%;
-    top: 0;
-    width: 250px;
-    padding: 20px;
+    width: 20%;
+    height: 52%;
+    min-width: 200px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #e9ecef;
     border-radius: 25px;
+    margin-right: 20px;
+    margin-left: 10px;
 }
 
 .sidebar-navigation {
@@ -247,15 +249,12 @@
 }
 
 .sidebar-icon {
-    /* Add common styles for icons here, e.g., size or margin */
     margin-right: 10px;
 }
 
 
 
-/* Add more styles for the appointment cards, etc. */
 
-/* Remember to add responsiveness if needed */
 @media (max-width: 729px) {
     .profile-page-container {
         flex-direction: column;
@@ -268,16 +267,38 @@
 
 
     .profile-image {
-        margin-top: -30px; /* Adjust margin for smaller screens */
+        margin-top: -30px;
     }
 
     .profile-text {
-        margin-left: 0; /* No space needed on small screens */
-        margin-top: 10px; /* Space between image and text */
+        margin-left: 0;
+        margin-top: 10px;
     }
 
 
     .main-content {
         padding: 10px;
     }
+}
+
+@media (max-width: 768px) {
+    .profile-page-container {
+        grid-template-columns: 1fr;
+        margin-left: 0;
+        gap: 0;
+    }
+
+    .sidebar {
+        margin-right: 0;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .sidebar {
+        width: 250px;
+    }
+
 }

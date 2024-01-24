@@ -50,6 +50,7 @@ function CoachNote({userId}) {
 
     return (
         <div className="notes-container">
+            <h1>Coach Notes</h1>
             <div className="note-row">
                 {contents && contents.map((content, index) => (
                     <div className="note-card" key={index}>
