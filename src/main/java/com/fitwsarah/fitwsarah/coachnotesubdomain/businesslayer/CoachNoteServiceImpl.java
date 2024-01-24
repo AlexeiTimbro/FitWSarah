@@ -23,6 +23,9 @@ public class CoachNoteServiceImpl implements CoachNoteService{
 
     @Override
     public List<CoachNoteResponseModel> getCoachNoteByUserId(String userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
         return coachNoteResponseMapper.entityListToResponseModelList(coachNoteRepository.findCoachNoteByUserId(userId));
     }
 }

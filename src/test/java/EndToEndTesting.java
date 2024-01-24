@@ -101,7 +101,7 @@ public class EndToEndTesting {
 
         SelenideElement viewProfile = $("div[class='profile-page-container']");
         viewProfile.shouldBe(visible);
-        SelenideElement settingsBtn = $("a[href='/settings']");
+        SelenideElement settingsBtn = $("a[name='Setting']");
         settingsBtn.click();
 
         SelenideElement viewSettings = $("div[class='account-container']");
@@ -159,12 +159,12 @@ public class EndToEndTesting {
 
         sleep(1000);
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("2132206@champlaincollege.qc.ca");
+        emailInput.setValue("admin@admin.com");
 
         sleep(1000);
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Habs@1290");
+        passwordInput.setValue("Password1");
 
         sleep(1000);
 
@@ -224,12 +224,12 @@ public class EndToEndTesting {
 
         sleep(1000);
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("2132206@champlaincollege.qc.ca");
+        emailInput.setValue("pt@admin.com");
 
         sleep(1000);
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Habs@1290");
+        passwordInput.setValue("Password1");
 
         sleep(1000);
 
@@ -258,12 +258,12 @@ public class EndToEndTesting {
 
         sleep(1000);
         SelenideElement emailInput = $("input[name='username']");
-        emailInput.setValue("2132206@champlaincollege.qc.ca");
+        emailInput.setValue("pt@admin.com");
 
         sleep(1000);
 
         SelenideElement passwordInput = $("input[name='password']");
-        passwordInput.setValue("Habs@1290");
+        passwordInput.setValue("Password1");
 
         sleep(1000);
 
@@ -282,7 +282,7 @@ public class EndToEndTesting {
 
         sleep(1000);
 
-        SelenideElement cancelBtn = $("button[class='cancel-button']");
+        SelenideElement cancelBtn = $("button[class='cancelButton']");
         cancelBtn.click();
 
         sleep(1000);
@@ -368,6 +368,39 @@ public class EndToEndTesting {
 
         SelenideElement saveButton = $("button[class='saveButton']");
         saveButton.click();
+
+        sleep(1000);
+    }
+
+    @Test
+    public void viewCoachNotesInProfilePage() {
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("email@email.com");
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        SelenideElement profileBtn = $("a[href='/profile']");
+        profileBtn.click();
+
+        SelenideElement viewProfile = $("div[class='profile-page-container']");
+        viewProfile.shouldBe(visible);
+
+        SelenideElement viewNotes = $("a[name='Notes']");
+        viewNotes.click();
+
+        SelenideElement coachNotes = $("div[class='notes-container']");
+        coachNotes.shouldBe(visible);
+
+        SelenideElement note = $("div[class='note-card']");
+        note.shouldBe(visible);
 
         sleep(1000);
     }

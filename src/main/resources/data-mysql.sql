@@ -58,9 +58,9 @@ INSERT INTO availabilities (availability_id, available, account_id, datetime) VA
 ('uuid-avail5', 1, 'uuid-acc5', '2023-12-05 16:30:00');
 
 INSERT INTO coach_notes (coach_note_id, user_id, content) VALUES
-('1', '117373225765897815945', 'This is a coach note'),
-('2', '117373225765897815945', 'This is a coach note'),
-('3', '117373225765897815945', 'This is a coach note'),
-('4', '117373225765897815945', 'This is a coach note'),
-('5', '117373225765897815945', 'This is a coach note');
+('1', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
+('2', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
+('3', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
+('4', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
+('5', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note');
 
