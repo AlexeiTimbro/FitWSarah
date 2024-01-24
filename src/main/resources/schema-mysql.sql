@@ -1,4 +1,4 @@
-USE `defaultdb`;
+USE `fitwsarah-db`;
 
 create table if not exists accounts(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
