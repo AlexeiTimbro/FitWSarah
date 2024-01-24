@@ -22,5 +22,8 @@ public interface AppointmentService {
 
     AppointmentResponseModel updateAppointmentStatus(String appointmentId, String status);
 
+    AppointmentResponseModel handleAppointmentRequest(String appointmentId, String status);
+
+
     void removeAppointment(String appointmentId);
 }
