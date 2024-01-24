@@ -297,5 +297,35 @@ class AppointmentServiceUnitTest {
             appointmentService.updateAppointmentDetails(requestModel, nonExistentAppointmentId);
         });
     }
+
+
+    @Test
+    public void handleAppointmentRequest_ShouldSucceed(){
+        String appointmentId = "uuid-appt1";
+        String status = "REQUESTED";
+
+        Appointment appointment = new Appointment();
+        appointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
+
+        AppointmentResponseModel responseModel = new AppointmentResponseModel(
+                "uuid-appt1",
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-service1",
+                Status.valueOf(status),
+                "Location 1",
+                "John",
+                "Smith",
+                "455-444-333",
+                "2023-03-03",
+                "10:00"
+        );
+
+        when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId)).thenReturn(appointment);
+        when(appointmentResponseMapper.entityToResponseModel(appointment)).thenReturn(responseModel);
+
+        AppointmentResponseModel result = appointmentService.handleAppointmentRequest(appointmentId, status);
+
+        assertEquals(Status.valueOf(status), result.getStatus()); }
 }
 

@@ -153,6 +153,23 @@ class AppointmentControllerUnitTest {
         // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> appointmentController.updateAppointmentById(requestModel, appointmentId));
     }
+
+    @Test
+    void handleAppointmentRequest_ShouldSucceed(){
+        // Arrange
+        String appointmentId = "uuid-appt1";
+        String status = "COMPLETED";
+
+        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(appointmentId, "uuid-avail1", "uuid-account1",  "uuid-service1", Status.valueOf(status), "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+
+        when(appointmentService.handleAppointmentRequest(appointmentId,status)).thenReturn(expectedResponse);
+
+        // Act
+        AppointmentResponseModel result = appointmentController.handleAppointmentRequest(appointmentId,status);
+
+        // Assert
+        assertEquals(expectedResponse, result);
+    }
 }
 
 
