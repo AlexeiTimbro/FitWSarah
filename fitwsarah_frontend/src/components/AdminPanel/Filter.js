@@ -51,6 +51,7 @@ function Filter({labels, onInputChange, searchTerm, clearFilters}) {
                                 )}
                             </div>
                         ))}
+
                     </section>
                     <button className="filter-button" onClick={clear}>Clear</button>
                 </>
