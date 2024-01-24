@@ -181,7 +181,7 @@ function AdminAccounts() {
     };
 
     const updateAppointmentStatus = (appointmentId) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/cancelled`, {
+        fetch(`http://localhost:8080/api/v1/appointments/${appointmentId}/cancelled`, {
             method: "PUT",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -205,7 +205,7 @@ function AdminAccounts() {
     }
 
     const handleAppointmentRequest = (appointmentId) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/scheduled`, {
+        fetch(`http://localhost:8080/api/v1/appointments/${appointmentId}/scheduled`, {
             method: "PUT",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
