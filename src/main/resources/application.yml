@@ -1,19 +1,15 @@
-# Default Spring Profile
+#Default Spring Profile
 server:
   error:
     include-message: always
   port: ${PORT:8080}
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: ${PROD_DATABASE_URL}
+    username: ${PROD_DATABASE_USERNAME}
+    password: ${PROD_DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      initializationFailTimeout: 60000
   jpa:
     properties:
       hibernate:
@@ -32,7 +28,7 @@ okta:
     issuer: ${AUTH0_ISSUER}
     audience: ${AUTH0_AUDIENCE}
 
-# for docker
+#for docker
 ---
 spring:
   config:
@@ -43,3 +39,30 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${AUTH0_ISSUER}
+
+---
+spring:
+  datasource:
+    url: jdbc:mysql://mysql1/fitwsarah-db
+    username: user
+    password: pwd
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  config:
+    activate:
+      on-profile: dev
+
+  sql:
+    init:
+      platform: mysql
+      mode: always
+
+  main:
+    allow-bean-definition-overriding: true
+
+server.port: 8080
+
+spring.datasource.hikari.initializationFailTimeout: 60000

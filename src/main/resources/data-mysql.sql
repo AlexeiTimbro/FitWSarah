@@ -1,4 +1,4 @@
-USE `defaultdb`;
+USE `fitwsarah-db`;
 
 
 INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
