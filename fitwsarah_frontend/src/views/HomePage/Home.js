@@ -8,9 +8,10 @@ import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerN
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import AddMemberProfile from "../authentication/Signup";
 import { ROLES } from "../../components/authentication/roles";
-import RoleBasedButton from "../../components/authentication/RoleBasedButton";
+import "../../components/authentication/switch.css"
 import RoleBasedSwitch from "../../components/authentication/RoleBasedSwitch";
 import RequestNewFitnessService from "../HomePage/newServiceBtn";
+import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
 
 function Home() {
     const {
@@ -85,6 +86,28 @@ function Home() {
         });
     };
 
+    const [fitnessDataToSend, setFitnessDataToSend] = useState(null);
+    const [showForm, setShowForm] = useState(false);
+    
+    const handleInputChange = (e) => {
+      const {name, value} = e?.target || {};
+      const updatedData = {
+        ...fitnessDataToSend,
+        [name]: value,
+    };
+    console.log(updatedData);
+    setFitnessDataToSend(updatedData);
+    };
+
+    const handleDurationChange = (e) => {
+      const { name, value } = e.target;
+      const updatedData = {
+        ...fitnessDataToSend,
+        duration: `${value} ${name === 'duration' ? '' : value}`
+      };
+      console.log(updatedData);
+      setFitnessDataToSend(updatedData);
+    };
 
 return (
         <div>
@@ -133,6 +156,42 @@ return (
     <button className="book-button">Book</button>
     </Modal.Footer>}
     </Modal>
+    
+    <Modal show={showForm} onHide={()=>setShowForm(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add a Fitness Service</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <form>
+          <div className="form-group">
+            <input type="text" id="fitnessServiceName" maxLength="50" placeholder="Fitness Service Title" name="fitnessServiceName" required  onChange={(e) => handleInputChange(e)} />
+          </div>
+          <div className="form-group">
+          <input type="number" id="duration" maxLength="2" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
+            <select id="durationType" name="durationType"  onChange={(e) => handleDurationChange(e)}  required>
+                <option value="minutes">minutes</option>
+                <option value="hour(s)">hour(s)</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <input type="number" id="price"  placeholder="Price" name="price" required onChange={(e) => handleInputChange(e)} />
+          </div>
+          <div className="form-group">
+            <input type="textarea" id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
+          </div>
+          <div className="form-group">
+            <input type="textarea" id="other"  placeholder="Other Information (Optional)" name="other"  onChange={(e) => handleInputChange(e)} />
+          </div>
+          
+          <AddServiceButton fitnessDataToSend={fitnessDataToSend}></AddServiceButton>
+
+        </form>
+        </Modal.Body>
+
+    </Modal>
+
+
+
     <FooterNotLoggedIn/>
   </div>
     );
