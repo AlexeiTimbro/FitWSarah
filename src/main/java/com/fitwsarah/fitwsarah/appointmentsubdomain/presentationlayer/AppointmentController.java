@@ -50,7 +50,7 @@ public class AppointmentController {
 
     @PutMapping("/{appointmentId}/scheduled")
     public AppointmentResponseModel handleAppointmentRequest(@PathVariable String appointmentId){
-        return appointmentService.updateAppointmentStatus(appointmentId);
+        return appointmentService.handleAppointmentRequest(appointmentId);
     }
 
     @DeleteMapping("/{appointmentId}")
