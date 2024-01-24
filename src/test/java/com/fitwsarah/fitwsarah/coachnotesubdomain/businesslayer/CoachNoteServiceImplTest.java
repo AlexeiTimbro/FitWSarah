@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -59,5 +60,10 @@ public class CoachNoteServiceImplTest {
         List<CoachNoteResponseModel> actualResponse = coachNoteService.getCoachNoteByUserId(userId);
 
         assertEquals(Collections.emptyList(), actualResponse);
+    }
+
+    @Test
+    public void getCoachNoteByUserIdThrowsExceptionWhenUserIdIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> coachNoteService.getCoachNoteByUserId(null));
     }
 }
