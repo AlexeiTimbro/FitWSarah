@@ -105,7 +105,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentResponseModel handleAppointmentRequest(String appointmentId, String status) {
         Appointment appointment = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId);
-        appointment.setStatus(Status.valueOf(Status.REQUESTED.toString()));
+        appointment.setStatus(Status.valueOf(Status.SCHEDULED.toString()));
         appointmentRepository.save(appointment);
         return appointmentResponseMapper.entityToResponseModel(appointment);
     }

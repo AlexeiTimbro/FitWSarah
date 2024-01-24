@@ -77,7 +77,7 @@ function AdminAccounts() {
                     firstName: data.firstName,
                     lastName: data.lastName,
                     phoneNum: data.phoneNum,
-                    dateTime: combinedDateTime, // Use a single Date object for both date and time
+                    dateTime: combinedDateTime,
                 });
             })
             .catch((error) => {
@@ -158,7 +158,7 @@ function AdminAccounts() {
             }
         });
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments${params.toString() && "?" + params.toString()}`, {
+        fetch(`http://localhost:8080/api/v1/appointments${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -290,6 +290,7 @@ function AdminAccounts() {
                                             >
                                                 <option value="SCHEDULED">SCHEDULED</option>
                                                 <option value="COMPLETED">COMPLETED</option>
+                                                <option value="CANCELLED">CANCELLED</option>
                                             </select>
                                         </td>
                                         <td>
@@ -354,7 +355,7 @@ function AdminAccounts() {
                                         <td>{appointment.date}</td>
                                         <td>{appointment.time}</td>
                                         <td className="edit-button-container">
-                                            {appointment.status === "REQUESTED" ? (
+                                            {appointment.status === "REQUESTED" && (
                                                 <>
                                                     <button className="saveButton" onClick={() => handleAcceptedAppointment(appointment.appointmentId)}>
                                                         Accept
@@ -363,7 +364,8 @@ function AdminAccounts() {
                                                         Deny
                                                     </button>
                                                 </>
-                                            ) : (
+                                            )}
+                                            {appointment.status !== "CANCELLED" && appointment.status !== "REQUESTED" && (
                                                 <>
                                                     <button className="saveButton" onClick={() => handleEditClick(appointment)}>
                                                         Edit
@@ -372,6 +374,11 @@ function AdminAccounts() {
                                                         Cancel Appointment
                                                     </button>
                                                 </>
+                                            )}
+                                            {appointment.status === "CANCELLED" && (
+                                                <button className="saveButton" onClick={() => handleEditClick(appointment)}>
+                                                    Edit
+                                                </button>
                                             )}
                                         </td>
                                     </tr>
