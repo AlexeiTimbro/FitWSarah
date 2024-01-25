@@ -40,28 +40,20 @@ class InvoiceServiceUniyTest {
     }
 
     @Test
-    void getAllInvoices_ShouldSucceed() {
-
-        String invoiceId = "uuid-invoice1";
-        String accountId = "uuid-account1";
-        String amount = "100.00";
-        String content = "content";
-
-        Invoices invoices = new Invoices();
-        invoices.getInvoiceIdentifier().setInvoiceId(invoiceId);
-
-        List<Invoices> invoicesList = Collections.singletonList(invoices);
-
+    void getAllInvoices_ShouldReturnInvoices() {
+        // Arrange
+        Invoices invoice = new Invoices(); // Create a mock invoice
+        List<Invoices> invoicesList = Collections.singletonList(invoice);
         when(invoiceRepository.findAll()).thenReturn(invoicesList);
 
-        InvoiceResponseModel invoiceResponseModel = new InvoiceResponseModel("uuid-invoice1", "uuid-account1", 100.00, "content");
-
+        InvoiceResponseModel invoiceResponseModel = new InvoiceResponseModel("sd", "sad",100.00,"dsdsa");
         List<InvoiceResponseModel> invoiceResponseModelList = Collections.singletonList(invoiceResponseModel);
-
         when(invoiceResponseMapper.entityListToResponseModelList(invoicesList)).thenReturn(invoiceResponseModelList);
 
+        // Act
         List<InvoiceResponseModel> actualInvoiceResponseModelList = invoiceService.getAllInvoices();
 
+        // Assert
         assertEquals(invoiceResponseModelList, actualInvoiceResponseModelList);
     }
 }
