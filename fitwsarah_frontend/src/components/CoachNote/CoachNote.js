@@ -26,7 +26,7 @@ function CoachNote({userId}) {
     }, [accessToken]);
 
     function getCoachNote(userId) {
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes/users/${userId}`, {
+        fetch(`http://localhost:8080/api/v1/coachnotes/users/${userId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -40,6 +40,7 @@ function CoachNote({userId}) {
             return response.json();
         })
         .then((data) => {
+            console.log(data);
             setContents(data);
         })
         .catch((error) => {
