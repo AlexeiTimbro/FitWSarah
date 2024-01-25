@@ -15,19 +15,17 @@ public class Invoices {
     @Embedded
     private InvoiceIdentifier invoiceIdentifier;
 
-    private String userId;
+     private String accountId;
 
     private double amount;
 
-    private double content;
+    private String content;
 
     Invoices() {
-        this.invoiceIdentifier = new InvoiceIdentifier();
     }
-
-    public Invoices(String userId, double amount, double content) {
+    public Invoices( String accountId, double amount, String content) {
         this.invoiceIdentifier = new InvoiceIdentifier();
-        this.userId = userId;
+        this.accountId = accountId;
         this.amount = amount;
         this.content = content;
     }

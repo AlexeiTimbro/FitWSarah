@@ -10,8 +10,7 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class InvoiceResponseModel {
  String invoiceId;
-   String userId;
+ String accountId;
    double amount;
-
-   double content;
+   String content;
 }

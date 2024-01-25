@@ -10,7 +10,7 @@ public interface AccountService {
 
     List<AccountResponseModel> getAllAccounts(String userId, String username, String email, String city);
 
-    List<InvoiceResponseModel> getAllInvoicesByUserId(String userId);
+    List<InvoiceResponseModel> getAllInvoicesByAccountId(String accountId);
     AccountResponseModel getAccountByAccountId(String accountId);
 
     AccountResponseModel getByUserId(String userId);

@@ -7,5 +7,6 @@ import java.util.List;
 
 @Embeddable
 public interface InvoiceRepository extends JpaRepository<Invoices, Integer> {
-    List<Invoices> findInvoicesByUserId(String userId);
+    List<Invoices> findAllInvoicesByAccountId(String accountId);
+
 }

@@ -59,8 +59,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<InvoiceResponseModel> getAllInvoicesByUserId(String userId) {
-        return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findInvoicesByUserId(userId));
+    public List<InvoiceResponseModel> getAllInvoicesByAccountId(String accountId) {
+        return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findAllInvoicesByAccountId(accountId));
     }
 
     @Override
