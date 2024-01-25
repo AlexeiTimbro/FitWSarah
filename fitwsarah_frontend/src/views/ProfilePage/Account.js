@@ -11,6 +11,8 @@ import { useGetAccessToken } from "../../components/authentication/authUtils";
 import './Account.css';
 import Sidebar from "./SideBar";
 import AppointmentCard from '../../views/ProfilePage/AppointmentCard';
+import Settings from '../../components/clientProfile/setting.js';
+import CoachNote from "../../components/CoachNote/CoachNote.js";
 
 
 function Profile() {
@@ -23,6 +25,7 @@ function Profile() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
+    const [selectedTab, setSelectedTab] = useState('appointments');
 
     useEffect(() => {
         if (user && user.picture) {
@@ -121,6 +124,10 @@ function Profile() {
         }
     }
 
+    function changeSelectedTab(tab) {
+        setSelectedTab(tab);
+    }
+
 
     return (
         <div>
@@ -137,14 +144,26 @@ function Profile() {
                 </div>
             </div>
             <div className="profile-page-container">
-                <Sidebar/>
+                <Sidebar changeSelectedTab={changeSelectedTab}/>
                 <div className="account-container">
-                    <div className="tabs">
-                        <button className="tab">Today</button>
-                        <button className="tab">Scheduled</button>
-                        <button className="tab">Finished</button>
+                    {selectedTab === 'appointments' &&
+                    <div>
+                        <div className="tabs">
+                            <button className="tab">Today</button>
+                            <button className="tab">Scheduled</button>
+                            <button className="tab">Finished</button>
+                        </div>
+                        <AppointmentCard/>
                     </div>
-                    <AppointmentCard/>
+                    }
+                    {
+                        selectedTab === 'settings' &&
+                        <Settings userId={extractAfterPipe(user.sub)}/>
+                    }
+                    {
+                        selectedTab === 'coachnotes' &&
+                        <CoachNote userId={extractAfterPipe(user.sub)}/>
+                    }
                 </div>
             </div>
 

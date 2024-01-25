@@ -1,24 +1,23 @@
 import React from 'react';
-import './Account.css'; // Assuming you create a separate CSS file for the sidebar
-import { Link } from 'react-router-dom';
-function Sidebar() {
+import './Account.css';
+
+function Sidebar({ changeSelectedTab }) {
     return (
         <aside className="sidebar">
-
             <nav className="sidebar-navigation">
-                <Link className="sidebar-link" to="/settings">
+                <a name="Appointments" className="sidebar-link" onClick={() => changeSelectedTab("appointments")}>
+                    <i className="sidebar-icon vehicles-icon"></i>
+                    Appointments
+                </a>
+                <a name="Setting" className="sidebar-link" onClick={() => changeSelectedTab("settings")}>
                     <i className="sidebar-icon settings-icon"></i>
                     Profile Settings
-                </Link>
-                <a href="/invoices" className="sidebar-link">
-                    <i className="sidebar-icon vehicles-icon"></i>
-                    Dark Mode
                 </a>
-                <a href="/appointments" className="sidebar-link">
+                <a name="Notes" className="sidebar-link" onClick={() => changeSelectedTab("coachnotes")}>
                     <i className="sidebar-icon appointments-icon"></i>
                     Coach Notes
                 </a>
-                <a href="/invoices" className="sidebar-link">
+                <a name="invoices" className="sidebar-link" onClick={() => changeSelectedTab("invoices")}>
                     <i className="sidebar-icon invoices-icon"></i>
                     Invoices
                 </a>

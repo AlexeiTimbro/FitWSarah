@@ -6,13 +6,13 @@ import './components/home/home.js';
 import './components/clientProfile/clientInvoices.js';
 import './components/feedback/personalTrainerFeedback.js';
 import './components/clientProfile/profile.js';
-import './components/clientProfile/sidebar.js';
 import './components/clientProfile/setting.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './components/navigation/NotLoggedIn/navNotLoggedIn.js';
 import './components/navigation/loggedIn/navLoggedIn.js';
 import './components/footer/footerNotLoggedIn/footerNotLoggedIn.js';
 import './components/footer/footerLoggedIn/footerLoggedIn.js';
+import './components/CoachNote/CoachNote.js';
 
 
 

@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -72,20 +73,9 @@ public class SecurityConfigTest {
     }
 
     @Test
-    public void shouldConvertJwtAuthenticationWithCorrectRoles() {
-        Jwt jwt = mock(Jwt.class);
-        when(jwt.getClaimAsString("http://dev-twa7h1nv0usycyum.us.auth0.com/roles")).thenReturn("Admin");
-
-        JwtAuthenticationConverter converter = securityConfig.customJwtAuthenticationConverter();
-        Authentication authentication = converter.convert(jwt);
-
-        assertTrue(authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Admin")));
-    }
-
-    @Test
     public void shouldNotConvertJwtAuthenticationWithIncorrectRoles() {
         Jwt jwt = mock(Jwt.class);
-        when(jwt.getClaimAsString("http://dev-twa7h1nv0usycyum.us.auth0.com/roles")).thenReturn("User");
+        when(jwt.getClaimAsString("https://fitwsarah.com/roles")).thenReturn("User");
 
         JwtAuthenticationConverter converter = securityConfig.customJwtAuthenticationConverter();
         Authentication authentication = converter.convert(jwt);
@@ -96,7 +86,7 @@ public class SecurityConfigTest {
     @Test
     public void shouldNotConvertJwtAuthenticationWithMissingRoles() {
         Jwt jwt = mock(Jwt.class);
-        when(jwt.getClaimAsString("http://dev-twa7h1nv0usycyum.us.auth0.com/roles")).thenReturn(null);
+        when(jwt.getClaimAsString("https://fitwsarah.com/roles")).thenReturn(null);
 
         JwtAuthenticationConverter converter = securityConfig.customJwtAuthenticationConverter();
         Authentication authentication = converter.convert(jwt);

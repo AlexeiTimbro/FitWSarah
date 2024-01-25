@@ -9,12 +9,12 @@ INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
 ('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix');
 
 
-INSERT INTO invoices (invoice_id, account_id, amount, content) VALUES
-('inv-uuid-1', 'uuid-acc1', 100.00, 'Fitness Training Session'),
-('inv-uuid-2', 'uuid-acc2', 150.00, 'Yoga Class Subscription'),
-('inv-uuid-3', 'uuid-acc3', 200.00, 'Personal Training Package'),
-('inv-uuid-4', 'uuid-acc4', 50.00, 'Nutrition Consultation'),
-('inv-uuid-5', 'uuid-acc5', 75.00, 'Group Fitness Classes');
+INSERT INTO invoices (invoice_id, user_id, amount, content) VALUES
+('inv-uuid-1', '6598a5987d1aba9a56a2e208', 100.00, 'Fitness Training Session'),
+('inv-uuid-2', '6598a5987d1aba9a56a2e208', 150.00, 'Yoga Class Subscription'),
+('inv-uuid-3', '6598a5987d1aba9a56a2e208', 200.00, 'Personal Training Package'),
+('inv-uuid-4', '6598a5987d1aba9a56a2e208', 50.00, 'Nutrition Consultation'),
+('inv-uuid-5', '6598a5987d1aba9a56a2e208', 75.00, 'Group Fitness Classes');
 
 INSERT INTO feedback_threads (feedback_id, account_id, stars, content) VALUES
 ('fdbk-uuid-1', 'uuid-acc1', 5, 'Excellent personal training session'),
@@ -56,4 +56,11 @@ INSERT INTO availabilities (availability_id, available, account_id, datetime) VA
 ('uuid-avail3', 1, 'uuid-acc3', '2023-12-03 09:30:00'),
 ('uuid-avail4', 0, 'uuid-acc4', '2023-12-04 14:00:00'),
 ('uuid-avail5', 1, 'uuid-acc5', '2023-12-05 16:30:00');
+
+INSERT INTO coach_notes (coach_note_id, user_id, content) VALUES
+('1', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
+('2', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
+('3', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
+('4', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
+('5', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note');
 

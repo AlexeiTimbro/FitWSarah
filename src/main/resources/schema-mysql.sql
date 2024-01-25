@@ -12,7 +12,7 @@ create table if not exists accounts(
 create table if not exists invoices(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     invoice_id VARCHAR(36) NOT NULL,
-    account_id VARCHAR(36) NOT NULL,
+    user_id VARCHAR(36) NOT NULL,
     amount DECIMAL NOT NULL,
     content VARCHAR(120) NOT NULL
 );
@@ -68,4 +68,11 @@ create table if not exists availabilities(
     available TINYINT(1) NOT NULL,
     account_id VARCHAR(36) NOT NULL,
     datetime DATETIME NOT NULL
+);
+
+create table if not exists coach_notes(
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    coach_note_id VARCHAR(36) NOT NULL,
+    user_id VARCHAR(36) NOT NULL,
+    content VARCHAR(120) NOT NULL
 );
