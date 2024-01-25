@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function AddServiceButton(fitnessDataToSend) {
+const AddServiceButton = ({fitnessDataToSend}) => {
     const {isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
 
@@ -57,16 +59,19 @@ function AddServiceButton(fitnessDataToSend) {
             }
             const data = await response.json();
               console.log(data);
-              console.log("Added New Service");           
+              console.log("Added New Service"); 
+              toast.success('Service added successfully!', {
+                position: toast.POSITION.TOP_RIGHT,
+              });          
          } catch (error) {
-          console.error("Error adding appointment: ", error);
+          console.error("Error adding service: ", error);
           window.alert("An error has occured! Please try again later.");
       }};
       const addNewServiceData = (e) => {
         e.preventDefault();
         if (accessToken) {
           addNewService();
-      }
+        }
       };
       return (
     <div style={{ marginBottom: "15px" }}>

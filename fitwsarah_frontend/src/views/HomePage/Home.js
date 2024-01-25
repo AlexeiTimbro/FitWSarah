@@ -99,6 +99,17 @@ function Home() {
     setFitnessDataToSend(updatedData);
     };
 
+    const handlePriceChange = (e) => {
+      const {name, value} = e?.target || {};
+      const doubleValue = parseFloat(value);
+      const updatedData = {
+        ...fitnessDataToSend,
+        [name]: doubleValue,
+    };
+    console.log(updatedData);
+    setFitnessDataToSend(updatedData);
+    };
+
     const handleDurationChange = (e) => {
       const { name, value } = e.target;
       const updatedData = {
@@ -179,18 +190,18 @@ return (
             </select>
           </div>
           <div className="form-group">
-            <input type="number" id="price"  placeholder="Price" name="price" required onChange={(e) => handleInputChange(e)} />
+            <input type="number" id="price"  placeholder="Price" name="price" required onChange={(e) => handlePriceChange(e)} />
           </div>
           <div className="form-group">
             <textarea id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
           </div>
           <div className="form-group">
-            <textarea id="other"  placeholder="Other Information (Optional)" name="other" onChange={(e) => handleInputChange(e)} />
+            <textarea id="otherInformation"  placeholder="Other Information (Optional)" name="otherInformation" onChange={(e) => handleInputChange(e)} />
           </div>
-          
-          <AddServiceButton fitnessDataToSend={fitnessDataToSend}></AddServiceButton>
+    
 
         </form>
+        <AddServiceButton fitnessDataToSend={fitnessDataToSend}/>
         </Modal.Body>
 
     </Modal>

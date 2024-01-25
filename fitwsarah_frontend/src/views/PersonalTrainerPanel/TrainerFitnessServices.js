@@ -49,7 +49,7 @@ function Services() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/adminPanel" className="button back-button">Back</Link>
+                    <Link to="/trainerPanel" className="button back-button">Back</Link>
                     <div className="header-section">
                         <h1>Fitness Services</h1>
                     </div>

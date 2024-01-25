@@ -1,9 +1,13 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer.FitnessPackageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -64,5 +69,16 @@ class FitnessPackageControllerUnitTest {
         assertThat(result, is(fitnessPackage));
     }
 
+    @Test
+    void addFitnessPackage_shouldSucceed(){
+        String serviceId = "uuid-serv1";
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other",22.00);
+        FitnessPackageResponseModel expectedResponse = new FitnessPackageResponseModel(serviceId, "uuid-promo1", "title",  "20 minutes", "desc", "other", 22.00);
+        when(fitnessPackageService.addFitnessPackage(fitnessPackageRequestModel)).thenReturn(expectedResponse);
 
+        ResponseEntity<FitnessPackageResponseModel> result = fitnessPackageController.addFitnessService(fitnessPackageRequestModel);
+
+        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+        assertEquals(expectedResponse, result.getBody());
+    }
 }
