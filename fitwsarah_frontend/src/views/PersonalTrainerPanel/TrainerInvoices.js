@@ -102,7 +102,6 @@ function TrainerInvoices() {
         </div>
 
 
-
     );}
 
 export default TrainerInvoices;
