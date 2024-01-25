@@ -84,7 +84,6 @@ function AdminAccounts() {
     };
 
 
-
     const handleSaveClick = (appointmentId) => {
         const updatedAppointment = {
             ...editFormData,
@@ -254,7 +253,7 @@ function AdminAccounts() {
             {isAuthenticated && <NavLoggedIn />}
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/adminPanel" className="button back-button">Back</Link>
+                    <Link to="/trainerPanel" className="button back-button">Back</Link>
                     <h1>Appointments</h1>
                     <div className="filter-container">
                         <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>

@@ -67,6 +67,12 @@ function PersonalTrainerPanel() {
                             <p>Last Month's Total: XX Appointments</p>
                             <span className="more-options">...</span>
                         </Link>
+                        <Link className="section" to="/trainerInvoices">
+                            <h2>Invoices</h2>
+                            <p>Current Total: XX Notes</p>
+                            <p>Last Month's Total: XX Notes</p>
+                            <span className="more-options">...</span>
+                        </Link>
                         <Link className="section" to="/analytics">
                             <h2>Analytics</h2>
                             <p>Current Total: XX Reports</p>
