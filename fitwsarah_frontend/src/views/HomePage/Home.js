@@ -103,7 +103,7 @@ function Home() {
       const { name, value } = e.target;
       const updatedData = {
         ...fitnessDataToSend,
-        duration: `${value} ${name === 'duration' ? '' : value}`
+        duration: name === 'duration' ? `${value} ${fitnessDataToSend.durationType || 'minutes'}` : `${fitnessDataToSend.duration || ''} ${value}`
       };
       console.log(updatedData);
       setFitnessDataToSend(updatedData);
@@ -120,8 +120,10 @@ return (
 
     <section className="services-section">
       <Container>
-      <h2 className="white-text">Services & Prices</h2>
       <RoleBasedSwitch user={user} role={ROLES.PERSONAL_TRAINER} onClick={() => setEditMode((prevEditMode) => !prevEditMode)}></RoleBasedSwitch>
+      <div className="header-container"> 
+      <h2 className="white-text">Services & Prices</h2>      
+      </div> 
         <Row>
           {services.map(service => (
             <Col key={service.id} md={4}>
@@ -138,9 +140,12 @@ return (
             </Col>
           ))}
         </Row>
-        
-        {editMode && <button onClick={<RequestNewFitnessService />} className="my-button">Click me</button>}
-      
+        {editMode && <button onClick={() => setShowForm((prevShowForm)=> !prevShowForm)} className="add-button">
+          <xml version="1.0" encoding="utf-8"/>
+            <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>}
       </Container>
     </section>
 
@@ -164,10 +169,10 @@ return (
         <Modal.Body>
         <form>
           <div className="form-group">
-            <input type="text" id="fitnessServiceName" maxLength="50" placeholder="Fitness Service Title" name="fitnessServiceName" required  onChange={(e) => handleInputChange(e)} />
+            <input type="text" id="title" maxLength="50" placeholder="Fitness Service Title" name="title" required  onChange={(e) => handleInputChange(e)} />
           </div>
           <div className="form-group">
-          <input type="number" id="duration" maxLength="2" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
+          <input type="number" id="duration" max="99" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
             <select id="durationType" name="durationType"  onChange={(e) => handleDurationChange(e)}  required>
                 <option value="minutes">minutes</option>
                 <option value="hour(s)">hour(s)</option>
@@ -177,10 +182,10 @@ return (
             <input type="number" id="price"  placeholder="Price" name="price" required onChange={(e) => handleInputChange(e)} />
           </div>
           <div className="form-group">
-            <input type="textarea" id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
+            <textarea id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
           </div>
           <div className="form-group">
-            <input type="textarea" id="other"  placeholder="Other Information (Optional)" name="other"  onChange={(e) => handleInputChange(e)} />
+            <textarea id="other"  placeholder="Other Information (Optional)" name="other" onChange={(e) => handleInputChange(e)} />
           </div>
           
           <AddServiceButton fitnessDataToSend={fitnessDataToSend}></AddServiceButton>

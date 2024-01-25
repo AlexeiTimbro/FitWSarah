@@ -51,7 +51,7 @@ function AddServiceButton(fitnessDataToSend) {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(fitnessDataToSend),
-          }, [accessToken, fetchData])
+            }, [accessToken, fetchData])
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -62,11 +62,16 @@ function AddServiceButton(fitnessDataToSend) {
           console.error("Error adding appointment: ", error);
           window.alert("An error has occured! Please try again later.");
       }};
-
+      const addNewServiceData = (e) => {
+        e.preventDefault();
+        if (accessToken) {
+          addNewService();
+      }
+      };
       return (
     <div style={{ marginBottom: "15px" }}>
         <div style={{ width: "100%" }}>
-        <form onSubmit={(e) => addNewService(e)}>
+        <form onSubmit={(e) => addNewServiceData(e)}>
           <button style={{ width: "100%" }} id="serviceBtn" className="book-button" type="submit">
             Add
           </button>

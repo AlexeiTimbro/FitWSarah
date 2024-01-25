@@ -198,6 +198,7 @@
 
   .white-text {
     color: white;
+    margin-right: 10%;
   }
 
 
@@ -245,4 +246,24 @@
   
   .form-group.checkbox label {
     margin-left: 8px;
+  }
+  .header-container {
+    display: flex;
+    align-items: center;
+  }
+  .switchHeader{
+    float: right;
+  }
+  .add-button{
+    background-color: white;
+    border-radius: 50%;
+    height:60px;
+    width: 70px;
+    transition: background-color 0.3s;
+  }
+  .add-button:hover{
+    background-color: #422e37;
+  }
+  #durationType{
+    height:30px;
   }
