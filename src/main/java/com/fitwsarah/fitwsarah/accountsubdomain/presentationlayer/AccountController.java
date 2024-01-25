@@ -41,9 +41,10 @@ public class AccountController {
         return null;
     }
     @GetMapping("/{accountId}/invoices")
-    public InvoiceResponseModel getAllInvoicesByAccountId(@PathVariable String accountId){
-        return null;
+    public List<InvoiceResponseModel> getAllInvoicesByAccountId(@PathVariable String accountId){
+        return accountService.getAllInvoicesByAccountId(accountId);
     }
+
 
 
 
@@ -56,6 +57,8 @@ public class AccountController {
     public  ResponseEntity<AccountResponseModel> updateAccountByUserId(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String userId){
         return ResponseEntity.status(HttpStatus.OK).body(accountService.updateAccount(accountRequestModel, userId));
     }
+
+
 
     @DeleteMapping()
     public void deleteAllAccounts(){

@@ -2,10 +2,13 @@ package com.fitwsarah.fitwsarah.accountsubdomain.businesslayer;
 
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountRepository;
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.InvoiceRepository;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountRequestMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountResponseMapper;
+import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.InvoiceResponseMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequestModel;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
+import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.InvoiceResponseModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageRequestMapper;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageResponseMapper;
@@ -20,10 +23,16 @@ public class AccountServiceImpl implements AccountService {
     private AccountResponseMapper accountResponseMapper;
     private AccountRequestMapper accountRequestMapper;
 
-    public AccountServiceImpl(AccountRepository accountRepository, AccountResponseMapper accountResponseMapper, AccountRequestMapper accountRequestMapper) {
+    private InvoiceResponseMapper invoiceResponseMapper;
+
+    private InvoiceRepository invoiceRepository;
+
+    public AccountServiceImpl(AccountRepository accountRepository, AccountResponseMapper accountResponseMapper, AccountRequestMapper accountRequestMapper, InvoiceResponseMapper invoiceResponseMapper, InvoiceRepository invoiceRepository) {
         this.accountRepository = accountRepository;
         this.accountResponseMapper = accountResponseMapper;
         this.accountRequestMapper = accountRequestMapper;
+        this.invoiceResponseMapper = invoiceResponseMapper;
+        this.invoiceRepository = invoiceRepository;
     }
 
     @Override
@@ -49,6 +58,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountResponseModel getAccountByAccountId(String accountId) {
         return accountResponseMapper.entityToResponseModel(accountRepository.findAccountByAccountIdentifier_AccountId(accountId));
+    }
+
+    @Override
+    public List<InvoiceResponseModel> getAllInvoicesByAccountId(String accountId) {
+        return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findInvoicesByAccountId(accountId));
     }
 
     @Override

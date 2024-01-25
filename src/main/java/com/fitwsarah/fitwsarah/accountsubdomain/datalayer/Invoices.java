@@ -47,6 +47,8 @@ public class Invoices {
         this.dueDate = dueDate;
         this.paymentType = paymentType;
         this.price = price;
+
+
     }
 }
 
