@@ -13,6 +13,8 @@ import BookAppointment from "./views/AppointmentPage/NewAppointment";
 import Services from "./views/AdminPanelPage/FitnessServices";
 import TrainerFitnessServices from "./views/PersonalTrainerPanel/TrainerFitnessServices";
 import CoachNote from './components/CoachNote/CoachNote.js';
+import TrainerInvoices from "./views/PersonalTrainerPanel/TrainerInvoices";
+
 function App() {
     return (
         <Router>
@@ -31,6 +33,7 @@ function App() {
                 <Route path="/trainerServices" element={<TrainerFitnessServices/>}/>
                 <Route path="/coachnotes" element={<CoachNote/>}/>
                 <Route path="/adminInvoices" element={<AdminInvoices/>}/>
+                <Route path="/trainerInvoices" element={<TrainerInvoices/>}/>
             </Routes>
         </Router>
     );

@@ -9,7 +9,7 @@ INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
 ('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix');
 
 
-INSERT INTO invoices (invoice_id, user_id, amount, content) VALUES
+INSERT INTO invoices (invoice_id, account_id, amount, content) VALUES
 ('inv-uuid-1', '6598a5987d1aba9a56a2e208', 100.00, 'Fitness Training Session'),
 ('inv-uuid-2', '6598a5987d1aba9a56a2e208', 150.00, 'Yoga Class Subscription'),
 ('inv-uuid-3', '6598a5987d1aba9a56a2e208', 200.00, 'Personal Training Package'),
