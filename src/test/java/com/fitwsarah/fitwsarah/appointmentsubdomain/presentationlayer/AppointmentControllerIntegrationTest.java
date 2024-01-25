@@ -81,7 +81,7 @@ class AppointmentControllerIntegrationTest {
 
     @Test
     void updateAppointmentStatus_should_succeed() throws Exception {
-        mockMvc.perform(put("/api/v1/appointments/{appointmentId}/status", appointment1.getAppointmentId())
+        mockMvc.perform(put("/api/v1/appointments/{appointmentId}/cancelled", appointment1.getAppointmentId())
                         .content("COMPLETED")
                         .header("Authorization", testToken)
                         .contentType(MediaType.APPLICATION_JSON))
