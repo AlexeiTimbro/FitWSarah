@@ -48,9 +48,14 @@ public class AppointmentController {
         return appointmentService.updateAppointmentDetails(appointmentRequestModel, appointmentId);
     }
 
-    @PutMapping("/{appointmentId}/status")
+    @PutMapping("/{appointmentId}/cancelled")
     public AppointmentResponseModel updateAppointmentStatus(@PathVariable String appointmentId, @RequestBody String status){
         return appointmentService.updateAppointmentStatus(appointmentId, status);
+    }
+
+    @PutMapping("/{appointmentId}/scheduled")
+    public AppointmentResponseModel handleAppointmentRequest(@PathVariable String appointmentId, @RequestBody String status){
+        return appointmentService.handleAppointmentRequest(appointmentId, status);
     }
 
     @DeleteMapping("/{appointmentId}")

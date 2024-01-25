@@ -44,6 +44,7 @@ function Filter({labels, onInputChange, searchTerm, clearFilters}) {
                                     ) : (
                                     <div>
                                         <label>{label}</label>
+                                        <input className={statusButton === "Requested" ? "status-button active" : "status-button"} type="button" name={label + "3"} maxLength="60" value="Requested" onClick={(event) => handleInputChange(event, label)} />
                                         <input className={statusButton === "Scheduled" ? "status-button active" : "status-button"} type="button" name={label + "1"} maxLength="60" value="Scheduled" onClick={(event) => handleInputChange(event, label)} />
                                         <input className={statusButton === "Cancelled" ? "status-button active" : "status-button"} type="button" name={label + "2"} maxLength="60" value="Cancelled" onClick={(event) => handleInputChange(event, label)} />
                                         <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "3"} maxLength="60" value="Completed" onClick={(event) => handleInputChange(event, label)} />
@@ -51,6 +52,7 @@ function Filter({labels, onInputChange, searchTerm, clearFilters}) {
                                 )}
                             </div>
                         ))}
+
                     </section>
                     <button className="filter-button" onClick={clear}>Clear</button>
                 </>

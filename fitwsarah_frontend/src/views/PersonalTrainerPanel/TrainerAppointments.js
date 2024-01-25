@@ -24,9 +24,9 @@ function AdminAccounts() {
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
 
-    const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["userid",""], ["status",""]]);
+    const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["status",""]]);
 
-    const labels = ["Appointment ID", "User ID", "Status"];
+    const labels = ["Appointment ID", "Status"];
 
     const [editAppointmentId, setEditAppointmentId] = useState(null);
     const [editFormData, setEditFormData] = useState({
@@ -75,7 +75,7 @@ function AdminAccounts() {
                     firstName: data.firstName,
                     lastName: data.lastName,
                     phoneNum: data.phoneNum,
-                    dateTime: combinedDateTime, // Use a single Date object for both date and time
+                    dateTime: combinedDateTime,
                 });
             })
             .catch((error) => {
@@ -140,6 +140,13 @@ function AdminAccounts() {
         }
     };
 
+    const handleAcceptedAppointment = (appointmentId) => {
+        const isConfirmed = window.confirm("Are you sure you want to accept this appointment?");
+        if (isConfirmed) {
+            handleAppointmentRequest(appointmentId, 'scheduled');
+        }
+    };
+
 
     const getAppointments = () => {
         const params = new URLSearchParams();
@@ -172,7 +179,34 @@ function AdminAccounts() {
     };
 
     const updateAppointmentStatus = (appointmentId, status) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/${status}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/cancelled`, {
+            method: "PUT",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify(status)
+
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                getAppointments();
+            })
+            .catch((error) => {
+                console.log(error);
+
+            });
+    }
+
+
+    const handleAppointmentRequest = (appointmentId, status) => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/scheduled`, {
             method: "PUT",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -182,7 +216,7 @@ function AdminAccounts() {
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
+                    throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
@@ -197,12 +231,9 @@ function AdminAccounts() {
     }
 
     function onInputChange(label, value) {
-        const formattedLabel = label.toLowerCase().replace(/\s+/g, '');
         const newSearchTerm = searchTerm.map((term) => {
             if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
-                if (formattedLabel === "userid") {
-                    return [formattedLabel, value];
-                } else if (label === "Status") {
+                if (label === "Status") {
                     console.log(value.toUpperCase());
                     return [term[0], value.toUpperCase()];
                 }
@@ -214,9 +245,8 @@ function AdminAccounts() {
     }
 
     function clearFilters() {
-        setSearchTerm([["accountid",""], ["username",""], ["email",""], ["city",""]]);
+        setSearchTerm([["appointmentid",""], ["status",""]]);
     }
-
 
     return (
         <div>
@@ -224,13 +254,13 @@ function AdminAccounts() {
             {isAuthenticated && <NavLoggedIn />}
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/trainerPanel" className="button back-button">Back</Link>
+                    <Link to="/adminPanel" className="button back-button">Back</Link>
                     <h1>Appointments</h1>
                     <div className="filter-container">
                         <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
                     </div>
 
-                    <div className="table-responsive">
+                    <div className="table-scroll-container">
                         <table className="table">
                             <thead>
                             <tr>
@@ -258,6 +288,7 @@ function AdminAccounts() {
                                             >
                                                 <option value="SCHEDULED">SCHEDULED</option>
                                                 <option value="COMPLETED">COMPLETED</option>
+                                                <option value="CANCELLED">CANCELLED</option>
                                             </select>
                                         </td>
                                         <td>
@@ -322,12 +353,31 @@ function AdminAccounts() {
                                         <td>{appointment.date}</td>
                                         <td>{appointment.time}</td>
                                         <td className="edit-button-container">
-                                            <button className="saveButton" onClick={() => handleEditClick(appointment)}>
-                                                Edit
-                                            </button>
-                                            <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
-                                                Cancel Appointment
-                                            </button>
+                                            {appointment.status === "REQUESTED" && (
+                                                <>
+                                                    <button className="acceptButton" onClick={() => handleAcceptedAppointment(appointment.appointmentId)}>
+                                                        Accept
+                                                    </button>
+                                                    <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
+                                                        Deny
+                                                    </button>
+                                                </>
+                                            )}
+                                            {appointment.status !== "CANCELLED" && appointment.status !== "REQUESTED" && (
+                                                <>
+                                                    <button className="saveButton" onClick={() => handleEditClick(appointment)}>
+                                                        Edit
+                                                    </button>
+                                                    <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
+                                                        Cancel Appointment
+                                                    </button>
+                                                </>
+                                            )}
+                                            {appointment.status === "CANCELLED" && (
+                                                <button className="saveButton" onClick={() => handleEditClick(appointment)}>
+                                                    Edit
+                                                </button>
+                                            )}
                                         </td>
                                     </tr>
                                 )

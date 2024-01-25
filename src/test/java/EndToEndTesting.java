@@ -372,4 +372,49 @@ public class EndToEndTesting {
         sleep(1000);
     }
 
+    @Test
+    public void handleAppointmentRequestTrainerPanel(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Habs@1290");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+
+        SelenideElement adminPanelBtn = $("a[href='/trainerPanel']");
+        adminPanelBtn.click();
+
+        sleep(1000);
+
+        SelenideElement profileBtn = $("a[href='/trainerAppointments']");
+        profileBtn.click();
+
+        sleep(1000);
+
+        SelenideElement cancelBtn = $("button[class='acceptButton']");
+        cancelBtn.click();
+
+        sleep(1000);
+
+        Alert alert = switchTo().alert();
+
+        alert.accept();
+
+        sleep(1000);
+
+    }
+
 }

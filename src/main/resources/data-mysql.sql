@@ -24,11 +24,11 @@ INSERT INTO feedback_threads (feedback_id, account_id, stars, content) VALUES
 ('fdbk-uuid-5', 'uuid-acc5', 4, 'Fun group classes, but schedule is limited');
 
 INSERT INTO appointments (appointment_id, availability_id, user_id, service_id, status, location, first_name, last_name, phone_num, date, time) VALUES
-('uuid-appt1', 'uuid-avail1', 'dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2', '99a836ab-8f83-4e63-b266-3f56b1396df4', 'SCHEDULED', 'Location 1', 'Emily', 'Jones', '514-223-3322', '2023-12-01','10:00'),
+('uuid-appt1', 'uuid-avail1', 'dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2', '99a836ab-8f83-4e63-b266-3f56b1396df4', 'REQUESTED', 'Location 1', 'Emily', 'Jones', '514-223-3322', '2023-12-01','10:00'),
 ('uuid-appt2', 'uuid-avail2', '7ab87f1e-7a5c-4c5a-bddc-8b1c5c8d8d9a', 'd2a5b28a-04b5-4f4e-ba27-983fb825a6f0', 'COMPLETED', 'Location 2', 'John', 'Smith', '416-555-1234', '2023-12-02','14:30'),
 ('uuid-appt3', 'uuid-avail3', 'f9b6c841-2d18-4d6f-902a-1c1c8a0cfa82', 'b19a7e31-90b8-4d52-b738-215d23967e34', 'CANCELLED', 'Location 3', 'Alice', 'Johnson', '647-789-4567', '2023-12-03','09:45'),
 ('uuid-appt4', 'uuid-avail4', '34c05e38-d218-4170-b692-10cc22d2a5e8', 'a083a37a-f40a-4f5f-b20e-2e598c0d16a4', 'SCHEDULED', 'Location 4', 'Michael', 'Miller', '905-222-5555', '2023-12-04',' 11:15'),
-('uuid-appt5', 'uuid-avail5', '1a11f23e-6a9a-4a82-9d7f-0676a86953f7', '7ea12f6a-b7c4-402d-9d2b-3987b8b49a5a', 'COMPLETED', 'Location 5', 'Sophia', 'Brown', '416-789-9876', '2023-12-05','16:00'),
+('uuid-appt5', 'uuid-avail5', '1a11f23e-6a9a-4a82-9d7f-0676a86953f7', '7ea12f6a-b7c4-402d-9d2b-3987b8b49a5a', 'REQUESTED', 'Location 5', 'Sophia', 'Brown', '416-789-9876', '2023-12-05','16:00'),
 ('uuid-appt6', 'uuid-avail6', 'fca5c48c-0ea9-4ba1-b8f7-6df74541acda', '8c4d9b17-8e25-4d2a-9b92-d88b2c18315f', 'SCHEDULED', 'Location 6', 'Daniel', 'Davis', '647-333-1111', '2023-12-06',' 13:30'),
 ('uuid-appt7', 'uuid-avail7', 'f485ee1d-77b7-47a7-8903-9f2055b5ee21', '5d95bf15-242b-471c-8d7e-63bb148d05c4', 'COMPLETED', 'Location 7', 'Olivia', 'Taylor', '905-876-2345', '2023-12-07','12:00'),
 ('uuid-appt8', 'uuid-avail8', '08f6a59a-79e1-4b1e-ba0f-6f14115ccca3', 'd701724c-3da5-4d42-9e22-944f097f77e3', 'CANCELLED', 'Location 8', 'Ethan', 'Clark', '416-444-5555', '2023-12-08',' 14:45'),
