@@ -19,20 +19,19 @@ public class Invoices {
     @Embedded
     private InvoiceIndentifier invoiceIdentifier;
 
-    @Embedded
-    private AccountIdentifier accountIdentifier;
+    private String accountId;
 
     private double amount;
 
-    private double content;
+    private String content;
 
     Invoices() {
         this.invoiceIdentifier = new InvoiceIndentifier();
     }
 
-    public Invoices(AccountIdentifier accountIdentifier, double amount, double content) {
+    public Invoices(String accountId, double amount, String content) {
         this.invoiceIdentifier = new InvoiceIndentifier();
-        this.accountIdentifier = accountIdentifier;
+        this.accountId = accountId;
         this.amount = amount;
         this.content = content;
     }

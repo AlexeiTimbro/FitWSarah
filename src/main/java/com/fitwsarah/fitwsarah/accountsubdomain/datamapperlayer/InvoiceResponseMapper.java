@@ -13,8 +13,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface InvoiceResponseMapper {
 
-    @Mapping(expression = "java(invoices.getAccountIdentifier().getAccountId())", target = "accountId")
-    InvoiceRequestModel entityToResponseModel(Invoices invoices);
+    @Mapping(expression = "java(invoices.getInvoiceIdentifier().getInvoiceId())", target = "invoiceId")
+    InvoiceResponseModel entityToResponseModel(Invoices invoices);
 
     List<InvoiceResponseModel> entityListToResponseModelList(List<Invoices> invoices);
 }
