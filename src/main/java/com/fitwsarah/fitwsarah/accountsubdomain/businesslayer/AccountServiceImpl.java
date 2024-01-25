@@ -59,8 +59,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+<<<<<<< HEAD
     public List<InvoiceResponseModel> getAllInvoicesByAccountId(String accountId) {
         return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findAllInvoicesByAccountId(accountId));
+=======
+    public List<InvoiceResponseModel> getAllInvoicesByUserId(String userId) {
+        return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findInvoicesByUserId(userId));
+>>>>>>> origin/feat-56_View_all_invoices_by_user_id
     }
 
     @Override

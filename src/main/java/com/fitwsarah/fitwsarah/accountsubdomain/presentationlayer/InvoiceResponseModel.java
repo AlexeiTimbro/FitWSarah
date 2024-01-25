@@ -10,7 +10,14 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class InvoiceResponseModel {
  String invoiceId;
+<<<<<<< HEAD
  String accountId;
    double amount;
    String content;
+=======
+   String userId;
+   double amount;
+
+   double content;
+>>>>>>> origin/feat-56_View_all_invoices_by_user_id
 }

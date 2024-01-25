@@ -40,10 +40,16 @@ public class AccountController {
     public InvoiceResponseModel addInvoiceByAccountId(@RequestBody InvoiceRequestModel invoiceRequestModel, @PathVariable String accountId){
         return null;
     }
+<<<<<<< HEAD
 
     @GetMapping("/{accountId}/invoices")
     public List<InvoiceResponseModel> getAllInvoicesByAccountId(@PathVariable String accountId){
         return accountService.getAllInvoicesByAccountId(accountId);
+=======
+    @GetMapping("/users/{userId}/invoices")
+    public  List<InvoiceResponseModel> getAllInvoicesByUserId(@PathVariable String userId){
+        return accountService.getAllInvoicesByUserId(userId);
+>>>>>>> origin/feat-56_View_all_invoices_by_user_id
     }
 
     @DeleteMapping("/{accountId}")
