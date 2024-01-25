@@ -15,13 +15,13 @@ function AdminInvoices() {
         isAuthenticated,
     } = useAuth0();
 
-    const [accounts, setAccounts] = useState([]);
+    const [invoices, setInvoices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [searchTerm, setSearchTerm] = useState([["invoiceid",""], ["accountid",""], ["amount",""], ["content",""]]);
 
     const getAccessToken = useGetAccessToken();
 
-    const labels = ["Account ID", "Username", "Email", "City"];
+    const labels = ["Invoice ID", "Account ID", "Amount", "Content"];
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -34,19 +34,13 @@ function AdminInvoices() {
 
     useEffect(() => {
         if (accessToken) {
-            getAllAccounts();
+            getAllInvoices();
         }
     }, [accessToken, searchTerm]);
 
-    const getAllAccounts = () => {
-        const params = new URLSearchParams();
-        searchTerm.forEach(term => {
-            if (term[1]) {
-                params.append(term[0], term[1]);
-            }
-        });
+    const getAllInvoices = () => {
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts${params.toString() && "?" + params.toString()}`, {
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/invoices`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -60,27 +54,12 @@ function AdminInvoices() {
                 return response.json();
             })
             .then((data) => {
-                setAccounts(data);
+                setInvoices(data);
             })
             .catch((error) => {
                 console.log(error);
             });
     };
-
-    function onInputChange(label, value) {
-        const newSearchTerm = searchTerm.map((term) => {
-            if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
-                return [term[0], value];
-            }
-            return term;
-        });
-        setSearchTerm(newSearchTerm);
-    }
-
-    function clearFilters() {
-        setSearchTerm([["accountid",""], ["username",""], ["email",""], ["city",""]]);
-    }
-
 
     return (
         <div>
@@ -93,25 +72,24 @@ function AdminInvoices() {
                     <Link to="/adminPanel" className="button back-button">Back</Link>
                     <div className="header-section">
                         <h1>Invoices</h1>
-                        <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
                     </div>
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Account ID</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>City</th>
+                                <th>InvoiceId</th>
+                                <th>AccountId</th>
+                                <th>Amount</th>
+                                <th>Content</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {accounts.map(account => (
-                                <tr key={account.id}>
-                                    <td>{account.accountId}</td>
-                                    <td>{account.username}</td>
-                                    <td>{account.email}</td>
-                                    <td>{account.city}</td>
+                            {invoices.map(invoice => (
+                                <tr key={invoice.id}>
+                                    <td>{invoice.invoiceId}</td>
+                                    <td>{invoice.accountId}</td>
+                                    <td>{invoice.amount}</td>
+                                    <td>{invoice.content}</td>
                                     <td>
                                         <button className="button delete-button">Delete</button>
                                         <button className="button details-button">Details</button>

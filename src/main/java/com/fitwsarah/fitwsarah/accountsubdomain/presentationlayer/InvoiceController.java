@@ -22,9 +22,6 @@ public class InvoiceController {
         return invoiceService.getAllInvoices();
     }
 
-    @PostMapping()
-    public InvoiceResponseModel addInvoice(@RequestBody InvoiceRequestModel invoiceRequestModel){
-        return invoiceService.addInvoice(invoiceRequestModel);
-    }
+
 
 }

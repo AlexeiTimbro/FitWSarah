@@ -25,7 +25,7 @@ public class Invoices {
 
     private String content;
 
-    Invoices() {
+    public Invoices() {
         this.invoiceIdentifier = new InvoiceIndentifier();
     }
 

@@ -8,7 +8,7 @@ import java.util.UUID;
 public class InvoiceIndentifier {
     private String invoiceId;
 
-     InvoiceIndentifier(){
+     public InvoiceIndentifier(){
          this.invoiceId = UUID.randomUUID().toString();
      }
 

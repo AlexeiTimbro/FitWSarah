@@ -32,12 +32,5 @@ public class InvoiceServiceImpl implements InvoiceService{
         return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findAll());
     }
 
-    @Override
-    public InvoiceResponseModel addInvoice(InvoiceRequestModel invoiceRequestModel) {
-
-        Invoices invoice = invoiceRequestMapper.requestModelToEntity(invoiceRequestModel);
-        Invoices saved = invoiceRepository.save(invoice);
-        return invoiceResponseMapper.entityToResponseModel(saved);
-    }
 
 }
