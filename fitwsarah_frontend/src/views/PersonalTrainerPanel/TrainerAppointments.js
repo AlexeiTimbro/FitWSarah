@@ -84,7 +84,6 @@ function AdminAccounts() {
     };
 
 
-
     const handleSaveClick = (appointmentId) => {
         const updatedAppointment = {
             ...editFormData,
