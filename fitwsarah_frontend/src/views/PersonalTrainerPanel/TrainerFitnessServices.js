@@ -44,6 +44,7 @@ function Services() {
     };
 
     const [fitnessDataToSend, setFitnessDataToSend] = useState({});
+    const [durationType, setDurationType] = useState('minutes');
     const [showForm, setShowForm] = useState(false);
     
     const handleInputChange = (e) => {
@@ -52,7 +53,6 @@ function Services() {
         ...fitnessDataToSend,
         [name]: value,
     };
-    console.log(updatedData);
     setFitnessDataToSend(updatedData);
     };
 
@@ -63,19 +63,23 @@ function Services() {
         ...fitnessDataToSend,
         [name]: doubleValue,
     };
-    console.log(updatedData);
     setFitnessDataToSend(updatedData);
     };
 
     const handleDurationChange = (e) => {
       const { name, value } = e.target;
+
+      if (name === 'durationType'){
+        setDurationType(value);
+      }
+      
       const updatedData = {
         ...fitnessDataToSend,
-        duration: name === 'duration' ? `${value} ${fitnessDataToSend.durationType || 'minutes'}` : `${fitnessDataToSend.duration || ''} ${value}`
+        duration: name === 'duration' ? `${value} ${durationType}` : `${fitnessDataToSend.duration} ${value}`
       };
-      console.log(updatedData);
       setFitnessDataToSend(updatedData);
     };
+
 
     return (
         <div>
@@ -138,7 +142,7 @@ function Services() {
           </div>
           <div className="form-group">
           <input type="number" id="duration" max="99" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
-            <select id="durationType" name="durationType"  onChange={(e) => handleDurationChange(e)}  required>
+            <select id="durationType" name="durationType"  onChange={(e) => setDurationType(e.target.value)} required>
                 <option value="minutes">minutes</option>
                 <option value="hour(s)">hour(s)</option>
             </select>

@@ -97,7 +97,6 @@ function Home() {
         ...fitnessDataToSend,
         [name]: value,
     };
-    console.log(updatedData);
     setFitnessDataToSend(updatedData);
     };
 
@@ -108,7 +107,6 @@ function Home() {
         ...fitnessDataToSend,
         [name]: doubleValue,
     };
-    console.log(updatedData);
     setFitnessDataToSend(updatedData);
     };
 
@@ -123,7 +121,6 @@ function Home() {
         ...fitnessDataToSend,
         duration: name === 'duration' ? `${value} ${durationType}` : `${fitnessDataToSend.duration} ${value}`
       };
-      console.log(updatedData);
       setFitnessDataToSend(updatedData);
     };
 
