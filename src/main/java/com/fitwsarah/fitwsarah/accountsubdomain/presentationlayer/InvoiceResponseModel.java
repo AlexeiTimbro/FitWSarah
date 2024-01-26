@@ -15,6 +15,7 @@ import java.util.Date;
 public class InvoiceResponseModel {
     private String invoiceId;
     private String accountId;
+    private String username;
     private InvoiceStatus status;
     private LocalDateTime date;
     private LocalDateTime dueDate;

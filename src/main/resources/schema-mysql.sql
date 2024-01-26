@@ -9,11 +9,11 @@ create table if not exists accounts(
     city VARCHAR(50)
 );
 
-
 create table if not exists invoices(
                                        id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                        invoice_id VARCHAR(36) NOT NULL,
     account_id VARCHAR(36) NOT NULL,
+    username VARCHAR(50),
     status VARCHAR (50) NOT NULL,
     date DATE NOT NULL,
     due_date DATE NOT NULL,

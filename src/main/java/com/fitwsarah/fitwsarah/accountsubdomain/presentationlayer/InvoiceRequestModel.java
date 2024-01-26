@@ -14,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class InvoiceRequestModel {
     private String accountId;
+    private String username;
     private InvoiceStatus status;
     private LocalDateTime date;
     private LocalDateTime dueDate;
