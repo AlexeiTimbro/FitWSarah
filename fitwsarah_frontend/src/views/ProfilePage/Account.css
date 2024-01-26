@@ -125,6 +125,10 @@
     background-color: #a58d93;
 }
 
+.tab.selected {
+    background-color: #494042;
+}
+
 .horizontal-scroll-container {
     display: flex;
     overflow-x: auto;
@@ -250,6 +254,19 @@
 
 .sidebar-icon {
     margin-right: 10px;
+}
+
+.appointments-container {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 250px;
+}
+
+.appointment-item {
+    flex-basis: calc(100% / 3);
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 

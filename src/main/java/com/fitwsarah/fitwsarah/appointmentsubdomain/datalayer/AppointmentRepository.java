@@ -8,7 +8,7 @@ import java.util.List;
 @Embeddable
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
     Appointment findAppointmentsByAppointmentIdentifier_AppointmentId( String appointmentId);
-
+    List<Appointment> findAllAppointmentByUserIdAndStatus(String userId, Status status);
     List<Appointment> findAllAppointmentsByAppointmentIdentifier_AppointmentIdStartingWith(String appointmentId);
     List<Appointment> findAllAppointmentsByStatus(Status status);
     List<Appointment> findAllAppointmentsByUserIdStartingWith(String userId);

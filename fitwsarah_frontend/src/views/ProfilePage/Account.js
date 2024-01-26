@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
-import {Container, Row, Col, Button} from "react-bootstrap";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
-import ProfileSideBar from "../../components/clientProfile/profile";
-import { useParams } from "react-router-dom";
-import { useGetAccessToken } from "../../components/authentication/authUtils";
 import './Account.css';
 import Sidebar from "./SideBar";
-import AppointmentCard from '../../views/ProfilePage/AppointmentCard';
 import Settings from '../../components/clientProfile/setting.js';
 import CoachNote from "../../components/CoachNote/CoachNote.js";
+import Appointment from '../../components/clientProfile/Appointment.js';
 
 
 function Profile() {
     const {isAuthenticated,  getAccessTokenSilently, user} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const [profile, setProfile] = useState(null);
-    const [appointments, setAppointments] = useState([]);
     const [profilePicUrl, setProfilePicUrl] = useState('');
     const [accountId, setAccountId] = useState(null);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
     const [selectedTab, setSelectedTab] = useState('appointments');
+    const [appointments, setAppointments] = useState([]);
+    const [status, setStatus] = useState('SCHEDULED');
 
     useEffect(() => {
         if (user && user.picture) {
@@ -55,10 +52,13 @@ function Profile() {
         if (accessToken) {
             getAccountByUserId(extractAfterPipe(user.sub));
         }
-        if (accessToken) {
-            getAppointmentsByAccountId("dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2");
-        }
     }, [user]);
+
+    useEffect(() => {
+        if (accessToken) {
+            getAppointmentsByUserId(extractAfterPipe(user.sub), status);
+        }
+    }, [user, status]);
 
     const getAccountByUserId = (userId) => {
         fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/users/${userId}`, {
@@ -86,32 +86,28 @@ function Profile() {
             });
     };
 
-    const getAppointmentsByAccountId = (userId) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/account/users/${userId}`, {
+    const getAppointmentsByUserId = (userId, status) => {
+        fetch(`http://localhost:8080/api/v1/appointments/users/${userId}/status/${status}`, {
             method: "GET",
             headers: {
-                Authorization: "Bearer " + accessToken,
-                "Content-Type": "application/json",
-            },
+                "Authorization": "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            }
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(
-                        "Network response was not ok " + response.statusText
-                    );
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setAppointments(data);
-            })
-            .catch((error) => {
-                console.error(
-                    "Error fetching account details for accountId",
-                    ":",
-                    error
-                );
-            });
+        .then((response) => {
+            if (!response.ok) {
+                console.error("Response status: " + response.status);
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            setAppointments(data);
+        })
+        .catch((error) => {
+            console.error("Error message:", error.message);
+        });
     };
 
 
@@ -126,6 +122,11 @@ function Profile() {
 
     function changeSelectedTab(tab) {
         setSelectedTab(tab);
+    }
+
+    function changeStatus(stat) {
+        setStatus(stat);
+        console.log(status);
     }
 
 
@@ -149,11 +150,18 @@ function Profile() {
                     {selectedTab === 'appointments' &&
                     <div>
                         <div className="tabs">
-                            <button className="tab">Today</button>
-                            <button className="tab">Scheduled</button>
-                            <button className="tab">Finished</button>
+                            <button name="SCHEDULED" className={`tab ${status === 'SCHEDULED' ? 'selected' : '' }`} onClick={() => changeStatus('SCHEDULED')}>Scheduled</button>
+                            <button name="COMPLETED" className={`tab ${status === 'COMPLETED' ? 'selected' : '' }`} onClick={() => changeStatus('COMPLETED')}>Completed</button>
+                            <button name="REQUESTED" className={`tab ${status === 'REQUESTED' ? 'selected' : '' }`} onClick={() => changeStatus('REQUESTED')}>Requested</button>
+                            <button name="CANCELLED" className={`tab ${status === 'CANCELLED' ? 'selected' : '' }`} onClick={() => changeStatus('CANCELLED')}>Cancelled</button>
                         </div>
-                        <AppointmentCard/>
+                        <div className="appointments-container">
+                            {appointments.map((appointment) => (
+                                <div className="appointment-item">
+                                    <Appointment appointment={appointment} accessToken={accessToken} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                     }
                     {

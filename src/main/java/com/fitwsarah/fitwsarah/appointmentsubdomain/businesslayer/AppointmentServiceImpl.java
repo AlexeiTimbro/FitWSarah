@@ -53,7 +53,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentResponseMapper.entityListToResponseModelList(appointmentRepository.findAllAppointmentsByUserId(userId));
     }
 
-
+    @Override
+    public List<AppointmentResponseModel> getAllAppointmentsByUserIdAndStatus(String userId, String status) {
+        return appointmentResponseMapper.entityListToResponseModelList(appointmentRepository.findAllAppointmentByUserIdAndStatus(userId, Status.valueOf(status)));
+    }
 
     @Override
     public AppointmentResponseModel getAppointmentByAppointmentId(String appointmentId) {

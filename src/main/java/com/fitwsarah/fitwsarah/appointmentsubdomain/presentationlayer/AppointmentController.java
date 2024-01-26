@@ -28,16 +28,15 @@ public class AppointmentController {
 
     }
 
-    @GetMapping("/accounts/users/{userId}")
+    @GetMapping("/users/{userId}")
     public List<AppointmentResponseModel> getAllAppointmentsByUserId(@PathVariable String userId){
         return appointmentService.getAllAppointmentsByUserId(userId);
     }
 
-
-
-
-
-
+    @GetMapping("/users/{userId}/status/{status}")
+    public List<AppointmentResponseModel> getAllAppointmentsByUserIdAndStatus(@PathVariable String userId, @PathVariable String status){
+        return appointmentService.getAllAppointmentsByUserIdAndStatus(userId, status);
+    }
     @PostMapping()
     public ResponseEntity<AppointmentResponseModel> addAppointment(@RequestBody AppointmentRequestModel appointmentRequestModel){
         return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.addAppointment(appointmentRequestModel));
