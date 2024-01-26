@@ -10,8 +10,9 @@ import AddMemberProfile from "../authentication/Signup";
 import { ROLES } from "../../components/authentication/roles";
 import "../../components/authentication/switch.css"
 import RoleBasedSwitch from "../../components/authentication/RoleBasedSwitch";
-import RequestNewFitnessService from "../HomePage/newServiceBtn";
 import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
     const {
@@ -86,7 +87,8 @@ function Home() {
         });
     };
 
-    const [fitnessDataToSend, setFitnessDataToSend] = useState(null);
+    const [fitnessDataToSend, setFitnessDataToSend] = useState({});
+    const [durationType, setDurationType] = useState('minutes');
     const [showForm, setShowForm] = useState(false);
     
     const handleInputChange = (e) => {
@@ -112,9 +114,14 @@ function Home() {
 
     const handleDurationChange = (e) => {
       const { name, value } = e.target;
+
+      if (name === 'durationType'){
+        setDurationType(value);
+      }
+      
       const updatedData = {
         ...fitnessDataToSend,
-        duration: name === 'duration' ? `${value} ${fitnessDataToSend.durationType || 'minutes'}` : `${fitnessDataToSend.duration || ''} ${value}`
+        duration: name === 'duration' ? `${value} ${durationType}` : `${fitnessDataToSend.duration} ${value}`
       };
       console.log(updatedData);
       setFitnessDataToSend(updatedData);
@@ -122,7 +129,6 @@ function Home() {
 
 return (
         <div>
-
     {!isAuthenticated && <NavNotLoggedIn/>}
     {isAuthenticated && <NavLoggedIn/>}
     {isAuthenticated && user["https://fitwsarah.com/roles"].length == 0 && <AddMemberProfile />}
@@ -184,7 +190,7 @@ return (
           </div>
           <div className="form-group">
           <input type="number" id="duration" max="99" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
-            <select id="durationType" name="durationType"  onChange={(e) => handleDurationChange(e)}  required>
+            <select id="durationType" name="durationType"  onChange={(e) => setDurationType(e.target.value)}  required>
                 <option value="minutes">minutes</option>
                 <option value="hour(s)">hour(s)</option>
             </select>

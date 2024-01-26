@@ -449,5 +449,47 @@ public class EndToEndTesting {
         sleep(1000);
 
     }
+    @Test
+    public void addFitnessPackage() {
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("pt@admin.com");
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        SelenideElement switchBtn = $("label[class='switch']");
+        switchBtn.click();
+
+        SelenideElement addBtn = $("button[class='add-button']");
+        addBtn.shouldBe(visible);
+        addBtn.click();
+
+        SelenideElement titleInput = $("input[name='title']");
+        titleInput.setValue("Fitness Training Online");
+
+        SelenideElement durationInput = $("input[name='duration']");
+        durationInput.setValue("30");
+
+        SelenideElement priceInput = $("input[name='price']");
+        priceInput.setValue(String.valueOf(22.2));
+
+        SelenideElement descInput = $("textarea[name='description']");
+        descInput.setValue("this is a desc");
+
+        SelenideElement otherInput = $("textarea[name='otherInformation']");
+        otherInput.setValue("this is other info");
+
+        SelenideElement addNewServiceBtn = $("button[id='newBtn']");
+        addNewServiceBtn.click();
+        addNewServiceBtn.shouldBe(visible);
+        sleep(1000);
+    }
 
 }
