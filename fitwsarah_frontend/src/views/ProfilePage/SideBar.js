@@ -21,7 +21,7 @@ function Sidebar({ changeSelectedTab }) {
                     <i className="sidebar-icon appointments-icon"></i>
                     {t('coachNotes')}
                 </a>
-                <a name="invoices" className="sidebar-link" onClick={() => changeSelectedTab("invoices")}>
+                <a name="invoices" className="sidebar-link" onClick={() => changeSelectedTab("clientinvoices")}>
                     <i className="sidebar-icon invoices-icon"></i>
                     {t('invoices')}
                 </a>

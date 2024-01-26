@@ -173,6 +173,12 @@ function Profile() {
                         selectedTab === 'coachnotes' &&
                         <CoachNote userId={extractAfterPipe(user.sub)}/>
                     }
+
+                    {
+                        selectedTab === 'clientinvoices' &&
+                        <ClientInvoices/>
+                    }
+
                 </div>
             </div>
 

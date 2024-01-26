@@ -19,7 +19,7 @@ import TrainerInvoices from "./views/PersonalTrainerPanel/TrainerInvoices";
 import ContactMe from "./views/ContactMePage/ContactMeView";
 import Feedbacks from "./views/PersonalTrainerPanel/TrainerFeedback";
 import AdminFeedback from "./views/AdminPanelPage/Feedback";
-import { LanguageProvider } from './LanguageConfig/LanguageContext.js'; 
+import { LanguageProvider } from './LanguageConfig/LanguageContext.js';
 
 function App() {
     return (
