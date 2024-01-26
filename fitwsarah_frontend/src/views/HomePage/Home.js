@@ -29,7 +29,7 @@ function Home() {
 
     const { t } = useTranslation('home');
     const { language } = useLanguage();
-    
+
     useEffect(() => {
       getAllFitnessServices();
     }, []);
@@ -132,18 +132,18 @@ function Home() {
         {!isAuthenticated && <NavNotLoggedIn/>}
         {isAuthenticated && <NavLoggedIn/>}
         {isAuthenticated && user["https://fitwsarah.com/roles"].length === 0 && <AddMemberProfile />}
-    
+
         <section className="hero-section">
           {/* Hero section content (if any) */}
         </section>
-    
+
         <section className="services-section">
           <Container>
             <RoleBasedSwitch user={user} role={ROLES.PERSONAL_TRAINER} onClick={() => setEditMode(prevEditMode => !prevEditMode)} />
             <div className="header-container">
               <h2 className="white-text">{t('servicesAndPrices')}</h2>
             </div>
-    
+
             <Row>
               {services.map(service => (
                 <Col key={service.id} md={4}>
@@ -152,7 +152,7 @@ function Home() {
                     <p>{language === 'en' ? service.description_EN : service.description_FR}</p>
                     <p style={{display: 'none'}}>{language === 'en' ? service.otherInformation_EN : service.otherInformation_FR}</p>
                     <p style={{display: 'none'}}>{service.duration}</p>
-    
+
                     <div className="price">{service.price} $</div>
                     {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>{t('book')}</button>}
                     {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}><button className="book-button">{t('book')}</button></Link>}
@@ -161,7 +161,7 @@ function Home() {
                 </Col>
               ))}
             </Row>
-    
+
             {editMode && (
               <button onClick={() => setShowForm(prevShowForm => !prevShowForm)} className="add-button">
                 <xml version="1.0" encoding="utf-8"/>
@@ -172,7 +172,7 @@ function Home() {
             )}
           </Container>
         </section>
-    
+
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
             <Modal.Title>{language === 'en' ? selectedService?.title_EN : selectedService?.title_FR}</Modal.Title>
@@ -221,6 +221,7 @@ function Home() {
           </Modal.Body>
         </Modal>
 
+
     <Modal show={showForm} onHide={()=>setShowForm(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Add a Fitness Service</Modal.Title>
@@ -256,8 +257,10 @@ function Home() {
 
     <FooterNotLoggedIn/>
   </div>
+
+
     );
-    
+
 }
 
 export default Home;

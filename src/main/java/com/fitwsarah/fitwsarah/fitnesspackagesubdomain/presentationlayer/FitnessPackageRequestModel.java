@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.Status;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.Value;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class FitnessPackageRequestModel {
+    private Status status;
     private String title_EN;
     private String title_FR;
     private String duration;

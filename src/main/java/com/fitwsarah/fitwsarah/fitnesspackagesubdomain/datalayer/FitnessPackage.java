@@ -16,6 +16,10 @@ public class FitnessPackage {
     @Embedded
     private PromoIdentifier promoIdentifier;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    private String title;
     private String title_EN;
     private String title_FR;
     private String duration;
@@ -30,9 +34,10 @@ public class FitnessPackage {
         this.fitnessPackageIdentifier = new FitnessPackageIdentifier();
     }
 
-    public FitnessPackage( PromoIdentifier promoIdentifier, String title_EN, String title_FR, String duration, String description_EN, String description_FR, String otherInformation_EN, String otherInformation_FR, Double price) {
+    public FitnessPackage( PromoIdentifier promoIdentifier, Status status String title_EN, String title_FR, String duration, String description_EN, String description_FR, String otherInformation_EN, String otherInformation_FR, Double price) {
         this.fitnessPackageIdentifier =  new FitnessPackageIdentifier();
         this.promoIdentifier = promoIdentifier;
+        this.status = status;
         this.title_EN = title_EN;
         this.title_FR = title_FR;
         this.duration = duration;

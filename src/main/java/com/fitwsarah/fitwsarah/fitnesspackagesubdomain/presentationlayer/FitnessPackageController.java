@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +35,16 @@ public class FitnessPackageController {
     }
 
     @PutMapping("/{serviceId}")
-    public FitnessPackageResponseModel updateFitnessService(@RequestBody FitnessPackageResponseModel fitnessPackageResponseModel, @PathVariable String serviceId){
-        return null;
+    public FitnessPackageResponseModel updateFitnessService(@RequestBody FitnessPackageRequestModel fitnessPackageRequestModel, @PathVariable String serviceId){
+        return fitnessPackageService.updateFitnessPackage(fitnessPackageRequestModel, serviceId);
     }
+
+
+    @PutMapping("/{serviceId}/invisible")
+    public FitnessPackageResponseModel updateFitnessPackageStatus(@PathVariable String serviceId, @RequestBody String status){
+        return fitnessPackageService.updateFitnessPackageStatus(serviceId, status);
+    }
+
 
     @DeleteMapping("/{serviceId}")
     public void deleteFitnessService(@PathVariable String serviceId){

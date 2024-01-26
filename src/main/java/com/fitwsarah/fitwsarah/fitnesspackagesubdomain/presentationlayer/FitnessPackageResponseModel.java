@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.Status;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import lombok.Value;
 public class FitnessPackageResponseModel {
     public String serviceId;
     public String promoId;
+    public Status status;
     public String title_EN;
     public String title_FR;
     public String duration;
