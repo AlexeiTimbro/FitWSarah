@@ -13,7 +13,7 @@ public interface FitnessPackageService {
 
     FitnessPackageResponseModel getFitnessPackageByFitnessPackageId(String fitnessPackageId);
 
-    FitnessPackageResponseModel addFitnessPackage(FitnessPackageRequestModel fitnessPackageRequestModel, String fitnessPackageId);
+    FitnessPackageResponseModel addFitnessPackage(FitnessPackageRequestModel fitnessPackageRequestModel);
 
     FitnessPackageResponseModel updateFitnessPackage(FitnessPackageRequestModel fitnessPackageRequestModel, String fitnessPackageId);
 

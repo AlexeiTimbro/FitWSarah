@@ -10,7 +10,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface FitnessPackageResponseMapper {
     @Mapping(expression = "java(fitnessPackage.getFitnessPackageIdentifier().getServiceId())", target = "serviceId")
-    @Mapping(expression = "java(fitnessPackage.getPromoIdentifier().getPromoId())", target = "promoId")
     FitnessPackageResponseModel entityToResponseModel(FitnessPackage fitnessPackage);
 
     List<FitnessPackageResponseModel> entityListToResponseModelList(List<FitnessPackage> fitnessPackages);

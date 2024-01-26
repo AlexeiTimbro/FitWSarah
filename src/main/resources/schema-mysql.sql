@@ -45,7 +45,7 @@ create table if not exists appointments(
 create table if not exists fitness_services(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     service_id VARCHAR(36) NOT NULL,
-    promo_id VARCHAR(36) NOT NULL,
+    promo_id VARCHAR(36),
     title VARCHAR(50) NOT NULL,
     duration VARCHAR(50) NOT NULL,
     description VARCHAR(120) NOT NULL,

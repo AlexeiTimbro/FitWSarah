@@ -12,6 +12,5 @@ import org.mapstruct.Mapping;
 public interface FitnessPackageRequestMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping( expression = "java(fitnessPackageIdentifier) ", target = "fitnessPackageIdentifier", ignore = true)
-    @Mapping( expression = "java(promoIdentifier) ", target = "promoIdentifier", ignore = true)
     FitnessPackage requestModelToEntity(FitnessPackageRequestModel fitnessPackageRequestModel);
 }

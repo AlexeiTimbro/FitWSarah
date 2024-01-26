@@ -33,7 +33,7 @@ const BookingButton = ({appointmentDataToSend}) => {
     } catch (error) {
         console.error("Error getting access token: ", error);
     }
-};
+  };
 
   const addNewAppointment = async () => {
     try {

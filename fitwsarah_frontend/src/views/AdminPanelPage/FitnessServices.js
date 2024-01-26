@@ -4,7 +4,9 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './AdminAccounts.css';
-
+import { Modal } from 'react-bootstrap';
+import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
+import "../../css/style.css";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
 
 
@@ -43,6 +45,43 @@ function Services() {
                 console.log(error);
             });
     };
+    const [fitnessDataToSend, setFitnessDataToSend] = useState({});
+    const [durationType, setDurationType] = useState('minutes');
+    const [showForm, setShowForm] = useState(false);
+    
+    const handleInputChange = (e) => {
+      const {name, value} = e?.target || {};
+      const updatedData = {
+        ...fitnessDataToSend,
+        [name]: value,
+    };
+    setFitnessDataToSend(updatedData);
+    };
+
+    const handlePriceChange = (e) => {
+      const {name, value} = e?.target || {};
+      const doubleValue = parseFloat(value);
+      const updatedData = {
+        ...fitnessDataToSend,
+        [name]: doubleValue,
+    };
+    setFitnessDataToSend(updatedData);
+    };
+
+    const handleDurationChange = (e) => {
+      const { name, value } = e.target;
+
+      if (name === 'durationType'){
+        setDurationType(value);
+      }
+      
+      const updatedData = {
+        ...fitnessDataToSend,
+        duration: name === 'duration' ? `${value} ${durationType}` : `${fitnessDataToSend.duration} ${value}`
+      };
+      setFitnessDataToSend(updatedData);
+    };
+
     return (
         <div>
 
@@ -86,6 +125,38 @@ function Services() {
                 </div>
             </div>
             </div>
+        <Modal show={showForm} onHide={()=>setShowForm(false)}>
+            <Modal.Header closeButton>
+                <Modal.Title>Add a Fitness Service</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <form>
+            <div className="form-group">
+                <input type="text" id="title" maxLength="50" placeholder="Fitness Service Title" name="title" required  onChange={(e) => handleInputChange(e)} />
+            </div>
+            <div className="form-group">
+            <input type="number" id="duration" max="99" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
+                <select id="durationType" name="durationType"   onChange={(e) => setDurationType(e.target.value)}  required>
+                    <option value="minutes">minutes</option>
+                    <option value="hour(s)">hour(s)</option>
+                </select>
+            </div>
+            <div className="form-group">
+                <input type="number" id="price"  placeholder="Price" name="price" required onChange={(e) => handlePriceChange(e)} />
+            </div>
+            <div className="form-group">
+                <textarea id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
+            </div>
+            <div className="form-group">
+                <textarea id="otherInformation"  placeholder="Other Information (Optional)" name="otherInformation" onChange={(e) => handleInputChange(e)} />
+            </div>
+        
+
+            </form>
+                <AddServiceButton fitnessDataToSend={fitnessDataToSend}/>
+            </Modal.Body>
+
+    </Modal>
         </div>
 
 

@@ -3,12 +3,16 @@ package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentServiceImpl;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.PromoIdentifier;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageRequestMapper;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageResponseMapper;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageRequestModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.hibernate.mapping.Any;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,6 +26,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
@@ -36,6 +41,9 @@ class FitnessPackageServiceUnitTest {
 
     @Mock
     private FitnessPackageResponseMapper fitnessPackageResponseMapper;
+
+    @Mock
+    private FitnessPackageRequestMapper fitnessPackageRequestMapper;
 
     @BeforeEach
     public void setup() {
@@ -68,6 +76,25 @@ class FitnessPackageServiceUnitTest {
 
 
         assertEquals(serviceId, result.getServiceId());
+    }
+
+    @Test
+    public void addFitnessPackage_shouldSucceed(){
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other",22.00);
+
+        FitnessPackage entity = mock(FitnessPackage.class);
+        FitnessPackageResponseModel mockedResponse = new FitnessPackageResponseModel("serviceId", "uuid-promo1", "title",  "20 minutes", "desc", "other", 22.00);
+
+        when(fitnessPackageResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
+        when(fitnessPackageRequestMapper.requestModelToEntity(fitnessPackageRequestModel)).thenReturn(entity);
+        when(fitnessPackageRepository.save(entity)).thenReturn(entity);
+
+        FitnessPackageResponseModel result = fitnessPackageService.addFitnessPackage(fitnessPackageRequestModel);
+        assertNotNull(result);
+        assertNotNull(result.getServiceId());
+        assertNotNull(result.getDescription());
+        assertNotNull(result.getPrice());
+        assertNotNull(result.getTitle());
     }
 
 
