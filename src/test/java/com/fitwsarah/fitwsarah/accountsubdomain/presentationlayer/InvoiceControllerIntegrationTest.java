@@ -53,6 +53,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class InvoiceControllerIntegrationTest {
@@ -71,7 +72,7 @@ class InvoiceControllerIntegrationTest {
     @BeforeEach
     void setUp() throws Exception {
         InvoiceIndentifier identifier = new InvoiceIndentifier();
-        testInvoice = new Invoices("sad",100.00,"sadasd", "sadasd");
+        testInvoice = new Invoices();
         testInvoice.setInvoiceIdentifier(identifier);
         Invoices savedInvoice = invoiceRepository.save(testInvoice);
         testInvoiceId = savedInvoice.getInvoiceIdentifier().getInvoiceId();

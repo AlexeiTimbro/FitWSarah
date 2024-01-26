@@ -9,14 +9,17 @@ create table if not exists accounts(
     city VARCHAR(50)
 );
 
+
 create table if not exists invoices(
-    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    invoice_id VARCHAR(36) NOT NULL,
+                                       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                       invoice_id VARCHAR(36) NOT NULL,
     account_id VARCHAR(36) NOT NULL,
-    amount DECIMAL NOT NULL,
-    content_en VARCHAR(120) NOT NULL,
-    content_fr VARCHAR(120) NOT NULL
-);
+    status VARCHAR (50) NOT NULL,
+    date DATE NOT NULL,
+    due_date DATE NOT NULL,
+    payment_type VARCHAR(50),
+    price DECIMAL(10, 2) NOT NULL
+    );
 
 create table if not exists feedback_threads(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
