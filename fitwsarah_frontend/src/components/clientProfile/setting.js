@@ -5,10 +5,8 @@ import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
-import ProfileSideBar from "../../components/clientProfile/profile";
 import { useGetAccessToken } from "../authentication/authUtils";
 import configData from "../../config.json";
-import Sidebar from "../../views/ProfilePage/SideBar";
 import { Alert } from 'flowbite-react';
 function Settings() {
     const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
