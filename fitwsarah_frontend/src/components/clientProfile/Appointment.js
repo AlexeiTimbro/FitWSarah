@@ -16,7 +16,7 @@ function Appointment( {appointment, accessToken} ) {
     }, []);
 
     function getService(serviceId) {
-        fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
             method: "GET",
             headers: {
                 Authorization: "Bearer " + accessToken,
