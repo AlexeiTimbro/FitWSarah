@@ -13,6 +13,7 @@
     import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
     import TextField from '@mui/material/TextField';
     import { LocalizationProvider } from '@mui/x-date-pickers';
+    import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz';
 
 
     function AdminCreateInvoices() {
@@ -26,6 +27,9 @@
         const [accessToken, setAccessToken] = useState(null);
         const getAccessToken = useGetAccessToken();
         const [accounts, setAccounts] = useState([]);
+        const timeZone = 'America/Montreal';
+        const zonedDate = utcToZonedTime(new Date(), timeZone);
+        const formattedDate = format(zonedDate, "yyyy-MM-dd'T'HH:mm:ssXXX", { timeZone });
 
 
         useEffect(() => {
@@ -103,14 +107,15 @@
         const createInvoice = (event) => {
             event.preventDefault();
 
-            const currentDateTime = new Date();
+            const formattedDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
+            const formattedDueDate = format(newInvoice.dueDate, "yyyy-MM-dd'T'HH:mm:ss");
 
             const invoiceData = {
                 accountId: newInvoice.accountId,
                 username: newInvoice.username,
                 status: newInvoice.status,
-                date: currentDateTime,
-                dueDate: newInvoice.dueDate,
+                date: formattedDate, // Use the formatted current date-time
+                dueDate: formattedDueDate, // Use the formatted due date
                 paymentType: newInvoice.paymentType,
                 price: newInvoice.price
             };
@@ -123,11 +128,13 @@
                 }),
                 body: JSON.stringify(invoiceData)
             })
-                .then((response) => {
+                .then(async (response) => {
+                    const responseData = await response.json();
                     if (response.ok) {
-                        navigate("/adminInvoices"); // Redirect on success
+                        navigate("/adminInvoices"); // Redirect to the invoices page on success
                     } else {
-                        throw new Error('Network response was not ok');
+                        console.error('Response data:', responseData);
+                        throw new Error(`Server responded with status: ${response.status}`);
                     }
                 })
                 .catch((error) => {
@@ -196,8 +203,11 @@
                             value={newInvoice.dueDate}
                             onChange={handleDueDateChange}
                             renderInput={(params) => <TextField {...params} />}
+                            format="yyyy-MM-dd'T'HH:mm:ssXXX"
                         />
                     </LocalizationProvider>
+
+
 
                     {/* Payment Type */}
                     <label htmlFor="paymentType">Payment Type:</label>
