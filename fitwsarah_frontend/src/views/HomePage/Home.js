@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
-import { Container, Row, Col, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Modal, Form, Button } from 'react-bootstrap';
+
 import "../../css/style.css";
 import { Link } from 'react-router-dom';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
@@ -17,13 +18,14 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from '../../LanguageConfig/LanguageContext';
 
 import "./Editbutton.css";
+import UpdateServiceButton from "../AdminPanelPage/UpdateService";
 function Home() {
     const {
         isAuthenticated,
         getAccessTokenSilently,
         loginWithRedirect,
         user
-      } = useAuth0();
+    } = useAuth0();
 
     const [services, setServices] = useState([]);
     const [editMode, setEditMode] = useState(false);
@@ -36,7 +38,7 @@ function Home() {
     }, []);
 
     const getAllFitnessServices = () => {
-      fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/fitnessPackages`, {
+      fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
           method: "GET",
           headers: new Headers({
               "Content-Type": "application/json"
@@ -95,17 +97,62 @@ function Home() {
         });
     };
 
+
+    const handleUpdateService = (serviceId) => {
+        if (!selectedService || !selectedService.serviceId) {
+            console.error("No service selected for update");
+            return;
+        }
+
+        getAccessTokenSilently({
+            audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+            scope: "update:fitnessPackages"
+        })
+            .then(accessToken => {
+                fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}`, {
+                    method: "PUT",
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(selectedService)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(updatedService => {
+                        console.log("Service updated successfully", updatedService);
+                        getAllFitnessServices();
+                    })
+                    .catch(error => {
+                        console.error("Error updating service:", error);
+                    });
+            })
+            .catch(error => {
+                console.error("Error getting access token:", error);
+            });
+    };
+
+
+    const handleEdit = (service) => {
+        setSelectedService(service);
+        setShowUpdateForm(true); // Show the update form modal
+    };
+
     const [fitnessDataToSend, setFitnessDataToSend] = useState({});
     const [durationType, setDurationType] = useState('minutes');
     const [showForm, setShowForm] = useState(false);
-    
+
     const handleInputChange = (e) => {
-      const {name, value} = e?.target || {};
-      const updatedData = {
-        ...fitnessDataToSend,
-        [name]: value,
-    };
-    setFitnessDataToSend(updatedData);
+        const {name, value} = e?.target || {};
+        const updatedData = {
+            ...fitnessDataToSend,
+            [name]: value,
+        };
+        setFitnessDataToSend(updatedData);
     };
 
     const handlePriceChange = (e) => {
@@ -141,7 +188,7 @@ return (
       <RoleBasedSwitch user={user} role={ROLES.PERSONAL_TRAINER} onClick={() => setEditMode((prevEditMode) => !prevEditMode)}></RoleBasedSwitch>
       <div className="header-container"> 
       <h2 className="white-text">Services & Prices</h2>      
-      </div> 
+      </div>
         <Row>
           {services.map(service => (
             <Col key={service.id} md={4}>
@@ -155,7 +202,7 @@ return (
                 {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}><button className="book-button">Book</button></Link>}
                 <button className="book-button" onClick={() => handleShow(service.serviceId)}>Details</button>
               </div>
-                
+
             </Col>
           ))}
         </Row>
@@ -182,7 +229,7 @@ return (
             </Modal.Footer>
           )}
         </Modal>
-    
+
         <Modal show={showForm} onHide={() => setShowForm(false)}>
           <Modal.Header closeButton>
             <Modal.Title>{t('addFitnessService')}</Modal.Title>
@@ -216,46 +263,8 @@ return (
           </Modal.Body>
         </Modal>
 
-
-    <Modal show={showForm} onHide={()=>setShowForm(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add a Fitness Service</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form>
-          <div className="form-group">
-            <input type="text" id="title" maxLength="50" placeholder="Fitness Service Title" name="title" required  onChange={(e) => handleInputChange(e)} />
-          </div>
-          <div className="form-group">
-          <input type="number" id="duration" max={99} min={0} placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
-            <select id="durationType" name="durationType"  onChange={(e) => setDurationType(e.target.value)}  required>
-                <option value="minutes">minutes</option>
-                <option value="hour(s)">hour(s)</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <input type="number" id="price" min={0} placeholder="Price" name="price" required onChange={(e) => handlePriceChange(e)} />
-          </div>
-          <div className="form-group">
-            <textarea id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
-          </div>
-          <div className="form-group">
-            <textarea id="otherInformation"  placeholder="Other Information (Optional)" name="otherInformation" onChange={(e) => handleInputChange(e)} />
-          </div>
-        </form>
-        <AddServiceButton setShow={setShow} fitnessDataToSend={fitnessDataToSend}/>
-        </Modal.Body>
-
-    </Modal>
-
-
-
-    <FooterNotLoggedIn/>
-  </div>
-
-
+        <FooterNotLoggedIn/>
+      </div>
     );
-
 }
-
-export default Home;
+export  default Home
