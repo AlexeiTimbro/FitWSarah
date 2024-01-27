@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from "react-i18next";
 import { useLanguage } from '../../LanguageConfig/LanguageContext';
 
+import "./Editbutton.css";
 function Home() {
     const {
         isAuthenticated,
@@ -127,51 +128,45 @@ function Home() {
       setFitnessDataToSend(updatedData);
     };
 
-    return (
-      <div>
-        {!isAuthenticated && <NavNotLoggedIn/>}
-        {isAuthenticated && <NavLoggedIn/>}
-        {isAuthenticated && user["https://fitwsarah.com/roles"].length === 0 && <AddMemberProfile />}
+return (
+        <div>
+    {!isAuthenticated && <NavNotLoggedIn/>}
+    {isAuthenticated && <NavLoggedIn/>}
+    {isAuthenticated && user["https://fitwsarah.com/roles"].length == 0 && <AddMemberProfile />}
+    <section className="hero-section">
+    </section>
 
-        <section className="hero-section">
-          {/* Hero section content (if any) */}
-        </section>
-
-        <section className="services-section">
-          <Container>
-            <RoleBasedSwitch user={user} role={ROLES.PERSONAL_TRAINER} onClick={() => setEditMode(prevEditMode => !prevEditMode)} />
-            <div className="header-container">
-              <h2 className="white-text">{t('servicesAndPrices')}</h2>
-            </div>
-
-            <Row>
-              {services.map(service => (
-                <Col key={service.id} md={4}>
-                  <div id="serviceCard" className="service-card">
-                    <h3>{language === 'en' ? service.title_EN : service.title_FR}</h3>
-                    <p>{language === 'en' ? service.description_EN : service.description_FR}</p>
-                    <p style={{display: 'none'}}>{language === 'en' ? service.otherInformation_EN : service.otherInformation_FR}</p>
-                    <p style={{display: 'none'}}>{service.duration}</p>
-
-                    <div className="price">{service.price} $</div>
-                    {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>{t('book')}</button>}
-                    {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}><button className="book-button">{t('book')}</button></Link>}
-                    <button className="book-button" onClick={() => handleShow(service.serviceId)}>{t('details')}</button>
-                  </div>
-                </Col>
-              ))}
-            </Row>
-
-            {editMode && (
-              <button onClick={() => setShowForm(prevShowForm => !prevShowForm)} className="add-button">
-                <xml version="1.0" encoding="utf-8"/>
-                <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            )}
-          </Container>
-        </section>
+    <section className="services-section">
+      <Container>
+      <RoleBasedSwitch user={user} role={ROLES.PERSONAL_TRAINER} onClick={() => setEditMode((prevEditMode) => !prevEditMode)}></RoleBasedSwitch>
+      <div className="header-container"> 
+      <h2 className="white-text">Services & Prices</h2>      
+      </div> 
+        <Row>
+          {services.map(service => (
+            <Col key={service.id} md={4}>
+              <div id="serviceCard" className="service-card">
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <p style={{display: 'none'}}>{service.otherInformation}</p>
+                <p style={{display: 'none'}}>{service.duration}</p>
+                <div className="price">{service.price}$</div>
+                {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>Book</button>}
+                {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}><button className="book-button">Book</button></Link>}
+                <button className="book-button" onClick={() => handleShow(service.serviceId)}>Details</button>
+              </div>
+                
+            </Col>
+          ))}
+        </Row>
+        {editMode && <button onClick={() => setShowForm((prevShowForm)=> !prevShowForm)} className="add-button">
+          <xml version="1.0" encoding="utf-8"/>
+            <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>}
+      </Container>
+    </section>
 
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
