@@ -27,7 +27,7 @@ function Services() {
     }, []);
 
     const getAllFitnessServices = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+        fetch(`http://localhost:8080/api/v1/fitnessPackages`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -94,6 +94,12 @@ function Services() {
                     <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
                     <div className="header-section">
                         <h1>{t('adminPanelServices')}</h1>
+                        <button onClick={() => setShowForm((prevShowForm)=> !prevShowForm)} className="add-button">
+                          <xml version="1.0" encoding="utf-8"/>
+                            <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
                     </div>
                 <div className="table-responsive">
                     <table className="table">
@@ -139,7 +145,8 @@ function Services() {
             <Modal.Body>
             <form>
             <div className="form-group">
-                <input type="text" id="title" maxLength="50" placeholder={t('fitnessTitle')} name="title" required  onChange={(e) => handleInputChange(e)} />
+                <input type="text" id="title_EN" maxLength="50" placeholder={t('fitnessServiceTitle_en')} name="title_EN" required  onChange={(e) => handleInputChange(e)} />
+                <input type="text" id="title_FR" maxLength="50" placeholder={t('fitnessServiceTitle_fr')} name="title_FR" required  onChange={(e) => handleInputChange(e)} />
             </div>
             <div className="form-group">
             <input type="number" id="duration" max="99" placeholder={t('duration')} name="duration" required  onChange={(e) => handleDurationChange(e)} />
@@ -152,10 +159,12 @@ function Services() {
                 <input type="number" id="price"  placeholder={t('price')} name="price" required onChange={(e) => handlePriceChange(e)} />
             </div>
             <div className="form-group">
-                <textarea id="description"  placeholder={t('description')} name="description" required onChange={(e) => handleInputChange(e)} />
+                <textarea id="description_EN"  placeholder={t('description_en')} name="description_EN" required onChange={(e) => handleInputChange(e)} />
+                <textarea id="description_FR"  placeholder={t('description_fr')} name="description_FR" required onChange={(e) => handleInputChange(e)} />
             </div>
             <div className="form-group">
-                <textarea id="otherInformation"  placeholder={t('otherInformationOptional')} name="otherInformation" onChange={(e) => handleInputChange(e)} />
+                <textarea id="otherInformation_EN"  placeholder={t('otherInformationOptional_en')} name="otherInformation_EN" onChange={(e) => handleInputChange(e)} />
+                <textarea id="otherInformation_FR"  placeholder={t('otherInformationOptional_fr')} name="otherInformation_FR" onChange={(e) => handleInputChange(e)} />
             </div>
         
 
