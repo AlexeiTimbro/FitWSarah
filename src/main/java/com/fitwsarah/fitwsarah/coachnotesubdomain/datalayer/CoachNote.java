@@ -18,14 +18,16 @@ public class CoachNote {
 
     private String userId;
 
-    private String content;
+    private String content_EN;
+    private String content_FR;
 
     public CoachNote(){
         this.coachNoteIdentifier = new CoachNoteIdentifier();
     }
-    public CoachNote (String userId, String content){
+    public CoachNote (String userId, String content_EN, String content_FR){
         this.coachNoteIdentifier = new CoachNoteIdentifier();
         this.userId = userId;
-        this.content = content;
+        this.content_EN = content_EN;
+        this.content_FR = content_FR;
     }
 }

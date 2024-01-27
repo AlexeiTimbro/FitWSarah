@@ -26,12 +26,14 @@ public class CoachNoteRepositoryTest {
         CoachNote coachNote1 = new CoachNote();
         coachNote1.setUserId("existingUserId");
         coachNote1.setCoachNoteIdentifier(new CoachNoteIdentifier());
-        coachNote1.setContent("testContent1");
+        coachNote1.setContent_EN("testContent1");
+        coachNote1.setContent_FR("testContent1");
 
         CoachNote coachNote2 = new CoachNote();
         coachNote2.setUserId("existingUserId");
         coachNote2.setCoachNoteIdentifier(new CoachNoteIdentifier());
-        coachNote2.setContent("testContent2");
+        coachNote2.setContent_EN("testContent2");
+        coachNote2.setContent_FR("testContent2");
 
         savedCoachNotes = coachNoteRepository.saveAll(Arrays.asList(coachNote1, coachNote2));
     }

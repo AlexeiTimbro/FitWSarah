@@ -46,7 +46,7 @@ const AddServiceButton = ({fitnessDataToSend}) => {
               return;
           }
     
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+      const response = await fetch(`http://localhost:8080/api/v1/fitnessPackages`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,

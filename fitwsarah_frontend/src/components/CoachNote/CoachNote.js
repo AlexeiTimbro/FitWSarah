@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import "./CoachNote.css"
 import { useGetAccessToken } from "../authentication/authUtils";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "../../LanguageConfig/LanguageContext";
 
 
 function CoachNote({userId}) {
@@ -10,6 +11,7 @@ function CoachNote({userId}) {
     const [contents, setContents] = useState([]);
     const [accessToken, setAccessToken] = useState(false);
     const { t } = useTranslation('coachnotes');
+    const { language } = useLanguage();
     const getAccessToken = useGetAccessToken();
 
     useEffect(() => {
@@ -28,7 +30,7 @@ function CoachNote({userId}) {
     }, [accessToken]);
 
     function getCoachNote(userId) {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes/users/${userId}`, {
+        fetch(`http://localhost:8080/api/v1/coachnotes/users/${userId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -58,7 +60,7 @@ function CoachNote({userId}) {
                 {contents && contents.map((content, index) => (
                     <div className="note-card" key={index}>
                     <div className="note-title">{t('coachNote')} {index + 1}</div>
-                    <div className="note-content">{content.content}</div>
+                    <div className="note-content">{language === 'en' ? content.content_EN : content.content_FR}</div>
                 </div>
                 ))}
             </div>

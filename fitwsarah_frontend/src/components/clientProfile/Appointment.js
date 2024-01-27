@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import "./Appointment.css";
 import { useTranslation } from "react-i18next";
-
+import { useLanguage } from "../../LanguageConfig/LanguageContext";
 
 function Appointment( {appointment, accessToken} ) {
 
     const [service, setService] = useState(null);
     const [show, setShow] = useState(false);
     const { t } = useTranslation('appointment');
+    const { language } = useLanguage();
 
     useEffect(() => {
         getService(appointment.serviceId);
     }, []);
 
     function getService(serviceId) {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
+        fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}`, {
             method: "GET",
             headers: {
                 Authorization: "Bearer " + accessToken,
@@ -45,7 +46,7 @@ function Appointment( {appointment, accessToken} ) {
             <div className="card-content">
                 <div>
                     <div className="card-details">
-                        <div className="card-title">{service?.title}</div>
+                        <div className="card-title">{language === 'en' ? service?.title_EN : service?.title_FR}</div>
                         <div className="card-detail">{t('appointmentLocation')}{appointment.location}</div>
                         <div className="card-detail">{t('appointmentDate')}{appointment.date}</div>
                         <div className="card-detail">{t('appointmentTime')}{appointment.time}</div>
@@ -59,8 +60,8 @@ function Appointment( {appointment, accessToken} ) {
                 <Modal.Title>{service?.title}</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body>{t('appointmentDescription')}{service?.description}</Modal.Body>
-            <Modal.Body>{t('appointmentOtherInformation')}{service?.otherInformation}</Modal.Body>
+            <Modal.Body>{t('appointmentDescription')}{language === 'en' ? service?.description_EN : service?.description_FR}</Modal.Body>
+            <Modal.Body>{t('appointmentOtherInformation')}{language === 'en' ? service?.otherInformation_EN : service?.otherInformation_FR}</Modal.Body>
             <Modal.Body>{t('appointmentPrice')}{service?.price}$</Modal.Body>
             <Modal.Body>{t('appointmentDuration')}{service?.duration}</Modal.Body>
             <Modal.Body>{t('appointmentLocation')}{appointment.location}</Modal.Body>

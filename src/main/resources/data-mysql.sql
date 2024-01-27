@@ -9,12 +9,12 @@ INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
 ('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix');
 
 
-INSERT INTO invoices (invoice_id, account_id, amount, content) VALUES
-('inv-uuid-1', '6598a5987d1aba9a56a2e208', 100.00, 'Fitness Training Session'),
-('inv-uuid-2', '6598a5987d1aba9a56a2e208', 150.00, 'Yoga Class Subscription'),
-('inv-uuid-3', '6598a5987d1aba9a56a2e208', 200.00, 'Personal Training Package'),
-('inv-uuid-4', '6598a5987d1aba9a56a2e208', 50.00, 'Nutrition Consultation'),
-('inv-uuid-5', '6598a5987d1aba9a56a2e208', 75.00, 'Group Fitness Classes');
+INSERT INTO invoices (invoice_id, account_id, amount, content_en, content_fr) VALUES
+('inv-uuid-1', '6598a5987d1aba9a56a2e208', 100.00, 'Fitness Training Session', 'Séance d’entraînement'),
+('inv-uuid-2', '6598a5987d1aba9a56a2e208', 150.00, 'Yoga Class Subscription', 'Abonnement aux cours de yoga'),
+('inv-uuid-3', '6598a5987d1aba9a56a2e208', 200.00, 'Personal Training Package', 'Forfait d’entraînement personnel'),
+('inv-uuid-4', '6598a5987d1aba9a56a2e208', 50.00, 'Nutrition Consultation', 'Consultation en nutrition'),
+('inv-uuid-5', '6598a5987d1aba9a56a2e208', 75.00, 'Group Fitness Classes', 'Cours de conditionnement physique en groupe');
 
 INSERT INTO feedback_threads (feedback_id, account_id, stars, content) VALUES
 ('fdbk-uuid-1', 'uuid-acc1', 5, 'Excellent personal training session'),
@@ -36,12 +36,12 @@ INSERT INTO appointments (appointment_id, availability_id, user_id, service_id, 
 ('uuid-appt10', 'uuid-avail10', 'fb0686ac-4907-4d6c-b0cd-0942049e32a9', '562314d2-3a8e-4a41-9b61-7bc9731f555f', 'COMPLETED', 'Location 10', 'Liam', 'Moore', '905-333-2222', '2023-12-10','15:15'),
 ('uuid-appt11', 'uuid-avail11', 'cfc49f9d-1711-4a9a-8157-2e865d5c309a', 'f09e14dd-59cf-4644-a525-93bf534c8024', 'SCHEDULED', 'Location 11', 'Ava', 'Harris', '416-876-5432', '2023-12-11 ','10:30');
 
-INSERT INTO fitness_services (service_id, promo_id, title, duration, description, other_information, price) VALUES
-('99a836ab-8f83-4e63-b266-3f56b1396df4', 'a062ff08-d00f-47d9-88d3-e35e7d0446a3', 'Personal Training', '1 hour', 'One-on-one personalized training session','Tailored fitness guidance by Sarah.', 100.00),
-('99a836ab-8f83-4e63-b266-3f56b1396df5', '9ecab68a-fe7d-40c2-bd4f-62d2854ad92d', 'Yoga Classes', '45 minutes', 'Group yoga sessions for all levels','Yoga for well-being and balance for all.', 50.00),
-('6b91f458-9eea-4336-8832-62e0a8d38ccb', '2644a7cb-59ce-4f8d-9db2-36e0a06b6508', 'Boot Camp', '30 minutes', 'High-intensity interval training in a group setting','High-energy workout.', 75.00),
-('b5c6caef-86b3-4a55-8984-0be52a1349c8', '29ebf549-2caf-4919-ba15-9c5904534dc1', 'Nutrition Planning', '1 hour', 'Personalized nutrition planning and guidance','Personalized health and diet plans.', 60.00),
-('f4f956ed-c6bf-421b-bcf0-36f7c29a848c', '1de4e220-af32-4f0d-94eb-1b906bb8b2e1', 'Cycling Class', '1 hour', 'Indoor cycling for fitness and endurance','Intense cycling for strength and endurance.', 40.00);
+INSERT INTO fitness_services (service_id, promo_id, title_en, title_fr, duration, description_en, description_fr, other_information_en, other_information_fr, price) VALUES
+('99a836ab-8f83-4e63-b266-3f56b1396df4', 'a062ff08-d00f-47d9-88d3-e35e7d0446a3', 'Personal Training', 'Entrainement Personel', '1 hour', 'One-on-one personalized training session', 'Fr_desc', 'Tailored fitness guidance by Sarah.', 'Fr_other', 100.00),
+('99a836ab-8f83-4e63-b266-3f56b1396df5', '9ecab68a-fe7d-40c2-bd4f-62d2854ad92d', 'Yoga Classes', 'Classe de yoga','45 minutes', 'Group yoga sessions for all levels', 'Fr_desc', 'Yoga for well-being and balance for all.', 'Fr_other', 50.00),
+('6b91f458-9eea-4336-8832-62e0a8d38ccb', '2644a7cb-59ce-4f8d-9db2-36e0a06b6508', 'Boot Camp', "Camp d'entrainement", '30 minutes', 'High-intensity interval training in a group setting', 'Fr_desc', 'High-energy workout.', 'Fr_other', 75.00),
+('b5c6caef-86b3-4a55-8984-0be52a1349c8', '29ebf549-2caf-4919-ba15-9c5904534dc1', 'Nutrition Planning', 'Plan de nutrition', '1 hour', 'Personalized nutrition planning and guidance', 'Fr_desc', 'Personalized health and diet plans.', 'Fr_other', 60.00),
+('f4f956ed-c6bf-421b-bcf0-36f7c29a848c', '1de4e220-af32-4f0d-94eb-1b906bb8b2e1', 'Cycling Class', 'Classes de velo', '1 hour', 'Indoor cycling for fitness and endurance', 'Fr_desc', 'Intense cycling for strength and endurance.', 'Fr_other', 40.00);
 
 INSERT INTO promo_offers (promotion_id, title, availability, description, price) VALUES
 ('a062ff08-d00f-47d9-88d3-e35e7d0446a3', 'New Year Fitness Special', 1, 'Discount on personal training sessions for new members', 80.00),
@@ -57,10 +57,10 @@ INSERT INTO availabilities (availability_id, available, account_id, datetime) VA
 ('uuid-avail4', 0, 'uuid-acc4', '2023-12-04 14:00:00'),
 ('uuid-avail5', 1, 'uuid-acc5', '2023-12-05 16:30:00');
 
-INSERT INTO coach_notes (coach_note_id, user_id, content) VALUES
-('1', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
-('2', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
-('3', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
-('4', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note'),
-('5', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note');
+INSERT INTO coach_notes (coach_note_id, user_id, content_en, content_fr) VALUES
+('1', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach'),
+('2', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach'),
+('3', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach'),
+('4', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach'),
+('5', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach');
 

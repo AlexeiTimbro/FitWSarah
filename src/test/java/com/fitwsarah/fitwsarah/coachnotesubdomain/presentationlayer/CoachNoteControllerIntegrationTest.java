@@ -34,7 +34,7 @@ public class CoachNoteControllerIntegrationTest {
     private MockMvc mockMvc;
     @MockBean
     private CoachNoteService coachNoteService;
-    private CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("coachNoteId", "testUserId", "testContent");
+    private CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("coachNoteId", "testUserId", "testContent", "testDate");
     private String testToken = "Bearer ";
     private List<CoachNoteResponseModel> coachNoteResponseModelList;
     private String testUserId = "testUserId";

@@ -11,5 +11,6 @@ import lombok.Value;
 public class CoachNoteRequestModel {
 
      String userId;
-     String content;
+     String content_EN;
+     String content_FR;
 }

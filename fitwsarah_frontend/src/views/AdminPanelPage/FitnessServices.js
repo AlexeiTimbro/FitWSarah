@@ -27,7 +27,7 @@ function Services() {
     }, []);
 
     const getAllFitnessServices = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+        fetch(`http://localhost:8080/api/v1/fitnessPackages`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -99,10 +99,13 @@ function Services() {
                     <table className="table">
                         <thead>
                         <tr>
-                            <th>{t('serviceName')}</th>
-                            <th>{t('description')}</th>
+                            <th>{t('serviceName_en')}</th>
+                            <th>{t('serviceName_fr')}</th>
+                            <th>{t('description_en')}</th>
+                            <th>{t('description_fr')}</th>
                             <th>{t('duration')}</th>
-                            <th>{t('otherInformation')}</th>
+                            <th>{t('otherInformation_en')}</th>
+                            <th>{t('otherInformation_fr')}</th>
                             <th>{t('price')}</th>
                             
                         </tr>
@@ -110,10 +113,13 @@ function Services() {
                         <tbody>
                         {services.map(service => (
                             <tr key={service.id}>
-                                <td>{service.title}</td>
-                                <td>{service.description}</td>
+                                <td>{service.title_EN}</td>
+                                <td>{service.title_FR}</td>
+                                <td>{service.description_EN}</td>
+                                <td>{service.description_FR}</td>
                                 <td>{service.duration}</td>
-                                <td className="other-info">{service.otherInformation}</td>
+                                <td className="other-info">{service.otherInformation_EN}</td>
+                                <td className="other-info">{service.otherInformation_FR}</td>
                                 <td>{service.price}</td>
                                 <td>
                                     <button className="button details-button">{t('edit')}</button>

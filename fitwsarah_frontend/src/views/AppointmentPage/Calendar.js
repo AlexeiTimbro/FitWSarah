@@ -10,7 +10,6 @@ const AvailabilitiesCalendar = ({onChange}) => {
   const { language } = useLanguage();
 
   const getLocale = () => {
-    console.log(language);
     return language === 'en' ? 'en-CA' : 'fr-CA';
   };
 

@@ -25,7 +25,7 @@ function Services() {
     }, []);
 
     const getAllFitnessServices = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+        fetch(`http://localhost:8080/api/v1/fitnessPackages`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -105,10 +105,13 @@ function Services() {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>{t('serviceName')}</th>
-                                <th>{t('description')}</th>
+                                <th>{t('serviceName_en')}</th>
+                                <th>{t('serviceName_fr')}</th>
+                                <th>{t('description_en')}</th>
+                                <th>{t('description_fr')}</th>
                                 <th>{t('duration')}</th>
-                                <th>{t('otherInformation')}</th>
+                                <th>{t('otherInformation_en')}</th>
+                                <th>{t('otherInformation_fr')}</th>
                                 <th>{t('price')}</th>
 
                             </tr>
@@ -116,10 +119,13 @@ function Services() {
                             <tbody>
                             {services.map(service => (
                                 <tr key={service.id}>
-                                    <td>{service.title}</td>
-                                    <td>{service.description}</td>
+                                    <td>{service.title_EN}</td>
+                                    <td>{service.title_FR}</td>
+                                    <td>{service.description_EN}</td>
+                                    <td>{service.description_FR}</td>
                                     <td>{service.duration}</td>
-                                    <td className="other-info">{service.otherInformation}</td>
+                                    <td className="other-info">{service.otherInformation_EN}</td>
+                                    <td className="other-info">{service.otherInformation_FR}</td>
                                     <td>{service.price}$</td>
                                     <td>
                                         <button className="button details-button">{t('edit')}</button>
@@ -135,12 +141,13 @@ function Services() {
 
             <Modal show={showForm} onHide={()=>setShowForm(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add a Fitness Service</Modal.Title>
+          <Modal.Title>{t('addService')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form>
           <div className="form-group">
-            <input type="text" id="title" maxLength="50" placeholder={t('fitnessServiceTitle')} name="title" required  onChange={(e) => handleInputChange(e)} />
+            <input type="text" id="title_EN" maxLength="50" placeholder={t('fitnessServiceTitle_en')} name="title_EN" required  onChange={(e) => handleInputChange(e)} />
+            <input type="text" id="title_FR" maxLength="50" placeholder={t('fitnessServiceTitle_fr')} name="title_FR" required  onChange={(e) => handleInputChange(e)} />
           </div>
           <div className="form-group">
           <input type="number" id="duration" max="99" placeholder={t('duration')} name="duration" required  onChange={(e) => handleDurationChange(e)} />
@@ -150,13 +157,15 @@ function Services() {
             </select>
           </div>
           <div className="form-group">
-            <input type="number" id="price"  placeholder="Price" name={t('price')} required onChange={(e) => handlePriceChange(e)} />
+            <input type="number" id="price"  name="price" placeholder={t('price')} required onChange={(e) => handlePriceChange(e)} />
           </div>
           <div className="form-group">
-            <textarea id="description"  placeholder="Description" name={t('description')} required onChange={(e) => handleInputChange(e)} />
+            <textarea id="description_EN"  name="description_EN" placeholder={t('description_en')} required onChange={(e) => handleInputChange(e)} />
+            <textarea id="description_FR"  name="description_FR" placeholder={t('description_en')} required onChange={(e) => handleInputChange(e)} />
           </div>
           <div className="form-group">
-            <textarea id="otherInformation"  placeholder={t('otherInformationOptional')} name="otherInformation" onChange={(e) => handleInputChange(e)} />
+            <textarea id="otherInformation_EN"  placeholder={t('otherInformationOptional_en')} name="otherInformation_EN" onChange={(e) => handleInputChange(e)} />
+            <textarea id="otherInformation_FR"  placeholder={t('otherInformationOptional_fr')} name="otherInformation_FR" onChange={(e) => handleInputChange(e)} />
           </div>
     
 

@@ -14,6 +14,7 @@ import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from "react-i18next";
+import { useLanguage } from '../../LanguageConfig/LanguageContext';
 
 function Home() {
     const {
@@ -27,13 +28,14 @@ function Home() {
     const [editMode, setEditMode] = useState(false);
 
     const { t } = useTranslation('home');
+    const { language } = useLanguage();
     
     useEffect(() => {
       getAllFitnessServices();
     }, []);
 
     const getAllFitnessServices = () => {
-      fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+      fetch(`http://localhost:8080/api/v1/fitnessPackages`, {
           method: "GET",
           headers: new Headers({
               "Content-Type": "application/json"
@@ -46,6 +48,8 @@ function Home() {
           return response.json();
       })
       .then((data) => {
+        console.log(data);
+        console.log(language)
           setServices(data);
       })
       .catch((error) => {
@@ -69,7 +73,7 @@ function Home() {
 
     const handleShow = (serviceId) => {
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
+    fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}`, {
           method: "GET",
           headers: new Headers({
               "Content-Type": "application/json"
@@ -148,10 +152,9 @@ function Home() {
               {services.map(service => (
                 <Col key={service.id} md={4}>
                   <div id="serviceCard" className="service-card">
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                    {/* Hidden paragraphs */}
-                    <p style={{display: 'none'}}>{service.otherInformation}</p>
+                    <h3>{language === 'en' ? service.title_EN : service.title_FR}</h3>
+                    <p>{language === 'en' ? service.description_EN : service.description_FR}</p>
+                    <p style={{display: 'none'}}>{language === 'en' ? service.otherInformation_EN : service.otherInformation_FR}</p>
                     <p style={{display: 'none'}}>{service.duration}</p>
     
                     <div className="price">{service.price} $</div>
@@ -176,10 +179,10 @@ function Home() {
     
         <Modal show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>{selectedService?.title}</Modal.Title>
+            <Modal.Title>{language === 'en' ? selectedService?.title_EN : selectedService?.title_FR}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{selectedService?.description}</Modal.Body>
-          <Modal.Body>{selectedService?.otherInformation}</Modal.Body>
+          <Modal.Body>{language === 'en' ? selectedService?.description_EN : selectedService?.description_FR}</Modal.Body>
+          <Modal.Body>{language === 'en' ? selectedService?.otherInformation_EN : selectedService?.otherInformation_FR}</Modal.Body>
           <Modal.Body>{selectedService?.duration}</Modal.Body>
           <Modal.Body><p>{selectedService?.price}$</p></Modal.Body>
           {isAuthenticated && (
@@ -196,7 +199,8 @@ function Home() {
           <Modal.Body>
             <form>
               <div className="form-group">
-                <input type="text" id="title" maxLength="50" placeholder={t('fitnessServiceTitle')} name="title" required  onChange={(e) => handleInputChange(e)} />
+                <input type="text" id="title_EN" maxLength="50" placeholder={t('fitnessServiceTitle_en')} name="title_EN" required  onChange={(e) => handleInputChange(e)} />
+                <input type="text" id="title_FR" maxLength="50" placeholder={t('fitnessServiceTitle_fr')} name="title_FR" required  onChange={(e) => handleInputChange(e)} />
               </div>
               <div className="form-group">
                 <input type="number" id="duration" max="99" placeholder={t('duration')} name="duration" required  onChange={(e) => handleDurationChange(e)} />
@@ -209,10 +213,12 @@ function Home() {
                 <input type="number" id="price"  placeholder={t('price')} name="price" required onChange={(e) => handlePriceChange(e)} />
               </div>
               <div className="form-group">
-                <textarea id="description"  placeholder={t('description')} name="description" required onChange={(e) => handleInputChange(e)} />
+                <textarea id="description_EN"  placeholder={t('description_en')} name="description_EN" required onChange={(e) => handleInputChange(e)} />
+                <textarea id="description_FR"  placeholder={t('description_fr')} name="description_FR" required onChange={(e) => handleInputChange(e)} />
               </div>
               <div className="form-group">
-                <textarea id="otherInformation"  placeholder={t('otherInformationOptional')} name="otherInformation" onChange={(e) => handleInputChange(e)} />
+                <textarea id="otherInformation_EN"  placeholder={t('otherInformationOptional_en')} name="otherInformation_EN" onChange={(e) => handleInputChange(e)} />
+                <textarea id="otherInformation_FR"  placeholder={t('otherInformationOptional_fr')} name="otherInformation_FR" onChange={(e) => handleInputChange(e)} />
               </div>
             </form>
             <AddServiceButton fitnessDataToSend={fitnessDataToSend}/>

@@ -31,7 +31,7 @@ public class CoachNoteControllerUnitTest {
     @Test
     public void getCoachNoteByUserIdTest() {
         String userId = "testUserId";
-        CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("coachNoteId", "testUserId", "testContent");
+        CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("coachNoteId", "testUserId", "testContent", "testDate");
         List<CoachNoteResponseModel> expectedResponse = Arrays.asList(coachNoteResponseModel);
 
         when(coachNoteService.getCoachNoteByUserId(userId)).thenReturn(expectedResponse);

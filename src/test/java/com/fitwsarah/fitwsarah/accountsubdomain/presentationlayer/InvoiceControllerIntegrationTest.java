@@ -71,7 +71,7 @@ class InvoiceControllerIntegrationTest {
     @BeforeEach
     void setUp() throws Exception {
         InvoiceIndentifier identifier = new InvoiceIndentifier();
-        testInvoice = new Invoices("sad",100.00,"sadasd");
+        testInvoice = new Invoices("sad",100.00,"sadasd", "sadasd");
         testInvoice.setInvoiceIdentifier(identifier);
         Invoices savedInvoice = invoiceRepository.save(testInvoice);
         testInvoiceId = savedInvoice.getInvoiceIdentifier().getInvoiceId();
