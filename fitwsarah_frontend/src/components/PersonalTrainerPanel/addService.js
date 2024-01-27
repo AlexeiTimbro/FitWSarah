@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
+import { useLanguage } from "../../LanguageContext/LanguageContext.js";
+import { useTranslation } from "react-i18next";
 
 const AddServiceButton = ({fitnessDataToSend}) => {
     const {isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
+    const { language } = useLanguage();
+    const { t } = useTranslation();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -75,7 +79,7 @@ const AddServiceButton = ({fitnessDataToSend}) => {
       <div style={{ width: "100%" }}>
       <form onSubmit={(e) => addNewServiceData(e)}>
         <button style={{ width: "100%" }} id="newBtn" className="book-button" type="submit">
-          Add
+          {t('addService')}
         </button>
         </form>
       </div>

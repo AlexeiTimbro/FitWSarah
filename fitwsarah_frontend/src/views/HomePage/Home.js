@@ -13,6 +13,8 @@ import RoleBasedSwitch from "../../components/authentication/RoleBasedSwitch";
 import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLanguage } from "../../LanguageContext/LanguageContext.js";
+import { useTranslation } from "react-i18next";
 
 function Home() {
     const {
@@ -24,6 +26,9 @@ function Home() {
 
     const [services, setServices] = useState([]);
     const [editMode, setEditMode] = useState(false);
+
+    const { language } = useLanguage();
+    const { t } = useTranslation();
     
     useEffect(() => {
       getAllFitnessServices();
@@ -124,96 +129,102 @@ function Home() {
       setFitnessDataToSend(updatedData);
     };
 
-return (
-        <div>
-    {!isAuthenticated && <NavNotLoggedIn/>}
-    {isAuthenticated && <NavLoggedIn/>}
-    {isAuthenticated && user["https://fitwsarah.com/roles"].length == 0 && <AddMemberProfile />}
-    <section className="hero-section">
-    </section>
-
-    <section className="services-section">
-      <Container>
-      <RoleBasedSwitch user={user} role={ROLES.PERSONAL_TRAINER} onClick={() => setEditMode((prevEditMode) => !prevEditMode)}></RoleBasedSwitch>
-      <div className="header-container"> 
-      <h2 className="white-text">Services & Prices</h2>      
-      </div> 
-        <Row>
-          {services.map(service => (
-            <Col key={service.id} md={4}>
-              <div id="serviceCard" className="service-card">
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <p style={{display: 'none'}}>{service.otherInformation}</p>
-                <p style={{display: 'none'}}>{service.duration}</p>
-                <div className="price">{service.price}$</div>
-                {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>Book</button>}
-                {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}><button className="book-button">Book</button></Link>}
-                <button className="book-button" onClick={() => handleShow(service.serviceId)}>Details</button>
+    return (
+      <div>
+        {!isAuthenticated && <NavNotLoggedIn/>}
+        {isAuthenticated && <NavLoggedIn/>}
+        {isAuthenticated && user["https://fitwsarah.com/roles"].length === 0 && <AddMemberProfile />}
+    
+        <section className="hero-section">
+          {/* Hero section content (if any) */}
+        </section>
+    
+        <section className="services-section">
+          <Container>
+            <RoleBasedSwitch user={user} role={ROLES.PERSONAL_TRAINER} onClick={() => setEditMode(prevEditMode => !prevEditMode)} />
+            <div className="header-container">
+              <h2 className="white-text">{t('servicesAndPrices')}</h2>
+            </div>
+    
+            <Row>
+              {services.map(service => (
+                <Col key={service.id} md={4}>
+                  <div id="serviceCard" className="service-card">
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
+                    {/* Hidden paragraphs */}
+                    <p style={{display: 'none'}}>{service.otherInformation}</p>
+                    <p style={{display: 'none'}}>{service.duration}</p>
+    
+                    <div className="price">{service.price} $</div>
+                    {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>{t('book')}</button>}
+                    {isAuthenticated && <Link to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}><button className="book-button">{t('book')}</button></Link>}
+                    <button className="book-button" onClick={() => handleShow(service.serviceId)}>{t('details')}</button>
+                  </div>
+                </Col>
+              ))}
+            </Row>
+    
+            {editMode && (
+              <button onClick={() => setShowForm(prevShowForm => !prevShowForm)} className="add-button">
+                <xml version="1.0" encoding="utf-8"/>
+                <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            )}
+          </Container>
+        </section>
+    
+        <Modal show={show} onHide={() => setShow(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>{selectedService?.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{selectedService?.description}</Modal.Body>
+          <Modal.Body>{selectedService?.otherInformation}</Modal.Body>
+          <Modal.Body>{selectedService?.duration}</Modal.Body>
+          <Modal.Body><p>{selectedService?.price}$</p></Modal.Body>
+          {isAuthenticated && (
+            <Modal.Footer style={{textAlign: 'right'}}>
+              <button className="book-button">{t('book')}</button>
+            </Modal.Footer>
+          )}
+        </Modal>
+    
+        <Modal show={showForm} onHide={() => setShowForm(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>{t('addFitnessService')}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <div className="form-group">
+                <input type="text" id="title" maxLength="50" placeholder={t('fitnessServiceTitle')} name="title" required  onChange={(e) => handleInputChange(e)} />
               </div>
-            </Col>
-          ))}
-        </Row>
-        {editMode && <button onClick={() => setShowForm((prevShowForm)=> !prevShowForm)} className="add-button">
-          <xml version="1.0" encoding="utf-8"/>
-            <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>}
-      </Container>
-    </section>
-
-    <Modal show={show} onHide={() => setShow(false)}>
-    <Modal.Header closeButton>
-        <Modal.Title>{selectedService?.title}</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>{selectedService?.description}</Modal.Body>
-    <Modal.Body>{selectedService?.otherInformation}</Modal.Body>
-    <Modal.Body>{selectedService?.duration}</Modal.Body>
-    <Modal.Body><p>{selectedService?.price}$</p></Modal.Body>
-    {isAuthenticated && <Modal.Footer style={{textAlign: 'right'}}>
-    <button className="book-button">Book</button>
-    </Modal.Footer>}
-    </Modal>
+              <div className="form-group">
+                <input type="number" id="duration" max="99" placeholder={t('duration')} name="duration" required  onChange={(e) => handleDurationChange(e)} />
+                <select id="durationType" name="durationType"  onChange={(e) => setDurationType(e.target.value)}  required>
+                  <option value="minutes">{t('minutes')}</option>
+                  <option value="hour(s)">{t('hours')}</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <input type="number" id="price"  placeholder={t('price')} name="price" required onChange={(e) => handlePriceChange(e)} />
+              </div>
+              <div className="form-group">
+                <textarea id="description"  placeholder={t('description')} name="description" required onChange={(e) => handleInputChange(e)} />
+              </div>
+              <div className="form-group">
+                <textarea id="otherInformation"  placeholder={t('otherInformationOptional')} name="otherInformation" onChange={(e) => handleInputChange(e)} />
+              </div>
+            </form>
+            <AddServiceButton fitnessDataToSend={fitnessDataToSend}/>
+          </Modal.Body>
+        </Modal>
     
-    <Modal show={showForm} onHide={()=>setShowForm(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add a Fitness Service</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form>
-          <div className="form-group">
-            <input type="text" id="title" maxLength="50" placeholder="Fitness Service Title" name="title" required  onChange={(e) => handleInputChange(e)} />
-          </div>
-          <div className="form-group">
-          <input type="number" id="duration" max="99" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
-            <select id="durationType" name="durationType"  onChange={(e) => setDurationType(e.target.value)}  required>
-                <option value="minutes">minutes</option>
-                <option value="hour(s)">hour(s)</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <input type="number" id="price"  placeholder="Price" name="price" required onChange={(e) => handlePriceChange(e)} />
-          </div>
-          <div className="form-group">
-            <textarea id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
-          </div>
-          <div className="form-group">
-            <textarea id="otherInformation"  placeholder="Other Information (Optional)" name="otherInformation" onChange={(e) => handleInputChange(e)} />
-          </div>
-    
-
-        </form>
-        <AddServiceButton fitnessDataToSend={fitnessDataToSend}/>
-        </Modal.Body>
-
-    </Modal>
-
-
-
-    <FooterNotLoggedIn/>
-  </div>
+        <FooterNotLoggedIn/>
+      </div>
     );
+    
 }
 
 export default Home;

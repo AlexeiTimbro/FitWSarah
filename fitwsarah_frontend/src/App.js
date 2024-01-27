@@ -14,28 +14,32 @@ import Services from "./views/AdminPanelPage/FitnessServices";
 import TrainerFitnessServices from "./views/PersonalTrainerPanel/TrainerFitnessServices";
 import CoachNote from './components/CoachNote/CoachNote.js';
 import TrainerInvoices from "./views/PersonalTrainerPanel/TrainerInvoices";
+import { LanguageProvider } from './LanguageContext/LanguageContext.js'; 
+
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/profile" element={<Profile/>}/>
-                <Route path="/bookAppointments" element={<BookAppointment/>}/>
-                <Route path="/settings" element={<Settings/>}/>
-                <Route path="/adminPanel" element={<AdminPanel/>}/>
-                <Route path="/adminAccounts" element={<AdminAccounts/>}/>
-                <Route path="/adminAppointments" element={<AdminAppointments/>}/>
-                <Route path="/trainerPanel" element={<TrainerPanel/>}/>
-                <Route path="/trainerAppointments" element={<TrainerAppointments/>}/>
-                <Route path="/trainerAccounts" element={<TrainerAccounts/>}/>
-                <Route path="/services" element={<Services/>}/>
-                <Route path="/trainerServices" element={<TrainerFitnessServices/>}/>
-                <Route path="/coachnotes" element={<CoachNote/>}/>
-                <Route path="/adminInvoices" element={<AdminInvoices/>}/>
-                <Route path="/trainerInvoices" element={<TrainerInvoices/>}/>
-            </Routes>
-        </Router>
+        <LanguageProvider>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/bookAppointments" element={<BookAppointment/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
+                    <Route path="/adminPanel" element={<AdminPanel/>}/>
+                    <Route path="/adminAccounts" element={<AdminAccounts/>}/>
+                    <Route path="/adminAppointments" element={<AdminAppointments/>}/>
+                    <Route path="/trainerPanel" element={<TrainerPanel/>}/>
+                    <Route path="/trainerAppointments" element={<TrainerAppointments/>}/>
+                    <Route path="/trainerAccounts" element={<TrainerAccounts/>}/>
+                    <Route path="/services" element={<Services/>}/>
+                    <Route path="/trainerServices" element={<TrainerFitnessServices/>}/>
+                    <Route path="/coachnotes" element={<CoachNote/>}/>
+                    <Route path="/adminInvoices" element={<AdminInvoices/>}/>
+                    <Route path="/trainerInvoices" element={<TrainerInvoices/>}/>
+                </Routes>
+            </Router>
+        </LanguageProvider>
     );
 
 

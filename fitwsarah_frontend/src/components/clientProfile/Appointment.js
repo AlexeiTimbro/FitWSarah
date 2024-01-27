@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import "./Appointment.css";
+import { useLanguage } from "../../LanguageContext/LanguageContext.js";
+import { useTranslation } from "react-i18next";
 
 
 function Appointment( {appointment, accessToken} ) {
 
     const [service, setService] = useState(null);
     const [show, setShow] = useState(false);
+    const { t } = useTranslation();
+    const { changeLanguage } = useLanguage();
 
     useEffect(() => {
         getService(appointment.serviceId);
@@ -44,12 +48,12 @@ function Appointment( {appointment, accessToken} ) {
                 <div>
                     <div className="card-details">
                         <div className="card-title">{service?.title}</div>
-                        <div className="card-detail">Location: {appointment.location}</div>
-                        <div className="card-detail">Date: {appointment.date}</div>
-                        <div className="card-detail">Time: {appointment.time}</div>
+                        <div className="card-detail">{t('appointmentLocation')}{appointment.location}</div>
+                        <div className="card-detail">{t('appointmentDate')}{appointment.date}</div>
+                        <div className="card-detail">{t('appointmentTime')}{appointment.time}</div>
                     </div>
                 </div>
-                <button className="view-details-button" onClick={() => setShow(!show)}>View Detail</button>
+                <button className="view-details-button" onClick={() => setShow(!show)}>{t('appointmentViewDetails')}</button>
             </div>
         </div>
         <Modal show={show} onHide={() => setShow(false)}>
@@ -57,16 +61,16 @@ function Appointment( {appointment, accessToken} ) {
                 <Modal.Title>{service?.title}</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body>Description: {service?.description}</Modal.Body>
-            <Modal.Body>Other Information: {service?.otherInformation}</Modal.Body>
-            <Modal.Body>Price: {service?.price}$</Modal.Body>
-            <Modal.Body>Duration: {service?.duration}</Modal.Body>
-            <Modal.Body>Location: {appointment.location}</Modal.Body>
-            <Modal.Body>Date: {appointment.date}</Modal.Body>
-            <Modal.Body>Time: {appointment.time}</Modal.Body>
+            <Modal.Body>{t('appointmentDescription')}{service?.description}</Modal.Body>
+            <Modal.Body>{t('appointmentOtherInformation')}{service?.otherInformation}</Modal.Body>
+            <Modal.Body>{t('appointmentPrice')}{service?.price}$</Modal.Body>
+            <Modal.Body>{t('appointmentDuration')}{service?.duration}</Modal.Body>
+            <Modal.Body>{t('appointmentLocation')}{appointment.location}</Modal.Body>
+            <Modal.Body>{t('appointmentDate')}{appointment.date}</Modal.Body>
+            <Modal.Body>{t('appointmentTime')}{appointment.time}</Modal.Body>
 
             <Modal.Footer style={{textAlign: 'right'}}>
-                <button className="view-details-button" onClick={() => setShow(false)}>Close</button>
+                <button className="view-details-button" onClick={() => setShow(false)}>{t('appointmentClose')}</button>
             </Modal.Footer>
         </Modal>
     </div>

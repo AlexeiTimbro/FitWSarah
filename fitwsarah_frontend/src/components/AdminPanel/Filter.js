@@ -2,17 +2,21 @@ import React from "react";
 import "./Filter.css";
 import Popup from 'reactjs-popup';
 import { IoSearchSharp } from "react-icons/io5";
+import { useLanguage } from "../../LanguageContext/LanguageContext.js";
+import { useTranslation } from "react-i18next";
 
 
 function Filter({labels, onInputChange, searchTerm, clearFilters}) {
 
     const [statusButton, setStatusButton] = React.useState();
+    const { t } = useTranslation();
+    const { language } = useLanguage();
 
     const handleInputChange = (event, label) => {
             if (label === "Status") {
-                setStatusButton(event.target.value);
+                setStatusButton(event);
             }
-            onInputChange(label, event.target.value);
+            onInputChange(label, event);
         };
 
     const getSearchTermValue = (label) => {
@@ -33,28 +37,28 @@ function Filter({labels, onInputChange, searchTerm, clearFilters}) {
             <div className="filter-popup">
                 <>
                     <section className="filter-section">
-                        <h4>Filter by: </h4>
+                        <h4>{t('filterBy')}</h4>
                         {labels.map((label) => (
                             <div key={label}>
                                 {label !== "Status" ? (
                                     <div>
-                                        <label>{label}</label>
+                                        <label>{t('appointmentId')}</label>
                                         <input type="text" name={label} maxLength="60" value={getSearchTermValue(label)} onChange={(event) => handleInputChange(event, label)} />
                                     </div>
                                     ) : (
                                     <div>
-                                        <label>{label}</label>
-                                        <input className={statusButton === "Requested" ? "status-button active" : "status-button"} type="button" name={label + "3"} maxLength="60" value="Requested" onClick={(event) => handleInputChange(event, label)} />
-                                        <input className={statusButton === "Scheduled" ? "status-button active" : "status-button"} type="button" name={label + "1"} maxLength="60" value="Scheduled" onClick={(event) => handleInputChange(event, label)} />
-                                        <input className={statusButton === "Cancelled" ? "status-button active" : "status-button"} type="button" name={label + "2"} maxLength="60" value="Cancelled" onClick={(event) => handleInputChange(event, label)} />
-                                        <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "3"} maxLength="60" value="Completed" onClick={(event) => handleInputChange(event, label)} />
+                                        <label>{t('status')}</label>
+                                        <input className={statusButton === "Requested" ? "status-button active" : "status-button"} type="button" name={label + "3"} maxLength="60" value={t('requested')} onClick={() => handleInputChange('Requested', label)} />
+                                        <input className={statusButton === "Scheduled" ? "status-button active" : "status-button"} type="button" name={label + "1"} maxLength="60" value={t('scheduled')} onClick={() => handleInputChange('Scheduled', label)} />
+                                        <input className={statusButton === "Cancelled" ? "status-button active" : "status-button"} type="button" name={label + "2"} maxLength="60" value={t('cancelled')} onClick={() => handleInputChange('Cancelled', label)} />
+                                        <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "4"} maxLength="60" value={t('completed')} onClick={() => handleInputChange('Completed', label)} />
                                     </div>
                                 )}
                             </div>
                         ))}
 
                     </section>
-                    <button className="filter-button" onClick={clear}>Clear</button>
+                    <button className="filter-button" onClick={clear}>{t('clear')}</button>
                 </>
             </div>
         </Popup>

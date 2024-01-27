@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import './AdminAccounts.css'; 
 import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-
+import { useLanguage } from "../../LanguageContext/LanguageContext.js";
+import { useTranslation } from "react-i18next";
 
 
 function AdminAccounts() {
@@ -22,6 +23,9 @@ function AdminAccounts() {
     const getAccessToken = useGetAccessToken();
 
     const labels = ["Account ID", "Username", "Email", "City"];
+
+    const { language } = useLanguage();
+    const { t } = useTranslation();
 
     useEffect(() => {
       const fetchToken = async () => {
@@ -92,17 +96,17 @@ function AdminAccounts() {
         <div className="container">
             <Link to="/adminPanel" className="button back-button">Back</Link>
             <div className="header-section">
-              <h1>Accounts</h1>
+              <h1>{t('accounts')}</h1>
               <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
             </div>
           <div className="table-responsive">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Account ID</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>City</th>
+                  <th>{t('accountId')}</th>
+                  <th>{t('username')}</th>
+                  <th>{t('email')}</th>
+                  <th>{t('city')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -113,8 +117,8 @@ function AdminAccounts() {
                     <td>{account.email}</td>
                     <td>{account.city}</td>
                     <td>
-                      <button className="button delete-button">Delete</button>
-                      <button className="button details-button">Details</button>
+                      <button className="button delete-button">{t('delete')}</button>
+                      <button className="button details-button">{t('details')}</button>
                     </td>
                   </tr>
                 ))}

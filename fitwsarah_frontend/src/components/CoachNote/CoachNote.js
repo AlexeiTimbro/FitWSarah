@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./CoachNote.css"
 import { useGetAccessToken } from "../authentication/authUtils";
+import { useLanguage } from "../../LanguageContext/LanguageContext.js";
+import { useTranslation } from "react-i18next";
 
 
 function CoachNote({userId}) {
     
     const [contents, setContents] = useState([]);
     const [accessToken, setAccessToken] = useState(false);
+    const { language } = useLanguage();
+    const { t } = useTranslation();
     const getAccessToken = useGetAccessToken();
 
     useEffect(() => {
@@ -51,11 +55,11 @@ function CoachNote({userId}) {
 
     return (
         <div className="notes-container">
-            <h1>Coach Notes</h1>
+            <h1>{t('coachNoteTitle')}</h1>
             <div className="note-row">
                 {contents && contents.map((content, index) => (
                     <div className="note-card" key={index}>
-                    <div className="note-title">Coach Note {index + 1}</div>
+                    <div className="note-title">{t('coachNote')} {index + 1}</div>
                     <div className="note-content">{content.content}</div>
                 </div>
                 ))}

@@ -12,7 +12,7 @@ import './components/navigation/loggedIn/navLoggedIn.js';
 import './components/footer/footerNotLoggedIn/footerNotLoggedIn.js';
 import './components/footer/footerLoggedIn/footerLoggedIn.js';
 import './components/CoachNote/CoachNote.js';
-
+import './i18n.js';
 
 
 
