@@ -14,9 +14,9 @@ create table if not exists invoices(
                                        invoice_id VARCHAR(36) NOT NULL,
     account_id VARCHAR(36) NOT NULL,
     username VARCHAR(50),
-    status VARCHAR (50) NOT NULL,
-    date DATE NOT NULL,
-    due_date DATE NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    date DATETIME NOT NULL,
+    due_date DATETIME NOT NULL,
     payment_type VARCHAR(50),
     price DECIMAL(10, 2) NOT NULL
     );

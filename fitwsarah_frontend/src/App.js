@@ -9,6 +9,7 @@ import TrainerAccounts from "./views/PersonalTrainerPanel/TrainerAccounts";
 import TrainerPanel from "./views/PersonalTrainerPanel/TrainerPanel";
 import AdminAppointments from "./views/AdminPanelPage/AdminAppointments";
 import AdminInvoices from "./views/AdminPanelPage/AdminInvoices";
+import CreateAdminInvoices from "./views/AdminPanelPage/AdminCreateInvoice";
 import BookAppointment from "./views/AppointmentPage/NewAppointment";
 import Services from "./views/AdminPanelPage/FitnessServices";
 import TrainerFitnessServices from "./views/PersonalTrainerPanel/TrainerFitnessServices";
@@ -36,6 +37,7 @@ function App() {
                     <Route path="/trainerServices" element={<TrainerFitnessServices/>}/>
                     <Route path="/coachnotes" element={<CoachNote/>}/>
                     <Route path="/adminInvoices" element={<AdminInvoices/>}/>
+                    <Route path="/CreateAdminInvoices" element={<CreateAdminInvoices/>}/>
                     <Route path="/trainerInvoices" element={<TrainerInvoices/>}/>
                 </Routes>
             </Router>
