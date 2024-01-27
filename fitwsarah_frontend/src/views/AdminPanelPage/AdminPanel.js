@@ -9,7 +9,6 @@ import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerN
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './AdminPanel.css';
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 function AdminPanel() {
@@ -22,8 +21,7 @@ function AdminPanel() {
     const [accounts, setAccounts] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
 
-    const { language } = useLanguage();
-    const { t } = useTranslation();
+    const { t } = useTranslation('adminPanel');
 
     useEffect(() => {
         if (isAuthenticated) {

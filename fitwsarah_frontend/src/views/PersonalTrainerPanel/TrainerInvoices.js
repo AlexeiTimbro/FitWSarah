@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './TrainerInvoices.css';
 import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-
+import { useTranslation } from "react-i18next";
 
 
 function TrainerInvoices() {
@@ -19,6 +19,8 @@ function TrainerInvoices() {
     const [accessToken, setAccessToken] = useState(null);
 
     const getAccessToken = useGetAccessToken();
+    
+    const { t } = useTranslation('adminPanel');
 
 
     useEffect(() => {
@@ -67,18 +69,18 @@ function TrainerInvoices() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/trainerPanel" className="button back-button">Back</Link>
+                    <Link to="/trainerPanel" className="button back-button">{t('back')}</Link>
                     <div className="header-section">
-                        <h1>Invoices</h1>
+                        <h1>{t('invoice')}</h1>
                     </div>
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>InvoiceId</th>
-                                <th>AccountId</th>
-                                <th>Amount</th>
-                                <th>Content</th>
+                                <th>{t('invoiceId')}</th>
+                                <th>{t('accountId')}</th>
+                                <th>{t('amount')}</th>
+                                <th>{t('content')}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -89,8 +91,8 @@ function TrainerInvoices() {
                                     <td>{invoice.amount}</td>
                                     <td>{invoice.content}</td>
                                     <td>
-                                        <button className="button delete-button">Delete</button>
-                                        <button className="button details-button">Details</button>
+                                        <button className="button delete-button">{t('delete')}</button>
+                                        <button className="button details-button">{t('details')}</button>
                                     </td>
                                 </tr>
                             ))}

@@ -2,21 +2,28 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './NewAppointment.css';
+import { useLanguage } from '../../LanguageConfig/LanguageContext';
 
 const AvailabilitiesCalendar = ({onChange}) => {
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState('');
+  const { language } = useLanguage();
+
+  const getLocale = () => {
+    console.log(language);
+    return language === 'en' ? 'en-CA' : 'fr-CA';
+  };
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
-    const formattedDate = newDate.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const formattedDate = newDate.toLocaleDateString(getLocale(), { year: 'numeric', month: '2-digit', day: '2-digit' });
     onChange(formattedDate, time)
   };
 
   const handleTimeChange = (e) => {
     const newTime = e.target.value;
     setTime(newTime);
-    const formattedDate = date.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const formattedDate = date.toLocaleDateString(getLocale(), { year: 'numeric', month: '2-digit', day: '2-digit' });
     onChange(formattedDate, newTime);
   };
 
@@ -46,7 +53,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
 <div>
     <div className="calendar-container">
         <div>
-        <Calendar onChange={handleDateChange} value={date} tileClassName={highlightedDay}  navigation={false}/>
+        <Calendar onChange={handleDateChange} value={date} tileClassName={highlightedDay}  navigation={false} locale={getLocale()}/>
         </div>
         <div className='time-picker'>
             <div>
@@ -93,7 +100,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
                             <label class="" for="timeslot_9" tabindex="-1"><span>18:00</span><br/></label>
                         </li>
                     </ul>
-                    <p className="date">{date.toDateString()}</p>
+                    <p className="date">{date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
             </div>
         </div>

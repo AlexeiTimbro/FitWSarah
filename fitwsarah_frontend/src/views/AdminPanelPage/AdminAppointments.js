@@ -12,7 +12,6 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
@@ -32,8 +31,7 @@ function AdminAccounts() {
 
     const labels = ["Appointment ID", "Status"];
 
-    const { language } = useLanguage();
-    const { t } = useTranslation();
+    const { t } = useTranslation('adminPanel');
 
     const [editAppointmentId, setEditAppointmentId] = useState(null);
     const [editFormData, setEditFormData] = useState({
@@ -261,7 +259,7 @@ function AdminAccounts() {
             {isAuthenticated && <NavLoggedIn />}
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/adminPanel" className="button back-button">Back</Link>
+                    <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
                     <h1>Appointments</h1>
                     <div className="filter-container">
                         <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>

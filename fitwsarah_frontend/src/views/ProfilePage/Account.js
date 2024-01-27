@@ -9,7 +9,7 @@ import Sidebar from "./SideBar";
 import Settings from '../../components/clientProfile/setting.js';
 import CoachNote from "../../components/CoachNote/CoachNote.js";
 import Appointment from '../../components/clientProfile/Appointment.js';
-
+import { useTranslation } from "react-i18next";
 
 function Profile() {
     const {isAuthenticated,  getAccessTokenSilently, user} = useAuth0();
@@ -23,6 +23,7 @@ function Profile() {
     const [selectedTab, setSelectedTab] = useState('appointments');
     const [appointments, setAppointments] = useState([]);
     const [status, setStatus] = useState('SCHEDULED');
+    const { t } = useTranslation('account');
 
     useEffect(() => {
         if (user && user.picture) {
@@ -140,7 +141,7 @@ function Profile() {
                 <div className="profile-content">
                     <div className="profile-image" style={{backgroundImage: `url(${profilePicUrl})`}}></div>
                     <div className="profile-text">
-                        <div className="text-wrapper">Welcome{user ? ` ${user.nickname}` : ''}</div>
+                        <div className="text-wrapper">{t('welcome')}{user ? ` ${user.nickname}` : ''}</div>
                     </div>
                 </div>
             </div>
@@ -150,10 +151,10 @@ function Profile() {
                     {selectedTab === 'appointments' &&
                     <div>
                         <div className="tabs">
-                            <button name="SCHEDULED" className={`tab ${status === 'SCHEDULED' ? 'selected' : '' }`} onClick={() => changeStatus('SCHEDULED')}>Scheduled</button>
-                            <button name="COMPLETED" className={`tab ${status === 'COMPLETED' ? 'selected' : '' }`} onClick={() => changeStatus('COMPLETED')}>Completed</button>
-                            <button name="REQUESTED" className={`tab ${status === 'REQUESTED' ? 'selected' : '' }`} onClick={() => changeStatus('REQUESTED')}>Requested</button>
-                            <button name="CANCELLED" className={`tab ${status === 'CANCELLED' ? 'selected' : '' }`} onClick={() => changeStatus('CANCELLED')}>Cancelled</button>
+                            <button name="SCHEDULED" className={`tab ${status === 'SCHEDULED' ? 'selected' : '' }`} onClick={() => changeStatus('SCHEDULED')}>{t('scheduled')}</button>
+                            <button name="COMPLETED" className={`tab ${status === 'COMPLETED' ? 'selected' : '' }`} onClick={() => changeStatus('COMPLETED')}>{t('completed')}</button>
+                            <button name="REQUESTED" className={`tab ${status === 'REQUESTED' ? 'selected' : '' }`} onClick={() => changeStatus('REQUESTED')}>{t('requested')}</button>
+                            <button name="CANCELLED" className={`tab ${status === 'CANCELLED' ? 'selected' : '' }`} onClick={() => changeStatus('CANCELLED')}>{t('cancelled')}</button>
                         </div>
                         <div className="appointments-container">
                             {appointments.map((appointment) => (

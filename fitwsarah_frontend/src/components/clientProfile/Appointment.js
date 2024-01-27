@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import "./Appointment.css";
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
@@ -9,8 +8,7 @@ function Appointment( {appointment, accessToken} ) {
 
     const [service, setService] = useState(null);
     const [show, setShow] = useState(false);
-    const { t } = useTranslation();
-    const { changeLanguage } = useLanguage();
+    const { t } = useTranslation('appointment');
 
     useEffect(() => {
         getService(appointment.serviceId);

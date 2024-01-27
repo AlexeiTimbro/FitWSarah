@@ -7,6 +7,7 @@ import './TrainerAccounts.css';
 import { Modal } from 'react-bootstrap';
 import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
 import "../../css/style.css";
+import { useTranslation } from "react-i18next";
 
 function Services() {
 
@@ -17,6 +18,7 @@ function Services() {
 
     const [services, setServices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const { t } = useTranslation('adminPanel');
 
     useEffect(() => {
         getAllFitnessServices();
@@ -89,9 +91,9 @@ function Services() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/trainerPanel" className="button back-button">Back</Link>
+                    <Link to="/trainerPanel" className="button back-button">{t('back')}</Link>
                     <div className="header-section">
-                        <h1>Fitness Services</h1>
+                        <h1>{t('fitnessService')}</h1>
                         <button onClick={() => setShowForm((prevShowForm)=> !prevShowForm)} className="add-button">
                           <xml version="1.0" encoding="utf-8"/>
                             <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,11 +105,11 @@ function Services() {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Service Name</th>
-                                <th>Description</th>
-                                <th>Duration</th>
-                                <th>Other Information</th>
-                                <th>Price</th>
+                                <th>{t('serviceName')}</th>
+                                <th>{t('description')}</th>
+                                <th>{t('duration')}</th>
+                                <th>{t('otherInformation')}</th>
+                                <th>{t('price')}</th>
 
                             </tr>
                             </thead>
@@ -120,8 +122,8 @@ function Services() {
                                     <td className="other-info">{service.otherInformation}</td>
                                     <td>{service.price}$</td>
                                     <td>
-                                        <button className="button details-button">Edit</button>
-                                        <button className="button delete-button">Delete</button>
+                                        <button className="button details-button">{t('edit')}</button>
+                                        <button className="button delete-button">{t('delete')}</button>
                                     </td>
                                 </tr>
                             ))}
@@ -138,23 +140,23 @@ function Services() {
         <Modal.Body>
         <form>
           <div className="form-group">
-            <input type="text" id="title" maxLength="50" placeholder="Fitness Service Title" name="title" required  onChange={(e) => handleInputChange(e)} />
+            <input type="text" id="title" maxLength="50" placeholder={t('fitnessServiceTitle')} name="title" required  onChange={(e) => handleInputChange(e)} />
           </div>
           <div className="form-group">
-          <input type="number" id="duration" max="99" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
+          <input type="number" id="duration" max="99" placeholder={t('duration')} name="duration" required  onChange={(e) => handleDurationChange(e)} />
             <select id="durationType" name="durationType"  onChange={(e) => setDurationType(e.target.value)} required>
                 <option value="minutes">minutes</option>
                 <option value="hour(s)">hour(s)</option>
             </select>
           </div>
           <div className="form-group">
-            <input type="number" id="price"  placeholder="Price" name="price" required onChange={(e) => handlePriceChange(e)} />
+            <input type="number" id="price"  placeholder="Price" name={t('price')} required onChange={(e) => handlePriceChange(e)} />
           </div>
           <div className="form-group">
-            <textarea id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
+            <textarea id="description"  placeholder="Description" name={t('description')} required onChange={(e) => handleInputChange(e)} />
           </div>
           <div className="form-group">
-            <textarea id="otherInformation"  placeholder="Other Information (Optional)" name="otherInformation" onChange={(e) => handleInputChange(e)} />
+            <textarea id="otherInformation"  placeholder={t('otherInformationOptional')} name="otherInformation" onChange={(e) => handleInputChange(e)} />
           </div>
     
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./CoachNote.css"
 import { useGetAccessToken } from "../authentication/authUtils";
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
@@ -10,8 +9,7 @@ function CoachNote({userId}) {
     
     const [contents, setContents] = useState([]);
     const [accessToken, setAccessToken] = useState(false);
-    const { language } = useLanguage();
-    const { t } = useTranslation();
+    const { t } = useTranslation('coachnotes');
     const getAccessToken = useGetAccessToken();
 
     useEffect(() => {

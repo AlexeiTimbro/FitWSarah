@@ -2,15 +2,13 @@ import React from "react";
 import "./Filter.css";
 import Popup from 'reactjs-popup';
 import { IoSearchSharp } from "react-icons/io5";
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
 function Filter({labels, onInputChange, searchTerm, clearFilters}) {
 
     const [statusButton, setStatusButton] = React.useState();
-    const { t } = useTranslation();
-    const { language } = useLanguage();
+    const { t } = useTranslation('filter');
 
     const handleInputChange = (event, label) => {
             if (label === "Status") {

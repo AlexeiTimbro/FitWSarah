@@ -4,15 +4,13 @@ import logo from './image-24.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import RegisterButton from '../../authentication/register';
 import { Link } from 'react-router-dom';
-import { useLanguage } from "../../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
 function NavNotLoggedIn() {
 
   const { loginWithRedirect } = useAuth0();
-  const { language } = useLanguage();
-  const { t } = useTranslation();
+  const { t } = useTranslation('nav');
 
   return (
     <header>
@@ -25,7 +23,7 @@ function NavNotLoggedIn() {
         </div>
 
         <div className="right-links">
-          <button className="login-button" onClick={() => loginWithRedirect()}>Log In</button>;
+          <button className="login-button" onClick={() => loginWithRedirect()}>{t('login')}</button>;
           <RegisterButton/>
         </div>
       </nav>

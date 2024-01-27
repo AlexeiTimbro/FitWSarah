@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import './TrainerAccounts.css';
 import { FaSearch } from 'react-icons/fa';
+import { useTranslation } from "react-i18next";
 
 
 
@@ -23,6 +24,7 @@ function AdminAccounts() {
 
     const [accounts, setAccounts] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const { t } = useTranslation('adminPanel');
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -83,23 +85,17 @@ function AdminAccounts() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/trainerPanel" className="button back-button">Back</Link>
-                    <h1>Accounts</h1>
-                    <input
-                        type="text"
-                        className="search-bar"
-                        placeholder="Search..."
-                    />
-                    <FaSearch className="search-icon" />
+                    <Link to="/trainerPanel" className="button back-button">{t('back')}</Link>
+                    <h1>{t('accounts')}</h1>
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Account ID</th>
-                                <th>Username</th>
-                                <th>Password</th>
-                                <th>email</th>
-                                <th>city</th>
+                                <th>{t('accountId')}</th>
+                                <th>{t('username')}</th>
+                                <th>{t('password')}</th>
+                                <th>{t('email')}</th>
+                                <th>{t('city')}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -111,8 +107,8 @@ function AdminAccounts() {
                                     <td>{account.email}</td>
                                     <td>{account.city}</td>
                                     <td>
-                                        <button className="button delete-button">Delete</button>
-                                        <button className="button details-button">Details</button>
+                                        <button className="button delete-button">{t('delete')}</button>
+                                        <button className="button details-button">{t('details')}</button>
                                     </td>
                                 </tr>
                             ))}

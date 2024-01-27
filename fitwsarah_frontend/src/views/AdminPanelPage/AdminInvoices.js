@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import './AdminInvoices.css';
 import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
@@ -22,8 +21,7 @@ function AdminInvoices() {
 
     const getAccessToken = useGetAccessToken();
 
-    const { language } = useLanguage();
-    const { t } = useTranslation();
+    const { t } = useTranslation('adminPanel');
 
 
     useEffect(() => {
@@ -72,7 +70,7 @@ function AdminInvoices() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/adminPanel" className="button back-button">Back</Link>
+                    <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
                     <div className="header-section">
                         <h1>{t('invoices')}</h1>
                     </div>

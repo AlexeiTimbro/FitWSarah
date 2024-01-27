@@ -8,7 +8,6 @@ import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerN
 import { useGetAccessToken } from "../authentication/authUtils";
 import configData from "../../config.json";
 import { Alert } from 'flowbite-react';
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 function Settings() {
@@ -23,8 +22,7 @@ function Settings() {
     const [city, setCity] = useState('');
     const [updateConfirmation, setUpdateConfirmation] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const { language } = useLanguage();
-    const { t } = useTranslation();
+    const { t } = useTranslation('settings');
 
     useEffect(() => {
         if (isAuthenticated) {

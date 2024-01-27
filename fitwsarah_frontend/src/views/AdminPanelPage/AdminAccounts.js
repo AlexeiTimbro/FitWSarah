@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import './AdminAccounts.css'; 
 import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
@@ -24,8 +23,7 @@ function AdminAccounts() {
 
     const labels = ["Account ID", "Username", "Email", "City"];
 
-    const { language } = useLanguage();
-    const { t } = useTranslation();
+    const { t } = useTranslation('adminPanel');
 
     useEffect(() => {
       const fetchToken = async () => {
@@ -94,7 +92,7 @@ function AdminAccounts() {
 
       <div className="accounts-section">
         <div className="container">
-            <Link to="/adminPanel" className="button back-button">Back</Link>
+            <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
             <div className="header-section">
               <h1>{t('accounts')}</h1>
               <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>

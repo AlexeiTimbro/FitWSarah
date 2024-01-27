@@ -13,7 +13,6 @@ import RoleBasedSwitch from "../../components/authentication/RoleBasedSwitch";
 import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 function Home() {
@@ -27,8 +26,7 @@ function Home() {
     const [services, setServices] = useState([]);
     const [editMode, setEditMode] = useState(false);
 
-    const { language } = useLanguage();
-    const { t } = useTranslation();
+    const { t } = useTranslation('home');
     
     useEffect(() => {
       getAllFitnessServices();

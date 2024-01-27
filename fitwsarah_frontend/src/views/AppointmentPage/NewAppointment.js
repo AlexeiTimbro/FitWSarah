@@ -8,6 +8,7 @@ import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerN
 import BookingButton from "../../components/booking/bookingButton";
 import './NewAppointment.css';
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import AvailabilitiesCalendar from "./Calendar";
 
@@ -19,6 +20,8 @@ function BookAppointment() {
     const userId = queryParams.get("userId");
     const [accessToken, setAccessToken] = useState(null);
     const [appointmentDataToSend, setAppointmentDataToSend] = useState(null);
+    const { t } = useTranslation('appointment');
+    
     useEffect(() => {
         if (isAuthenticated) {
             const getAccessToken = async () => {
@@ -74,19 +77,19 @@ function BookAppointment() {
       <form>
       <div className="form-group">
             <select id="address" name="location"  onChange={(e) => handleInputChange(e)}  required defaultValue="1">
-                <option value="1" disabled>Select an available location</option>
+                <option value="1" disabled>{t('selectLocation')}</option>
                 <option value="Buzzfit, Brossard QC">Buzzfit, Brossard QC</option>
                 <option value="Nautilus Plus, Brossard QC">Nautilus Plus, Brossard QC</option>
             </select>
         </div>
         <div className="form-group">
-          <input type="text" id="firstName" maxLength="50" placeholder="First Name" name="firstName" required  onChange={(e) => handleInputChange(e)} />
+          <input type="text" id="firstName" maxLength="50" placeholder={t('firstName')} name="firstName" required  onChange={(e) => handleInputChange(e)} />
         </div>
         <div className="form-group">
-          <input type="text" id="lastName" maxLength="50" placeholder="Last Name" name="lastName" required   onChange={(e) => handleInputChange(e)} />
+          <input type="text" id="lastName" maxLength="50" placeholder={t('lastName')} name="lastName" required   onChange={(e) => handleInputChange(e)} />
         </div>
         <div className="form-group">
-          <input type="tel" id="phone" maxLength="10" placeholder="Phone Number" name="phoneNum" required  onChange={(e) => handleInputChange(e)} />
+          <input type="tel" id="phone" maxLength="10" placeholder={t('phoneNumber')} name="phoneNum" required  onChange={(e) => handleInputChange(e)} />
         </div>
     </form>
     <div>

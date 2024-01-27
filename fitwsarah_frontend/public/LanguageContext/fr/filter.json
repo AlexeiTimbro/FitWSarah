@@ -1,0 +1,11 @@
+{
+    "openFilter": "Ouvrir le filtre",
+    "filterBy": "Filtrer par :",
+    "clear": "Effacer",
+    "requested": "Demandé",
+    "scheduled": "Prévu",
+    "cancelled": "Annulé",
+    "completed": "Terminé",
+    "appointmentId": "ID du Rendez-vous",
+    "status": "Statut"
+}

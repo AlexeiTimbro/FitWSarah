@@ -1,11 +1,11 @@
 import React from 'react';
 import './footerNotLoggedIn.css'; 
-import { useLanguage } from '../../../LanguageContext/LanguageContext'; 
+import { useLanguage } from '../../../LanguageConfig/LanguageContext'; 
 import { useTranslation } from 'react-i18next';
 
 function FooterNotLoggedIn() {
   const { changeLanguage } = useLanguage();
-  const { t } = useTranslation();
+  const { t } = useTranslation('footer');
 
   return (
     <footer className="main-footer">

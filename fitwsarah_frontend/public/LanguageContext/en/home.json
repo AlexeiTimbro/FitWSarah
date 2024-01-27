@@ -1,0 +1,14 @@
+{
+    "servicesAndPrices": "Services & Prices",
+    "book": "Book",
+    "details": "Details",
+    "addFitnessService": "Add a Fitness Service",
+    "fitnessServiceTitle": "Fitness Service Title",
+    "duration": "Duration",
+    "minutes": "minutes",
+    "hours": "hour(s)",
+    "price": "Price",
+    "description": "Description",
+    "otherInformationOptional": "Other Information (Optional)",
+    "addService": "Add"
+}

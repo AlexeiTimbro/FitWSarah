@@ -8,7 +8,6 @@ import { Modal } from 'react-bootstrap';
 import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
 import "../../css/style.css";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-import { useLanguage } from "../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
@@ -21,8 +20,7 @@ function Services() {
 
     const [services, setServices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
-    const { language } = useLanguage();
-    const { t } = useTranslation();
+    const { t } = useTranslation('adminPanel');
 
     useEffect(() => {
         getAllFitnessServices();
@@ -93,19 +91,19 @@ function Services() {
 
             <div className="accounts-section">
             <div className="container">
-                    <Link to="/adminPanel" className="button back-button">Back</Link>
+                    <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
                     <div className="header-section">
-                        <h1>Fitness Services</h1>
+                        <h1>{t('adminPanelServices')}</h1>
                     </div>
                 <div className="table-responsive">
                     <table className="table">
                         <thead>
                         <tr>
-                            <th>Service Name</th>
-                            <th>Description</th>
-                            <th>Duration</th>
-                            <th>Other Information</th>
-                            <th>Price</th>
+                            <th>{t('serviceName')}</th>
+                            <th>{t('description')}</th>
+                            <th>{t('duration')}</th>
+                            <th>{t('otherInformation')}</th>
+                            <th>{t('price')}</th>
                             
                         </tr>
                         </thead>
@@ -118,8 +116,8 @@ function Services() {
                                 <td className="other-info">{service.otherInformation}</td>
                                 <td>{service.price}</td>
                                 <td>
-                                    <button className="button details-button">Edit</button>
-                                    <button className="button delete-button">Delete</button>
+                                    <button className="button details-button">{t('edit')}</button>
+                                    <button className="button delete-button">{t('delete')}</button>
                                 </td>
                             </tr>
                         ))}
@@ -130,28 +128,28 @@ function Services() {
             </div>
         <Modal show={showForm} onHide={()=>setShowForm(false)}>
             <Modal.Header closeButton>
-                <Modal.Title>Add a Fitness Service</Modal.Title>
+                <Modal.Title>{t('addService')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <form>
             <div className="form-group">
-                <input type="text" id="title" maxLength="50" placeholder="Fitness Service Title" name="title" required  onChange={(e) => handleInputChange(e)} />
+                <input type="text" id="title" maxLength="50" placeholder={t('fitnessTitle')} name="title" required  onChange={(e) => handleInputChange(e)} />
             </div>
             <div className="form-group">
-            <input type="number" id="duration" max="99" placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
+            <input type="number" id="duration" max="99" placeholder={t('duration')} name="duration" required  onChange={(e) => handleDurationChange(e)} />
                 <select id="durationType" name="durationType"   onChange={(e) => setDurationType(e.target.value)}  required>
-                    <option value="minutes">minutes</option>
-                    <option value="hour(s)">hour(s)</option>
+                    <option value="minutes">{t('minutes')}</option>
+                    <option value="hour(s)">{t('hours')}</option>
                 </select>
             </div>
             <div className="form-group">
-                <input type="number" id="price"  placeholder="Price" name="price" required onChange={(e) => handlePriceChange(e)} />
+                <input type="number" id="price"  placeholder={t('price')} name="price" required onChange={(e) => handlePriceChange(e)} />
             </div>
             <div className="form-group">
-                <textarea id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
+                <textarea id="description"  placeholder={t('description')} name="description" required onChange={(e) => handleInputChange(e)} />
             </div>
             <div className="form-group">
-                <textarea id="otherInformation"  placeholder="Other Information (Optional)" name="otherInformation" onChange={(e) => handleInputChange(e)} />
+                <textarea id="otherInformation"  placeholder={t('otherInformationOptional')} name="otherInformation" onChange={(e) => handleInputChange(e)} />
             </div>
         
 

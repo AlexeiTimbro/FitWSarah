@@ -5,14 +5,12 @@ import logo from './image-24.png';
 import { Link } from 'react-router-dom';
 import { ROLES } from '../../authentication/roles';
 import RoleBasedLink from '../../authentication/RoleBasedLink';
-import { useLanguage } from "../../../LanguageContext/LanguageContext.js";
 import { useTranslation } from "react-i18next";
 
 
 function NavLoggedIn() {
   const { logout, user } = useAuth0();
-  const { language } = useLanguage();
-  const { t } = useTranslation();
+  const { t } = useTranslation('nav');
 
 
   return (

@@ -1,0 +1,14 @@
+{
+    "servicesAndPrices": "Services et Tarifs",
+    "book": "Réserver",
+    "details": "Détails",
+    "addFitnessService": "Ajouter un Service de Fitness",
+    "fitnessServiceTitle": "Titre du Service de Fitness",
+    "duration": "Durée",
+    "minutes": "minutes",
+    "hours": "heure(s)",
+    "price": "Prix",
+    "description": "Description",
+    "otherInformationOptional": "Autres Informations (Facultatif)",
+    "addService": "Ajouter"
+}
