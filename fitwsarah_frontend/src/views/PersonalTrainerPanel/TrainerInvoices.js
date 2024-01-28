@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './TrainerInvoices.css';
 import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-import { useTranslation } from "react-i18next";
+
 
 
 function TrainerInvoices() {
@@ -19,8 +19,6 @@ function TrainerInvoices() {
     const [accessToken, setAccessToken] = useState(null);
 
     const getAccessToken = useGetAccessToken();
-    
-    const { t } = useTranslation('adminPanel');
 
 
     useEffect(() => {
@@ -40,7 +38,7 @@ function TrainerInvoices() {
 
     const getAllInvoices = () => {
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices`, {
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/invoices`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -61,6 +59,13 @@ function TrainerInvoices() {
             });
     };
 
+
+    useEffect(() => {
+        if (accessToken) {
+            getAllInvoices();
+        }
+    }, [accessToken]);
+
     return (
         <div>
 
@@ -69,18 +74,23 @@ function TrainerInvoices() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/trainerPanel" className="button back-button">{t('back')}</Link>
+                    <Link to="/trainerPanel" className="button back-button">Back</Link>
                     <div className="header-section">
-                        <h1>{t('invoice')}</h1>
+                        <h1>Invoices</h1>
                     </div>
+                    <Link to="/trainerCreateInvoices" className="button back-button">Create Invoice</Link>
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>{t('invoiceId')}</th>
-                                <th>{t('accountId')}</th>
-                                <th>{t('amount')}</th>
-                                <th>{t('content')}</th>
+                                <th>InvoiceId</th>
+                                <th>AccountId</th>
+                                <th>Username</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Due Date</th>
+                                <th>Payment Type</th>
+                                <th>Price</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -88,11 +98,15 @@ function TrainerInvoices() {
                                 <tr key={invoice.id}>
                                     <td>{invoice.invoiceId}</td>
                                     <td>{invoice.accountId}</td>
-                                    <td>{invoice.amount}</td>
-                                    <td>{invoice.content}</td>
+                                    <td>{invoice.username}</td>
+                                    <td>{invoice.status}</td>
+                                    <td>{invoice.date}</td>
+                                    <td>{invoice.dueDate}</td>
+                                    <td>{invoice.paymentType}</td>
+                                    <td>{invoice.price}</td>
                                     <td>
-                                        <button className="button delete-button">{t('delete')}</button>
-                                        <button className="button details-button">{t('details')}</button>
+                                        <button className="button delete-button">Delete</button>
+                                        <button className="button details-button">Details</button>
                                     </td>
                                 </tr>
                             ))}
@@ -102,6 +116,7 @@ function TrainerInvoices() {
                 </div>
             </div>
         </div>
+
 
 
     );}
