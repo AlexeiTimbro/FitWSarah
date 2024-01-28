@@ -52,10 +52,13 @@ public class FitnessPackageServiceImpl implements FitnessPackageService{
         }
 
         existingFitnessPackage.setStatus(fitnessPackageRequestModel.getStatus());
-        existingFitnessPackage.setTitle(fitnessPackageRequestModel.getTitle());
+        existingFitnessPackage.setTitle_EN(fitnessPackageRequestModel.getTitle_EN());
+        existingFitnessPackage.setTitle_FR(fitnessPackageRequestModel.getTitle_FR());
         existingFitnessPackage.setDuration(fitnessPackageRequestModel.getDuration());
-        existingFitnessPackage.setDescription(fitnessPackageRequestModel.getDescription());
-        existingFitnessPackage.setOtherInformation(fitnessPackageRequestModel.getOtherInformation());
+        existingFitnessPackage.setDescription_EN(fitnessPackageRequestModel.getDescription_EN());
+        existingFitnessPackage.setDescription_FR(fitnessPackageRequestModel.getDescription_FR());
+        existingFitnessPackage.setOtherInformation_EN(fitnessPackageRequestModel.getOtherInformation_EN());
+        existingFitnessPackage.setOtherInformation_FR(fitnessPackageRequestModel.getOtherInformation_FR());
         existingFitnessPackage.setPrice(fitnessPackageRequestModel.getPrice());
         return fitnessPackageResponseMapper.entityToResponseModel(fitnessPackageRepository.save(existingFitnessPackage));
     }

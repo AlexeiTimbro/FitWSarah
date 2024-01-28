@@ -22,8 +22,6 @@ public class FitnessPackage {
 
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    private String title;
     private String title_EN;
     private String title_FR;
     private String duration;
@@ -38,7 +36,7 @@ public class FitnessPackage {
         this.fitnessPackageIdentifier = new FitnessPackageIdentifier();
     }
 
-    public FitnessPackage( PromoIdentifier promoIdentifier, Status status String title_EN, String title_FR, String duration, String description_EN, String description_FR, String otherInformation_EN, String otherInformation_FR, Double price) {
+    public FitnessPackage( PromoIdentifier promoIdentifier, Status status, String title_EN, String title_FR, String duration, String description_EN, String description_FR, String otherInformation_EN, String otherInformation_FR, Double price) {
         this.fitnessPackageIdentifier =  new FitnessPackageIdentifier();
         this.promoIdentifier = promoIdentifier;
         this.status = status;
