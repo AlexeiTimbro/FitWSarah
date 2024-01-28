@@ -527,4 +527,65 @@ public class EndToEndTesting {
 
     }
 
+    @Test
+    public void addInvoiceTrainerPanel(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("admin@admin.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+
+        SelenideElement adminPanelBtn = $("a[href='/trainerPanel']");
+        adminPanelBtn.click();
+
+        sleep(1000);
+
+        SelenideElement profileBtn = $("a[href='/trainerInvoices']");
+        profileBtn.click();
+
+        sleep(1000);
+
+        SelenideElement pileBtn = $("a[href='/trainerCreateInvoices']");
+        pileBtn.click();
+
+        sleep(1000);
+
+        SelenideElement ileBtn = $("a[href='/trainerCreateInvoices']");
+        ileBtn.click();
+
+        sleep(1000);
+
+        SelenideElement usernameDropdown = $("select[name='username']");
+        usernameDropdown.selectOption("desired_username");
+
+        SelenideElement statusDropdown = $("select[name='status']");
+        statusDropdown.selectOption("PENDING");
+
+        SelenideElement paymentTypeInput = $("input[name='paymentType']");
+        paymentTypeInput.setValue("desired_payment_type");
+
+        SelenideElement priceInput = $("input[name='price']");
+        priceInput.setValue("123.45");
+
+        SelenideElement createInvoiceButton = $("button[type='submit']");
+        createInvoiceButton.click();
+
+        sleep(1000);
+    }
+
+
 }
