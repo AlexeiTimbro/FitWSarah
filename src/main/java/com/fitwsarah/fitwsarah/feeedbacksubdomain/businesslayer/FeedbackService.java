@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.feeedbacksubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer.FeedbackRequestModel;
 import com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer.FeedbackResponseModel;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface FeedbackService {
 
     FeedbackResponseModel getFeedbackByFeedbackId(String feedbackId);
 
-    FeedbackResponseModel addFeedback(FeedbackResponseModel feedbackResponseModel, String feedbackId);
+    FeedbackResponseModel addFeedback(FeedbackRequestModel feedbackRequestModel);
 
     FeedbackResponseModel updateFeedback(FeedbackResponseModel feedbackResponseModel, String feedbackId);
 

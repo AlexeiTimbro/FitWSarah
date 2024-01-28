@@ -10,7 +10,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface FeedbackResponseMapper {
     @Mapping(expression = "java(feedback.getFeedbackIdentifier().getFeedbackId())", target = "feedbackId")
-    @Mapping(expression = "java(feedback.getAccountIdentifier().getAccountId())", target = "accountId")
     FeedbackResponseModel entityToResponseModel(Feedback feedback);
 
     List<FeedbackResponseModel> entityListToResponseModelList(List<Feedback> feedbacks);

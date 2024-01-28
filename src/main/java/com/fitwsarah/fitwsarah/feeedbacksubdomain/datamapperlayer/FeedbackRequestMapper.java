@@ -11,6 +11,5 @@ import org.mapstruct.Mapping;
 public interface FeedbackRequestMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping( expression = "java(feedbackIdentifier) ", target = "feedbackIdentifier", ignore = true)
-    @Mapping( expression = "java(accountIdentifier) ", target = "accountIdentifier", ignore = true)
     Feedback requestModelToEntity(FeedbackRequestModel feedbackRequestModel);
 }

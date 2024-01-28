@@ -27,7 +27,8 @@ create table if not exists feedback_threads(
     feedback_id VARCHAR(36) NOT NULL,
     account_id VARCHAR(36) NOT NULL,
     stars INTEGER NOT NULL,
-    content VARCHAR(120) NOT NULL
+    content VARCHAR(120) NOT NULL,
+    status VARCHAR(50) NOT NULL
 );
 
 create table if not exists appointments(
