@@ -18,7 +18,6 @@ import CoachNote from './components/CoachNote/CoachNote.js';
 import TrainerInvoices from "./views/PersonalTrainerPanel/TrainerInvoices";
 import { LanguageProvider } from './LanguageConfig/LanguageContext.js'; 
 
-
 function App() {
     return (
         <LanguageProvider>
