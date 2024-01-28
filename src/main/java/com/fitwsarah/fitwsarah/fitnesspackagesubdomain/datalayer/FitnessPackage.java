@@ -2,7 +2,11 @@ package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Setter
 @Entity
 @Table(name = "fitnessServices")
 @Data

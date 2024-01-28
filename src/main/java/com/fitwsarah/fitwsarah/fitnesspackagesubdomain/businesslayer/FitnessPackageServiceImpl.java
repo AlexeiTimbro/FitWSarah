@@ -50,9 +50,14 @@ public class FitnessPackageServiceImpl implements FitnessPackageService{
         if(existingFitnessPackage == null){
             return  null;
         }
-        FitnessPackage fitnessPackage = fitnessPackageRequestMapper.requestModelToEntity(fitnessPackageRequestModel);
-        fitnessPackage.setStatus(fitnessPackageRequestModel.getStatus());
-        return fitnessPackageResponseMapper.entityToResponseModel(fitnessPackageRepository.save(fitnessPackage));
+
+        existingFitnessPackage.setStatus(fitnessPackageRequestModel.getStatus());
+        existingFitnessPackage.setTitle(fitnessPackageRequestModel.getTitle());
+        existingFitnessPackage.setDuration(fitnessPackageRequestModel.getDuration());
+        existingFitnessPackage.setDescription(fitnessPackageRequestModel.getDescription());
+        existingFitnessPackage.setOtherInformation(fitnessPackageRequestModel.getOtherInformation());
+        existingFitnessPackage.setPrice(fitnessPackageRequestModel.getPrice());
+        return fitnessPackageResponseMapper.entityToResponseModel(fitnessPackageRepository.save(existingFitnessPackage));
     }
 
 

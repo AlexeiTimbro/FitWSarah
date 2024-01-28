@@ -1,11 +1,9 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.Status;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
+@Getter
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
