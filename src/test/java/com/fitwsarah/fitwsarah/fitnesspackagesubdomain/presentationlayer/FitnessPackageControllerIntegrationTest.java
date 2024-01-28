@@ -8,6 +8,7 @@ import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer.FitnessPack
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.PromoIdentifier;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ class FitnessPackageControllerIntegrationTest {
     @MockBean
     private FitnessPackageService fitnessPackageService;
 
-    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", "s", "fsdaf", "fsaf", "fsadf", 22.00);
+    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1", Status.INVISIBLE, "1 hour", "Desc", "s", "fsdaf", "fsaf", "fsadf", "fsaf", 22.00);
 
     private List<FitnessPackageResponseModel> fitnessPackageList;
 
@@ -84,7 +85,7 @@ class FitnessPackageControllerIntegrationTest {
     }
     @Test
     public void addFitnessPackage_shouldSucceed() throws Exception {
-        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", 22.00);
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel(Status.INVISIBLE,"20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", "22.00", 99.0 );
 
         mockMvc.perform(post("/api/v1/fitnessPackages")
                         .header("Authorization", testToken)
