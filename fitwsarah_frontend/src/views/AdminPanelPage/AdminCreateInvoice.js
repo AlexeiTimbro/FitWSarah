@@ -49,7 +49,7 @@ function AdminCreateInvoices() {
 
     const fetchAllAccounts = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/accounts`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -98,7 +98,7 @@ function AdminCreateInvoices() {
             price: newInvoice.price
         };
         try {
-            const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/invoices`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,

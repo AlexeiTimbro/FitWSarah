@@ -38,7 +38,7 @@ function AdminInvoices() {
 
     const getAllInvoices = () => {
 
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/invoices`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
