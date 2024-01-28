@@ -46,7 +46,7 @@ class InvoiceServiceUniyTest {
         List<Invoices> invoicesList = Collections.singletonList(invoice);
         when(invoiceRepository.findAll()).thenReturn(invoicesList);
 
-        InvoiceResponseModel invoiceResponseModel = new InvoiceResponseModel("sd", "sad",100.00,"dsdsa");
+        InvoiceResponseModel invoiceResponseModel = new InvoiceResponseModel("sd", "sad",100.00,"dsdsa","dsadsa");
         List<InvoiceResponseModel> invoiceResponseModelList = Collections.singletonList(invoiceResponseModel);
         when(invoiceResponseMapper.entityListToResponseModelList(invoicesList)).thenReturn(invoiceResponseModelList);
 

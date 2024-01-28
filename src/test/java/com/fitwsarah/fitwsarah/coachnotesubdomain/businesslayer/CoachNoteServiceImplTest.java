@@ -42,7 +42,7 @@ public class CoachNoteServiceImplTest {
     @Test
     public void getCoachNoteByUserIdReturnsExpectedResult() {
         String userId = "testUserId";
-        List<CoachNoteResponseModel> expectedResponse = Collections.singletonList(new CoachNoteResponseModel("testId", "testUserId", "testNote"));
+        List<CoachNoteResponseModel> expectedResponse = Collections.singletonList(new CoachNoteResponseModel("testId", "testUserId", "testNote", "testDate"));
         when(coachNoteRepository.findCoachNoteByUserId(userId)).thenReturn(Collections.emptyList());
         when(coachNoteResponseMapper.entityListToResponseModelList(Collections.emptyList())).thenReturn(expectedResponse);
 

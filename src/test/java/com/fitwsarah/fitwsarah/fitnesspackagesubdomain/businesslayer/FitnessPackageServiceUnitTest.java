@@ -61,7 +61,7 @@ class FitnessPackageServiceUnitTest {
         fitnessPackage.getFitnessPackageIdentifier().setServiceId(serviceId);
 
 
-        FitnessPackageResponseModel responseModel = new FitnessPackageResponseModel("99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4","s", 1.1);
+        FitnessPackageResponseModel responseModel = new FitnessPackageResponseModel("99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4","s", "fdsaf", "fdsaf", "sadff", 22.00);
 
 
         when(fitnessPackageRepository.findByFitnessPackageIdentifier_ServiceId(serviceId)).thenReturn(fitnessPackage);
@@ -80,10 +80,10 @@ class FitnessPackageServiceUnitTest {
 
     @Test
     public void addFitnessPackage_shouldSucceed(){
-        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other",22.00);
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes", "sadfdf","desc","other", "fsafd", "sdfa", 22.00);
 
         FitnessPackage entity = mock(FitnessPackage.class);
-        FitnessPackageResponseModel mockedResponse = new FitnessPackageResponseModel("serviceId", "uuid-promo1", "title",  "20 minutes", "desc", "other", 22.00);
+        FitnessPackageResponseModel mockedResponse = new FitnessPackageResponseModel("serviceId", "uuid-promo1", "title",  "20 minutes", "desc", "other", "sadfds", "fdsaf", "fdsaf", 22.00);
 
         when(fitnessPackageResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
         when(fitnessPackageRequestMapper.requestModelToEntity(fitnessPackageRequestModel)).thenReturn(entity);
@@ -92,9 +92,11 @@ class FitnessPackageServiceUnitTest {
         FitnessPackageResponseModel result = fitnessPackageService.addFitnessPackage(fitnessPackageRequestModel);
         assertNotNull(result);
         assertNotNull(result.getServiceId());
-        assertNotNull(result.getDescription());
+        assertNotNull(result.getDescription_EN());
+        assertNotNull(result.getDescription_FR());
         assertNotNull(result.getPrice());
-        assertNotNull(result.getTitle());
+        assertNotNull(result.getTitle_EN());
+        assertNotNull(result.getTitle_FR());
     }
 
 

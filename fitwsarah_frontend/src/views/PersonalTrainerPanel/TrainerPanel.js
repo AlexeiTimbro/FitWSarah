@@ -9,6 +9,7 @@ import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerN
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './TrainerPanel.css';
+import { useTranslation } from "react-i18next";
 
 function PersonalTrainerPanel() {
 
@@ -18,6 +19,7 @@ function PersonalTrainerPanel() {
     } = useAuth0();
 
     const [accessToken, setAccessToken] = useState(null);
+    const { t } = useTranslation('adminPanel');
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -53,48 +55,48 @@ function PersonalTrainerPanel() {
             {isAuthenticated && <NavLoggedIn />}
             <div className="admin-panel-container">
                 <div className="admin-container">
-                    <h1>Trainer Panel</h1>
+                    <h1>{t('trainerPanel')}</h1>
                     <div className="admin-sections">
                         <Link className="section" to="/trainerAccounts">
-                            <h2>Accounts</h2>
-                            <p>Current Total: XX Accounts</p>
-                            <p>Last Month's Total: XX Accounts</p>
+                            <h2>{t('accounts')}</h2>
+                            <p>{t('currentTotalAccounts', { count: 'XX' })}</p>
+                            <p>{t('lastMonthTotalAccounts', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
                         <Link className="section" to="/trainerAppointments">
-                            <h2>Appointments</h2>
-                            <p>Current Total: XX Appointments</p>
-                            <p>Last Month's Total: XX Appointments</p>
+                            <h2>{t('adminPanelAppointments')}</h2>
+                            <p>{t('currentTotalAppointments', { count: 'XX' })}</p>
+                            <p>{t('lastMonthTotalAppointments', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
                         <Link className="section" to="/trainerInvoices">
-                            <h2>Invoices</h2>
-                            <p>Current Total: XX Notes</p>
-                            <p>Last Month's Total: XX Notes</p>
+                            <h2>{t('adminPanelInvoices')}</h2>
+                            <p>{t('currentTotalInvoices', { count: 'XX' })}</p>
+                            <p>{t('lastMonthTotalInvoices', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
                         <Link className="section" to="/analytics">
-                            <h2>Analytics</h2>
-                            <p>Current Total: XX Reports</p>
-                            <p>Last Month's Total: XX Reports</p>
+                            <h2>{t('adminPanelAnalytics')}</h2>
+                            <p>{t('currentTotalAnalytics', { count: 'XX' })}</p>
+                            <p>{t('lastMonthTotalAnalytics', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
                         <Link className="section" to="/feedback">
-                            <h2>Feedback</h2>
-                            <p>Current Total: XX Submissions</p>
-                            <p>Last Month's Total: XX Submissions</p>
+                            <h2>{t('adminPanelFeedback')}</h2>
+                            <p>{t('currentTotalFeedback', { count: 'XX' })}</p>
+                            <p>{t('lastMonthTotalFeedback', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
                         <Link className="section" to="/trainerServices">
-                            <h2>Fitness Services</h2>
-                            <p>Current Total: XX Services</p>
-                            <p>Last Month's Total: XX Services</p>
+                            <h2>{t('adminPanelServices')}</h2>
+                            <p>{t('currentTotalServices', { count: 'XX' })}</p>
+                            <p>{t('lastMonthTotalServices', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
                         <Link className="section" to="/coach-notes">
-                            <h2>Coach Notes</h2>
-                            <p>Current Total: XX Notes</p>
-                            <p>Last Month's Total: XX Notes</p>
+                            <h2>{t('adminPanelCoachNotes')}</h2>
+                            <p>{t('currentTotalCoachNotes', { count: 'XX' })}</p>
+                            <p>{t('lastMonthTotalCoachNotes', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
                     </div>

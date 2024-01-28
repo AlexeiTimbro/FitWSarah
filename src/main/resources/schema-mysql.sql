@@ -14,7 +14,8 @@ create table if not exists invoices(
     invoice_id VARCHAR(36) NOT NULL,
     account_id VARCHAR(36) NOT NULL,
     amount DECIMAL NOT NULL,
-    content VARCHAR(120) NOT NULL
+    content_en VARCHAR(120) NOT NULL,
+    content_fr VARCHAR(120) NOT NULL
 );
 
 create table if not exists feedback_threads(
@@ -46,10 +47,13 @@ create table if not exists fitness_services(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     service_id VARCHAR(36) NOT NULL,
     promo_id VARCHAR(36),
-    title VARCHAR(50) NOT NULL,
+    title_en VARCHAR(50) NOT NULL,
+    title_fr VARCHAR(50) NOT NULL,
     duration VARCHAR(50) NOT NULL,
-    description VARCHAR(120) NOT NULL,
-    other_information VARCHAR(300) NOT NULL,
+    description_en VARCHAR(120) NOT NULL,
+    description_fr VARCHAR(120) NOT NULL,
+    other_information_en VARCHAR(300) NOT NULL,
+    other_information_fr VARCHAR(300) NOT NULL,
     price DECIMAL NOT NULL
 );
 
@@ -74,5 +78,6 @@ create table if not exists coach_notes(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     coach_note_id VARCHAR(36) NOT NULL,
     user_id VARCHAR(36) NOT NULL,
-    content VARCHAR(120) NOT NULL
+    content_en VARCHAR(120) NOT NULL,
+    content_fr VARCHAR(120) NOT NULL
 );

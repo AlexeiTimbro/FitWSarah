@@ -1,0 +1,17 @@
+{
+    "servicesAndPrices": "Services et Tarifs",
+    "book": "Réserver",
+    "details": "Détails",
+    "addFitnessService_en": "Ajouter un Service de Fitness",
+    "fitnessServiceTitle_en": "Titre du Service de Fitness (Anglais)",
+    "fitnessServiceTitle_fr": "Titre du Service de Fitness (Français)",
+    "duration": "Durée",
+    "minutes": "minutes",
+    "hours": "heure(s)",
+    "price": "Prix",
+    "description_en": "Description (Anglais)",
+    "description_fr": "Description (Français)",
+    "otherInformationOptional_en": "Autres Informations (Anglais) (Facultatif)",
+    "otherInformationOptional_fr": "Autres Informations (Français) (Facultatif)",
+    "addService": "Ajouter"
+}

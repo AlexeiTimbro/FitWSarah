@@ -1,0 +1,11 @@
+{
+    "openFilter": "Open Filter",
+    "filterBy": "Filter by:",
+    "clear": "Clear",
+    "requested": "Requested",
+    "scheduled": "Scheduled",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "appointmentId": "Appointment ID",
+    "status": "Status"
+}

@@ -8,6 +8,8 @@ import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerN
 import { useGetAccessToken } from "../authentication/authUtils";
 import configData from "../../config.json";
 import { Alert } from 'flowbite-react';
+import { useTranslation } from "react-i18next";
+
 function Settings() {
     const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
@@ -20,6 +22,8 @@ function Settings() {
     const [city, setCity] = useState('');
     const [updateConfirmation, setUpdateConfirmation] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const { t } = useTranslation('settings');
+
     useEffect(() => {
         if (isAuthenticated) {
             const getAccessToken = async () => {
@@ -132,25 +136,25 @@ function Settings() {
 
     return (
         <div>
-            <h1>Account Settings</h1>
+            <h1>{t('accountSettings')}</h1>
             <Form>
                 <Form.Group controlId="formUsername">
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>{t('username')}</Form.Label>
                     <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="formEmail">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label>{t('email')}</Form.Label>
                     <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="formCity" style={{ marginBottom: '10px' }}>
-                    <Form.Label>City</Form.Label>
+                    <Form.Label>{t('city')}</Form.Label>
                     <Form.Control type="text" value={city} onChange={(e) => setCity(e.target.value)} />
                 </Form.Group>
 
                 <Button variant="primary" onClick={() => handleUpdate(extractAfterPipe(user.sub))} style={{ marginTop: '20px' }}> {/* Add margin to the top */}
-                    Update
+                    {t('update')}
                 </Button>
             </Form>
             {showModal && (
@@ -165,11 +169,11 @@ function Settings() {
                     border: '1px solid #ccc',
                     boxShadow: '0px 4px 6px rgba(0,0,0,0.1)'
                 }}>
-                    <p>Profile updated successfully!</p>
-                    <p>Username: {username}</p>
-                    <p>Email: {email}</p>
-                    <p>City: {city}</p>
-                    <button onClick={() => setShowModal(false)}>Close</button>
+                    <p>{t('updateSuccess')}</p>
+                    <p>{t('username')}: {username}</p>
+                    <p>{t('email')}: {email}</p>
+                    <p>{t('city')}: {city}</p>
+                    <button onClick={() => setShowModal(false)}>{t('appointmentClose')}</button>
                 </div>
             )}
      

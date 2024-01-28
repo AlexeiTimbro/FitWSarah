@@ -4,11 +4,13 @@ import logo from './image-24.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import RegisterButton from '../../authentication/register';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 
 function NavNotLoggedIn() {
 
   const { loginWithRedirect } = useAuth0();
+  const { t } = useTranslation('nav');
 
   return (
     <header>
@@ -16,12 +18,12 @@ function NavNotLoggedIn() {
 
         <div className="left-links">
         <Link to="/"><img src={logo} alt="app logo"/></Link>
-        <a href="#">About</a>
-          <a href="#">Contact Me</a>
+        <a href="#">{t('aboutMe')}</a>
+          <a href="#">{t('contactMe')}</a>
         </div>
 
         <div className="right-links">
-          <button className="login-button" onClick={() => loginWithRedirect()}>Log In</button>;
+          <button className="login-button" onClick={() => loginWithRedirect()}>{t('login')}</button>;
           <RegisterButton/>
         </div>
       </nav>

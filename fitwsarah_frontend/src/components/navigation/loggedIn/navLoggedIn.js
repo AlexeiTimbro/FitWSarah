@@ -5,25 +5,28 @@ import logo from './image-24.png';
 import { Link } from 'react-router-dom';
 import { ROLES } from '../../authentication/roles';
 import RoleBasedLink from '../../authentication/RoleBasedLink';
+import { useTranslation } from "react-i18next";
 
 
 function NavLoggedIn() {
   const { logout, user } = useAuth0();
+  const { t } = useTranslation('nav');
+
 
   return (
       <header>
         <nav className="navbar-container">
           <div className="left-links">
             <Link to="/"><img src={logo} alt="app logo" /></Link>
-            <a href="#">About</a>
-            <a href="#">Contact Me</a>
-            <Link to="/profile">Profile</Link>
+            <a href="#">{t('aboutMe')}</a>
+            <a href="#">{t('contactMe')}</a>
+            <Link to="/profile">{t('profile')}</Link>
           </div>
   <div className="right-links">
-    <RoleBasedLink className="adminPanel-button" user={user} role={ROLES.PERSONAL_TRAINER} to="/trainerPanel">Trainer Panel</RoleBasedLink>
-    <RoleBasedLink className="adminPanel-button" user={user} role={ROLES.ADMIN} to="/adminPanel">Admin Panel</RoleBasedLink>
+    <RoleBasedLink className="adminPanel-button" user={user} role={ROLES.PERSONAL_TRAINER} to="/trainerPanel">{t('trainerPanel')}</RoleBasedLink>
+    <RoleBasedLink className="adminPanel-button" user={user} role={ROLES.ADMIN} to="/adminPanel">{t('adminPanel')}</RoleBasedLink>
     <button className="signup-button" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-      Log Out
+      {t('logout')}
   </button>    
   </div>
 </nav>

@@ -12,6 +12,7 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import { useTranslation } from "react-i18next";
 
 
 
@@ -29,6 +30,8 @@ function AdminAccounts() {
     const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["status",""]]);
 
     const labels = ["Appointment ID", "Status"];
+
+    const { t } = useTranslation('adminPanel');
 
     const [editAppointmentId, setEditAppointmentId] = useState(null);
     const [editFormData, setEditFormData] = useState({
@@ -256,7 +259,7 @@ function AdminAccounts() {
             {isAuthenticated && <NavLoggedIn />}
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/adminPanel" className="button back-button">Back</Link>
+                    <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
                     <h1>Appointments</h1>
                     <div className="filter-container">
                         <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
@@ -266,15 +269,15 @@ function AdminAccounts() {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Appointment Id</th>
-                                <th>Status</th>
-                                <th>Location</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Phone Number</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Actions</th>
+                                <th>{t('appointmentId')}</th>
+                                <th>{t('status')}</th>
+                                <th>{t('location')}</th>
+                                <th>{t('firstName')}</th>
+                                <th>{t('lastName')}</th>
+                                <th>{t('phoneNumber')}</th>
+                                <th>{t('date')}</th>
+                                <th>{t('time')}</th>
+                                <th>{t('actions')}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -288,9 +291,9 @@ function AdminAccounts() {
                                                 value={editFormData.status}
                                                 onChange={handleChange}
                                             >
-                                                <option value="SCHEDULED">SCHEDULED</option>
-                                                <option value="COMPLETED">COMPLETED</option>
-                                                <option value="CANCELLED">CANCELLED</option>
+                                                <option value="SCHEDULED">{t('scheduled')}</option>
+                                                <option value="COMPLETED">{t('completed')}</option>
+                                                <option value="CANCELLED">{t('cancelled')}</option>
                                             </select>
                                         </td>
                                         <td>
@@ -337,10 +340,10 @@ function AdminAccounts() {
                                         </td>
                                         <td className="button-container">
                                             <button className="saveButton" onClick={() => handleSaveClick(appointment.appointmentId)}>
-                                                Save
+                                                {t('save')}
                                             </button>
                                             <button className="cancelButton" onClick={() => setEditAppointmentId(null)}>
-                                                Cancel
+                                                {t('cancel')}
                                             </button>
                                         </td>
                                     </tr>
@@ -358,26 +361,26 @@ function AdminAccounts() {
                                             {appointment.status === "REQUESTED" && (
                                                 <>
                                                     <button className="acceptButton" onClick={() => handleAcceptedAppointment(appointment.appointmentId)}>
-                                                        Accept
+                                                        {t('accept')}
                                                     </button>
                                                     <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
-                                                        Deny
+                                                        {t('deny')}
                                                     </button>
                                                 </>
                                             )}
                                             {appointment.status !== "CANCELLED" && appointment.status !== "REQUESTED" && (
                                                 <>
                                                     <button className="saveButton" onClick={() => handleEditClick(appointment)}>
-                                                        Edit
+                                                        {t('edit')}
                                                     </button>
                                                     <button className="cancelButton" onClick={() => handleCancelAppointment(appointment.appointmentId)}>
-                                                        Cancel Appointment
+                                                        {t('cancelAppointment')}
                                                     </button>
                                                 </>
                                             )}
                                             {appointment.status === "CANCELLED" && (
                                                 <button className="saveButton" onClick={() => handleEditClick(appointment)}>
-                                                    Edit
+                                                    {t('edit')}
                                                 </button>
                                             )}
                                         </td>

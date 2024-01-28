@@ -41,8 +41,8 @@ class InvoiceControllerUnitTest {
     @InjectMocks
     private InvoiceController invoiceController;
 
-    InvoiceResponseModel invoice1 = new InvoiceResponseModel("uuid-invoice1", "uuid-account1", 100.00, "content");
-    InvoiceResponseModel invoice2 = new InvoiceResponseModel("uuid-invoice2", "uuid-account2", 200.00, "content");
+    InvoiceResponseModel invoice1 = new InvoiceResponseModel("uuid-invoice1", "uuid-account1", 100.00, "content", "content");
+    InvoiceResponseModel invoice2 = new InvoiceResponseModel("uuid-invoice2", "uuid-account2", 200.00, "content", "content");
 
     @BeforeEach
     void setUp() {

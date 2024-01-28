@@ -11,9 +11,12 @@ import lombok.Value;
 public class FitnessPackageResponseModel {
     public String serviceId;
     public String promoId;
-    public String title;
+    public String title_EN;
+    public String title_FR;
     public String duration;
-    public String description;
-    private String otherInformation;
+    public String description_EN;
+    public String description_FR;
+    public String otherInformation_EN;
+    public String otherInformation_FR;
     public Double price;
 }

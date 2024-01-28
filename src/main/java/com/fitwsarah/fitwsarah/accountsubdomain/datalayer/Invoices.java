@@ -23,17 +23,19 @@ public class Invoices {
 
     private double amount;
 
-    private String content;
+    private String content_EN;
+    private String content_FR;
 
     public Invoices() {
         this.invoiceIdentifier = new InvoiceIndentifier();
     }
 
-    public Invoices(String accountId, double amount, String content) {
+    public Invoices(String accountId, double amount, String content_EN, String content_FR) {
         this.invoiceIdentifier = new InvoiceIndentifier();
         this.accountId = accountId;
         this.amount = amount;
-        this.content = content;
+        this.content_EN = content_EN;
+        this.content_FR = content_FR;
     }
 }
 

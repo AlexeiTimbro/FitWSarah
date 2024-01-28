@@ -1,0 +1,17 @@
+{
+    "servicesAndPrices": "Services & Prices",
+    "book": "Book",
+    "details": "Details",
+    "addFitnessService": "Add a Fitness Service",
+    "fitnessServiceTitle_en": "Fitness Service Title (English)",
+    "fitnessServiceTitle_fr": "Fitness Service Title (French)",
+    "duration": "Duration",
+    "minutes": "minutes",
+    "hours": "hour(s)",
+    "price": "Price",
+    "description_en": "Description (English)",
+    "description_fr": "Description (French)",
+    "otherInformationOptional_en": "Other Information (English) (Optional)",
+    "otherInformationOptional_fr": "Other Information (French) (Optional)",
+    "addService": "Add"
+}

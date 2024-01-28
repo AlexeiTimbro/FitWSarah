@@ -48,7 +48,7 @@ class FitnessPackageControllerIntegrationTest {
     @MockBean
     private FitnessPackageService fitnessPackageService;
 
-    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", "s",100.00);
+    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", "s", "fsdaf", "fsaf", "fsadf", 22.00);
 
     private List<FitnessPackageResponseModel> fitnessPackageList;
 
@@ -84,7 +84,7 @@ class FitnessPackageControllerIntegrationTest {
     }
     @Test
     public void addFitnessPackage_shouldSucceed() throws Exception {
-        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other",22.00);
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", 22.00);
 
         mockMvc.perform(post("/api/v1/fitnessPackages")
                         .header("Authorization", testToken)

@@ -1,0 +1,11 @@
+{
+    "welcome": "Welcome, ",
+    "scheduled": "Scheduled",
+    "completed": "Completed",
+    "requested": "Requested",
+    "cancelled": "Cancelled",
+    "appointments": "Appointments",
+    "settings": "Profile Settings",
+    "coachNotes": "Coach Notes",
+    "invoices": "Invoices"
+}

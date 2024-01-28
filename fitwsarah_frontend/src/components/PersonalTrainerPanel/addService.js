@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
+import { useTranslation } from "react-i18next";
 
 const AddServiceButton = ({fitnessDataToSend}) => {
     const {isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
+    const { t } = useTranslation('home');
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -44,7 +46,7 @@ const AddServiceButton = ({fitnessDataToSend}) => {
               return;
           }
     
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+      const response = await fetch(`http://localhost:8080/api/v1/fitnessPackages`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -75,7 +77,7 @@ const AddServiceButton = ({fitnessDataToSend}) => {
       <div style={{ width: "100%" }}>
       <form onSubmit={(e) => addNewServiceData(e)}>
         <button style={{ width: "100%" }} id="newBtn" className="book-button" type="submit">
-          Add
+          {t('addService')}
         </button>
         </form>
       </div>

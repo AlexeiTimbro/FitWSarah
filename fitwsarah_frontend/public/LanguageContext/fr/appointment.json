@@ -1,0 +1,16 @@
+{
+    "confirmBooking": "Confirmer",
+    "appointmentLocation": "Emplacement : ",
+    "appointmentDate": "Date : ",
+    "appointmentTime": "Heure : ",
+    "appointmentViewDetails": "Voir les détails",
+    "appointmentClose": "Fermer",
+    "appointmentDescription": "Description : ",
+    "appointmentOtherInformation": "Autres Informations : ",
+    "appointmentPrice": "Prix : ",
+    "appointmentDuration": "Durée : ",
+    "selectLocation": "Sélectionnez un emplacement",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "phoneNumber": "Numéro de téléphone"
+}

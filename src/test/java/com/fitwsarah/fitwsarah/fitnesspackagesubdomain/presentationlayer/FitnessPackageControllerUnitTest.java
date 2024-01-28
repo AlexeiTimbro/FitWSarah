@@ -31,8 +31,8 @@ class FitnessPackageControllerUnitTest {
     @InjectMocks
     private FitnessPackageController fitnessPackageController;
 
-    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", "s",100.00);
-    FitnessPackageResponseModel fitnessPackage2 = new FitnessPackageResponseModel("serviceID2", "promoID2", "One On One Training1", "2 hour", "Desc2", "s",200.00);
+    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", "s","asdf", "asdf", "asdf", 22.00);
+    FitnessPackageResponseModel fitnessPackage2 = new FitnessPackageResponseModel("serviceID2", "promoID2", "One On One Training1", "2 hour", "Desc2", "s","asdf", "asdf", "asdf", 22.00);
 
 
     @BeforeEach
@@ -72,8 +72,8 @@ class FitnessPackageControllerUnitTest {
     @Test
     void addFitnessPackage_shouldSucceed(){
         String serviceId = "uuid-serv1";
-        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other",22.00);
-        FitnessPackageResponseModel expectedResponse = new FitnessPackageResponseModel(serviceId, "uuid-promo1", "title",  "20 minutes", "desc", "other", 22.00);
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", 22.00);
+        FitnessPackageResponseModel expectedResponse = new FitnessPackageResponseModel(serviceId, "uuid-promo1", "title",  "20 minutes", "desc", "other", "sadfds", "fdsaf", "fdsaf", 22.00);
         when(fitnessPackageService.addFitnessPackage(fitnessPackageRequestModel)).thenReturn(expectedResponse);
 
         ResponseEntity<FitnessPackageResponseModel> result = fitnessPackageController.addFitnessService(fitnessPackageRequestModel);
