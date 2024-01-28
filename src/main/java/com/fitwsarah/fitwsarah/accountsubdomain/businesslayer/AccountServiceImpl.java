@@ -26,12 +26,10 @@ public class AccountServiceImpl implements AccountService {
         this.accountRequestMapper = accountRequestMapper;
     }
 
-
     @Override
     public List<AccountResponseModel> getAllAccounts(String accountId, String username, String email, String city) {
         Set<Account> filteredAccounts = new HashSet<>();
 
-        // Existing logic to filter accounts based on provided parameters
         if (accountId != null) {
             filteredAccounts.addAll(accountRepository.findAllAccountsByAccountIdentifier_AccountIdStartingWith(accountId));
         } else if (username != null) {
@@ -44,28 +42,7 @@ public class AccountServiceImpl implements AccountService {
             filteredAccounts.addAll(accountRepository.findAll());
         }
 
-        List<String> auth0Usernames = getAuth0Usernames();
-
-        for (String auth0Username : auth0Usernames) {
-            boolean accountExists = filteredAccounts.stream()
-                    .anyMatch(account -> account.getUsername().equals(auth0Username));
-            if (!accountExists) {
-                Account newAccount = new Account();
-                newAccount.setUsername(auth0Username);
-                filteredAccounts.add(newAccount);
-            }
-        }
-
-        return accountResponseMapper.entityListToResponseModelList(
-                filteredAccounts.stream()
-                        .sorted(Comparator.comparing(account -> account.getAccountIdentifier().getAccountId()))
-                        .toList()
-        );
-    }
-
-    private List<String> getAuth0Usernames() {
-        // Placeholder method - implement the actual logic to fetch usernames from Auth0
-        return new ArrayList<>(); // Replace with actual fetched usernames
+        return accountResponseMapper.entityListToResponseModelList(filteredAccounts.stream().sorted(Comparator.comparing(account -> account.getAccountIdentifier().getAccountId())).toList());
     }
 
 
