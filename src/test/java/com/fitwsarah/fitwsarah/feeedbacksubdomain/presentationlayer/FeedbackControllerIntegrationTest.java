@@ -76,6 +76,14 @@ class FeedbackControllerIntegrationTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    void removeFeedbackByFeedbackId_ShouldSucceed() throws Exception {
+        String actualFeedbackId = "uuid-feed1";
+        mockMvc.perform(get("/api/v1/feedbacks/{feedbackId}", actualFeedbackId)
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 
     public String obtainAuthToken() throws Exception {

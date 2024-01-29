@@ -51,6 +51,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void removeFeedback(String feedbackId) {
-
+    Feedback existingFeedback = feedbackRepository.findFeedbackByFeedbackIdentifier_FeedbackId(feedbackId);
+        if(existingFeedback == null){
+            return;
+        }
+        feedbackRepository.delete(existingFeedback);
     }
 }

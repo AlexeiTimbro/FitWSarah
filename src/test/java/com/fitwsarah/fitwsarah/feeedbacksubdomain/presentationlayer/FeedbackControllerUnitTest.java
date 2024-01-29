@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 class FeedbackControllerUnitTest {
@@ -62,9 +62,15 @@ class FeedbackControllerUnitTest {
         assertEquals(expectedResponse, result.getBody());
     }
 
+    @Test
+    public void removeFeedback_validFeedbackId_shouldSucceed() {
+        String feedbackId = "uuid-feed1";
+        doNothing().when(feedbackService).removeFeedback(feedbackId);
 
+        ResponseEntity<Void> result = feedbackController.deleteFeedbackById(feedbackId);
 
-
-
+        assertEquals(HttpStatus.NO_CONTENT, result.getStatusCode());
+        verify(feedbackService, times(1)).removeFeedback(feedbackId);
+    }
 
 }

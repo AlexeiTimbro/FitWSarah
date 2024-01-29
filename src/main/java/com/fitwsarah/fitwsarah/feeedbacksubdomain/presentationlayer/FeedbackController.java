@@ -34,7 +34,9 @@ public class FeedbackController {
     }
     //We should not be able to change a feedback (Correct Elias if he is wrong)
     @DeleteMapping("/{feedbackId}")
-    public void deleteFeedbackById(@PathVariable String feedbackId){
+    public ResponseEntity<Void> deleteFeedbackById(@PathVariable String feedbackId){
+        feedbackService.removeFeedback(feedbackId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     @DeleteMapping()
     public void deleteAllFeedbackThreads(){
