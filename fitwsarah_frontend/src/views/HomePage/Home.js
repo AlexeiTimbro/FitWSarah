@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from "react-i18next";
 import { useLanguage } from '../../LanguageConfig/LanguageContext';
 import "./Editbutton.css";
-import UpdateServiceButton from "../AdminPanelPage/UpdateService";
+
 
 function Home() {
     const {
@@ -126,6 +126,7 @@ function Home() {
                     .then(updatedService => {
                         console.log("Service updated successfully", updatedService);
                         getAllFitnessServices();
+                        setShowUpdateForm(false);
                     })
                     .catch(error => {
                         console.error("Error updating service:", error);
@@ -325,7 +326,7 @@ function Home() {
                                 value={selectedService?.title_EN || ''}
                                 onChange={handleChange}
                             />
-                            <Form.Label>Title (French)</Form.Label>
+                            <Form.Label>{t('fitnessServiceTitle_fr')}</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="title_FR"
@@ -344,7 +345,7 @@ function Home() {
                                 value={selectedService?.description_EN || ''}
                                 onChange={handleChange}
                             />
-                            <Form.Label>Description (French)</Form.Label>
+                            <Form.Label>{t('description_fr')}</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
@@ -364,7 +365,7 @@ function Home() {
                                 value={selectedService?.otherInformation_EN || ''}
                                 onChange={handleChange}
                             />
-                            <Form.Label>Other Information (French)</Form.Label>
+                            <Form.Label>{t('otherInformationOptional_fr')}</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
@@ -374,9 +375,9 @@ function Home() {
                             />
                         </Form.Group>
 
-                        {/* Price */}
+
                         <Form.Group className="mb-3">
-                            <Form.Label>Price</Form.Label>
+                            <Form.Label>{t('price')}</Form.Label>
                             <Form.Control
                                 type="number"
                                 name="price"
@@ -396,7 +397,7 @@ function Home() {
                             />
                         </Form.Group>
 
-                        {/* Update Button */}
+
                         <Button variant="primary" onClick={() => handleUpdateService(selectedService.serviceId)}>
                             Update Service
                         </Button>
