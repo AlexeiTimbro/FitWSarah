@@ -224,9 +224,42 @@ function Home() {
             <AddServiceButton fitnessDataToSend={fitnessDataToSend}/>
           </Modal.Body>
         </Modal>
-    
-        <FooterNotLoggedIn/>
-      </div>
+
+    <Modal show={showForm} onHide={()=>setShowForm(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add a Fitness Service</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <form>
+          <div className="form-group">
+            <input type="text" id="title" maxLength="50" placeholder="Fitness Service Title" name="title" required  onChange={(e) => handleInputChange(e)} />
+          </div>
+          <div className="form-group">
+          <input type="number" id="duration" max={99} min={0} placeholder="Duration" name="duration" required  onChange={(e) => handleDurationChange(e)} />
+            <select id="durationType" name="durationType"  onChange={(e) => setDurationType(e.target.value)}  required>
+                <option value="minutes">minutes</option>
+                <option value="hour(s)">hour(s)</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <input type="number" id="price" min={0} placeholder="Price" name="price" required onChange={(e) => handlePriceChange(e)} />
+          </div>
+          <div className="form-group">
+            <textarea id="description"  placeholder="Description" name="description" required onChange={(e) => handleInputChange(e)} />
+          </div>
+          <div className="form-group">
+            <textarea id="otherInformation"  placeholder="Other Information (Optional)" name="otherInformation" onChange={(e) => handleInputChange(e)} />
+          </div>
+        </form>
+        <AddServiceButton setShow={setShow} fitnessDataToSend={fitnessDataToSend}/>
+        </Modal.Body>
+
+    </Modal>
+
+
+
+    <FooterNotLoggedIn/>
+  </div>
     );
     
 }

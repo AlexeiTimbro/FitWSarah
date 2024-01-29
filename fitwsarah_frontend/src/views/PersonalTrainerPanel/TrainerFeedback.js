@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
-import '../PersonalTrainerPanel/TrainerAccounts.css';
+import './TrainerAccounts.css';
 import "../../css/style.css";
 
 function Feedbacks() {
@@ -49,7 +49,7 @@ function Feedbacks() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/adminPanel" className="button back-button">Back</Link>
+                    <Link to="/trainerPanel" className="button back-button">Back</Link>
                     <div className="header-section">
                         <h1>Feedback</h1>
                     </div>

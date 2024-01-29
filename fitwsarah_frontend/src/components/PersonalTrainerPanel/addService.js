@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
 import { useTranslation } from "react-i18next";
 
-const AddServiceButton = ({fitnessDataToSend}) => {
+const AddServiceButton = ({fitnessDataToSend, setShow}) => {
     const {isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const { t } = useTranslation('home');
@@ -45,8 +45,8 @@ const AddServiceButton = ({fitnessDataToSend}) => {
               console.error("Access token not available.");
               return;
           }
-    
-      const response = await fetch(`http://localhost:8080/api/v1/fitnessPackages`, {
+
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -67,8 +67,13 @@ const AddServiceButton = ({fitnessDataToSend}) => {
       }};
       const addNewServiceData = (e) => {
         e.preventDefault();
-        if (accessToken) {
+        const result = window.confirm("Are you sure you want to proceed?");
+        if (result && accessToken){
           addNewService();
+          setShow(false)
+        }
+        else {
+          setShow(false)
         }
       };
   
