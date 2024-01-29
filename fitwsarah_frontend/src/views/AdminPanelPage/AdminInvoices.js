@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './AdminInvoices.css';
 import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-
+import { useTranslation } from "react-i18next";
 
 
 function AdminInvoices() {
@@ -17,7 +17,7 @@ function AdminInvoices() {
 
     const [invoices, setInvoices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
-
+    const { t } = useTranslation('adminPanel');
     const getAccessToken = useGetAccessToken();
 
 
@@ -74,23 +74,23 @@ function AdminInvoices() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/adminPanel" className="button back-button">Back</Link>
+                    <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
                     <div className="header-section">
-                        <h1>Invoices</h1>
+                        <h1>{t('invoices')}</h1>
                     </div>
                     <Link to="/CreateAdminInvoices" className="button back-button">Create Invoice</Link>
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>InvoiceId</th>
-                                <th>AccountId</th>
-                                <th>Username</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Due Date</th>
-                                <th>Payment Type</th>
-                                <th>Price</th>
+                                <th>{t('InvoiceId')}</th>
+                                <th>{t('AccountId')}</th>
+                                <th>{t('Username')}</th>
+                                <th>{t('Status')}</th>
+                                <th>{t('Date')}</th>
+                                <th>{t('Due Date')}</th>
+                                <th>{t('Payment Type')}</th>
+                                <th>{t('Price')}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -105,8 +105,8 @@ function AdminInvoices() {
                                     <td>{invoice.paymentType}</td>
                                     <td>{invoice.price}</td>
                                     <td>
-                                        <button className="button delete-button">Delete</button>
-                                        <button className="button details-button">Details</button>
+                                        <button className="button delete-button">{t('delete')}</button>
+                                        <button className="button details-button">{t('details')}</button>
                                     </td>
                                 </tr>
                             ))}

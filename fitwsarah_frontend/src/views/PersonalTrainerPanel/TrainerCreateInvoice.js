@@ -14,6 +14,8 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz';
+import { useTranslation } from "react-i18next";
+
 
 function TrainerCreateInvoices() {
     const { isAuthenticated } = useAuth0();
@@ -31,6 +33,9 @@ function TrainerCreateInvoices() {
         paymentType: '',
         price: 0
     });
+
+    const { t } = useTranslation('trainerCreateInvoice');
+
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -117,7 +122,8 @@ function TrainerCreateInvoices() {
         <div className="admin-invoices">
             <form onSubmit={createInvoice}>
                 {/* Username Dropdown */}
-                <label htmlFor="username">Username:</label>
+
+                <label htmlFor="username">{t('Username:')}</label>
                 <select id="username" name="username" value={newInvoice.username} onChange={handleUsernameChange}>
                     {accounts.map(account => (
                         <option key={account.id} value={account.username}>{account.username}</option>
@@ -125,28 +131,28 @@ function TrainerCreateInvoices() {
                 </select>
 
                 {/* Invoice Status */}
-                <label htmlFor="status">Status:</label>
+                <label htmlFor="status">{t('Status:')}</label>
                 <select id="status" name="status" value={newInvoice.status} onChange={handleInputChange}>
-                    <option value="PENDING">PENDING</option>
-                    <option value="COMPLETED">COMPLETED</option>
-                    <option value="OVERDUE">OVERDUE</option>
+                    <option value="PENDING">{t('PENDING')}</option>
+                    <option value="COMPLETED">{t('COMPLETED')}</option>
+                    <option value="OVERDUE">{t('OVERDUE')}</option>
                 </select>
 
                 {/* Due Date Picker */}
-                <label htmlFor="dueDate">Due Date:</label>
+                <label htmlFor="dueDate">{t('Due Date:')}</label>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker value={newInvoice.dueDate} onChange={handleDueDateChange} renderInput={(params) => <TextField {...params} />} />
                 </LocalizationProvider>
 
                 {/* Payment Type */}
-                <label htmlFor="paymentType">Payment Type:</label>
+                <label htmlFor="paymentType">{t('Payment Type:')}</label>
                 <input type="text" id="paymentType" name="paymentType" value={newInvoice.paymentType} onChange={handleInputChange} />
 
                 {/* Price */}
-                <label htmlFor="price">Price:</label>
+                <label htmlFor="price">{t('Price:')}</label>
                 <input type="text" id="price" name="price" value={newInvoice.price} onChange={handleInputChange} />
 
-                <button type="submit">Create Invoice</button>
+                <button type="submit">{t('Create Invoice')}</button>
             </form>
         </div>
     );
