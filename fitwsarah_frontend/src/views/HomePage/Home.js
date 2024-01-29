@@ -39,7 +39,7 @@ function Home() {
     }, []);
 
     const getAllFitnessServices = () => {
-        fetch(`http://localhost:8080/api/v1/fitnessPackages`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -109,7 +109,7 @@ function Home() {
             scope: "update:fitnessPackages"
         })
             .then(accessToken => {
-                fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}`, {
+                fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
                     method: "PUT",
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -140,7 +140,7 @@ function Home() {
 
     const handleEdit = (service) => {
         setSelectedService(service);
-        setShowUpdateForm(true); // Show the update form modal
+        setShowUpdateForm(true);
     };
 
     const [fitnessDataToSend, setFitnessDataToSend] = useState({});
@@ -317,7 +317,7 @@ function Home() {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        {/* Title */}
+
                         <Form.Group className="mb-3">
                             <Form.Label>Title (English)</Form.Label>
                             <Form.Control
@@ -335,7 +335,7 @@ function Home() {
                             />
                         </Form.Group>
 
-                        {/* Description */}
+
                         <Form.Group className="mb-3">
                             <Form.Label>Description (English)</Form.Label>
                             <Form.Control
@@ -375,7 +375,7 @@ function Home() {
                             />
                         </Form.Group>
 
-                        {/* Price */}
+
                         <Form.Group className="mb-3">
                             <Form.Label>Price</Form.Label>
                             <Form.Control
@@ -386,7 +386,7 @@ function Home() {
                             />
                         </Form.Group>
 
-                        {/* Duration */}
+
                         <Form.Group className="mb-3">
                             <Form.Label>Duration</Form.Label>
                             <Form.Control
@@ -397,7 +397,7 @@ function Home() {
                             />
                         </Form.Group>
 
-                        {/* Update Button */}
+
                         <Button variant="primary" onClick={() => handleUpdateService(selectedService.serviceId)}>
                             Update Service
                         </Button>
