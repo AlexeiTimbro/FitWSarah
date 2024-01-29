@@ -40,10 +40,7 @@ public class FitnessPackageController {
     }
 
 
-    @PutMapping("/{serviceId}/invisible")
-    public FitnessPackageResponseModel updateFitnessPackageStatus(@PathVariable String serviceId, @RequestBody String status){
-        return fitnessPackageService.updateFitnessPackageStatus(serviceId, status);
-    }
+
 
 
     @DeleteMapping("/{serviceId}")

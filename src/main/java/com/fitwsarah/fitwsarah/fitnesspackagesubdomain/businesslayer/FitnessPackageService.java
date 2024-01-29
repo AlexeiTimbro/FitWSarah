@@ -18,6 +18,6 @@ public interface FitnessPackageService {
 
     FitnessPackageResponseModel updateFitnessPackage(FitnessPackageRequestModel fitnessPackageRequestModel, String serviceId);
 
-    FitnessPackageResponseModel updateFitnessPackageStatus( String serviceId, String status);
+
     void removeFitnessPackage(String fitnessPackageId);
 }

@@ -126,6 +126,7 @@ function Home() {
                     .then(updatedService => {
                         console.log("Service updated successfully", updatedService);
                         getAllFitnessServices();
+                        setShowUpdateForm(false);
                     })
                     .catch(error => {
                         console.error("Error updating service:", error);

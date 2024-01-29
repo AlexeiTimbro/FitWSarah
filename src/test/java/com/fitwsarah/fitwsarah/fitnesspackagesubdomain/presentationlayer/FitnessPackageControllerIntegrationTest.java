@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequestModel;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer.FitnessPackageService;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
@@ -31,9 +32,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -94,6 +97,18 @@ class FitnessPackageControllerIntegrationTest {
                 .andExpect(status().isCreated());
 
     }
+
+
+    @Test
+    void updateAppointmentDetails_shouldSucceed() throws Exception{
+
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel(Status.INVISIBLE,"20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", "22.00", 99.0 );
+        mockMvc.perform(put("/api/v1/fitnessPackages/{serviceId}", fitnessPackage.getServiceId())
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(fitnessPackageRequestModel)))
+                .andExpect(status().isOk());
+    }
     private String asJsonString(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(obj);
@@ -119,5 +134,8 @@ class FitnessPackageControllerIntegrationTest {
         JsonNode rootNode = mapper.readTree(response.getBody());
         return rootNode.path("access_token").asText();
     }
+
+
+
 
 }

@@ -64,13 +64,6 @@ public class FitnessPackageServiceImpl implements FitnessPackageService{
     }
 
 
-    @Override
-    public FitnessPackageResponseModel updateFitnessPackageStatus( String serviceId, String status) {
-        FitnessPackage fitnessPackage = fitnessPackageRepository.findByFitnessPackageIdentifier_ServiceId(serviceId);
-        fitnessPackage.setStatus(Status.valueOf(Status.INVISIBLE.toString()));
-        fitnessPackageRepository.save(fitnessPackage);
-        return fitnessPackageResponseMapper.entityToResponseModel(fitnessPackage);
-    }
 
 
     @Override
