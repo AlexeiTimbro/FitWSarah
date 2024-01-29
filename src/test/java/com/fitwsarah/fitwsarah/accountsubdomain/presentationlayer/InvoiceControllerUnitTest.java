@@ -2,6 +2,7 @@ package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.AccountService;
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.InvoiceService;
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.InvoiceStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,6 +23,8 @@ import org.springframework.test.web.reactive.server.JsonPathAssertions;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,8 +44,8 @@ class InvoiceControllerUnitTest {
     @InjectMocks
     private InvoiceController invoiceController;
 
-    InvoiceResponseModel invoice1 = new InvoiceResponseModel("uuid-invoice1", "uuid-account1", 100.00, "content", "content");
-    InvoiceResponseModel invoice2 = new InvoiceResponseModel("uuid-invoice2", "uuid-account2", 200.00, "content", "content");
+    InvoiceResponseModel invoice1 = new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00);
+    InvoiceResponseModel invoice2 = new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00);
 
     @BeforeEach
     void setUp() {
@@ -62,5 +65,17 @@ class InvoiceControllerUnitTest {
         List<InvoiceResponseModel> actual = invoiceController.getAllInvoices();
 
         assertEquals(invoiceResponseModelList, actual);
+    }
+
+    @Test
+    void addInvoice_ShouldReturnInvoice() {
+
+        InvoiceRequestModel invoiceRequestModel = new InvoiceRequestModel("uuid-acc1", "1", "johnsmith", InvoiceStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00);
+
+        when(invoiceService.addInvoice(invoiceRequestModel)).thenReturn(invoice1);
+
+        InvoiceResponseModel actual = invoiceController.addInvoice(invoiceRequestModel);
+
+        assertEquals(invoice1, actual);
     }
 }

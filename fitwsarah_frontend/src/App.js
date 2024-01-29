@@ -9,13 +9,14 @@ import TrainerAccounts from "./views/PersonalTrainerPanel/TrainerAccounts";
 import TrainerPanel from "./views/PersonalTrainerPanel/TrainerPanel";
 import AdminAppointments from "./views/AdminPanelPage/AdminAppointments";
 import AdminInvoices from "./views/AdminPanelPage/AdminInvoices";
+import CreateAdminInvoices from "./views/AdminPanelPage/AdminCreateInvoice";
+import TrainerCreateInvoices from "./views/PersonalTrainerPanel/TrainerCreateInvoice";
 import BookAppointment from "./views/AppointmentPage/NewAppointment";
 import Services from "./views/AdminPanelPage/FitnessServices";
 import TrainerFitnessServices from "./views/PersonalTrainerPanel/TrainerFitnessServices";
 import CoachNote from './components/CoachNote/CoachNote.js';
 import TrainerInvoices from "./views/PersonalTrainerPanel/TrainerInvoices";
 import { LanguageProvider } from './LanguageConfig/LanguageContext.js'; 
-
 
 function App() {
     return (
@@ -36,7 +37,9 @@ function App() {
                     <Route path="/trainerServices" element={<TrainerFitnessServices/>}/>
                     <Route path="/coachnotes" element={<CoachNote/>}/>
                     <Route path="/adminInvoices" element={<AdminInvoices/>}/>
+                    <Route path="/CreateAdminInvoices" element={<CreateAdminInvoices/>}/>
                     <Route path="/trainerInvoices" element={<TrainerInvoices/>}/>
+                    <Route path="/trainerCreateInvoices" element={<TrainerCreateInvoices/>}/>
                 </Routes>
             </Router>
         </LanguageProvider>

@@ -7,6 +7,10 @@ import lombok.Data;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 @Table(name="invoices")
 @Data
@@ -20,22 +24,29 @@ public class Invoices {
     private InvoiceIndentifier invoiceIdentifier;
 
     private String accountId;
-
-    private double amount;
-
-    private String content_EN;
-    private String content_FR;
+    private String userId;
+    private String username;
+    @Enumerated(EnumType.STRING)
+    private InvoiceStatus status;
+    private LocalDateTime date;
+    private LocalDateTime dueDate;
+    private String paymentType;
+    private double price;
 
     public Invoices() {
         this.invoiceIdentifier = new InvoiceIndentifier();
     }
 
-    public Invoices(String accountId, double amount, String content_EN, String content_FR) {
+    public Invoices(String accountId, String userId, String username, InvoiceStatus status, LocalDateTime date, LocalDateTime dueDate, String paymentType, double price) {
         this.invoiceIdentifier = new InvoiceIndentifier();
         this.accountId = accountId;
-        this.amount = amount;
-        this.content_EN = content_EN;
-        this.content_FR = content_FR;
+        this.userId = userId;
+        this.username = username;
+        this.status = status;
+        this.date = date;
+        this.dueDate = dueDate;
+        this.paymentType = paymentType;
+        this.price = price;
     }
 }
 

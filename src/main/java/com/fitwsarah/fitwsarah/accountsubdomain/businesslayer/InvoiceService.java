@@ -12,4 +12,6 @@ public interface InvoiceService {
 
     List<InvoiceResponseModel> getAllInvoices();
 
+    InvoiceResponseModel addInvoice(InvoiceRequestModel invoiceRequestModel);
+
 }

@@ -26,7 +26,6 @@ public class AccountServiceImpl implements AccountService {
         this.accountRequestMapper = accountRequestMapper;
     }
 
-
     @Override
     public List<AccountResponseModel> getAllAccounts(String accountId, String username, String email, String city) {
         Set<Account> filteredAccounts = new HashSet<>();
