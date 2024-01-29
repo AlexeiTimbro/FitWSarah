@@ -49,7 +49,7 @@
     "adminPanelAnalytics": "Analytique",
     "currentTotalAnalytics": "Total Actuel : {{count}} Rapports",
     "lastMonthTotalAnalytics": "Total du Mois Dernier : {{count}} Rapports",
-    "adminPanelFeedback": "Retour d'Information",
+    "adminPanelFeedback": "Retour d'Avis",
     "currentTotalFeedback": "Total Actuel : {{count}} Soumissions",
     "lastMonthTotalFeedback": "Total du Mois Dernier : {{count}} Soumissions",
     "adminPanelServices": "Services de Fitness",
@@ -75,6 +75,10 @@
     "fitnessService": "Service de Fitness",
     "invoice": "Facture",
     "amout": "Montant",
-    "trainerPanel": "Panneau de Coach"
-
+    "trainerPanel": "Panneau de Coach",
+    "userId":"ID de Compte",
+    "stars":"Étoiles",
+    "publish":"Publier",
+    "remove":"Supprimer",
+    "feedback":"Avis"
 }

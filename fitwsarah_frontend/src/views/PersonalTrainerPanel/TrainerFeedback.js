@@ -7,6 +7,7 @@ import './TrainerAccounts.css';
 import "../../css/style.css";
 import ReactStars from 'react-stars';
 import './TrainerFeedback.css';
+import { useTranslation } from "react-i18next";
 function Feedbacks() {
 
     const {
@@ -16,13 +17,13 @@ function Feedbacks() {
 
     const [feedbacks, setFeedbacks] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
-
+    const { t } = useTranslation('adminPanel');
     useEffect(() => {
         getAllFeedback();
     }, []);
 
     const getAllFeedback = () => {
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -50,30 +51,22 @@ function Feedbacks() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/trainerPanel" className="button back-button">Back</Link>
+                    <Link to="/trainerPanel" className="button back-button">{t('back')}</Link>
                     <div className="header-section">
-                        <h1>Feedback</h1>
+                        <h1>{t('feedback')}</h1>
                     </div>
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>User Id</th>
-                                <th>Stars</th>
-                                <th>Status</th>
-                                <th>Content</th>
-                                <th>Actions</th>
+                                <th>{t('userId')}</th>
+                                <th>{t('stars')}</th>
+                                <th>{t('status')}</th>
+                                <th>{t('content')}</th>
+                                <th>{t('actions')}</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>uuid</td>
-                                    <td>stars</td>
-                                    <td>status</td>
-                                    <td>content</td>
-                                    <td>actions</td>
-                          
-                                </tr>
                             {feedbacks.map(feedback => (
                                 <tr key={feedback.id}>
                                     <td>{feedback.userId}</td>
@@ -81,8 +74,8 @@ function Feedbacks() {
                                     <td>{feedback.status}</td>
                                     <td>{feedback.content}</td>
                                     <td>
-                                        <button className="button details-button">Publish</button>
-                                        <button className="button delete-button">Remove</button>
+                                        <button className="button details-button">{t('publish')}</button>
+                                        <button className="button delete-button">{t('remove')}</button>
                                     </td>
                                 </tr>
                             ))}

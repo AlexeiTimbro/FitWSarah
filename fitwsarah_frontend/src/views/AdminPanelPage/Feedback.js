@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
-import '../PersonalTrainerPanel/TrainerAccounts.css';
+import '../PersonalTrainerPanel/TrainerFeedback.css';
 import "../../css/style.css";
 
 function Feedbacks() {
@@ -21,7 +21,7 @@ function Feedbacks() {
     }, []);
 
     const getAllFeedback = () => {
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"

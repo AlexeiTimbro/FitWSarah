@@ -3,12 +3,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const AddFeedbackButton = ({feedbackDataToSend}) => {
     const {isAuthenticated, getAccessTokenSilently, loginWithRedirect, user } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const [showSuggestion, setShowSuggestion] = useState(false);
-  
+    const { t } = useTranslation('contactMe');
   useEffect(() => {
     if (isAuthenticated) {
       const getAccessToken = async () => {
@@ -47,7 +48,7 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
               return;
           }
     
-      const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -89,7 +90,7 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
               return;
           }
     
-        const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/appointments/accounts/users/${RegexUserId}`, {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/accounts/users/${RegexUserId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -105,7 +106,8 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
               if (!hasCompleteAppointment) {
                 setShowSuggestion(e => !e);
                 throw new Error(`No completed appointment found`);
-              } else {return;}
+                return false;
+              } else {return true;}
          } catch (error) {
           console.error("Error adding feedback: ", error);
       }};
@@ -122,22 +124,20 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
       
       return (
         <div style={{ marginBottom: "15px" }}>
-        {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>Submit</button>}
+        {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>{t('submit')}</button>}
         {isAuthenticated &&
         <form onSubmit={(e) => addNewFeedbackData(e)}>
-          <button id="newBtn" className="book-button" type="submit">
-            Submit
-          </button>
+          <button id="newBtn" className="book-button" type="submit">{t('submit')}</button>
           </form>}
 
           <Modal show={showSuggestion} onHide={()=>setShowSuggestion(e=>!e)}>
         <Modal.Header closeButton>
-          <Modal.Title>Try FitWSarah</Modal.Title>
+          <Modal.Title>{t('tryFit')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <h4>It seems like you have not tried FitWSarah yet. </h4>
-         <h4>You can book an appointment from the home page.</h4>
-         <Link to={`/`}><button className="book-button">Back</button></Link>
+        <h4>{t('seemsLike')}</h4>
+         <h4>{t('youCanbook')}</h4>
+         <Link to={`/`}><button className="book-button">{t('back')}</button></Link>
         </Modal.Body>
 
     </Modal>

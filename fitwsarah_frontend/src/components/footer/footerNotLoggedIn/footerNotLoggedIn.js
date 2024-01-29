@@ -2,6 +2,7 @@ import React from 'react';
 import './footerNotLoggedIn.css';
 import { useLanguage } from '../../../LanguageConfig/LanguageContext';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 function FooterNotLoggedIn() {
   const { changeLanguage } = useLanguage();
   const { t } = useTranslation('footer');
