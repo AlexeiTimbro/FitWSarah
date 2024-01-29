@@ -16,7 +16,7 @@ INSERT INTO invoices (invoice_id, account_id, user_id, username, status, date, d
                                                                                                                   ('inv-uuid-4', 'uuid-acc4', '4', 'sarahwhite', 'COMPLETED', '2024-01-04', '2024-01-14', 'Cash', 50.00),
                                                                                                                   ('inv-uuid-5', 'uuid-acc5', '5', 'davidjohnson', 'PENDING', '2024-01-05', '2024-01-15', 'Bank Transfer', 75.00);
 
-INSERT INTO feedback_threads (feedback_id, account_id, stars, content, status) VALUES
+INSERT INTO feedback_threads (feedback_id, user_id, stars, content, status) VALUES
 ('fdbk-uuid-1', 'uuid-acc1', 5, 'Excellent personal training session','INVISIBLE'),
 ('fdbk-uuid-2', 'uuid-acc2', 4, 'Great yoga classes, but room was crowded', 'INVISIBLE'),
 ('fdbk-uuid-3', 'uuid-acc3', 5, 'Loved the training package, very comprehensive', 'INVISIBLE'),

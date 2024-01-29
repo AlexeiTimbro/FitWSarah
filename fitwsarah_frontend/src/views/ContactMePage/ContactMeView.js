@@ -33,30 +33,32 @@ function Home() {
 }
     const { sub } = isAuthenticated ? user : {};
     const RegexUserId = sub ? extractAfterPipe(sub) : null;
-
-    const [selectedService, setSelectedService] = useState(null);
+    
     const [show, setShow] = useState(false);
-    const [feedbackDataToSend, setFeedbackDataToSend] = useState({
-        userId:RegexUserId
-    });
+    const [feedbackDataToSend, setFeedbackDataToSend] = useState({});
     
     const handleInputChange = (e) => {
       const {name, value} = e?.target || {};
       const updatedData = {
         ...feedbackDataToSend,
+        userId:RegexUserId,
         [name]: value,
     };
+    console.log(updatedData)
     setFeedbackDataToSend(updatedData);
     };
 
-    const handleStarsChange = (e) => {
-        const {value} = e?.target || {};
+    const handleStarsChange = (value) => {
         const updatedData = {
           ...feedbackDataToSend,
+          userId:RegexUserId,
           stars: value,
       };
+      console.log(updatedData)
       setFeedbackDataToSend(updatedData);
       };
+
+      
 
 return (
 <div>
@@ -77,7 +79,7 @@ return (
             </div>
             <div className="account-container">
                 <h3>Provide your Feedback!</h3>
-                <ReactStars count={5} half={false} onChange={(e) => handleStarsChange(e)} size={30} color2={'#ffd700'} />
+                <ReactStars count={5} value={feedbackDataToSend.stars} onChange={handleStarsChange} size={30} half={false} color1="#ddd" color2={'#ffd700'} edit={true} />
                 <div className="form-group">
                     <label htmlFor="content">Content</label>
                     <textarea id="content" placeholder="Content here" name="content" required onChange={(e) => handleInputChange(e)} />

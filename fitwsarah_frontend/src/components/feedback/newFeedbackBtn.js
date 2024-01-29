@@ -4,10 +4,11 @@ import configData from "../../config.json";
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const AddFeedbackButton = (feedbackDataToSend) => {
+const AddFeedbackButton = ({feedbackDataToSend}) => {
     const {isAuthenticated, getAccessTokenSilently, loginWithRedirect, user } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const [showSuggestion, setShowSuggestion] = useState(false);
+  
   useEffect(() => {
     if (isAuthenticated) {
       const getAccessToken = async () => {
@@ -52,12 +53,13 @@ const AddFeedbackButton = (feedbackDataToSend) => {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(feedbackDataToSend),
+        body: JSON.stringify(feedbackDataToSend)
       })
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
         }
             const data = await response.json();
+              console.log(feedbackDataToSend);
               console.log(data);
               console.log("Added New Feedback"); 
               window.alert("Feedback Successfully Added")        
@@ -73,9 +75,10 @@ const AddFeedbackButton = (feedbackDataToSend) => {
         } else {
             return originalString; 
         }
-    }
-        const { sub } = isAuthenticated ? user : {};
-        const RegexUserId = sub ? extractAfterPipe(sub) : null;
+      };
+      const { sub } = isAuthenticated ? user : {};
+      const RegexUserId = sub ? extractAfterPipe(sub) : null;
+      
 
       const getAccountInfo = async () => {
         try {
@@ -86,7 +89,7 @@ const AddFeedbackButton = (feedbackDataToSend) => {
               return;
           }
     
-      const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/appointments/accounts/users/${RegexUserId}`, {
+        const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/appointments/accounts/users/${RegexUserId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -102,38 +105,38 @@ const AddFeedbackButton = (feedbackDataToSend) => {
               if (!hasCompleteAppointment) {
                 setShowSuggestion(e => !e);
                 throw new Error(`No completed appointment found`);
-              } else {}
+              } else {return;}
          } catch (error) {
-          console.error("Error adding service: ", error);
-          window.alert("An error has occured! Please try again later.");
+          console.error("Error adding feedback: ", error);
       }};
 
-
-      const addNewFeedbackData = (e) => {
+      const addNewFeedbackData = async (e) => {
         e.preventDefault();
         if (accessToken) {
+          const accountInfo = await getAccountInfo();
+          if (accountInfo){
           addNewFeedback();
-
+          }
         }
       };
-
-
-
+      
       return (
         <div style={{ marginBottom: "15px" }}>
         {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>Submit</button>}
         {isAuthenticated &&
-          <button id="newBtn" onClick={(e) => addNewFeedbackData(e)} className="book-button" type="submit">
+        <form onSubmit={(e) => addNewFeedbackData(e)}>
+          <button id="newBtn" className="book-button" type="submit">
             Submit
-          </button>}
+          </button>
+          </form>}
 
           <Modal show={showSuggestion} onHide={()=>setShowSuggestion(e=>!e)}>
         <Modal.Header closeButton>
           <Modal.Title>Try FitWSarah</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <h2>It seems like you have not tried FitWSarah yet. </h2>
-         <h2>You can book an appointment from the home page.</h2>
+        <h4>It seems like you have not tried FitWSarah yet. </h4>
+         <h4>You can book an appointment from the home page.</h4>
          <Link to={`/`}><button className="book-button">Back</button></Link>
         </Modal.Body>
 

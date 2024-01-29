@@ -5,7 +5,8 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './TrainerAccounts.css';
 import "../../css/style.css";
-
+import ReactStars from 'react-stars';
+import './TrainerFeedback.css';
 function Feedbacks() {
 
     const {
@@ -61,13 +62,22 @@ function Feedbacks() {
                                 <th>Stars</th>
                                 <th>Status</th>
                                 <th>Content</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>uuid</td>
+                                    <td>stars</td>
+                                    <td>status</td>
+                                    <td>content</td>
+                                    <td>actions</td>
+                          
+                                </tr>
                             {feedbacks.map(feedback => (
                                 <tr key={feedback.id}>
                                     <td>{feedback.userId}</td>
-                                    <td>{feedback.stars}</td>
+                                    <td><ReactStars count={feedback.stars} size={20} half={false}  color1={'#ffd700'} /></td>
                                     <td>{feedback.status}</td>
                                     <td>{feedback.content}</td>
                                     <td>

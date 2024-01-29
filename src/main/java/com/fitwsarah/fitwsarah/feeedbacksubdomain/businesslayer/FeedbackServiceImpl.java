@@ -39,7 +39,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public FeedbackResponseModel addFeedback(FeedbackRequestModel feedbackRequestModel) {
         Feedback feedback = feedbackRequestMapper.requestModelToEntity(feedbackRequestModel);
-
         feedback.setStatus(State.INVISIBLE);
         Feedback savedFeedback = feedbackRepository.save(feedback);
         return feedbackResponseMapper.entityToResponseModel(savedFeedback);

@@ -83,7 +83,7 @@ function AdminPanel() {
               <p>{t('lastMonthTotalAnalytics', { count: 'XX' })}</p>
               <span className="more-options">...</span>
             </Link>
-            <Link className="section" to="/feedback">
+            <Link className="section" to="/adminFeedback">
               <h2>{t('adminPanelFeedback')}</h2>
               <p>{t('currentTotalFeedback', { count: 'XX' })}</p>
               <p>{t('lastMonthTotalFeedback', { count: 'XX' })}</p>

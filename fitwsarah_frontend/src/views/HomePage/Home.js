@@ -35,7 +35,7 @@ function Home() {
     }, []);
 
     const getAllFitnessServices = () => {
-      fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+      fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/fitnessPackages`, {
           method: "GET",
           headers: new Headers({
               "Content-Type": "application/json"
@@ -118,16 +118,12 @@ function Home() {
     };
 
     const handleDurationChange = (e) => {
-      const { name, value } = e.target;
-
-      if (name === 'durationType'){
-        setDurationType(value);
-      }
-      
+      const {value } = e.target;
       const updatedData = {
         ...fitnessDataToSend,
-        duration: name === 'duration' ? `${value} ${durationType}` : `${fitnessDataToSend.duration} ${value}`
+        duration: `${value} ${durationType}`
       };
+      console.log(updatedData)
       setFitnessDataToSend(updatedData);
     };
 

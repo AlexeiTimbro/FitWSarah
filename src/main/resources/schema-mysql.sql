@@ -25,10 +25,10 @@ create table if not exists invoices(
 create table if not exists feedback_threads(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     feedback_id VARCHAR(36) NOT NULL,
-    account_id VARCHAR(36) NOT NULL,
-    stars INTEGER NOT NULL,
-    content VARCHAR(120) NOT NULL,
-    status VARCHAR(50) NOT NULL
+    user_id VARCHAR(36),
+    stars INTEGER ,
+    content VARCHAR(120),
+    status VARCHAR(50)
 );
 
 create table if not exists appointments(

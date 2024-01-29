@@ -587,6 +587,35 @@ public class EndToEndTesting {
         sleep(1000);
     }
 
+    @Test
+    public void viewFeedbackPage(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("2132206@champlaincollege.qc.ca");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Habs@1290");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
 
 
+        SelenideElement contactBtn = $("a[href='/contactMe']");
+        contactBtn.click();
+
+        sleep(1000);
+
+        SelenideElement content = $("textarea[id='content']");
+        content.shouldBe(visible);
+    }
 }
