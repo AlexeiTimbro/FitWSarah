@@ -13,7 +13,7 @@ public interface FeedbackService {
 
     FeedbackResponseModel addFeedback(FeedbackRequestModel feedbackRequestModel);
 
-    FeedbackResponseModel updateFeedback(FeedbackResponseModel feedbackResponseModel, String feedbackId);
+    FeedbackResponseModel updateFeedbackState(String status, String feedbackId);
 
     void removeFeedback(String feedbackId);
 }

@@ -38,6 +38,10 @@ public class FeedbackController {
         feedbackService.removeFeedback(feedbackId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    @PatchMapping("/{feedbackId}/publish")
+    public FeedbackResponseModel updateFeedbackState(@PathVariable String feedbackId,@RequestBody String status){
+        return feedbackService.updateFeedbackState(feedbackId, status);
+    }
     @DeleteMapping()
     public void deleteAllFeedbackThreads(){
     }

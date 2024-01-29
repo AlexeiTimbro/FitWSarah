@@ -22,7 +22,7 @@ function Feedbacks() {
     }, []);
 
     const getAllFeedback = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks`, {
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -41,6 +41,37 @@ function Feedbacks() {
                 console.log(error);
             });
     };
+
+    const removeFeedback = (feedbackId) => {
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks/${feedbackId}`, {
+            method: "DELETE",
+            headers: new Headers({
+                "Content-Type": "application/json"
+            })
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            setFeedbacks(data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
+    const removeConfirmation  = (feedbackId) => {
+        const answer = window.confirm("Are you sure?");
+        if(answer){
+            removeFeedback(feedbackId);
+        }
+        else{
+            return;
+        }
+    }
 
     return (
         <div>
@@ -74,7 +105,7 @@ function Feedbacks() {
                                     <td>{feedback.content}</td>
                                     <td>
                                         <button className="button details-button">{t('publish')}</button>
-                                        <button className="button delete-button">{t('remove')}</button>
+                                        <button className="button delete-button" onClick={removeConfirmation(feedback.id)}>{t('remove')}</button>
                                     </td>
                                 </tr>
                             ))}
