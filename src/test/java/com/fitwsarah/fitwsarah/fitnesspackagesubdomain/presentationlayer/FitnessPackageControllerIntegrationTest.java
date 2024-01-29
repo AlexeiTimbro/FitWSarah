@@ -100,7 +100,7 @@ class FitnessPackageControllerIntegrationTest {
 
 
     @Test
-    void updateAppointmentDetails_shouldSucceed() throws Exception{
+    void updateFitnessPackage_shouldSucceed() throws Exception{
 
         FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel(Status.INVISIBLE,"20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", "22.00", 99.0 );
         mockMvc.perform(put("/api/v1/fitnessPackages/{serviceId}", fitnessPackage.getServiceId())
