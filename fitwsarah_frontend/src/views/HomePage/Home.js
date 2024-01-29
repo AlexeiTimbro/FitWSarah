@@ -126,7 +126,6 @@ function Home() {
                     .then(updatedService => {
                         console.log("Service updated successfully", updatedService);
                         getAllFitnessServices();
-                        setShowUpdateForm(false);
                     })
                     .catch(error => {
                         console.error("Error updating service:", error);
@@ -140,7 +139,7 @@ function Home() {
 
     const handleEdit = (service) => {
         setSelectedService(service);
-        setShowUpdateForm(true);
+        setShowUpdateForm(true); // Show the update form modal
     };
 
     const [fitnessDataToSend, setFitnessDataToSend] = useState({});
@@ -375,7 +374,7 @@ function Home() {
                             />
                         </Form.Group>
 
-
+                        {/* Price */}
                         <Form.Group className="mb-3">
                             <Form.Label>Price</Form.Label>
                             <Form.Control
@@ -386,7 +385,7 @@ function Home() {
                             />
                         </Form.Group>
 
-
+                        {/* Duration */}
                         <Form.Group className="mb-3">
                             <Form.Label>Duration</Form.Label>
                             <Form.Control
@@ -397,7 +396,7 @@ function Home() {
                             />
                         </Form.Group>
 
-
+                        {/* Update Button */}
                         <Button variant="primary" onClick={() => handleUpdateService(selectedService.serviceId)}>
                             Update Service
                         </Button>

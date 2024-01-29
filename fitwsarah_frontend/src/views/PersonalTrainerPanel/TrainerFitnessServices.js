@@ -128,7 +128,7 @@ function Services() {
                                     <td className="other-info">{service.otherInformation_FR}</td>
                                     <td>{service.price}$</td>
                                     <td>
-                                        <button className="button details-button">{t('edit')}</button>
+                                        <button className="button details-button">{t('details')}</button>
                                         <button className="button delete-button">{t('delete')}</button>
                                     </td>
                                 </tr>
