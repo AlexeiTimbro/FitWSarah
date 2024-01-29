@@ -78,17 +78,12 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authz -> authz
-                                .requestMatchers("api/v1/appointments").permitAll()
-                                .requestMatchers("api/v1/appointments").hasAnyRole("Admin", "Personal Trainer", "Member")
-                                .requestMatchers("api/v1/fitnessPackages/**").permitAll()
-                                .requestMatchers("api/v1/accounts/users/userId").hasRole("Member")
-                                .anyRequest().authenticated()
-                        /*.requestMatchers("api/v1/fitnessPackages/**").permitAll()
+                        .requestMatchers("api/v1/fitnessPackages/**").permitAll()
                         .requestMatchers("api/v1/appointments").permitAll()
                         .requestMatchers("api/v1/feedbacks").permitAll()
                         .requestMatchers("api/v1/appointments").hasAnyRole("Admin", "Personal Trainer", "Member")
                         .requestMatchers("api/v1/accounts/users/userId").hasRole("Member")
-                        .anyRequest().authenticated()*/
+                        .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder()).jwtAuthenticationConverter(customJwtAuthenticationConverter())))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
