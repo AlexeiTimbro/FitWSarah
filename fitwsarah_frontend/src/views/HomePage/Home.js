@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from "react-i18next";
 import { useLanguage } from '../../LanguageConfig/LanguageContext';
+import { useGetAccessToken } from "../../components/authentication/authUtils";
 import "./Editbutton.css";
 
 
@@ -29,9 +30,20 @@ function Home() {
 
     const [services, setServices] = useState([]);
     const [editMode, setEditMode] = useState(false);
+    const [accessToken, setAccessToken] = useState(null);
+    const getAccessToken = useGetAccessToken();
 
     const {t} = useTranslation('home');
     const {language} = useLanguage();
+
+    useEffect(() => {
+        const fetchToken = async () => {
+          const token = await getAccessToken();
+          if (token) setAccessToken(token);
+        };
+  
+        fetchToken();
+      }, [getAccessToken]);
 
 
     useEffect(() => {
@@ -99,16 +111,6 @@ function Home() {
 
 
     const handleUpdateService = (serviceId) => {
-        if (!selectedService || !selectedService.serviceId) {
-            console.error("No service selected for update");
-            return;
-        }
-
-        getAccessTokenSilently({
-            audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-            scope: "update:fitnessPackages"
-        })
-            .then(accessToken => {
                 fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
                     method: "PUT",
                     headers: {
@@ -131,10 +133,6 @@ function Home() {
                     .catch(error => {
                         console.error("Error updating service:", error);
                     });
-            })
-            .catch(error => {
-                console.error("Error getting access token:", error);
-            });
     };
 
 
