@@ -3,8 +3,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
-import '../PersonalTrainerPanel/TrainerFeedback.css';
+import './TrainerAccounts.css';
 import "../../css/style.css";
+import ReactStars from 'react-stars';
+import './TrainerFeedback.css';
 import { useTranslation } from "react-i18next";
 function Feedbacks() {
 
@@ -49,7 +51,7 @@ function Feedbacks() {
 
             <div className="accounts-section">
                 <div className="container">
-                    <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
+                    <Link to="/trainerPanel" className="button back-button">{t('back')}</Link>
                     <div className="header-section">
                         <h1>{t('feedback')}</h1>
                     </div>
@@ -57,7 +59,7 @@ function Feedbacks() {
                         <table className="table">
                             <thead>
                             <tr>
-                            <th>{t('userId')}</th>
+                                <th>{t('userId')}</th>
                                 <th>{t('stars')}</th>
                                 <th>{t('status')}</th>
                                 <th>{t('content')}</th>
@@ -68,7 +70,7 @@ function Feedbacks() {
                             {feedbacks.map(feedback => (
                                 <tr key={feedback.id}>
                                     <td>{feedback.userId}</td>
-                                    <td>{feedback.stars}</td>
+                                    <td><ReactStars count={feedback.stars} size={20} half={false}  color1={'#ffd700'} /></td>
                                     <td>{feedback.status}</td>
                                     <td>{feedback.content}</td>
                                     <td>

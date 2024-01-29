@@ -33,10 +33,10 @@
     "back": "Back",
     "minutes": "minutes",
     "hours": "hour(s)",
-    "addService": "Add a Fitnress Service",
+    "addService": "Add a Fitness Service",
     "fitnessTitle": "Fitness Service Title",
     "otherInformationOptional": "Other Information (Optional)",
-    "adminPanel": "Panneau d'Administration",
+    "adminPanel": "Admin Panel",
     "adminPanelaccounts": "Accounts",
     "currentTotalAccounts": "Current Total: {{count}} Accounts",
     "lastMonthTotalAccounts": "Last Month's Total: {{count}} Accounts",
@@ -75,6 +75,11 @@
     "fitnessService": "Fitness services",
     "invoice": "Invoices",
     "amout": "Amount",
-    "trainerPanel": "Trainer panel"
+    "trainerPanel": "Trainer panel",
+    "userId":"User Id",
+    "stars":"Stars",
+    "publish":"Publish",
+    "remove":"Remove",
+    "feedback":"Feedback"
 
 }

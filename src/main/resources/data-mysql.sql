@@ -16,12 +16,12 @@ INSERT INTO invoices (invoice_id, account_id, user_id, username, status, date, d
                                                                                                                   ('inv-uuid-4', 'uuid-acc4', '4', 'sarahwhite', 'COMPLETED', '2024-01-04', '2024-01-14', 'Cash', 50.00),
                                                                                                                   ('inv-uuid-5', 'uuid-acc5', '5', 'davidjohnson', 'PENDING', '2024-01-05', '2024-01-15', 'Bank Transfer', 75.00);
 
-INSERT INTO feedback_threads (feedback_id, account_id, stars, content) VALUES
-('fdbk-uuid-1', 'uuid-acc1', 5, 'Excellent personal training session'),
-('fdbk-uuid-2', 'uuid-acc2', 4, 'Great yoga classes, but room was crowded'),
-('fdbk-uuid-3', 'uuid-acc3', 5, 'Loved the training package, very comprehensive'),
-('fdbk-uuid-4', 'uuid-acc4', 3, 'Good nutrition advice, but consultation felt rushed'),
-('fdbk-uuid-5', 'uuid-acc5', 4, 'Fun group classes, but schedule is limited');
+INSERT INTO feedback_threads (feedback_id, user_id, stars, content, status) VALUES
+('fdbk-uuid-1', 'uuid-acc1', 5, 'Excellent personal training session','INVISIBLE'),
+('fdbk-uuid-2', 'uuid-acc2', 4, 'Great yoga classes, but room was crowded', 'INVISIBLE'),
+('fdbk-uuid-3', 'uuid-acc3', 5, 'Loved the training package, very comprehensive', 'INVISIBLE'),
+('fdbk-uuid-4', 'uuid-acc4', 3, 'Good nutrition advice, but consultation felt rushed', 'INVISIBLE'),
+('fdbk-uuid-5', 'uuid-acc5', 4, 'Fun group classes, but schedule is limited','INVISIBLE');
 
 INSERT INTO appointments (appointment_id, availability_id, user_id, service_id, status, location, first_name, last_name, phone_num, date, time) VALUES
 ('uuid-appt1', 'uuid-avail1', 'dc2b4f0f-76da-4d1e-ad2d-cebf950e5fa2', '99a836ab-8f83-4e63-b266-3f56b1396df4', 'REQUESTED', 'Location 1', 'Emily', 'Jones', '514-223-3322', '2023-12-01','10:00'),

@@ -19,7 +19,7 @@ function NavLoggedIn() {
           <div className="left-links">
             <Link to="/"><img src={logo} alt="app logo" /></Link>
             <a href="#">{t('aboutMe')}</a>
-            <a href="#">{t('contactMe')}</a>
+            <Link to="/contactMe">{t('contactMe')}</Link>
             <Link to="/profile">{t('profile')}</Link>
           </div>
   <div className="right-links">
