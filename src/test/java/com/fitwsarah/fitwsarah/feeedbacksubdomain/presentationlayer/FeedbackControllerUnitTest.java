@@ -73,4 +73,16 @@ class FeedbackControllerUnitTest {
         verify(feedbackService, times(1)).removeFeedback(feedbackId);
     }
 
+    @Test
+    void updateFeedbackStatus_shouldSucceed() {
+        String feedbackId = "uuid-feed1";
+        String status = "VISIBLE";
+
+        FeedbackResponseModel expectedResponse = new FeedbackResponseModel(feedbackId,"user-id1", 3,"test" , State.valueOf(status));
+        when(feedbackService.updateFeedbackState(feedbackId, status)).thenReturn(expectedResponse);
+
+        FeedbackResponseModel result = feedbackController.updateFeedbackState(feedbackId, status);
+
+        assertEquals(expectedResponse, result);
+    }
 }

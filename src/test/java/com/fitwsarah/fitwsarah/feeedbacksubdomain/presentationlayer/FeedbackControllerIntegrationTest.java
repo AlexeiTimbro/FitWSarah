@@ -31,8 +31,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(FeedbackController.class)
@@ -85,6 +84,14 @@ class FeedbackControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void updateFeedbackState_ShouldSucceed() throws Exception{
+        mockMvc.perform(patch("/api/v1/feedbacks/{feedbackId}/publish", feedback1.getFeedbackId())
+                        .content("VISIBLE")
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     public String obtainAuthToken() throws Exception {
         RestTemplate restTemplate = new RestTemplate();

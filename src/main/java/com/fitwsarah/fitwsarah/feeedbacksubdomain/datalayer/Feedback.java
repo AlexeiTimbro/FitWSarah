@@ -22,7 +22,7 @@ public class Feedback {
     @Enumerated(EnumType.STRING)
     private State status;
 
-    Feedback(){
+    public Feedback(){
         this.feedbackIdentifier = new FeedbackIdentifier();
     }
 

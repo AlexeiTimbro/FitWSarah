@@ -118,4 +118,28 @@ class FeedbackServiceUnitTest {
         verify(feedbackRepository, never()).delete(any(Feedback.class));
     }
 
+    @Test
+    public void updateFeedbackStatus_shouldSucceed(){
+        String feedbackId = "uuid-feed1";
+        String status = "AnyStatus";
+
+        Feedback feedback = new Feedback();
+        feedback.getFeedbackIdentifier().setFeedbackId(feedbackId);
+
+        FeedbackResponseModel responseModel = new FeedbackResponseModel(
+                "uuid-feed1",
+                "uuid-user1",
+                4,
+                "testContent",
+                State.INVISIBLE
+        );
+
+        when(feedbackRepository.findFeedbackByFeedbackIdentifier_FeedbackId(feedbackId)).thenReturn(feedback);
+        when(feedbackResponseMapper.entityToResponseModel(feedback)).thenReturn(responseModel);
+
+        FeedbackResponseModel result = feedbackService.updateFeedbackState(feedbackId, status);
+
+        assertEquals(State.INVISIBLE, result.getStatus());
+    }
+
 }
