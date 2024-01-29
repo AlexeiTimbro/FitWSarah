@@ -4,10 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequestModel;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer.FitnessPackageService;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.PromoIdentifier;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +32,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -48,7 +52,7 @@ class FitnessPackageControllerIntegrationTest {
     @MockBean
     private FitnessPackageService fitnessPackageService;
 
-    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1","One On One Training", "1 hour", "Desc", "s", "fsdaf", "fsaf", "fsadf", 22.00);
+    FitnessPackageResponseModel fitnessPackage = new FitnessPackageResponseModel("serviceID1", "promoID1", Status.INVISIBLE, "1 hour", "Desc", "s", "fsdaf", "fsaf", "fsadf", "fsaf", 22.00);
 
     private List<FitnessPackageResponseModel> fitnessPackageList;
 
@@ -84,7 +88,7 @@ class FitnessPackageControllerIntegrationTest {
     }
     @Test
     public void addFitnessPackage_shouldSucceed() throws Exception {
-        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", 22.00);
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel(Status.INVISIBLE,"20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", "22.00", 99.0 );
 
         mockMvc.perform(post("/api/v1/fitnessPackages")
                         .header("Authorization", testToken)
@@ -92,6 +96,18 @@ class FitnessPackageControllerIntegrationTest {
                         .content(asJsonString(fitnessPackageRequestModel)))
                 .andExpect(status().isCreated());
 
+    }
+
+
+    @Test
+    void updateFitnessPackage_shouldSucceed() throws Exception{
+
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel(Status.INVISIBLE,"20 minutes","desc","other","fdsaf", "fdsaf", "fasdf", "22.00", 99.0 );
+        mockMvc.perform(put("/api/v1/fitnessPackages/{serviceId}", fitnessPackage.getServiceId())
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(fitnessPackageRequestModel)))
+                .andExpect(status().isOk());
     }
     private String asJsonString(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -118,5 +134,8 @@ class FitnessPackageControllerIntegrationTest {
         JsonNode rootNode = mapper.readTree(response.getBody());
         return rootNode.path("access_token").asText();
     }
+
+
+
 
 }

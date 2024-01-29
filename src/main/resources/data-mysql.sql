@@ -36,13 +36,13 @@ INSERT INTO appointments (appointment_id, availability_id, user_id, service_id, 
 ('uuid-appt10', 'uuid-avail10', 'fb0686ac-4907-4d6c-b0cd-0942049e32a9', '562314d2-3a8e-4a41-9b61-7bc9731f555f', 'COMPLETED', 'Location 10', 'Liam', 'Moore', '905-333-2222', '2023-12-10','15:15'),
 ('uuid-appt11', 'uuid-avail11', 'cfc49f9d-1711-4a9a-8157-2e865d5c309a', 'f09e14dd-59cf-4644-a525-93bf534c8024', 'SCHEDULED', 'Location 11', 'Ava', 'Harris', '416-876-5432', '2023-12-11 ','10:30');
 
-INSERT INTO fitness_services (service_id, promo_id, title_en, title_fr, duration, description_en, description_fr, other_information_en, other_information_fr, price) VALUES
-('99a836ab-8f83-4e63-b266-3f56b1396df4', 'a062ff08-d00f-47d9-88d3-e35e7d0446a3', 'Personal Training', 'Entraînement Personnel', '1 hour', 'One-on-one personalized training session', 'Séance d’entraînement personnalisée', 'Tailored fitness guidance by Sarah.', 'Conseils de fitness personnalisés par Sarah.', 100.00),
-('99a836ab-8f83-4e63-b266-3f56b1396df5', '9ecab68a-fe7d-40c2-bd4f-62d2854ad92d', 'Yoga Classes', 'Cours de Yoga', '45 minutes', 'Group yoga sessions for all levels', 'Séances de yoga en groupe pour tous niveaux', 'Yoga for well-being and balance for all.', 'Yoga pour le bien-être et l’équilibre pour tous.', 50.00),
-('6b91f458-9eea-4336-8832-62e0a8d38ccb', '2644a7cb-59ce-4f8d-9db2-36e0a06b6508', 'Boot Camp', "Camp d'entraînement", '30 minutes', 'High-intensity interval training in a group setting', 'Entraînement par intervalles de haute intensité en groupe', 'High-energy workout.', 'Entraînement dynamique.', 75.00),
-('b5c6caef-86b3-4a55-8984-0be52a1349c8', '29ebf549-2caf-4919-ba15-9c5904534dc1', 'Nutrition Planning', 'Planification Nutritionnelle', '1 hour', 'Personalized nutrition planning and guidance', 'Planification nutritionnelle personnalisée et conseils', 'Personalized health and diet plans.', 'Plans de santé et de régime personnalisés.', 60.00),
-('f4f956ed-c6bf-421b-bcf0-36f7c29a848c', '1de4e220-af32-4f0d-94eb-1b906bb8b2e1', 'Cycling Class', 'Cours de Vélo', '1 hour', 'Indoor cycling for fitness and endurance', 'Cyclisme en salle pour la forme et l’endurance', 'Intense cycling for strength and endurance.', 'Cyclisme intense pour la force et l’endurance.', 40.00);
 
+INSERT INTO fitness_services (service_id, promo_id, status, title_en, title_fr, duration, description_en, description_fr, other_information_en, other_information_fr, price) VALUES
+('99a836ab-8f83-4e63-b266-3f56b1396df4', 'a062ff08-d00f-47d9-88d3-e35e7d0446a3', 'VISIBLE', 'Personal Training', 'Entraînement Personnel', '1 hour', 'One-on-one personalized training session', 'Séance d’entraînement personnalisée', 'Tailored fitness guidance by Sarah.', 'Conseils de fitness personnalisés par Sarah.', 100.00),
+('99a836ab-8f83-4e63-b266-3f56b1396df5', '9ecab68a-fe7d-40c2-bd4f-62d2854ad92d', 'VISIBLE', 'Yoga Classes', 'Cours de Yoga', '45 minutes', 'Group yoga sessions for all levels', 'Séances de yoga en groupe pour tous niveaux', 'Yoga for well-being and balance for all.', 'Yoga pour le bien-être et l’équilibre pour tous.', 50.00),
+('6b91f458-9eea-4336-8832-62e0a8d38ccb', '2644a7cb-59ce-4f8d-9db2-36e0a06b6508', 'VISIBLE', 'Boot Camp', 'Camp d''entraînement',  '30 minutes', 'High-intensity interval training in a group setting', 'Entraînement par intervalles de haute intensité en groupe', 'High-energy workout.', 'Entraînement dynamique.', 75.00),
+('b5c6caef-86b3-4a55-8984-0be52a1349c8', '29ebf549-2caf-4919-ba15-9c5904534dc1', 'VISIBLE', 'Nutrition Planning', 'Planification Nutritionnelle', '1 hour', 'Personalized nutrition planning and guidance', 'Planification nutritionnelle personnalisée et conseils', 'Personalized health and diet plans.', 'Plans de santé et de régime personnalisés.', 60.00),
+('f4f956ed-c6bf-421b-bcf0-36f7c29a848c', '1de4e220-af32-4f0d-94eb-1b906bb8b2e1', 'VISIBLE', 'Cycling Class', 'Cours de Vélo', '1 hour', 'Indoor cycling for fitness and endurance', 'Cyclisme en salle pour la forme et l’endurance', 'Intense cycling for strength and endurance.', 'Cyclisme intense pour la force et l’endurance.', 40.00);
 
 INSERT INTO promo_offers (promotion_id, title, availability, description, price) VALUES
 ('a062ff08-d00f-47d9-88d3-e35e7d0446a3', 'New Year Fitness Special', 1, 'Discount on personal training sessions for new members', 80.00),
@@ -59,9 +59,8 @@ INSERT INTO availabilities (availability_id, available, account_id, datetime) VA
 ('uuid-avail5', 1, 'uuid-acc5', '2023-12-05 16:30:00');
 
 INSERT INTO coach_notes (coach_note_id, user_id, content_en, content_fr) VALUES
-('1', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach'),
-('2', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach'),
-('3', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach'),
-('4', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach'),
-('5', '65b16a01c0705bb1bf4a2bb8', 'This is a coach note', 'Ceci est une note de coach');
-
+('1', '65b16a01c0705bb1bf4a2bb8', 'Keep up the great work with your training!', 'Continuez votre excellent travail avec votre entraînement !'),
+('2', '65b16a01c0705bb1bf4a2bb8', 'Remember to stay hydrated during workouts.', 'oubliez pas de rester hydraté pendant les entraînements.'),
+('3', '65b16a01c0705bb1bf4a2bb8', 'Excellent progress on your last session!', 'Excellents progrès lors de votre dernière séance !'),
+('4', '65b16a01c0705bb1bf4a2bb8', 'Try to increase your running distance gradually.', 'Essayez d''augmenter progressivement votre distance de course.'),
+('5', '65b16a01c0705bb1bf4a2bb8', 'Focus on maintaining a balanced diet.', 'Concentrez-vous sur le maintien d''une alimentation équilibrée.');

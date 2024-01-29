@@ -1,15 +1,13 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer;
 
-import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentServiceImpl;
+
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.PromoIdentifier;
+import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageRequestMapper;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPackageResponseMapper;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageRequestModel;
@@ -21,11 +19,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -61,7 +63,7 @@ class FitnessPackageServiceUnitTest {
         fitnessPackage.getFitnessPackageIdentifier().setServiceId(serviceId);
 
 
-        FitnessPackageResponseModel responseModel = new FitnessPackageResponseModel("99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4","s", "fdsaf", "fdsaf", "sadff", 22.00);
+        FitnessPackageResponseModel responseModel = new FitnessPackageResponseModel("99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4", Status.INVISIBLE, "99a836ab-8f83-4e63-b266-3f56b1396df4", "99a836ab-8f83-4e63-b266-3f56b1396df4","s", "fdsaf", "fdsaf", "sadff", "22.00", 99.0);
 
 
         when(fitnessPackageRepository.findByFitnessPackageIdentifier_ServiceId(serviceId)).thenReturn(fitnessPackage);
@@ -80,10 +82,10 @@ class FitnessPackageServiceUnitTest {
 
     @Test
     public void addFitnessPackage_shouldSucceed(){
-        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel("title","20 minutes", "sadfdf","desc","other", "fsafd", "sdfa", 22.00);
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel(Status.INVISIBLE,"20 minutes", "sadfdf","desc","other", "fsafd", "sdfa", "22.00", 99.0);
 
         FitnessPackage entity = mock(FitnessPackage.class);
-        FitnessPackageResponseModel mockedResponse = new FitnessPackageResponseModel("serviceId", "uuid-promo1", "title",  "20 minutes", "desc", "other", "sadfds", "fdsaf", "fdsaf", 22.00);
+        FitnessPackageResponseModel mockedResponse = new FitnessPackageResponseModel("serviceId", "uuid-promo1", Status.INVISIBLE,  "20 minutes", "desc", "other", "sadfds", "fdsaf", "fdsaf", "22.00", 99.0);
 
         when(fitnessPackageResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
         when(fitnessPackageRequestMapper.requestModelToEntity(fitnessPackageRequestModel)).thenReturn(entity);
@@ -97,6 +99,44 @@ class FitnessPackageServiceUnitTest {
         assertNotNull(result.getPrice());
         assertNotNull(result.getTitle_EN());
         assertNotNull(result.getTitle_FR());
+    }
+
+
+    @Test
+    public void updateFitnessPacakge_shouldSucceed(){
+
+        String fitnessPackageId = "uuid-appt1";
+        FitnessPackageRequestModel fitnessPackageRequestModel = new FitnessPackageRequestModel(Status.INVISIBLE,"20 minutes", "desc","other","sadfds", "fsafd", "sdfa", "22.00", 99.0);
+
+
+        FitnessPackage existingFitnessPackage = new FitnessPackage();
+        existingFitnessPackage.getFitnessPackageIdentifier().setServiceId(fitnessPackageId);
+        existingFitnessPackage.setStatus(Status.INVISIBLE);
+
+        when(fitnessPackageRepository.findByFitnessPackageIdentifier_ServiceId(fitnessPackageId))
+                .thenReturn(existingFitnessPackage);
+
+        when(fitnessPackageRepository.save(any(FitnessPackage.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        FitnessPackageResponseModel mockedResponse = new FitnessPackageResponseModel("serviceId", "uuid-promo1", Status.INVISIBLE,  "20 minutes", "desc", "other", "sadfds", "fdsaf", "sdfa", "22.00", 99.0);
+
+        when(fitnessPackageResponseMapper.entityToResponseModel(any(FitnessPackage.class)))
+                .thenReturn(mockedResponse);
+
+        FitnessPackageResponseModel result = fitnessPackageService.updateFitnessPackage(fitnessPackageRequestModel, fitnessPackageId);
+
+        assertNotNull(result);
+        assertEquals(fitnessPackageRequestModel.getStatus(), result.getStatus());
+        assertEquals(fitnessPackageRequestModel.getTitle_EN(), result.getTitle_EN());
+        assertEquals(fitnessPackageRequestModel.getTitle_FR(), result.getTitle_FR());
+        assertEquals(fitnessPackageRequestModel.getDuration(), result.getDuration());
+        assertEquals(fitnessPackageRequestModel.getDescription_EN(), result.getDescription_EN());
+        assertEquals(fitnessPackageRequestModel.getOtherInformation_EN(), result.getOtherInformation_EN());
+        assertEquals(fitnessPackageRequestModel.getOtherInformation_FR(), result.getOtherInformation_FR());
+        assertEquals(fitnessPackageRequestModel.getPrice(), result.getPrice());
+
+        Mockito.verify(fitnessPackageRepository).save(existingFitnessPackage);
     }
 
 
