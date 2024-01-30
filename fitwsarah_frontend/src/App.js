@@ -20,6 +20,7 @@ import ContactMe from "./views/ContactMePage/ContactMeView";
 import Feedbacks from "./views/PersonalTrainerPanel/TrainerFeedback";
 import AdminFeedback from "./views/AdminPanelPage/Feedback";
 import { LanguageProvider } from './LanguageConfig/LanguageContext.js';
+import ClientInvoices from "./components/clientProfile/clientInvoices";
 
 function App() {
     return (
@@ -46,6 +47,7 @@ function App() {
                     <Route path="/contactMe" element={<ContactMe/>}/>
                     <Route path="/trainerFeedback" element={<Feedbacks/>}/>
                     <Route path="/adminFeedback" element={<AdminFeedback/>}/>
+                    <Route path="*" element={<ClientInvoices/>}/>
                 </Routes>
             </Router>
         </LanguageProvider>
