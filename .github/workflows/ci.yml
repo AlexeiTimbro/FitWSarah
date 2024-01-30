@@ -31,5 +31,5 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x ./gradlew
       - name: Run Gradle Build
-        working-directory: corso_website_springboot
+        working-directory: fitwsarah_frontend
         run: ./gradlew build
