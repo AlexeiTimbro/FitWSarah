@@ -28,8 +28,6 @@ jobs:
             distribution: 'adopt'
             cache: 'gradle'
 
-      - name: Make Gradlew Executable
-        working-directory: fitwsarah_frontend
-        run: chmod +x ./gradlew
       - name: Run Gradle Build
+        working-directory: fitwsarah_frontend
         run: ./gradlew build
