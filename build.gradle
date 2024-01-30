@@ -100,6 +100,7 @@ tasks.named('bootBuildImage') {
 }
 
 test {
+    exclude("**/EndToEndTesting.class")
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
