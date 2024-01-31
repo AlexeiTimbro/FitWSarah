@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import configData from '../../config.json'
-import LoginButton from "../../components/authentication/login";
-import LogoutButton from "../../components/authentication/logout";
-import axios from 'axios'; 
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './AdminPanel.css';
@@ -18,7 +14,6 @@ function AdminPanel() {
         getAccessTokenSilently,
       } = useAuth0();
 
-    const [accounts, setAccounts] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
 
     const { t } = useTranslation('adminPanel');

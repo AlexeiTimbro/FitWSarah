@@ -4,7 +4,6 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './TrainerInvoices.css';
-import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
 
 

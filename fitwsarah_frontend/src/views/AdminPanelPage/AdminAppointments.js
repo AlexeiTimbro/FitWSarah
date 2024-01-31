@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import './AdminAppointment.css';
 import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-import { FaSearch } from 'react-icons/fa';
 import { parse, format } from 'date-fns';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';

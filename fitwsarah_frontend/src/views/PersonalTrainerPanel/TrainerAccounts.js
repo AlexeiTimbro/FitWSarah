@@ -1,16 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import configData from '../../config.json'
-import LoginButton from "../../components/authentication/login";
-import LogoutButton from "../../components/authentication/logout";
-import axios from 'axios';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import './TrainerAccounts.css';
-import { FaSearch } from 'react-icons/fa';
 import { useTranslation } from "react-i18next";
 
 

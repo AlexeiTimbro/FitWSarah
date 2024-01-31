@@ -8,7 +8,7 @@ import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerN
 import configData from "../../config.json";
 
 function UpdateFitnessPackage() {
-    const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
+    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const [fitnessPackage, setFitnessPackage] = useState({
         title: '',

@@ -12,7 +12,6 @@ import { ROLES } from "../../components/authentication/roles";
 import "../../components/authentication/switch.css"
 import RoleBasedSwitch from "../../components/authentication/RoleBasedSwitch";
 import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from "react-i18next";
 import { useLanguage } from '../../LanguageConfig/LanguageContext';
@@ -23,7 +22,6 @@ import "./Editbutton.css";
 function Home() {
     const {
         isAuthenticated,
-        getAccessTokenSilently,
         loginWithRedirect,
         user
     } = useAuth0();

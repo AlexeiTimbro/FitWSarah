@@ -17,7 +17,6 @@ function Services() {
 
 
     const [services, setServices] = useState([]);
-    const [accessToken, setAccessToken] = useState(null);
     const { t } = useTranslation('adminPanel');
 
     useEffect(() => {

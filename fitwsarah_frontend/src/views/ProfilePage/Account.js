@@ -14,12 +14,10 @@ import { useTranslation } from "react-i18next";
 function Profile() {
     const {isAuthenticated,  getAccessTokenSilently, user} = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
-    const [profile, setProfile] = useState(null);
     const [profilePicUrl, setProfilePicUrl] = useState('');
-    const [accountId, setAccountId] = useState(null);
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [city, setCity] = useState('');
+    const [setUsername] = useState('');
+    const [setEmail] = useState('');
+    const [setCity] = useState('');
     const [selectedTab, setSelectedTab] = useState('appointments');
     const [appointments, setAppointments] = useState([]);
     const [status, setStatus] = useState('SCHEDULED');

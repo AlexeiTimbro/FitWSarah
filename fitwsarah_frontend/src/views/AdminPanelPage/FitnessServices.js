@@ -7,7 +7,6 @@ import './AdminAccounts.css';
 import { Modal } from 'react-bootstrap';
 import AddServiceButton from "../../components/PersonalTrainerPanel/addService";
 import "../../css/style.css";
-import { useGetAccessToken } from "../../components/authentication/authUtils";
 import { useTranslation } from "react-i18next";
 
 
@@ -19,7 +18,6 @@ function Services() {
 
 
     const [services, setServices] = useState([]);
-    const [accessToken, setAccessToken] = useState(null);
     const { t } = useTranslation('adminPanel');
 
     useEffect(() => {
