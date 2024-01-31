@@ -39,7 +39,6 @@ function App() {
                     <Route path="/trainerAccounts" element={<TrainerAccounts/>}/>
                     <Route path="/services" element={<Services/>}/>
                     <Route path="/trainerServices" element={<TrainerFitnessServices/>}/>
-                    <Route path="/coachnotes" element={<CoachNote/>}/>
                     <Route path="/adminInvoices" element={<AdminInvoices/>}/>
                     <Route path="/CreateAdminInvoices" element={<CreateAdminInvoices/>}/>
                     <Route path="/trainerInvoices" element={<TrainerInvoices/>}/>
@@ -47,7 +46,7 @@ function App() {
                     <Route path="/contactMe" element={<ContactMe/>}/>
                     <Route path="/trainerFeedback" element={<Feedbacks/>}/>
                     <Route path="/adminFeedback" element={<AdminFeedback/>}/>
-                    <Route path="/invoices" element={<ClientInvoices/>}/>
+
                 </Routes>
             </Router>
         </LanguageProvider>
