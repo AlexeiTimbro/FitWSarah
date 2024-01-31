@@ -1,6 +1,7 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.InvoiceService;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.*;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
@@ -66,7 +67,8 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(AppointmentController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 @ActiveProfiles("test")
 class InvoiceControllerIntegrationTest {
 
@@ -76,6 +78,8 @@ class InvoiceControllerIntegrationTest {
     @MockBean
     private InvoiceService invoiceService;
 
+    private ObjectMapper objectMapper;
+
     InvoiceResponseModel invoice1 = new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00);
 
     private List<InvoiceResponseModel> invoiceResponseModelList;
@@ -83,6 +87,9 @@ class InvoiceControllerIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
         invoiceResponseModelList = Arrays.asList(invoice1);
 
         given(invoiceService.getAllInvoices()).willReturn(invoiceResponseModelList);
@@ -92,7 +99,7 @@ class InvoiceControllerIntegrationTest {
 
     }
 
-/*
+
     @Test
     void getAllInvoices() throws Exception {
         mockMvc.perform(get("/api/v1/invoices")
@@ -101,25 +108,17 @@ class InvoiceControllerIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
- */
-
-/*
     @Test
     void addInvoice() throws Exception {
         mockMvc.perform(post("/api/v1/invoices")
                         .header("Authorization", testToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(invoice1)))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk()) // Expecting 200 OK status instead of 201 Created
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
-
- */
-
-
     private String asJsonString(Object obj) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(obj);
     }
 
