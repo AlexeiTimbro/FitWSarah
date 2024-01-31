@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import './Invoices.css';
 import { useGetAccessToken } from "../authentication/authUtils";
-import { useTranslation } from "react-i18next";
-import { useLanguage } from "../../LanguageConfig/LanguageContext";
 
 
 function ClientInvoices({userId}) {
 
     const [invoices, setInvoices] = useState([]);
     const [accessToken, setAccessToken] = useState(false);
-    const { t } = useTranslation('invoices');
-    const { language } = useLanguage();
     const getAccessToken = useGetAccessToken();
 
     useEffect(() => {
@@ -41,6 +36,7 @@ function ClientInvoices({userId}) {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
+                console.log(response)
                 return response.json();
             })
             .then((data) => {
@@ -54,6 +50,7 @@ function ClientInvoices({userId}) {
 
 
     return (
+
         <div className='invoices-container'>
             <h1>Invoices</h1>
             <div className='invoices-table'>
@@ -69,8 +66,8 @@ function ClientInvoices({userId}) {
                     </tr>
                     </thead>
                     <tbody>
-                    {invoices.map((invoice, index) => (
-                        <tr key={index}>
+                    {invoices.map(invoice => (
+                        <tr key={invoice.id}>
                             <td>{invoice.username}</td>
                             <td>{invoice.status}</td>
                             <td>{invoice.date}</td>

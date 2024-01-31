@@ -46,6 +46,7 @@ function App() {
                     <Route path="/contactMe" element={<ContactMe/>}/>
                     <Route path="/trainerFeedback" element={<Feedbacks/>}/>
                     <Route path="/adminFeedback" element={<AdminFeedback/>}/>
+                    <Route path="/invoices" element={<ClientInvoices/>}/>
 
                 </Routes>
             </Router>
