@@ -10,6 +10,7 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
     const [accessToken, setAccessToken] = useState(null);
     const [showSuggestion, setShowSuggestion] = useState(false);
     const { t } = useTranslation('contactMe');
+  
   useEffect(() => {
     if (isAuthenticated) {
       const getAccessToken = async () => {
@@ -65,7 +66,7 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
               console.log("Added New Feedback"); 
               window.alert("Feedback Successfully Added")        
          } catch (error) {
-          console.error("Error adding service: ", error);
+          console.error("Error adding feedback: ", error);
           window.alert("An error has occured! Please try again later.");
       }};
       
@@ -124,7 +125,7 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
       
       return (
         <div style={{ marginBottom: "15px" }}>
-        {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>{t('submit')}</button>}
+        {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>{t('submitLogin')}</button>}
         {isAuthenticated &&
         <form onSubmit={(e) => addNewFeedbackData(e)}>
           <button id="newBtn" className="book-button" type="submit">{t('submit')}</button>

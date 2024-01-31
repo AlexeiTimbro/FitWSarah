@@ -618,4 +618,38 @@ public class EndToEndTesting {
         SelenideElement content = $("textarea[id='content']");
         content.shouldBe(visible);
     }
+
+    @Test
+    public void AllFeedbackPage(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("pt@admin.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+
+
+        SelenideElement contactBtn = $("a[href='/trainerPanel']");
+        contactBtn.click();
+
+        sleep(1000);
+        SelenideElement feedbackBtn = $("a[href='/trainerFeedback']");
+        feedbackBtn.shouldBe(visible);
+        feedbackBtn.click();
+
+
+    }
 }

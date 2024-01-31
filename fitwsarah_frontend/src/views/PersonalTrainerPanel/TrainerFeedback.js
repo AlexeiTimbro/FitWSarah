@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
+import configData from "../../config.json";
 import './TrainerAccounts.css';
 import "../../css/style.css";
 import ReactStars from 'react-stars';
@@ -12,21 +13,56 @@ function Feedbacks() {
 
     const {
         isAuthenticated,
+        getAccessTokenSilently
     } = useAuth0();
 
 
     const [feedbacks, setFeedbacks] = useState([]);
     const { t } = useTranslation('adminPanel');
-    useEffect(() => {
-        getAllFeedback();
-    }, []);
 
-    const getAllFeedback = () => {
+        useEffect(() => {
+        if (isAuthenticated) {
+          const getAccessToken = async () => {
+            try {
+              const token = await getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+                scope: configData.scope,
+              });
+              setAccessToken(token);
+            } catch (e) {
+              console.error(e.message);
+            }
+          };
+          getAccessToken();
+        }
+      }, [getAccessTokenSilently, isAuthenticated]);
+    
+        const fetchData = async () => {
+            try {
+                const token = await getAccessTokenSilently({
+                    audience: configData.audience,
+                    scope: configData.scope,
+                });
+                setAccessToken(token);
+            } catch (error) {
+                console.error("Error getting access token: ", error);
+            }
+        };
+
+    useEffect(() => {
+        if (accessToken) {
+            getAllFeedback();
+        }
+    }, [accessToken]);
+
+        const getAllFeedback = async () => {
+
         fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks`, {
             method: "GET",
-            headers: new Headers({
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
                 "Content-Type": "application/json"
-            })
+            }
         })
             .then((response) => {
                 if (!response.ok) {
@@ -40,14 +76,53 @@ function Feedbacks() {
             .catch((error) => {
                 console.log(error);
             });
-    };
+        };
 
-    const removeFeedback = (feedbackId) => {
+    const removeFeedback = async (feedbackId) => {
+        try {
+            await fetchData();
+      
+            if (!accessToken) {
+                console.error("Access token not available.");
+                return;
+            }
+
         fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks/${feedbackId}`, {
             method: "DELETE",
-            headers: new Headers({
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        }})
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+        })
+        .then(() =>{
+            getAllFeedback();
+        })
+        } catch (error) {
+        console.error("Error deleting feedback: ", error);
+        window.alert("An error has occured! Please try again later.");
+        }
+    };
+
+    const updateFeedback = async (feedbackId, status) => {
+        try {
+            await fetchData();
+      
+            if (!accessToken) {
+                console.error("Access token not available.");
+                return;
+            }
+
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks/${feedbackId}/publish`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
                 "Content-Type": "application/json"
-            })
+            },
+            body: status
         })
         .then((response) => {
             if (!response.ok) {
@@ -56,20 +131,37 @@ function Feedbacks() {
             return response.json();
         })
         .then((data) => {
-            setFeedbacks(data);
+            console.log(data)
+            getAllFeedback();
         })
         .catch((error) => {
             console.log(error);
         });
+    } catch (error) {
+        console.error("Error updating feedback: ", error);
+        window.alert("An error has occured! Please try again later.");
+    }
     };
 
     const removeConfirmation  = (feedbackId) => {
-        const answer = window.confirm("Are you sure?");
+        const answer = window.confirm(t("areyousure"));
         if(answer){
             removeFeedback(feedbackId);
+            getAllFeedback();
         }
-        else{
-            return;
+    }
+
+    const publishConfirmation  = (feedbackId) => {
+        const answer = window.confirm(t("areyousure_publish"));
+        if(answer){
+            updateFeedback(feedbackId, 'VISIBLE');
+        }
+    }
+
+    const unpublishConfirmation  = (feedbackId) => {
+        const answer = window.confirm(t('areyousure_UNpublish'));
+        if(answer){
+            updateFeedback(feedbackId, 'INVISIBLE');
         }
     }
 
@@ -104,8 +196,16 @@ function Feedbacks() {
                                     <td>{feedback.status}</td>
                                     <td>{feedback.content}</td>
                                     <td>
-                                        <button className="button details-button">{t('publish')}</button>
-                                        <button className="button delete-button" onClick={removeConfirmation(feedback.id)}>{t('remove')}</button>
+                                    
+                                    {feedback.status === "INVISIBLE" && (
+                                         <button className="button details-button" onClick={() => publishConfirmation(feedback.feedbackId)}>{t('publish')}</button>
+                                            )}
+
+                                        {feedback.status === "VISIBLE" && (
+                                         <button className="button details-button" onClick={() => unpublishConfirmation(feedback.feedbackId)}>{t('unpublish')}</button>
+                                            )}
+
+                                        <button className="button delete-button" onClick={() => removeConfirmation(feedback.feedbackId)}>{t('remove')}</button>
                                     </td>
                                 </tr>
                             ))}

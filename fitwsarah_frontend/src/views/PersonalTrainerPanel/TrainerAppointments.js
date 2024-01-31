@@ -134,14 +134,14 @@ function AdminAccounts() {
 
 
     const handleCancelAppointment = (appointmentId) => {
-        const isConfirmed = window.confirm("Are you sure you want to cancel this appointment?");
+        const isConfirmed = window.confirm(t('areyousure_cancelApp'));
         if (isConfirmed) {
             updateAppointmentStatus(appointmentId, 'cancelled');
         }
     };
 
     const handleAcceptedAppointment = (appointmentId) => {
-        const isConfirmed = window.confirm("Are you sure you want to accept this appointment?");
+        const isConfirmed = window.confirm(t('areyousure_acceptApp'));
         if (isConfirmed) {
             handleAppointmentRequest(appointmentId, 'scheduled');
         }
@@ -260,7 +260,7 @@ function AdminAccounts() {
                         <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
                     </div>
 
-                    <div className="table-scroll-container">
+                    <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>

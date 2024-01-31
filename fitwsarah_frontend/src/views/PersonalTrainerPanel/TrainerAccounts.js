@@ -87,7 +87,6 @@ function AdminAccounts() {
                             <tr>
                                 <th>{t('accountId')}</th>
                                 <th>{t('username')}</th>
-                                <th>{t('password')}</th>
                                 <th>{t('email')}</th>
                                 <th>{t('city')}</th>
                             </tr>
@@ -97,7 +96,6 @@ function AdminAccounts() {
                                 <tr key={account.id}>
                                     <td>{account.accountId}</td>
                                     <td>{account.username}</td>
-                                    <td>{account.password}</td>
                                     <td>{account.email}</td>
                                     <td>{account.city}</td>
                                     <td>

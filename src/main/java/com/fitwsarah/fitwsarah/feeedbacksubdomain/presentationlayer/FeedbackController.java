@@ -36,7 +36,7 @@ public class FeedbackController {
     @DeleteMapping("/{feedbackId}")
     public ResponseEntity<Void> deleteFeedbackById(@PathVariable String feedbackId){
         feedbackService.removeFeedback(feedbackId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
     @PatchMapping("/{feedbackId}/publish")
     public FeedbackResponseModel updateFeedbackState(@PathVariable String feedbackId,@RequestBody String status){

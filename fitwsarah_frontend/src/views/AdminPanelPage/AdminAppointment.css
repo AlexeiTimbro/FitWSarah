@@ -83,7 +83,7 @@ body {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #e1e1e1;
-    min-width: 120px;
+    min-width: 26em;
     font-size: 0.8em; /* Smaller font size */
 }
 

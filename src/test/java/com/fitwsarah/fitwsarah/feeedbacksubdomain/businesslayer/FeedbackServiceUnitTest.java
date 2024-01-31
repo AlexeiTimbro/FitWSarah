@@ -121,7 +121,7 @@ class FeedbackServiceUnitTest {
     @Test
     public void updateFeedbackStatus_shouldSucceed(){
         String feedbackId = "uuid-feed1";
-        String status = "AnyStatus";
+        String status = "VISIBLE";
 
         Feedback feedback = new Feedback();
         feedback.getFeedbackIdentifier().setFeedbackId(feedbackId);

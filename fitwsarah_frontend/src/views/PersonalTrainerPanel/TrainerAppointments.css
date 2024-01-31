@@ -83,8 +83,8 @@ body {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #e1e1e1;
-    min-width: 120px;
-    font-size: 0.8em; /* Smaller font size */
+    min-width: 15em;
+    font-size: 0.8em; 
 }
 
 /* Container adjustments for Bootstrap if used */
@@ -155,12 +155,6 @@ body {
     max-width: 100%;
 }
 
-@media (max-width: 768px) {
-    .table th, .table td {
-        min-width: auto;
-    }
-}
-
 .date-time-picker-container {
     min-width: 250px;
     max-width: 100%;
@@ -206,30 +200,30 @@ body {
 }
 
 .table-scroll-container {
-    overflow-x: hidden; /* Enable horizontal scrolling if needed */
+    overflow-x: hidden;
     max-height: 500px;
-    overflow-y: hidden; /* Enable vertical scrolling if needed */
+    overflow-y: hidden;
 }
 
 .table {
-    width: 100%; /* Table takes the full width */
+    width: 100%; 
     display: block;
-    white-space: nowrap; /* Prevents cells from wrapping */
+    white-space: nowrap; 
 }
 
 .table thead, .table tbody {
-    display: table; /* Make these behave like tables */
+    display: table; 
     width: 100%;
 }
 
 .table thead {
-    width: 100%; /* Full width to align with tbody */
+    width: 100%; 
 }
 
 .table tbody {
     display: block;
-    max-height: 450px; /* Set maximum height for vertical scrolling */
-    overflow-y: auto; /* Enable vertical scrolling if needed */
+    max-height: 450px; 
+    overflow-y: auto;
 }
 
 

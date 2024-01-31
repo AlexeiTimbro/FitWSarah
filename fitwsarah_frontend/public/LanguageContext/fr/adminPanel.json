@@ -79,6 +79,12 @@
     "userId":"ID de Compte",
     "stars":"Étoiles",
     "publish":"Publier",
+    "unpublish":"Dépublier",
+    "areyousure":"Êtes-vous sûr?",
+    "areyousure_publish":"Êtes-vous sûr de vouloir publier?",
+    "areyousure_UNpublish":"Êtes-vous sûr de vouloir dépublier?",
+    "areyousure_cancelApp":"Êtes-vous sûr de vouloir annuler le rendez-vous?",
+    "areyousure_acceptApp":"Êtes-vous sûr de vouloir accepter le rendez-vous?",
     "remove":"Supprimer",
     "feedback":"Avis"
 }

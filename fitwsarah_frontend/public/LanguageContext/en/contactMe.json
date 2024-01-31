@@ -10,5 +10,6 @@
     "back": "Back",
     "tryFit":"Try FitWSarah",
     "seemsLike":"It seems like you have not tried FitWSarah yet. ",
-    "youCanbook":"You can book an appointment from the home page."
+    "youCanbook":"You can book an appointment from the home page.",
+    "submitLogin":"Log In"
 }

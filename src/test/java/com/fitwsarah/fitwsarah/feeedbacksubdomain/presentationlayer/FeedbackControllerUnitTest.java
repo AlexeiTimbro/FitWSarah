@@ -69,7 +69,7 @@ class FeedbackControllerUnitTest {
 
         ResponseEntity<Void> result = feedbackController.deleteFeedbackById(feedbackId);
 
-        assertEquals(HttpStatus.NO_CONTENT, result.getStatusCode());
+        assertEquals(HttpStatus.OK, result.getStatusCode());
         verify(feedbackService, times(1)).removeFeedback(feedbackId);
     }
 
