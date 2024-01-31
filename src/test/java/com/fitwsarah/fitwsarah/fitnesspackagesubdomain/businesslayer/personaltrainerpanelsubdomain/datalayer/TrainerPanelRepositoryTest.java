@@ -1,5 +1,6 @@
-package com.fitwsarah.fitwsarah.personaltrainerpanelsubdomain.datalayer;
+package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer.personaltrainerpanelsubdomain.datalayer;
 
+import com.fitwsarah.fitwsarah.personaltrainerpanelsubdomain.datalayer.TrainerPanelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
