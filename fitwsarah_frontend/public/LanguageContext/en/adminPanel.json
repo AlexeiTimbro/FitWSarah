@@ -79,6 +79,12 @@
     "userId":"User Id",
     "stars":"Stars",
     "publish":"Publish",
+    "unpublish":"Unpublish",
+    "areyousure":"Are you sure?",
+    "areyousure_publish":"Are you sure you want to publish?",
+    "areyousure_UNpublish":"Are you sure you want to unpublish?",
+    "areyousure_cancelApp":"Are you sure you want to cancel this appointment?",
+    "areyousure_acceptApp":"Are you sure you want to accept this appointment?",
     "remove":"Remove",
     "feedback":"Feedback"
 

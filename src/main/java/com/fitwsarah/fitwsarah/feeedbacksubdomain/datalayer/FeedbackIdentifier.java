@@ -14,4 +14,8 @@ public class FeedbackIdentifier {
     public String getFeedbackId() {
         return feedbackId;
     }
+
+    public void setFeedbackId(String feedbackId){
+        this.feedbackId = feedbackId;
+    }
 }

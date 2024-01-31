@@ -32,9 +32,15 @@ public class FeedbackController {
     public ResponseEntity<FeedbackResponseModel> addFeedback(@RequestBody FeedbackRequestModel feedbackRequestModel){
         return ResponseEntity.status(HttpStatus.CREATED).body(feedbackService.addFeedback(feedbackRequestModel));
     }
-    //We should not be able to change a feedback (Correct Elias if he is wrong)
+
     @DeleteMapping("/{feedbackId}")
-    public void deleteFeedbackById(@PathVariable String feedbackId){
+    public ResponseEntity<Void> deleteFeedbackById(@PathVariable String feedbackId){
+        feedbackService.removeFeedback(feedbackId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    @PatchMapping("/{feedbackId}/publish")
+    public FeedbackResponseModel updateFeedbackState(@PathVariable String feedbackId,@RequestBody String status){
+        return feedbackService.updateFeedbackState(feedbackId, status);
     }
     @DeleteMapping()
     public void deleteAllFeedbackThreads(){

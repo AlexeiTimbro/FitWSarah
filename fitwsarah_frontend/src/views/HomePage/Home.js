@@ -303,7 +303,7 @@ function Home() {
                                       name="otherInformation_FR" onChange={(e) => handleInputChange(e)}/>
                         </div>
                     </form>
-                    <AddServiceButton fitnessDataToSend={fitnessDataToSend}/>
+                    <AddServiceButton getAllFitnessServices={getAllFitnessServices} fitnessDataToSend={fitnessDataToSend} setShowForm={setShowForm}/>
                 </Modal.Body>
             </Modal>
 

@@ -10,5 +10,6 @@
     "back": "Retourner",
     "tryFit":"Essayer FitWSarah",
     "seemsLike":"Il semble que vous n'ayez pas encore essayé FitWSarah.",
-    "youCanbook":"Vous pouvez prendre rendez-vous dans la page d'accueil."
+    "youCanbook":"Vous pouvez prendre rendez-vous dans la page d'accueil.",
+    "submitLogin":"Se connecter"
 }

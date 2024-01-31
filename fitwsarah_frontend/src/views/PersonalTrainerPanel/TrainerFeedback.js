@@ -3,11 +3,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
+import configData from "../../config.json";
 import './TrainerAccounts.css';
 import "../../css/style.css";
 import ReactStars from 'react-stars';
 import './TrainerFeedback.css';
 import { useTranslation } from "react-i18next";
+import {useGetAccessToken} from "../../components/authentication/authUtils";
 function Feedbacks() {
 
     const {
@@ -17,16 +19,31 @@ function Feedbacks() {
 
     const [feedbacks, setFeedbacks] = useState([]);
     const { t } = useTranslation('adminPanel');
-    useEffect(() => {
-        getAllFeedback();
-    }, []);
+    const [accessToken, setAccessToken] = useState(null);
+    const getAccessToken = useGetAccessToken();
 
-    const getAllFeedback = () => {
+       useEffect(() => {
+        const fetchToken = async () => {
+            const token = await getAccessToken();
+            if (token) setAccessToken(token);
+        };
+        fetchToken();
+    }, [getAccessToken]);
+
+    useEffect(() => {
+        if (accessToken) {
+            getAllFeedback();
+        }
+    }, [accessToken]);
+
+        const getAllFeedback = async () => {
+
         fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks`, {
             method: "GET",
-            headers: new Headers({
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
                 "Content-Type": "application/json"
-            })
+            }
         })
             .then((response) => {
                 if (!response.ok) {
@@ -40,7 +57,72 @@ function Feedbacks() {
             .catch((error) => {
                 console.log(error);
             });
+        };
+
+    const removeFeedback = async (feedbackId) => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks/${feedbackId}`, {
+            method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        }})
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+        })
+        .then(() =>{
+            getAllFeedback();
+        })
+       
     };
+
+    const updateFeedback = async (feedbackId, status) => {
+
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks/${feedbackId}/publish`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            },
+            body: status
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data)
+            getAllFeedback();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    } 
+
+    const removeConfirmation  = (feedbackId) => {
+        const answer = window.confirm(t("areyousure"));
+        if(answer){
+            removeFeedback(feedbackId);
+            getAllFeedback();
+        }
+    }
+
+    const publishConfirmation  = (feedbackId) => {
+        const answer = window.confirm(t("areyousure_publish"));
+        if(answer){
+            updateFeedback(feedbackId, 'VISIBLE');
+        }
+    }
+
+    const unpublishConfirmation  = (feedbackId) => {
+        const answer = window.confirm(t('areyousure_UNpublish'));
+        if(answer){
+            updateFeedback(feedbackId, 'INVISIBLE');
+        }
+    }
 
     return (
         <div>
@@ -73,8 +155,16 @@ function Feedbacks() {
                                     <td>{feedback.status}</td>
                                     <td>{feedback.content}</td>
                                     <td>
-                                        <button className="button details-button">{t('publish')}</button>
-                                        <button className="button delete-button">{t('remove')}</button>
+                                    
+                                    {feedback.status === "INVISIBLE" && (
+                                         <button className="button details-button" onClick={() => publishConfirmation(feedback.feedbackId)}>{t('publish')}</button>
+                                            )}
+
+                                        {feedback.status === "VISIBLE" && (
+                                         <button className="button details-button" onClick={() => unpublishConfirmation(feedback.feedbackId)}>{t('unpublish')}</button>
+                                            )}
+
+                                        <button className="button delete-button" onClick={() => removeConfirmation(feedback.feedbackId)}>{t('remove')}</button>
                                     </td>
                                 </tr>
                             ))}

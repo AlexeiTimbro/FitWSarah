@@ -1,5 +1,7 @@
 package com.fitwsarah.fitwsarah.feeedbacksubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.feeedbacksubdomain.datalayer.Feedback;
 import com.fitwsarah.fitwsarah.feeedbacksubdomain.datalayer.FeedbackRepository;
 import com.fitwsarah.fitwsarah.feeedbacksubdomain.datalayer.State;
@@ -45,12 +47,20 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public FeedbackResponseModel updateFeedback(FeedbackResponseModel feedbackResponseModel, String feedbackId) {
-        return null;
+    public FeedbackResponseModel updateFeedbackState(String feedbackId, String status) {
+        Feedback feedback = feedbackRepository.findFeedbackByFeedbackIdentifier_FeedbackId(feedbackId);
+        feedback.setStatus(State.valueOf(status));
+        feedbackRepository.save(feedback);
+        return feedbackResponseMapper.entityToResponseModel(feedback);
+
     }
 
     @Override
     public void removeFeedback(String feedbackId) {
-
+    Feedback existingFeedback = feedbackRepository.findFeedbackByFeedbackIdentifier_FeedbackId(feedbackId);
+        if(existingFeedback == null){
+            return;
+        }
+        feedbackRepository.delete(existingFeedback);
     }
 }

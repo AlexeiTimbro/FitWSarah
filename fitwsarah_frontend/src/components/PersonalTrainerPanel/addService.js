@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
 import { useTranslation } from "react-i18next";
 
-const AddServiceButton = ({fitnessDataToSend, setShow}) => {
+const AddServiceButton = ({getAllFitnessServices ,fitnessDataToSend, setShowForm}) => {
     const {isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
     const { t } = useTranslation('home');
@@ -60,7 +60,9 @@ const AddServiceButton = ({fitnessDataToSend, setShow}) => {
             const data = await response.json();
               console.log(data);
               console.log("Added New Service"); 
-              window.alert("Service Successfully Added")        
+              window.alert("Service Successfully Added")  
+              getAllFitnessServices();
+              setShowForm(false);      
          } catch (error) {
           console.error("Error adding service: ", error);
           window.alert("An error has occured! Please try again later.");
@@ -70,10 +72,10 @@ const AddServiceButton = ({fitnessDataToSend, setShow}) => {
         const result = window.confirm("Are you sure you want to proceed?");
         if (result && accessToken){
           addNewService();
-          setShow(false)
         }
         else {
-          setShow(false)
+          getAllFitnessServices();
+          setShowForm(false);
         }
       };
   
