@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Gradle
+name: CI/CD Pipeline Backend
 
 on:
   workflow_dispatch:
