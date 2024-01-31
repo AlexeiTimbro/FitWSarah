@@ -13,12 +13,13 @@ function Feedbacks() {
 
     const {
         isAuthenticated,
-        getAccessTokenSilently
+        getAccessTokenSilently,
     } = useAuth0();
 
 
     const [feedbacks, setFeedbacks] = useState([]);
     const { t } = useTranslation('adminPanel');
+    const [accessToken, setAccessToken] = useState(null);
 
         useEffect(() => {
         if (isAuthenticated) {
@@ -57,7 +58,7 @@ function Feedbacks() {
 
         const getAllFeedback = async () => {
 
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -87,7 +88,7 @@ function Feedbacks() {
                 return;
             }
 
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks/${feedbackId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks/${feedbackId}`, {
             method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -116,7 +117,7 @@ function Feedbacks() {
                 return;
             }
 
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/feedbacks/${feedbackId}/publish`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks/${feedbackId}/publish`, {
             method: "PATCH",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
