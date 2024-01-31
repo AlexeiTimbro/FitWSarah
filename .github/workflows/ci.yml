@@ -15,16 +15,9 @@ jobs:
       contents: write
       pull-requests: write
       checks: write
-    env:
-      AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
-      AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
-      AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
-      AUTH0_ISSUER: ${{ secrets.AUTH0_ISSUER }}
-      BASE_URL: ${{ secrets.BASE_URL }}
-      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-      DEVELOPMENT_URL: ${{ secrets.DEVELOPMENT_URL }}
+    environment:
+      name: Test
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -43,3 +36,14 @@ jobs:
         run: chmod +x ./gradlew
       - name: Run Gradle Build
         run: ./gradlew build
+        env:
+          AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
+          AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+          AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          AUTH0_ISSUER: ${{ secrets.AUTH0_ISSUER }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DEVELOPMENT_URL: ${{ secrets.DEVELOPMENT_URL }}
+      
