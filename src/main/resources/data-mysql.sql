@@ -10,11 +10,11 @@ INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
 
 
 INSERT INTO invoices (invoice_id, account_id, user_id, username, status, date, due_date, payment_type, price) VALUES
-                                                                                                                  ('inv-uuid-1', 'uuid-acc1', '1', 'johnsmith', 'COMPLETED', '2024-01-01', '2024-01-10', 'Credit Card', 100.00),
-                                                                                                                  ('inv-uuid-2', 'uuid-acc2', '2', 'emilyjones', 'PENDING', '2024-01-02', '2024-01-12', 'PayPal', 150.00),
-                                                                                                                  ('inv-uuid-3', 'uuid-acc3', '3', 'michaelbrown', 'OVERDUE', '2024-01-03', '2024-01-13', 'Debit', 200.00),
-                                                                                                                  ('inv-uuid-4', 'uuid-acc4', '4', 'sarahwhite', 'COMPLETED', '2024-01-04', '2024-01-14', 'Cash', 50.00),
-                                                                                                                  ('inv-uuid-5', 'uuid-acc5', '5', 'davidjohnson', 'PENDING', '2024-01-05', '2024-01-15', 'Bank Transfer', 75.00);
+ ('inv-uuid-1', 'uuid-acc1', '101188348963819843921', 'johnsmith', 'COMPLETED', '2024-01-01', '2024-01-10', 'Credit Card', 100.00),
+('inv-uuid-2', 'uuid-acc2', '101188348963819843921', 'emilyjones', 'PENDING', '2024-01-02', '2024-01-12', 'PayPal', 150.00),
+('inv-uuid-3', 'uuid-acc3', '101188348963819843921', 'michaelbrown', 'OVERDUE', '2024-01-03', '2024-01-13', 'Debit', 200.00),
+('inv-uuid-4', 'uuid-acc4', '101188348963819843921', 'sarahwhite', 'COMPLETED', '2024-01-04', '2024-01-14', 'Cash', 50.00),
+('inv-uuid-5', 'uuid-acc5', '101188348963819843921', 'davidjohnson', 'PENDING', '2024-01-05', '2024-01-15', 'Bank Transfer', 75.00);
 
 INSERT INTO feedback_threads (feedback_id, user_id, stars, content, status) VALUES
 ('fdbk-uuid-1', 'uuid-acc1', 5, 'Excellent personal training session','INVISIBLE'),

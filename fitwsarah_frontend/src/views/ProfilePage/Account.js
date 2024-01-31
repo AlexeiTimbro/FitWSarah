@@ -10,6 +10,7 @@ import Settings from '../../components/clientProfile/setting.js';
 import CoachNote from "../../components/CoachNote/CoachNote.js";
 import Appointment from '../../components/clientProfile/Appointment.js';
 import { useTranslation } from "react-i18next";
+import ClientInvoices from "../../components/clientProfile/clientInvoices";
 
 function Profile() {
     const {isAuthenticated,  getAccessTokenSilently, user} = useAuth0();
@@ -171,6 +172,13 @@ function Profile() {
                         selectedTab === 'coachnotes' &&
                         <CoachNote userId={extractAfterPipe(user.sub)}/>
                     }
+
+
+                    {
+                        selectedTab === 'invoices' &&
+                        <ClientInvoices userId={extractAfterPipe(user.sub)}/>
+                    }
+
                 </div>
             </div>
 

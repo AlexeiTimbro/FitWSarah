@@ -14,4 +14,6 @@ public interface InvoiceService {
 
     InvoiceResponseModel addInvoice(InvoiceRequestModel invoiceRequestModel);
 
+
+   List<InvoiceResponseModel> getAllInvoiceByUserId(String userId);
 }
