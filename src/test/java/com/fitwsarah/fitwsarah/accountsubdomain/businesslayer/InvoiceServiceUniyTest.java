@@ -13,6 +13,7 @@ import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.InvoiceRespons
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
+import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -76,5 +77,19 @@ class InvoiceServiceUniyTest {
 
         // Assert
         assertEquals(invoiceResponseModel, actualInvoiceResponseModel);
+    }
+
+
+
+    @Test
+    public void getCoachNoteByUserIdReturnsExpectedResult() {
+        String userId = "testUserId";
+        List<InvoiceResponseModel> expectedResponse = Collections.singletonList(new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00));
+        when(invoiceRepository.findInvoicesByUserId(userId)).thenReturn(Collections.emptyList());
+        when(invoiceResponseMapper.entityListToResponseModelList(Collections.emptyList())).thenReturn(expectedResponse);
+
+        List<InvoiceResponseModel> actualResponse = invoiceService.getAllInvoiceByUserId(userId);
+
+        assertEquals(expectedResponse, actualResponse);
     }
 }

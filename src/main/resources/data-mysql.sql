@@ -10,11 +10,11 @@ INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
 
 
 INSERT INTO invoices (invoice_id, account_id, user_id, username, status, date, due_date, payment_type, price) VALUES
-                                                                                                                  ('inv-uuid-1', 'uuid-acc1', '1', 'johnsmith', 'COMPLETED', '2024-01-01', '2024-01-10', 'Credit Card', 100.00),
-                                                                                                                  ('inv-uuid-2', 'uuid-acc2', '2', 'emilyjones', 'PENDING', '2024-01-02', '2024-01-12', 'PayPal', 150.00),
-                                                                                                                  ('inv-uuid-3', 'uuid-acc3', '3', 'michaelbrown', 'OVERDUE', '2024-01-03', '2024-01-13', 'Debit', 200.00),
-                                                                                                                  ('inv-uuid-4', 'uuid-acc4', '4', 'sarahwhite', 'COMPLETED', '2024-01-04', '2024-01-14', 'Cash', 50.00),
-                                                                                                                  ('inv-uuid-5', 'uuid-acc5', '5', 'davidjohnson', 'PENDING', '2024-01-05', '2024-01-15', 'Bank Transfer', 75.00);
+ ('inv-uuid-1', 'uuid-acc1', '65b9b977d5fa901a57937bc3', 'Thomas', 'COMPLETED', '2024-01-01', '2024-01-10', 'Credit Card', 100.00),
+('inv-uuid-2', 'uuid-acc2', '65b9b977d5fa901a57937bc3', 'Thomas', 'PENDING', '2024-01-02', '2024-01-12', 'PayPal', 150.00),
+('inv-uuid-3', 'uuid-acc3', '101188348963819843921', 'michaelbrown', 'OVERDUE', '2024-01-03', '2024-01-13', 'Debit', 200.00),
+('inv-uuid-4', 'uuid-acc4', '101188348963819843921', 'sarahwhite', 'COMPLETED', '2024-01-04', '2024-01-14', 'Cash', 50.00),
+('inv-uuid-5', 'uuid-acc5', '101188348963819843921', 'davidjohnson', 'PENDING', '2024-01-05', '2024-01-15', 'Bank Transfer', 75.00);
 
 INSERT INTO feedback_threads (feedback_id, user_id, stars, content, status) VALUES
 ('fdbk-uuid-1', 'uuid-acc1', 5, 'Excellent personal training session','INVISIBLE'),
@@ -59,8 +59,8 @@ INSERT INTO availabilities (availability_id, available, account_id, datetime) VA
 ('uuid-avail5', 1, 'uuid-acc5', '2023-12-05 16:30:00');
 
 INSERT INTO coach_notes (coach_note_id, user_id, content_en, content_fr) VALUES
-('1', '65b16a01c0705bb1bf4a2bb8', 'Keep up the great work with your training!', 'Continuez votre excellent travail avec votre entraînement !'),
-('2', '65b16a01c0705bb1bf4a2bb8', 'Remember to stay hydrated during workouts.', 'oubliez pas de rester hydraté pendant les entraînements.'),
-('3', '65b16a01c0705bb1bf4a2bb8', 'Excellent progress on your last session!', 'Excellents progrès lors de votre dernière séance !'),
+('1', '65b9b977d5fa901a57937bc3', 'Keep up the great work with your training!', 'Continuez votre excellent travail avec votre entraînement !'),
+('2', '65b9b977d5fa901a57937bc3', 'Remember to stay hydrated during workouts.', 'oubliez pas de rester hydraté pendant les entraînements.'),
+('3', '65b9b977d5fa901a57937bc3', 'Excellent progress on your last session!', 'Excellents progrès lors de votre dernière séance !'),
 ('4', '65b16a01c0705bb1bf4a2bb8', 'Try to increase your running distance gradually.', 'Essayez d''augmenter progressivement votre distance de course.'),
 ('5', '65b16a01c0705bb1bf4a2bb8', 'Focus on maintaining a balanced diet.', 'Concentrez-vous sur le maintien d''une alimentation équilibrée.');

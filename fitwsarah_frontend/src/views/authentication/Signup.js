@@ -97,7 +97,6 @@ function AddMemberProfile() {
 
             addMember();
             isRole(user, ROLES.MEMBER)
-            window.location.reload()
             console.log(user);
             console.log("Added Member");
         }

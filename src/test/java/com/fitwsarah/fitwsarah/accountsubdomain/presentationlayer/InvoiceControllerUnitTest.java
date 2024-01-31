@@ -3,6 +3,7 @@ package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.AccountService;
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.InvoiceService;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.InvoiceStatus;
+import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -77,5 +78,19 @@ class InvoiceControllerUnitTest {
         InvoiceResponseModel actual = invoiceController.addInvoice(invoiceRequestModel);
 
         assertEquals(invoice1, actual);
+    }
+
+
+    @Test
+    public void getInvoicesByUserIdTest() {
+        String userId = "testUserId";
+        InvoiceResponseModel invoiceResponseModel = new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00);
+        List<InvoiceResponseModel> expectedResponse = Arrays.asList(invoiceResponseModel);
+
+        when(invoiceService.getAllInvoiceByUserId(userId)).thenReturn(expectedResponse);
+
+        List<InvoiceResponseModel> actualResponse = invoiceController.getAllInvoiceByUserId(userId);
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
     }
 }

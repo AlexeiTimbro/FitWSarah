@@ -108,6 +108,8 @@ class InvoiceControllerIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
+
+
     @Test
     void addInvoice() throws Exception {
         mockMvc.perform(post("/api/v1/invoices")
@@ -116,6 +118,17 @@ class InvoiceControllerIntegrationTest {
                         .content(asJsonString(invoice1)))
                 .andExpect(status().isOk()) // Expecting 200 OK status instead of 201 Created
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+
+    @Test
+    public void getInvoicesByUserIdTest() throws Exception {
+
+        String testUserId = "testUserId";
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/invoices/users/" + testUserId)
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     private String asJsonString(Object obj) throws JsonProcessingException {

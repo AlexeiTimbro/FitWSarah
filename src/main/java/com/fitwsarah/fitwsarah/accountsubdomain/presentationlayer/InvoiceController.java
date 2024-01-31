@@ -27,4 +27,9 @@ public class InvoiceController {
         return invoiceService.addInvoice(invoiceRequestModel);
     }
 
+    @GetMapping("/users/{userId}")
+    public List<InvoiceResponseModel> getAllInvoiceByUserId(@PathVariable String userId){
+        return invoiceService.getAllInvoiceByUserId(userId);
+    }
+
 }

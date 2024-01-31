@@ -41,4 +41,8 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
 
+    @Override
+    public List<InvoiceResponseModel> getAllInvoiceByUserId(String userId) {
+        return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findInvoicesByUserId(userId));
+    }
 }
