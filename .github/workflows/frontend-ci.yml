@@ -23,6 +23,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
+
       - name: npm install, build, and test
         working-directory: fitwsarah_frontend
         run: |
@@ -33,15 +34,9 @@ jobs:
         env:
           CI: false
 
-  frontend-cd:
-    needs: [frontend-ci]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-    steps:
-      - uses: actions/checkout@v2
-      - name: Deploy Frontend
-    env:
-      deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL_FRONTEND }}
-      run: |
-        curl "$deploy_url"
-
+      - name: Deploy
+        if: github.ref == 'refs/heads/master'
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL_FRONTEND }}
+        run: |
+          curl "$deploy_url"
