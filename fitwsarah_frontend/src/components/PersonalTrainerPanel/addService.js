@@ -60,7 +60,9 @@ const AddServiceButton = ({getAllFitnessServices ,fitnessDataToSend, setShowForm
             const data = await response.json();
               console.log(data);
               console.log("Added New Service"); 
-              window.alert("Service Successfully Added")        
+              window.alert("Service Successfully Added")  
+              getAllFitnessServices();
+              setShowForm(false);      
          } catch (error) {
           console.error("Error adding service: ", error);
           window.alert("An error has occured! Please try again later.");
@@ -70,12 +72,10 @@ const AddServiceButton = ({getAllFitnessServices ,fitnessDataToSend, setShowForm
         const result = window.confirm("Are you sure you want to proceed?");
         if (result && accessToken){
           addNewService();
-          getAllFitnessServices();
-          setShowForm(false);
         }
         else {
           getAllFitnessServices();
-          setShowForm(false)
+          setShowForm(false);
         }
       };
   
