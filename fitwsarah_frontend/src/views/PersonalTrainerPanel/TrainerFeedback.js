@@ -9,46 +9,26 @@ import "../../css/style.css";
 import ReactStars from 'react-stars';
 import './TrainerFeedback.css';
 import { useTranslation } from "react-i18next";
+import {useGetAccessToken} from "../../components/authentication/authUtils";
 function Feedbacks() {
 
     const {
         isAuthenticated,
-        getAccessTokenSilently,
     } = useAuth0();
 
 
     const [feedbacks, setFeedbacks] = useState([]);
     const { t } = useTranslation('adminPanel');
     const [accessToken, setAccessToken] = useState(null);
+    const getAccessToken = useGetAccessToken();
 
-        useEffect(() => {
-        if (isAuthenticated) {
-          const getAccessToken = async () => {
-            try {
-              const token = await getAccessTokenSilently({
-                audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-                scope: configData.scope,
-              });
-              setAccessToken(token);
-            } catch (e) {
-              console.error(e.message);
-            }
-          };
-          getAccessToken();
-        }
-      }, [getAccessTokenSilently, isAuthenticated]);
-    
-        const fetchData = async () => {
-            try {
-                const token = await getAccessTokenSilently({
-                    audience: configData.audience,
-                    scope: configData.scope,
-                });
-                setAccessToken(token);
-            } catch (error) {
-                console.error("Error getting access token: ", error);
-            }
+       useEffect(() => {
+        const fetchToken = async () => {
+            const token = await getAccessToken();
+            if (token) setAccessToken(token);
         };
+        fetchToken();
+    }, [getAccessToken]);
 
     useEffect(() => {
         if (accessToken) {
@@ -80,14 +60,6 @@ function Feedbacks() {
         };
 
     const removeFeedback = async (feedbackId) => {
-        try {
-            await fetchData();
-      
-            if (!accessToken) {
-                console.error("Access token not available.");
-                return;
-            }
-
         fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks/${feedbackId}`, {
             method: "DELETE",
         headers: {
@@ -102,20 +74,10 @@ function Feedbacks() {
         .then(() =>{
             getAllFeedback();
         })
-        } catch (error) {
-        console.error("Error deleting feedback: ", error);
-        window.alert("An error has occured! Please try again later.");
-        }
+       
     };
 
     const updateFeedback = async (feedbackId, status) => {
-        try {
-            await fetchData();
-      
-            if (!accessToken) {
-                console.error("Access token not available.");
-                return;
-            }
 
         fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks/${feedbackId}/publish`, {
             method: "PATCH",
@@ -138,11 +100,7 @@ function Feedbacks() {
         .catch((error) => {
             console.log(error);
         });
-    } catch (error) {
-        console.error("Error updating feedback: ", error);
-        window.alert("An error has occured! Please try again later.");
-    }
-    };
+    } 
 
     const removeConfirmation  = (feedbackId) => {
         const answer = window.confirm(t("areyousure"));
