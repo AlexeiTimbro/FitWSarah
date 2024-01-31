@@ -61,7 +61,7 @@ function Profile() {
     }, [user, status]);
 
     const getAccountByUserId = (userId) => {
-        fetch(`http://localhost:8080/api/v1/accounts/users/${userId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/users/${userId}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + accessToken,
@@ -87,7 +87,7 @@ function Profile() {
     };
 
     const getAppointmentsByUserId = (userId, status) => {
-        fetch(`http://localhost:8080/api/v1/appointments/users/${userId}/status/${status}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/users/${userId}/status/${status}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + accessToken,
