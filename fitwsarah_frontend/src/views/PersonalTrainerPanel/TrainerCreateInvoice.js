@@ -18,7 +18,6 @@ import { useTranslation } from "react-i18next";
 
 
 function TrainerCreateInvoices() {
-    const { isAuthenticated } = useAuth0();
     const navigate = useNavigate();
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();

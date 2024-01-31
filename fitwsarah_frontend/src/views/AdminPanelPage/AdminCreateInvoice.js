@@ -1,23 +1,15 @@
 import { useState, useEffect } from "react";
-import { useAuth0 } from '@auth0/auth0-react';
-import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import './AdminCreateInvoice.css';
-import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-import { FaSearch } from 'react-icons/fa';
-import { parse, format } from 'date-fns';
+import { format } from 'date-fns';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz';
 import { useTranslation } from "react-i18next";
 
 function AdminCreateInvoices() {
-    const { isAuthenticated } = useAuth0();
     const navigate = useNavigate();
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();

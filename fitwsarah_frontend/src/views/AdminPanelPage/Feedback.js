@@ -14,7 +14,6 @@ function Feedbacks() {
 
 
     const [feedbacks, setFeedbacks] = useState([]);
-    const [accessToken, setAccessToken] = useState(null);
     const { t } = useTranslation('adminPanel');
     useEffect(() => {
         getAllFeedback();

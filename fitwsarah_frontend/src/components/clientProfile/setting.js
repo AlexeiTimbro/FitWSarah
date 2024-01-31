@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import "../../css/style.css";
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
-import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
-import { useGetAccessToken } from "../authentication/authUtils";
+import { Button, Form } from 'react-bootstrap';
+
 import configData from "../../config.json";
-import { Alert } from 'flowbite-react';
 import { useTranslation } from "react-i18next";
 
 function Settings() {
     const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
-    const [profile, setProfile] = useState(null);
-    const [appointments, setAppointments] = useState([]);
-    const [profilePicUrl, setProfilePicUrl] = useState('');
-    const [accountId, setAccountId] = useState(null);
+    const [ setProfile] = useState(null);
+    const [ setProfilePicUrl] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
-    const [updateConfirmation, setUpdateConfirmation] = useState('');
+    const [setUpdateConfirmation] = useState('');
     const [showModal, setShowModal] = useState(false);
     const { t } = useTranslation('settings');
 

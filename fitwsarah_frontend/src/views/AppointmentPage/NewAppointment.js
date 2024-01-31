@@ -18,7 +18,7 @@ function BookAppointment() {
     const queryParams = new URLSearchParams(location.search);
     const serviceId = queryParams.get("serviceId");
     const userId = queryParams.get("userId");
-    const [accessToken, setAccessToken] = useState(null);
+    const [setAccessToken] = useState(null);
     const [appointmentDataToSend, setAppointmentDataToSend] = useState(null);
     const { t } = useTranslation('appointment');
     

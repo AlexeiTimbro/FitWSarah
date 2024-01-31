@@ -7,7 +7,6 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { ROLES } from "../../components/authentication/roles";
 import "../../components/authentication/switch.css"
 import RoleBasedSwitch from "../../components/authentication/RoleBasedSwitch";
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReactStars from 'react-stars'
 import AddFeedbackButton from '../../components/feedback/newFeedbackBtn';
@@ -19,7 +18,7 @@ function Home() {
         user
       } = useAuth0();
 
-    const [editMode, setEditMode] = useState(false);
+    const [ setEditMode] = useState(false);
     const { t } = useTranslation('contactMe');
     
   function extractAfterPipe(originalString) {
