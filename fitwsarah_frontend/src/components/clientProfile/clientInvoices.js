@@ -25,7 +25,7 @@ function ClientInvoices({userId}) {
     }, [accessToken]);
 
     function getInvoicesByUserId(userId) {
-        fetch(`http://localhost:8080/api/v1/invoices/users/${userId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices/users/${userId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
