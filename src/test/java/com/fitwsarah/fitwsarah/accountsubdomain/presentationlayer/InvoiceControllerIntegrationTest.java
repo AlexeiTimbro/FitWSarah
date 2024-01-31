@@ -120,6 +120,17 @@ class InvoiceControllerIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
+
+    @Test
+    public void getInvoicesByUserIdTest() throws Exception {
+
+        String testUserId = "testUserId";
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/invoices/users/" + testUserId)
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
     private String asJsonString(Object obj) throws JsonProcessingException {
         return objectMapper.writeValueAsString(obj);
     }
