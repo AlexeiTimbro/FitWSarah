@@ -108,6 +108,8 @@ class InvoiceControllerIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
+
+
     @Test
     void addInvoice() throws Exception {
         mockMvc.perform(post("/api/v1/invoices")
