@@ -10,7 +10,6 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
     const [accessToken, setAccessToken] = useState(null);
     const [showSuggestion, setShowSuggestion] = useState(false);
     const { t } = useTranslation('contactMe');
-  
   useEffect(() => {
     if (isAuthenticated) {
       const getAccessToken = async () => {
@@ -43,12 +42,12 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
     const addNewFeedback = async () => {
         try {
           await fetchData();
-    
+
           if (!accessToken) {
               console.error("Access token not available.");
               return;
           }
-    
+
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks`, {
         method: "POST",
         headers: {
@@ -66,10 +65,10 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
               console.log("Added New Feedback"); 
               window.alert("Feedback Successfully Added")        
          } catch (error) {
-          console.error("Error adding feedback: ", error);
+          console.error("Error adding service: ", error);
           window.alert("An error has occured! Please try again later.");
       }};
-      
+
       function extractAfterPipe(originalString) {
         const parts = originalString.split('|');
         if (parts.length === 2) {
@@ -80,18 +79,18 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
       };
       const { sub } = isAuthenticated ? user : {};
       const RegexUserId = sub ? extractAfterPipe(sub) : null;
-      
+
 
       const getAccountInfo = async () => {
         try {
           await fetchData();
-    
+
           if (!accessToken) {
               console.error("Access token not available.");
               return;
           }
-    
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/accounts/users/${RegexUserId}`, {
+
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/users/${RegexUserId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -122,10 +121,10 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
           }
         }
       };
-      
+
       return (
         <div style={{ marginBottom: "15px" }}>
-        {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>{t('submitLogin')}</button>}
+        {!isAuthenticated && <button className="book-button" onClick={() => loginWithRedirect({authorizationParams: { screen_hint: "login"}})}>{t('submit')}</button>}
         {isAuthenticated &&
         <form onSubmit={(e) => addNewFeedbackData(e)}>
           <button id="newBtn" className="book-button" type="submit">{t('submit')}</button>
@@ -144,7 +143,7 @@ const AddFeedbackButton = ({feedbackDataToSend}) => {
     </Modal>
         </div>
 
-        
+
       );
 }
 export default AddFeedbackButton;

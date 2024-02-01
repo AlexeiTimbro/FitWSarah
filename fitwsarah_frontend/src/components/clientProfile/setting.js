@@ -9,8 +9,8 @@ import { useTranslation } from "react-i18next";
 function Settings() {
     const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
     const [accessToken, setAccessToken] = useState(null);
-    const [ setProfile] = useState(null);
-    const [ setProfilePicUrl] = useState('');
+    const [ profile,setProfile] = useState(null);
+    const [ profileUrl, setProfilePicUrl] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
