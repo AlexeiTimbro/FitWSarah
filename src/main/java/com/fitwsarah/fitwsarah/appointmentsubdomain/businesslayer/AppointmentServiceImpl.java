@@ -1,7 +1,5 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer;
 
-import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
-import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountRepository;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
@@ -9,11 +7,7 @@ import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentR
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datamapperlayer.AppointmentResponseMapper;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
-import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -29,15 +23,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     private AppointmentResponseMapper appointmentResponseMapper;
 
     private AppointmentRequestMapper appointmentRequestMapper;
-    private final AccountRepository accountRepository;
-    private JavaMailSender javaMailSender;
 
-    public AppointmentServiceImpl(JavaMailSender javaMailSender, AppointmentRepository appointmentRepository, AppointmentResponseMapper appointmentResponseMapper, AppointmentRequestMapper appointmentRequestMapper, AccountRepository accountRepository){
+    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, AppointmentResponseMapper appointmentResponseMapper, AppointmentRequestMapper appointmentRequestMapper){
         this.appointmentRepository = appointmentRepository;
         this.appointmentResponseMapper = appointmentResponseMapper;
         this.appointmentRequestMapper = appointmentRequestMapper;
-        this.accountRepository = accountRepository;
-        this.javaMailSender = javaMailSender;
     }
 
     @Override
@@ -111,7 +101,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId);
         appointment.setStatus(Status.valueOf(Status.CANCELLED.toString()));
         appointmentRepository.save(appointment);
-        sendCancellationEmail(appointment);
         return appointmentResponseMapper.entityToResponseModel(appointment);
     }
 
@@ -129,6 +118,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     }
 
+    /*
+    This is the way to do it in the backend, might modify based on team feedback.
+    -Elias
+
     private void sendCancellationEmail(Appointment appointment) {
         try {
             String userId = appointment.getUserId();
@@ -140,11 +133,12 @@ public class AppointmentServiceImpl implements AppointmentService {
             helper.setFrom("fitwithsarahfitness@gmail.com");
             helper.setTo(account.getEmail());
             helper.setSubject("Appointment Cancellation");
-            helper.setText("Your appointment has been canceled.");
+            helper.setText("Your appointment has been cancelled.");
 
             javaMailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+     */
 }
