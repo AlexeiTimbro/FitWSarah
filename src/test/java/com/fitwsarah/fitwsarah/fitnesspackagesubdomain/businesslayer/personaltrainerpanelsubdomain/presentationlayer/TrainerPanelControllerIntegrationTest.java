@@ -1,4 +1,4 @@
-package com.fitwsarah.fitwsarah.personaltrainerpanelsubdomain.presentationlayer;
+package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer.personaltrainerpanelsubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.personaltrainerpanelsubdomain.datalayer.TrainerPanelRepository;
 import org.springframework.beans.factory.annotation.Autowired;

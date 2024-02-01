@@ -24,7 +24,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private AppointmentRequestMapper appointmentRequestMapper;
 
-
     public AppointmentServiceImpl(AppointmentRepository appointmentRepository, AppointmentResponseMapper appointmentResponseMapper, AppointmentRequestMapper appointmentRequestMapper){
         this.appointmentRepository = appointmentRepository;
         this.appointmentResponseMapper = appointmentResponseMapper;
@@ -118,4 +117,28 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void removeAppointment(String appointmentId) {
 
     }
+
+    /*
+    This is the way to do it in the backend, might modify based on team feedback.
+    -Elias
+
+    private void sendCancellationEmail(Appointment appointment) {
+        try {
+            String userId = appointment.getUserId();
+            Account account = accountRepository.findAccountByUserId(userId);
+
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            helper.setFrom("fitwithsarahfitness@gmail.com");
+            helper.setTo(account.getEmail());
+            helper.setSubject("Appointment Cancellation");
+            helper.setText("Your appointment has been cancelled.");
+
+            javaMailSender.send(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     */
 }
