@@ -18,7 +18,7 @@ function Home() {
         user
       } = useAuth0();
 
-    const [ setEditMode] = useState(false);
+    const [editMode, setEditMode] = useState(false);
     const { t } = useTranslation('contactMe');
     
   function extractAfterPipe(originalString) {
