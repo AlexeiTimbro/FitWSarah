@@ -54,7 +54,7 @@ function AdminAccounts() {
     }, [accessToken, searchTerm]);
 
     const handleEditClick = (appointment) => {
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/appointments/${appointment.appointmentId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointment.appointmentId}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
