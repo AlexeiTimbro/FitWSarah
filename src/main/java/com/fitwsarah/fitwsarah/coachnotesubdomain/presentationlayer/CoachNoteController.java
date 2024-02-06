@@ -21,4 +21,10 @@ public class CoachNoteController {
     public List<CoachNoteResponseModel> getCoachNoteByUserId(@PathVariable String userId){
         return coachNoteService.getCoachNoteByUserId(userId);
     }
+
+    @GetMapping()
+    public List<CoachNoteResponseModel> getAllCoachNotes(){
+        return coachNoteService.getAllCoachNotes();
+    }
+
 }

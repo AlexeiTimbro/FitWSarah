@@ -7,4 +7,6 @@ import java.util.List;
 public interface CoachNoteService {
 
     List<CoachNoteResponseModel> getCoachNoteByUserId(String userId);
+
+    List<CoachNoteResponseModel> getAllCoachNotes();
 }
