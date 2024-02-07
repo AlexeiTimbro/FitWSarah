@@ -14,7 +14,7 @@ import TrainerCreateInvoices from "./views/PersonalTrainerPanel/TrainerCreateInv
 import BookAppointment from "./views/AppointmentPage/NewAppointment";
 import Services from "./views/AdminPanelPage/FitnessServices";
 import TrainerFitnessServices from "./views/PersonalTrainerPanel/TrainerFitnessServices";
-import CoachNote from './components/CoachNote/CoachNote.js';
+import CoachNote from './views/AdminPanelPage/AdminCoachNotes';
 import TrainerInvoices from "./views/PersonalTrainerPanel/TrainerInvoices";
 import ContactMe from "./views/ContactMePage/ContactMeView";
 import Feedbacks from "./views/PersonalTrainerPanel/TrainerFeedback";
@@ -47,7 +47,7 @@ function App() {
                     <Route path="/trainerFeedback" element={<Feedbacks/>}/>
                     <Route path="/adminFeedback" element={<AdminFeedback/>}/>
                     <Route path="/invoices" element={<ClientInvoices/>}/>
-
+                    <Route path="/coachNote" element={<CoachNote/>}/>
                 </Routes>
             </Router>
         </LanguageProvider>
