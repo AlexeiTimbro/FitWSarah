@@ -108,7 +108,7 @@ function AdminAccounts() {
             })
             .then(() => {
                 getAppointments();
-                setEditAppointmentId(null); // Exit edit mode
+                setEditAppointmentId(null); 
             })
             .catch((error) => {
                 console.error('Error updating appointment:', error);

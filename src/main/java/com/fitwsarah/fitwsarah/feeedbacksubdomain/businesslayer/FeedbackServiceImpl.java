@@ -11,7 +11,10 @@ import com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer.FeedbackRequ
 import com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer.FeedbackResponseModel;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
@@ -29,8 +32,21 @@ public class FeedbackServiceImpl implements FeedbackService {
         this.feedbackResponseMapper = feedbackResponseMapper;
     }
     @Override
-    public List<FeedbackResponseModel> getAllFeedback() {
-        return feedbackResponseMapper.entityListToResponseModelList(feedbackRepository.findAll());
+    public List<FeedbackResponseModel> getAllFeedback(String feedbackId, String userId, String status) {
+        Set<Feedback> feedbacks = new HashSet<>();
+
+        if(feedbackId != null){
+            feedbacks.addAll(feedbackRepository.findAllFeedbacksByFeedbackIdentifier_FeedbackIdStartingWith(feedbackId));
+        } else if(userId != null){
+            feedbacks.addAll(feedbackRepository.findAllFeedbacksByUserIdStartingWith(userId));
+        } else if(status != null){
+            feedbacks.addAll(feedbackRepository.findAllFeedbacksByStatus(State.valueOf(status)));
+        } else {
+            feedbacks.addAll(feedbackRepository.findAll());
+        }
+
+
+        return feedbackResponseMapper.entityListToResponseModelList(feedbacks.stream().sorted(Comparator.comparing(feedback -> feedback.getFeedbackIdentifier().getFeedbackId())).toList());
     }
 
     @Override

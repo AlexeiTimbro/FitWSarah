@@ -49,14 +49,22 @@ class FeedbackServiceUnitTest {
         MockitoAnnotations.openMocks(this);
     }
 
-
     @Test
     public void getAllFeedbacks_shouldSucceed(){
+        String feedbackId = "uuid-feed1";
         String status = "INVISIBLE";
-        Feedback feedback = new Feedback("Test", 3, "test", State.valueOf(status));
+        String userId = "uuid-user1";
+        Integer stars = 4;
+        String content = "test";
+        Feedback feedback = new Feedback(userId, stars, content, State.valueOf(status));
+        feedback.getFeedbackIdentifier().setFeedbackId(feedbackId);
         List<Feedback> feedbacks = Collections.singletonList(feedback);
-        when(feedbackRepository.findAll()).thenReturn(feedbacks);
 
+
+        when(feedbackRepository.findAll()).thenReturn(feedbacks);
+        when(feedbackRepository.findAllFeedbacksByFeedbackIdentifier_FeedbackIdStartingWith(feedbackId)).thenReturn(feedbacks);
+        when(feedbackRepository.findAllFeedbacksByUserIdStartingWith(userId)).thenReturn(feedbacks);
+        when(feedbackRepository.findAllFeedbacksByStatus(State.valueOf(status))).thenReturn(feedbacks);
         FeedbackResponseModel responseModel = FeedbackResponseModel.builder()
                 .userId("test")
                 .content("test")
@@ -67,12 +75,46 @@ class FeedbackServiceUnitTest {
         List<FeedbackResponseModel> responseModels = Collections.singletonList(responseModel);
         when(feedbackResponseMapper.entityListToResponseModelList(feedbacks)).thenReturn(responseModels);
 
-        List<FeedbackResponseModel> result = feedbackService.getAllFeedback();
+        List<FeedbackResponseModel> result = feedbackService.getAllFeedback(null, null, null);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(responseModels.size(), result.size());
         assertEquals(responseModels.get(0).getFeedbackId(), result.get(0).getFeedbackId());
+
+        List<FeedbackResponseModel> result2 = feedbackService.getAllFeedback(feedbackId,null, null);
+
+        assertNotNull(result2);
+        assertFalse(result2.isEmpty());
+        assertEquals(responseModels.size(), result2.size());
+        assertEquals(responseModels.get(0).getFeedbackId(), result2.get(0).getFeedbackId());
+        assertEquals(responseModels.get(0).getUserId(), result2.get(0).getUserId());
+        assertEquals(responseModels.get(0).getStatus(), result2.get(0).getStatus());
+        assertEquals(responseModels.get(0).getStars(), result2.get(0).getStars());
+        assertEquals(responseModels.get(0).getContent(), result2.get(0).getContent());
+
+        List<FeedbackResponseModel> result3 = feedbackService.getAllFeedback(null,userId, null);
+
+        assertNotNull(result3);
+        assertFalse(result3.isEmpty());
+        assertEquals(responseModels.size(), result3.size());
+        assertEquals(responseModels.get(0).getFeedbackId(), result3.get(0).getFeedbackId());
+        assertEquals(responseModels.get(0).getUserId(), result3.get(0).getUserId());
+        assertEquals(responseModels.get(0).getStatus(), result3.get(0).getStatus());
+        assertEquals(responseModels.get(0).getStars(), result3.get(0).getStars());
+        assertEquals(responseModels.get(0).getContent(), result3.get(0).getContent());
+
+        List<FeedbackResponseModel> result4 = feedbackService.getAllFeedback(null,null, status);
+
+        assertNotNull(result4);
+        assertFalse(result4.isEmpty());
+        assertEquals(responseModels.size(), result4.size());
+        assertEquals(responseModels.get(0).getFeedbackId(), result4.get(0).getFeedbackId());
+        assertEquals(responseModels.get(0).getUserId(), result4.get(0).getUserId());
+        assertEquals(responseModels.get(0).getStatus(), result4.get(0).getStatus());
+        assertEquals(responseModels.get(0).getStars(), result4.get(0).getStars());
+        assertEquals(responseModels.get(0).getContent(), result4.get(0).getContent());
+
 
     }
 

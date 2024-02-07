@@ -2,6 +2,7 @@ package com.fitwsarah.fitwsarah.feeedbacksubdomain.datalayer;
 
 
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @ActiveProfiles("test")
@@ -18,6 +22,7 @@ class FeedbackRepositoryTest {
     FeedbackRepository feedbackRepository;
 
     private String savedFeedbackId;
+    private String savedUserId;
     Feedback savedFeedback;
 
     @BeforeEach
@@ -27,9 +32,10 @@ class FeedbackRepositoryTest {
         identifier.setFeedbackId(savedFeedbackId);
         feedback.setStars(2);
         feedback.setStatus(State.INVISIBLE);
-        feedback.setUserId("uuid-user1");
+        feedback.setUserId(savedUserId);
         feedback.setContent("test content");
 
+        savedUserId = "uuid-user1";
         savedFeedback = feedbackRepository.save(feedback);
         savedFeedbackId = savedFeedback.getFeedbackIdentifier().getFeedbackId();
     }
@@ -39,6 +45,28 @@ class FeedbackRepositoryTest {
         feedbackRepository.deleteAll();
     }
 
+    @Test
+    void findAllFeedbacksByFeedbackIdentifier_FeedbackIdStartingWith_Should_Return_Correct_Appointments() {
+        List<Feedback> result = feedbackRepository.findAllFeedbacksByFeedbackIdentifier_FeedbackIdStartingWith(savedFeedbackId);
+
+        assertEquals(1, result.size());
+        assertTrue(result.stream().allMatch(feedback -> feedback.getFeedbackIdentifier().getFeedbackId().equals(savedFeedbackId)));
+    }
+    @Test
+    void findAllFeedbacksByUserId_StartingWith_Should_Return_Correct_Appointments() {
+        List<Feedback> result = feedbackRepository.findAllFeedbacksByUserIdStartingWith(savedUserId);
+
+        assertEquals(0, result.size());
+        assertTrue(result.stream().allMatch(feedback -> feedback.getUserId().equals(savedUserId)));
+    }
+
+    @Test
+    void findAllFeedbacksByState_StartingWith_Should_Return_Correct_Appointments() {
+        List<Feedback> result = feedbackRepository.findAllFeedbacksByStatus(State.INVISIBLE);
+
+        assertEquals(1, result.size());
+        assertTrue(result.stream().allMatch(feedback -> feedback.getStatus().equals(State.INVISIBLE)));
+    }
 
     @Test
     public void whenFindByExistentFeedbackId_thenReturnFeedback() {
@@ -48,8 +76,6 @@ class FeedbackRepositoryTest {
         FeedbackIdentifier identifier = new FeedbackIdentifier();
         identifier.setFeedbackId(mockfeedbackId);
         mockFeedback.setFeedbackIdentifier(identifier);
-
-        // Save the mockAppointment in the repository
         feedbackRepository.save(mockFeedback);
 
         // Act

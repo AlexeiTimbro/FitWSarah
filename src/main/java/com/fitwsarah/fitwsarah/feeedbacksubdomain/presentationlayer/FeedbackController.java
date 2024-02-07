@@ -1,5 +1,6 @@
 package com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -10,6 +11,8 @@ import com.fitwsarah.fitwsarah.feeedbacksubdomain.businesslayer.FeedbackService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+
 @RestController
 @RequestMapping("api/v1/feedbacks")
 public class FeedbackController {
@@ -21,9 +24,12 @@ public class FeedbackController {
         this.feedbackService = feedbackService;
     }
     @GetMapping()
-    public List<FeedbackResponseModel> getAllFeedbackThreads(){
-        return feedbackService.getAllFeedback();
+    public List<FeedbackResponseModel> getAllFeedbackThreads(@RequestParam(required = false) String feedbackId, @RequestParam(required = false) String userId, @RequestParam(required = false) String status){
+        return feedbackService.getAllFeedback(feedbackId, userId, status);
     }
+
+
+
     @GetMapping("/{feedbackId}")
     public FeedbackResponseModel getFeedbackById(@PathVariable String feedbackId){
         return null;
