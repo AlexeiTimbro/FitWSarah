@@ -169,7 +169,7 @@ function Services() {
     
 
         </form>
-        <AddServiceButton fitnessDataToSend={fitnessDataToSend}/>
+        <AddServiceButton getAllFitnessServices={getAllFitnessServices} fitnessDataToSend={fitnessDataToSend} setShowForm={setShowForm}/>
         </Modal.Body>
 
     </Modal>

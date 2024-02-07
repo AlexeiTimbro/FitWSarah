@@ -3,6 +3,7 @@
     "book": "Réserver",
     "details": "Détails",
     "addFitnessService_en": "Ajouter un Service de Fitness",
+    "updateFitnessService": "Mettre à Jour le Service de Fitness",
     "fitnessServiceTitle_en": "Titre du Service de Fitness (Anglais)",
     "fitnessServiceTitle_fr": "Titre du Service de Fitness (Français)",
     "duration": "Durée",

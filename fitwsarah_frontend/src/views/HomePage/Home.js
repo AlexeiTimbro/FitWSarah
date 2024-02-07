@@ -136,7 +136,7 @@ function Home() {
 
     const handleEdit = (service) => {
         setSelectedService(service);
-        setShowUpdateForm(true); // Show the update form modal
+        setShowUpdateForm(true);
     };
 
     const [fitnessDataToSend, setFitnessDataToSend] = useState({});
@@ -309,13 +309,13 @@ function Home() {
 
             <Modal show={showUpdateForm} onHide={() => setShowUpdateForm(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Update Fitness Service</Modal.Title>
+                    <Modal.Title>{t('updateFitnessService')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Title (English)</Form.Label>
+                            <Form.Label>{t('fitnessServiceTitle_en')}</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="title_EN"
@@ -333,7 +333,7 @@ function Home() {
 
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Description (English)</Form.Label>
+                            <Form.Label>{t('description_en')}</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
@@ -351,9 +351,8 @@ function Home() {
                             />
                         </Form.Group>
 
-                        {/* Other Information */}
                         <Form.Group className="mb-3">
-                            <Form.Label>Other Information (English)</Form.Label>
+                            <Form.Label>{t('otherInformationOptional_en')}</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
@@ -382,7 +381,6 @@ function Home() {
                             />
                         </Form.Group>
 
-                        {/* Duration */}
                         <Form.Group className="mb-3">
                             <Form.Label>Duration</Form.Label>
                             <Form.Control
@@ -394,7 +392,10 @@ function Home() {
                         </Form.Group>
 
 
-                        <Button variant="primary" onClick={() => handleUpdateService(selectedService.serviceId)}>
+                        <Button variant="primary" onClick={() => {
+                            handleUpdateService(selectedService.serviceId)
+
+                            }}>
                             Update Service
                         </Button>
                     </Form>
