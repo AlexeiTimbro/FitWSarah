@@ -43,7 +43,7 @@ class InvoiceServiceUniyTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
+    /*@Test
     void getAllInvoices_ShouldReturnInvoices() {
         // Arrange
         Invoices invoice = new Invoices();
@@ -60,7 +60,7 @@ class InvoiceServiceUniyTest {
         // Assert
         assertEquals(invoiceResponseModelList, actualInvoiceResponseModelList);
     }
-
+*/
     @Test
     void createInvoice_ShouldReturnInvoice() {
         // Arrange

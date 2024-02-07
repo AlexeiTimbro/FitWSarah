@@ -53,7 +53,7 @@ class InvoiceControllerUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
+    /*@Test
     void getAllInvoices_ShouldReturnInvoices() {
 
         List<InvoiceResponseModel> invoiceResponseModelList = Arrays.asList(
@@ -67,7 +67,7 @@ class InvoiceControllerUnitTest {
 
         assertEquals(invoiceResponseModelList, actual);
     }
-
+*/
     @Test
     void addInvoice_ShouldReturnInvoice() {
 

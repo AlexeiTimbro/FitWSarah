@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface InvoiceService {
 
-    List<InvoiceResponseModel> getAllInvoices();
+    List<InvoiceResponseModel> getAllInvoices(String invoiceId, String userId, String username, String status, String paymentType);
 
     InvoiceResponseModel addInvoice(InvoiceRequestModel invoiceRequestModel);
 

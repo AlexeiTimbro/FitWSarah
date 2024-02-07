@@ -2,6 +2,7 @@ package com.fitwsarah.fitwsarah.accountsubdomain.businesslayer;
 
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.InvoiceRepository;
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.InvoiceStatus;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Invoices;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.InvoiceRequestMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.InvoiceResponseMapper;
@@ -9,10 +10,14 @@ import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequest
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.InvoiceRequestModel;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.InvoiceResponseModel;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
@@ -28,8 +33,29 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public List<InvoiceResponseModel> getAllInvoices() {
-        return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findAll());
+    public List<InvoiceResponseModel> getAllInvoices(String invoiceId, String userId, String username, String status, String paymentType) {
+        Set<Invoices> filteredAccounts = new HashSet<>();
+
+        if (invoiceId != null) {
+            filteredAccounts.addAll(invoiceRepository.findInvoicesByInvoiceIdentifier_InvoiceIdStartingWith(invoiceId));
+        }
+
+        else if (userId != null) {
+            filteredAccounts.addAll(invoiceRepository.findInvoicesByUserIdStartingWith(userId));
+        }
+        else if (username != null) {
+            filteredAccounts.addAll(invoiceRepository.findAllInvoicesByUsernameStartingWith(username));
+        } else if (status != null) {
+            filteredAccounts.addAll(invoiceRepository.findInvoicesByStatus(InvoiceStatus.valueOf(status)));
+        } else if (paymentType != null) {
+            filteredAccounts.addAll(invoiceRepository.findInvoicesByPaymentTypeStartingWith(paymentType));
+        }
+        else {
+            filteredAccounts.addAll(invoiceRepository.findAll());
+        }
+
+        return invoiceResponseMapper.entityListToResponseModelList(filteredAccounts.stream().sorted(Comparator.comparing(invoices -> invoices.getInvoiceIdentifier().getInvoiceId())).toList());
+
     }
 
     @Override
