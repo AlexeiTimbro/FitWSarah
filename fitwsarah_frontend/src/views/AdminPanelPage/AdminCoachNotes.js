@@ -4,7 +4,6 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './AdminAccounts.css';
-import Filter from "../../components/AdminPanel/Filter";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
 import { useTranslation } from "react-i18next";
 
@@ -20,7 +19,7 @@ function AdminCoachNotes() {
 
     const getAccessToken = useGetAccessToken();
 
-    const { t } = useTranslation('adminPanel');
+    const { t } = useTranslation('adminCoachNotes');
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -86,7 +85,8 @@ function AdminCoachNotes() {
                                 <tr key={coachNotes.id}>
                                     <td>{coachNotes.coachNoteId}</td>
                                     <td>{coachNotes.userId}</td>
-                                    <td>{coachNotes.content}</td>
+                                    <td>{coachNotes.content_EN}</td>
+                                    <td>{coachNotes.content_FR}</td>
                                     <td>
                                         <button className="button delete-button">{t('delete')}</button>
                                         <button className="button details-button">{t('details')}</button>
