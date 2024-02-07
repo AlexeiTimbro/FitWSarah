@@ -58,6 +58,15 @@ public class CoachNoteControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void getAllCoachNotesTest() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/coachnotes")
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
 
     public String obtainAuthToken() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
