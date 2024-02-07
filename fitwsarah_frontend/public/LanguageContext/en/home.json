@@ -3,6 +3,7 @@
     "book": "Book",
     "details": "Details",
     "addFitnessService": "Add a Fitness Service",
+    "updateFitnessService": "Update a Fitness Service",
     "fitnessServiceTitle_en": "Fitness Service Title (English)",
     "fitnessServiceTitle_fr": "Fitness Service Title (French)",
     "duration": "Duration",
