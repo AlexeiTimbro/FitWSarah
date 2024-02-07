@@ -1,7 +1,10 @@
 package com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer.CoachNoteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +26,7 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.RequestEntity.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -34,7 +38,7 @@ public class CoachNoteControllerIntegrationTest {
     private MockMvc mockMvc;
     @MockBean
     private CoachNoteService coachNoteService;
-    private CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("coachNoteId", "testUserId", "testContent", "testDate");
+    private CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda");
     private String testToken = "Bearer ";
     private List<CoachNoteResponseModel> coachNoteResponseModelList;
     private String testUserId = "testUserId";
@@ -67,6 +71,19 @@ public class CoachNoteControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void addCoachNoteTest() throws Exception {
+        mockMvc.perform(post("/api/v1/coachnotes")
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(new CoachNoteRequestModel("testAccountId", "testUserId", "testUsername", "testContent_EN", "testContent_FR"))))
+                .andExpect(status().isOk());
+    }
+
+    private String asJsonString(Object obj) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(obj);
+    }
 
     public String obtainAuthToken() throws Exception {
         RestTemplate restTemplate = new RestTemplate();

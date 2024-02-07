@@ -1,9 +1,15 @@
 package com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer.CoachNoteServiceImpl;
+import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNote;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNoteRepository;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteRequestMapper;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteResponseMapper;
+import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteRequestModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +23,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
@@ -42,7 +50,7 @@ public class CoachNoteServiceImplTest {
     @Test
     public void getCoachNoteByUserIdReturnsExpectedResult() {
         String userId = "testUserId";
-        List<CoachNoteResponseModel> expectedResponse = Collections.singletonList(new CoachNoteResponseModel("testId", "testUserId", "testNote", "testDate"));
+        List<CoachNoteResponseModel> expectedResponse = Collections.singletonList(new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda"));
         when(coachNoteRepository.findCoachNoteByUserId(userId)).thenReturn(Collections.emptyList());
         when(coachNoteResponseMapper.entityListToResponseModelList(Collections.emptyList())).thenReturn(expectedResponse);
 
@@ -70,7 +78,7 @@ public class CoachNoteServiceImplTest {
 
     @Test
     public void getAllCoachNotesReturnsExpectedResult() {
-        List<CoachNoteResponseModel> expectedResponse = Collections.singletonList(new CoachNoteResponseModel("testId", "testUserId", "testNote", "testDate"));
+        List<CoachNoteResponseModel> expectedResponse = Collections.singletonList(new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda"));
         when(coachNoteRepository.findAll()).thenReturn(Collections.emptyList());
         when(coachNoteResponseMapper.entityListToResponseModelList(Collections.emptyList())).thenReturn(expectedResponse);
 
@@ -78,4 +86,27 @@ public class CoachNoteServiceImplTest {
 
         assertEquals(expectedResponse, actualResponse);
     }
+
+    @Test
+    public void addCoachNoteReturnsExpectedResult() {
+
+        CoachNoteRequestModel requestModel = new CoachNoteRequestModel("testUserId", "testNote", "test","sdasda","asdasda");
+
+        CoachNote entity = mock(CoachNote.class);
+        CoachNoteResponseModel mockedResponse = new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda");
+        when(coachNoteResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
+        when(coachNoteRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
+        when(coachNoteRepository.save(entity)).thenReturn(entity);
+
+        CoachNoteResponseModel result = coachNoteService.addCoachNote(requestModel);
+        assertNotNull(result);
+        assertNotNull(result.getCoachNoteId());
+        assertNotNull(result.getUserId());
+        assertNotNull(result.getAccountId());
+        assertNotNull(result.getUsername());
+        assertNotNull(result.getContent_EN());
+        assertNotNull(result.getContent_FR());
+
+    }
+
 }

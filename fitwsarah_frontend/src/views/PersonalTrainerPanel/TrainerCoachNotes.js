@@ -38,7 +38,7 @@ function TrainerCoachNotes() {
 
     const getAllCoachNotes = () => {
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes`, {
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -71,12 +71,14 @@ function TrainerCoachNotes() {
                     <div className="header-section">
                         <h1>{t('coachNotes')}</h1>
                     </div>
+                    <Link to="/TrainerCreateCoachNotes" className="button back-button">Create Coach Note</Link>
                     <div className="table-responsive">
                         <table className="table">
                             <thead>
                             <tr>
                                 <th>{t('coachNoteId')}</th>
                                 <th>{t('userId')}</th>
+                                <th>{t('username')}</th>
                                 <th>{t('content')}</th>
                             </tr>
                             </thead>
@@ -85,6 +87,7 @@ function TrainerCoachNotes() {
                                 <tr key={coachNotes.id}>
                                     <td>{coachNotes.coachNoteId}</td>
                                     <td>{coachNotes.userId}</td>
+                                    <td>{coachNotes.username}</td>
                                     <td>{coachNotes.content_EN}</td>
                                     <td>{coachNotes.content_FR}</td>
                                     <td>

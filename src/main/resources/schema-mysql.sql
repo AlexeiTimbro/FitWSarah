@@ -83,7 +83,9 @@ create table if not exists availabilities(
 create table if not exists coach_notes(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     coach_note_id VARCHAR(36) NOT NULL,
+    account_id VARCHAR(36) NOT NULL,
     user_id VARCHAR(36) NOT NULL,
+    username VARCHAR(50),
     content_en VARCHAR(120) NOT NULL,
     content_fr VARCHAR(120) NOT NULL
 );

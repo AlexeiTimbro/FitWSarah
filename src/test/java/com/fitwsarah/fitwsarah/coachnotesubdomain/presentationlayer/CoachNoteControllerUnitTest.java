@@ -31,7 +31,7 @@ public class CoachNoteControllerUnitTest {
     @Test
     public void getCoachNoteByUserIdTest() {
         String userId = "testUserId";
-        CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("coachNoteId", "testUserId", "testContent", "testDate");
+        CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda");
         List<CoachNoteResponseModel> expectedResponse = Arrays.asList(coachNoteResponseModel);
 
         when(coachNoteService.getCoachNoteByUserId(userId)).thenReturn(expectedResponse);
@@ -43,12 +43,24 @@ public class CoachNoteControllerUnitTest {
 
     @Test
     public void getAllCoachNotesTest() {
-        CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("coachNoteId", "testUserId", "testContent", "testDate");
+        CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda");
         List<CoachNoteResponseModel> expectedResponse = Arrays.asList(coachNoteResponseModel);
 
         when(coachNoteService.getAllCoachNotes()).thenReturn(expectedResponse);
 
         List<CoachNoteResponseModel> actualResponse = coachNoteController.getAllCoachNotes();
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void addCoachNoteTest() {
+        CoachNoteRequestModel coachNoteRequestModel = new CoachNoteRequestModel("testUserId", "testNote", "test","sdasda","asdasda");
+        CoachNoteResponseModel expectedResponse = new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda");
+
+        when(coachNoteService.addCoachNote(coachNoteRequestModel)).thenReturn(expectedResponse);
+
+        CoachNoteResponseModel actualResponse = coachNoteController.addCoachNote(coachNoteRequestModel);
 
         assertEquals(expectedResponse, actualResponse);
     }

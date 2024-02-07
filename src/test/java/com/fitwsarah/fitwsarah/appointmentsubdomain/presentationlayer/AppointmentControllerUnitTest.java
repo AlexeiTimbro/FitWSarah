@@ -171,6 +171,7 @@ class AppointmentControllerUnitTest {
         // Assert
         assertEquals(expectedResponse, result);
     }
+
 }
 
 
