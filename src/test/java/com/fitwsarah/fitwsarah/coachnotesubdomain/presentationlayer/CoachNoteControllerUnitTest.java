@@ -40,4 +40,16 @@ public class CoachNoteControllerUnitTest {
 
         assertEquals(expectedResponse, actualResponse);
     }
+
+    @Test
+    public void getAllCoachNotesTest() {
+        CoachNoteResponseModel coachNoteResponseModel = new CoachNoteResponseModel("coachNoteId", "testUserId", "testContent", "testDate");
+        List<CoachNoteResponseModel> expectedResponse = Arrays.asList(coachNoteResponseModel);
+
+        when(coachNoteService.getAllCoachNotes()).thenReturn(expectedResponse);
+
+        List<CoachNoteResponseModel> actualResponse = coachNoteController.getAllCoachNotes();
+
+        assertEquals(expectedResponse, actualResponse);
+    }
 }

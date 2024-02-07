@@ -66,4 +66,16 @@ public class CoachNoteServiceImplTest {
     public void getCoachNoteByUserIdThrowsExceptionWhenUserIdIsNull() {
         assertThrows(IllegalArgumentException.class, () -> coachNoteService.getCoachNoteByUserId(null));
     }
+
+
+    @Test
+    public void getAllCoachNotesReturnsExpectedResult() {
+        List<CoachNoteResponseModel> expectedResponse = Collections.singletonList(new CoachNoteResponseModel("testId", "testUserId", "testNote", "testDate"));
+        when(coachNoteRepository.findAll()).thenReturn(Collections.emptyList());
+        when(coachNoteResponseMapper.entityListToResponseModelList(Collections.emptyList())).thenReturn(expectedResponse);
+
+        List<CoachNoteResponseModel> actualResponse = coachNoteService.getAllCoachNotes();
+
+        assertEquals(expectedResponse, actualResponse);
+    }
 }

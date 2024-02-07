@@ -28,4 +28,10 @@ public class CoachNoteServiceImpl implements CoachNoteService{
         }
         return coachNoteResponseMapper.entityListToResponseModelList(coachNoteRepository.findCoachNoteByUserId(userId));
     }
+
+    @Override
+    public List<CoachNoteResponseModel> getAllCoachNotes() {
+        return coachNoteResponseMapper.entityListToResponseModelList(coachNoteRepository.findAll());
+    }
+
 }

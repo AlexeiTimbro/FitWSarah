@@ -71,6 +71,12 @@ function PersonalTrainerPanel() {
                             <p>{t('lastMonthTotalInvoices', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
+                        <Link className="section" to="/trainerCoachNotes">
+                            <h2>{t('adminPanelCoachNotes')}</h2>
+                            <p>{t('currentTotalCoachNotes', { count: 'XX' })}</p>
+                            <p>{t('lastMonthTotalCoachNotes', { count: 'XX' })}</p>
+                            <span className="more-options">...</span>
+                        </Link>
                         <Link className="section" to="/analytics">
                             <h2>{t('adminPanelAnalytics')}</h2>
                             <p>{t('currentTotalAnalytics', { count: 'XX' })}</p>
@@ -87,12 +93,6 @@ function PersonalTrainerPanel() {
                             <h2>{t('adminPanelServices')}</h2>
                             <p>{t('currentTotalServices', { count: 'XX' })}</p>
                             <p>{t('lastMonthTotalServices', { count: 'XX' })}</p>
-                            <span className="more-options">...</span>
-                        </Link>
-                        <Link className="section" to="/coach-notes">
-                            <h2>{t('adminPanelCoachNotes')}</h2>
-                            <p>{t('currentTotalCoachNotes', { count: 'XX' })}</p>
-                            <p>{t('lastMonthTotalCoachNotes', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
                     </div>
