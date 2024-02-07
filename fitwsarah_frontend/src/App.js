@@ -14,13 +14,14 @@ import TrainerCreateInvoices from "./views/PersonalTrainerPanel/TrainerCreateInv
 import BookAppointment from "./views/AppointmentPage/NewAppointment";
 import Services from "./views/AdminPanelPage/FitnessServices";
 import TrainerFitnessServices from "./views/PersonalTrainerPanel/TrainerFitnessServices";
-import CoachNote from './views/AdminPanelPage/AdminCoachNotes';
+import AdminCoachNote from './views/AdminPanelPage/AdminCoachNotes';
 import TrainerInvoices from "./views/PersonalTrainerPanel/TrainerInvoices";
 import ContactMe from "./views/ContactMePage/ContactMeView";
 import Feedbacks from "./views/PersonalTrainerPanel/TrainerFeedback";
 import AdminFeedback from "./views/AdminPanelPage/Feedback";
 import { LanguageProvider } from './LanguageConfig/LanguageContext.js';
 import ClientInvoices from "./components/clientProfile/clientInvoices";
+import TrainerCoachNotes from "./views/PersonalTrainerPanel/TrainerCoachNotes";
 
 function App() {
     return (
@@ -47,7 +48,8 @@ function App() {
                     <Route path="/trainerFeedback" element={<Feedbacks/>}/>
                     <Route path="/adminFeedback" element={<AdminFeedback/>}/>
                     <Route path="/invoices" element={<ClientInvoices/>}/>
-                    <Route path="/coachNote" element={<CoachNote/>}/>
+                    <Route path="/adminCoachNotes" element={<AdminCoachNote/>}/>
+                    <Route path="/trainerCoachNotes" element={<TrainerCoachNotes/>}/>
                 </Routes>
             </Router>
         </LanguageProvider>

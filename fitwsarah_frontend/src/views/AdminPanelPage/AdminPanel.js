@@ -72,7 +72,7 @@ function AdminPanel() {
               <p>{t('lastMonthTotalInvoices', { count: 'XX' })}</p>
               <span className="more-options">...</span>
             </Link>
-            <Link className="section" to="/coachNote">
+            <Link className="section" to="/adminCoachNotes">
               <h2>{t('adminPanelCoachNotes')}</h2>
               <p>{t('currentTotalCoachNotes', { count: 'XX' })}</p>
               <p>{t('lastMonthTotalCoachNotes', { count: 'XX' })}</p>
