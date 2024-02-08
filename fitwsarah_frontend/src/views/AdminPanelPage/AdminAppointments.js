@@ -24,6 +24,7 @@ function AdminAccounts() {
 
     const [appointments, setAppointments] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const [src] = useState('appointment')
     const getAccessToken = useGetAccessToken();
 
     const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["status",""]]);
@@ -261,7 +262,7 @@ function AdminAccounts() {
                     <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
                     <h1>Appointments</h1>
                     <div className="filter-container">
-                        <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
+                        <Filter src={src} labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
                     </div>
 
                     <div className="table-scroll-container">

@@ -41,6 +41,14 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
             return 'userId'
         case 'Appointment ID':
             return 'appointmentId'
+        case 'Account ID':
+            return 'accountId'
+        case 'Username':
+            return 'username'
+        case 'Email':
+            return 'email'
+        case 'City':
+            return 'city'
        }
     }
 

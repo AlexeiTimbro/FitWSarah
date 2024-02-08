@@ -4,10 +4,9 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import Filter from "../../components/AdminPanel/Filter";
-import './TrainerAccounts.css';
+import '../../views/PersonalTrainerPanel/TrainerFeedback.css';
 import "../../css/style.css";
 import ReactStars from 'react-stars';
-import './TrainerFeedback.css';
 import { useTranslation } from "react-i18next";
 import {useGetAccessToken} from "../../components/authentication/authUtils";
 function Feedbacks() {

@@ -9,5 +9,9 @@
     "appointmentId": "Appointment ID",
     "status": "Status",
     "feedbackId":"Feedback ID",
-    "userId":"User ID"
+    "userId":"User ID",
+    "accountId":"Account ID",
+    "username":"Username",
+    "email":"Email",
+    "city":"City"
 }
