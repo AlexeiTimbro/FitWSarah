@@ -7,5 +7,12 @@
     "cancelled": "Annulé",
     "completed": "Terminé",
     "appointmentId": "ID du Rendez-vous",
-    "status": "Statut"
+    "status": "Statut",
+    "feedbackId":"ID de l'avis",
+    "userId":"ID de l'utilisateur",
+    "accountId":"ID du compte",
+    "username":"Nom d'utilisateur",
+    "email":"Email",
+    "city":"Ville"
+
 }

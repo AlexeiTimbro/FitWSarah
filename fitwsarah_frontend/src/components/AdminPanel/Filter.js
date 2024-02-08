@@ -5,16 +5,20 @@ import { IoSearchSharp } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 
 
-function Filter({labels, onInputChange, searchTerm, clearFilters}) {
+function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
 
     const [statusButton, setStatusButton] = React.useState();
     const { t } = useTranslation('filter');
 
-    const handleInputChange = (event, label) => {
-            if (label === "Status") {
+    const handleInputChange = (event, label) => {    
+        //takes the actual value for the onInputChange from event (not for status), keep same name for status too
+        if (label === "Status") {
                 setStatusButton(event);
+                onInputChange(label, event);
+            } else{
+            const { value } = event.target;
+            onInputChange(label, value);
             }
-            onInputChange(label, event);
         };
 
     const getSearchTermValue = (label) => {
@@ -29,29 +33,62 @@ function Filter({labels, onInputChange, searchTerm, clearFilters}) {
         setStatusButton("");
         clearFilters();
     }
+    //depending on where the filter will be, use this to automatically localize the name
+    const source = (label) => {
+       switch (label){
+        case 'User ID':
+            //returns translation key (in json files)
+            return 'userId'
+        case 'Appointment ID':
+            return 'appointmentId'
+        case 'Account ID':
+            return 'accountId'
+        case 'Username':
+            return 'username'
+        case 'Email':
+            return 'email'
+        case 'City':
+            return 'city'
+       }
+    }
 
     return (
-        <Popup trigger={<button className="filter-popup-button"> <IoSearchSharp /> <span className="tooltip-text">Open Filter</span> </button>} position="left center">
+        <Popup trigger={<button className="filter-popup-button"> <IoSearchSharp /> <span className="tooltip-text">{t('openFilter')}</span> </button>} position="left center">
             <div className="filter-popup">
                 <>
                     <section className="filter-section">
                         <h4>{t('filterBy')}</h4>
                         {labels.map((label) => (
-                            <div key={label}>
+                            <div key={label}>                            
                                 {label !== "Status" ? (
                                     <div>
-                                        <label>{t('appointmentId')}</label>
+                                        <label>{t(source(label))}</label>
                                         <input type="text" name={label} maxLength="60" value={getSearchTermValue(label)} onChange={(event) => handleInputChange(event, label)} />
                                     </div>
                                     ) : (
                                     <div>
-                                        <label>{t('status')}</label>
+                                        {/*The src is the source file state that I take from the TrainerAppointments, etc (take a look at TrainerAppointments to see the usage)*/}
+                                        {src === "appointment" && (
+                                        <>
+                                            <label>{t('status')}</label>
                                         <input className={statusButton === "Requested" ? "status-button active" : "status-button"} type="button" name={label + "3"} maxLength="60" value={t('requested')} onClick={() => handleInputChange('Requested', label)} />
                                         <input className={statusButton === "Scheduled" ? "status-button active" : "status-button"} type="button" name={label + "1"} maxLength="60" value={t('scheduled')} onClick={() => handleInputChange('Scheduled', label)} />
                                         <input className={statusButton === "Cancelled" ? "status-button active" : "status-button"} type="button" name={label + "2"} maxLength="60" value={t('cancelled')} onClick={() => handleInputChange('Cancelled', label)} />
                                         <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "4"} maxLength="60" value={t('completed')} onClick={() => handleInputChange('Completed', label)} />
-                                    </div>
+                                        </>
+                                        )}
+                                        {src === "feedback" && (
+                                        <>
+                                        {/*The names are the same english or french*/}
+                                            <label>{t('status')}</label>
+                                        <input className={statusButton === "Invisible" ? "status-button active" : "status-button"} type="button" name={label + "5"} maxLength="60" value="Invisible" onClick={() => handleInputChange('Invisible', label)} />
+                                        <input className={statusButton === "Visible" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="Visible" onClick={() => handleInputChange('Visible', label)} />
+                                        </>
+                                        )}
+                                        </div>
                                 )}
+                               
+
                             </div>
                         ))}
 

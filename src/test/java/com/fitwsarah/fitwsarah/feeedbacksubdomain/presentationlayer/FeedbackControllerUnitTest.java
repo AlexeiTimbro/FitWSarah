@@ -1,9 +1,6 @@
 package com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer;
 
 
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import com.fitwsarah.fitwsarah.feeedbacksubdomain.businesslayer.FeedbackService;
 import com.fitwsarah.fitwsarah.feeedbacksubdomain.datalayer.State;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,17 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -34,19 +29,25 @@ class FeedbackControllerUnitTest {
     @InjectMocks
     private FeedbackController feedbackController;
 
+    FeedbackResponseModel feedback1 = new FeedbackResponseModel("feed-id1", "uuid-user1", 3,  "test", State.INVISIBLE);
+    FeedbackResponseModel feedback2 = new FeedbackResponseModel("feed-id2", "uuid-user2", 5,  "test2", State.INVISIBLE);
+
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void getAllAppointmentsByAccountId_ShouldReturnAppointments() {
-        List<FeedbackResponseModel> expectedFeedbacks = Arrays.asList(new FeedbackResponseModel("feed-id1", "uuid-user1", 3,  "test", State.INVISIBLE), new FeedbackResponseModel("feed-id2", "uuid-user2", 4,  "test2", State.INVISIBLE));
+    public void getAllFeedback_ShouldReturnFeedbacks() {
+        List<FeedbackResponseModel> expectedFeedbacks = Arrays.asList(feedback1, feedback2);
 
-        when(feedbackService.getAllFeedback()).thenReturn(expectedFeedbacks);
+        when(feedbackService.getAllFeedback(null, null, null)).thenReturn(expectedFeedbacks);
 
-        List<FeedbackResponseModel> actualFeedbacks = feedbackController.getAllFeedbackThreads();
+        List<FeedbackResponseModel> actualFeedbacks = feedbackController.getAllFeedbackThreads(null, null, null);
         assertEquals(expectedFeedbacks, actualFeedbacks);
+        assertThat(actualFeedbacks.get(0), is(feedback1));
+        assertThat(actualFeedbacks.get(1), is(feedback2));
     }
     @Test
     public void addFeedback_shouldSucceed(){
