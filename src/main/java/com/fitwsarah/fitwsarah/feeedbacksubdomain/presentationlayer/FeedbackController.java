@@ -3,7 +3,6 @@ package com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +23,8 @@ public class FeedbackController {
         this.feedbackService = feedbackService;
     }
     @GetMapping()
-    public List<FeedbackResponseModel> getAllFeedbackThreads(@RequestParam(required = false) String feedbackId, @RequestParam(required = false) String userId, @RequestParam(required = false) String status){
-        return feedbackService.getAllFeedback(feedbackId, userId, status);
+    public List<FeedbackResponseModel> getAllFeedbackThreads(@RequestParam(required = false) String feedbackId, @RequestParam(required = false) String userid, @RequestParam(required = false) String status){
+        return feedbackService.getAllFeedback(feedbackId, userid, status);
     }
 
 

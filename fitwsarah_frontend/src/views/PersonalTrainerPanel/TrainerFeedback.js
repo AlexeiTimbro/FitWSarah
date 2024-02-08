@@ -4,7 +4,6 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import Filter from "../../components/AdminPanel/Filter";
-import configData from "../../config.json";
 import './TrainerAccounts.css';
 import "../../css/style.css";
 import ReactStars from 'react-stars';
@@ -17,13 +16,13 @@ function Feedbacks() {
         isAuthenticated,
     } = useAuth0();
 
-
+    const [src] = useState('feedback');
     const [feedbacks, setFeedbacks] = useState([]);
     const { t } = useTranslation('adminPanel');
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
-    const [searchTerm, setSearchTerm] = useState([["feedbackId",""],["userId",""], ["state",""]]);
-    const labels = ["Feedback ID","User ID", "Status"];
+    const [searchTerm, setSearchTerm] = useState([["userid",""], ["status",""]]);
+    const labels = ["User ID", "Status"];
 
        useEffect(() => {
         const fetchToken = async () => {
@@ -37,16 +36,23 @@ function Feedbacks() {
         if (accessToken) {
             getAllFeedback();
         }
-    }, [accessToken]);
+    }, [accessToken, searchTerm]);
 
-        const getAllFeedback = async () => {
+        const getAllFeedback =  () => {
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                "Content-Type": "application/json"
+            const params = new URLSearchParams();
+            searchTerm.forEach(term => {
+            if (term[1]) {
+                params.append(term[0], term[1]);
             }
+        });
+
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks${params.toString() && "?" + params.toString()}`, {
+            method: "GET",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            })
         })
             .then((response) => {
                 if (!response.ok) {
@@ -55,6 +61,7 @@ function Feedbacks() {
                 return response.json();
             })
             .then((data) => {
+                console.log(data);
                 setFeedbacks(data);
             })
             .catch((error) => {
@@ -129,7 +136,7 @@ function Feedbacks() {
    
     function onInputChange(label, value) {
         const newSearchTerm = searchTerm.map((term) => {
-            if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
+            if (term[0] === label.toLowerCase().replace(/\s+/g,'')) {
                 if (label === "Status") {
                     console.log(value.toUpperCase());
                     return [term[0], value.toUpperCase()];
@@ -142,7 +149,7 @@ function Feedbacks() {
     }
 
     function clearFilters() {
-        setSearchTerm([["feedbackId", ""],["userId",""], ["state",""]]);
+        setSearchTerm([["userid",""], ["status",""]]);
     }
 
     return (
@@ -158,7 +165,7 @@ function Feedbacks() {
                         <h1>{t('feedback')}</h1>
                     </div>
                     <div className="filter-container">
-                        <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
+                        <Filter src={src} labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
                     </div>
                     <div className="table-responsive">
                         <table className="table">

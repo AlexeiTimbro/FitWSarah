@@ -32,13 +32,13 @@ public class FeedbackServiceImpl implements FeedbackService {
         this.feedbackResponseMapper = feedbackResponseMapper;
     }
     @Override
-    public List<FeedbackResponseModel> getAllFeedback(String feedbackId, String userId, String status) {
+    public List<FeedbackResponseModel> getAllFeedback(String feedbackId, String userid, String status) {
         Set<Feedback> feedbacks = new HashSet<>();
 
         if(feedbackId != null){
             feedbacks.addAll(feedbackRepository.findAllFeedbacksByFeedbackIdentifier_FeedbackIdStartingWith(feedbackId));
-        } else if(userId != null){
-            feedbacks.addAll(feedbackRepository.findAllFeedbacksByUserIdStartingWith(userId));
+        } else if(userid != null){
+            feedbacks.addAll(feedbackRepository.findAllFeedbacksByUserIdStartingWith(userid));
         } else if(status != null){
             feedbacks.addAll(feedbackRepository.findAllFeedbacksByStatus(State.valueOf(status)));
         } else {

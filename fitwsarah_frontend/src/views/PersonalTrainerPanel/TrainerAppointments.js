@@ -24,7 +24,7 @@ function AdminAccounts() {
     const [appointments, setAppointments] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
-
+    const [src] = useState('appointment')
     const [searchTerm, setSearchTerm] = useState([["appointmentid",""], ["status",""]]);
 
     const labels = ["Appointment ID", "Status"];
@@ -328,7 +328,7 @@ function AdminAccounts() {
                     <Link to="/trainerPanel" className="button back-button">{t('back')}</Link>
                     <h1>{t('appointment')}</h1>
                     <div className="filter-container">
-                        <Filter labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
+                        <Filter src={src} labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
                     </div>
 
                     <div className="table-responsive">

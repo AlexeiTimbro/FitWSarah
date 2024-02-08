@@ -7,5 +7,7 @@
     "cancelled": "Cancelled",
     "completed": "Completed",
     "appointmentId": "Appointment ID",
-    "status": "Status"
+    "status": "Status",
+    "feedbackId":"Feedback ID",
+    "userId":"User ID"
 }

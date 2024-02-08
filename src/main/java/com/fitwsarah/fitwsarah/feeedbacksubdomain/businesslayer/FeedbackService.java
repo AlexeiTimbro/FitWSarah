@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FeedbackService {
 
-    List<FeedbackResponseModel> getAllFeedback(String feedbackId, String userId, String status);
+    List<FeedbackResponseModel> getAllFeedback(String feedbackId, String userid, String status);
 
     FeedbackResponseModel getFeedbackByFeedbackId(String feedbackId);
 
