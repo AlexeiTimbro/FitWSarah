@@ -1,10 +1,7 @@
 package com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer.CoachNoteService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +24,8 @@ public class CoachNoteController {
         return coachNoteService.getAllCoachNotes();
     }
 
+    @PostMapping()
+    public CoachNoteResponseModel addCoachNote(@RequestBody CoachNoteRequestModel coachNoteRequestModel){
+        return coachNoteService.addCoachNote(coachNoteRequestModel);
+    }
 }

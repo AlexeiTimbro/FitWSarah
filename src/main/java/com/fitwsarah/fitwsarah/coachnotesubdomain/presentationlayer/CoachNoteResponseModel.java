@@ -11,7 +11,9 @@ import lombok.Value;
 public class CoachNoteResponseModel {
 
     String coachNoteId;
+    String accountId;
     String userId;
+    String username;
     String content_EN;
     String content_FR;
 

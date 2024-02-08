@@ -599,11 +599,6 @@ public class EndToEndTesting {
 
         sleep(1000);
 
-        SelenideElement ileBtn = $("a[href='/trainerCreateInvoices']");
-        ileBtn.click();
-
-        sleep(1000);
-
         SelenideElement usernameDropdown = $("select[name='username']");
         usernameDropdown.selectOption("desired_username");
 
@@ -769,4 +764,58 @@ public class EndToEndTesting {
         sleep(1000);
 
     }
+
+
+    @Test
+    public void addCoachNoteTrainerPanel(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("admin@admin.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+
+        SelenideElement adminPanelBtn = $("a[href='/trainerPanel']");
+        adminPanelBtn.click();
+
+        sleep(1000);
+
+        SelenideElement profileBtn = $("a[href='/trainerCoachNotes']");
+        profileBtn.click();
+
+        sleep(1000);
+
+        SelenideElement pileBtn = $("a[href='/TrainerCreateCoachNotes']");
+        pileBtn.click();
+
+        sleep(1000);
+
+        SelenideElement usernameDropdown = $("select[name='username']");
+        usernameDropdown.selectOption("desired_username");
+
+        SelenideElement paymentTypeInput = $("input[name='content_EN']");
+        paymentTypeInput.setValue("content");
+
+        SelenideElement paymentTypeInpute = $("input[name='content_FR']");
+        paymentTypeInput.setValue("contenu");
+
+        SelenideElement createInvoiceButton = $("button[type='submit']");
+        createInvoiceButton.click();
+
+        sleep(1000);
+    }
+
 }

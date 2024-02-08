@@ -58,9 +58,9 @@ INSERT INTO availabilities (availability_id, available, account_id, datetime) VA
 ('uuid-avail4', 0, 'uuid-acc4', '2023-12-04 14:00:00'),
 ('uuid-avail5', 1, 'uuid-acc5', '2023-12-05 16:30:00');
 
-INSERT INTO coach_notes (coach_note_id, user_id, content_en, content_fr) VALUES
-('1', '65b9b977d5fa901a57937bc3', 'Keep up the great work with your training!', 'Continuez votre excellent travail avec votre entraînement !'),
-('2', '65b9b977d5fa901a57937bc3', 'Remember to stay hydrated during workouts.', 'oubliez pas de rester hydraté pendant les entraînements.'),
-('3', '65b9b977d5fa901a57937bc3', 'Excellent progress on your last session!', 'Excellents progrès lors de votre dernière séance !'),
-('4', '65b16a01c0705bb1bf4a2bb8', 'Try to increase your running distance gradually.', 'Essayez d''augmenter progressivement votre distance de course.'),
-('5', '65b16a01c0705bb1bf4a2bb8', 'Focus on maintaining a balanced diet.', 'Concentrez-vous sur le maintien d''une alimentation équilibrée.');
+INSERT INTO coach_notes (coach_note_id, account_id, user_id, username, content_en, content_fr) VALUES
+                                                                                                   ('1', 'uuid-acc1', '65b9b977d5fa901a57937bc3', 'johnsmith', 'Keep up the great work with your training!', 'Continuez votre excellent travail avec votre entraînement !'),
+                                                                                                   ('2', 'uuid-acc2', '65b9b977d5fa901a57937bc3', 'emilyjones', 'Remember to stay hydrated during workouts.', 'Noubliez pas de rester hydraté pendant les entraînements.'),
+('3', 'uuid-acc3', '101188348963819843921', 'michaelbrown', 'Excellent progress on your last session!', 'Excellents progrès lors de votre dernière séance !'),
+('4', 'uuid-acc4', '101188348963819843921', 'sarahwhite', 'Try to increase your running distance gradually.', 'Essayez d''augmenter progressivement votre distance de course.'),
+('5', 'uuid-acc5', '101188348963819843921', 'davidjohnson', 'Focus on maintaining a balanced diet.', 'Concentrez-vous sur le maintien d''une alimentation équilibrée.');

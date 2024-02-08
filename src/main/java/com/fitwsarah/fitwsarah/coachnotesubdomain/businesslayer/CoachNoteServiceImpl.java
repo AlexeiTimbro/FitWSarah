@@ -1,8 +1,12 @@
 package com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
+import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNote;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNoteRepository;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteRequestMapper;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteResponseMapper;
+import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteRequestModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +36,13 @@ public class CoachNoteServiceImpl implements CoachNoteService{
     @Override
     public List<CoachNoteResponseModel> getAllCoachNotes() {
         return coachNoteResponseMapper.entityListToResponseModelList(coachNoteRepository.findAll());
+    }
+
+    @Override
+    public CoachNoteResponseModel addCoachNote(CoachNoteRequestModel coachNoteRequestModel) {
+        CoachNote coachNote = coachNoteRequestMapper.requestModelToEntity(coachNoteRequestModel);
+        CoachNote savedCoachNote = coachNoteRepository.save(coachNote);
+        return coachNoteResponseMapper.entityToResponseModel(savedCoachNote);
     }
 
 }
