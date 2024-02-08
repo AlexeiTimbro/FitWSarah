@@ -6,6 +6,8 @@
     "scheduled": "Prévu",
     "cancelled": "Annulé",
     "completed": "Terminé",
+    "pending": "En attente",
+    "overDue": "En Retard",
     "appointmentId": "ID du Rendez-vous",
     "status": "Statut",
     "feedbackId":"ID de l'avis",

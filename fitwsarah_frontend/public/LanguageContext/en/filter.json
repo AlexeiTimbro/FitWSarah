@@ -6,6 +6,8 @@
     "scheduled": "Scheduled",
     "cancelled": "Cancelled",
     "completed": "Completed",
+    "pending": "Pending",
+    "overDue": "OverDue",
     "appointmentId": "Appointment ID",
     "status": "Status",
     "feedbackId":"Feedback ID",

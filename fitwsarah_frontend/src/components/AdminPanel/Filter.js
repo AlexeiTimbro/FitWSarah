@@ -67,7 +67,7 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
                                     </div>
                                     ) : (
                                     <div>
-                                        {/*The src is the source file state that I take from the TrainerAppointments, etc (take a look at TrainerAppointments to see the usage)*/}
+                                        {}
                                         {src === "appointment" && (
                                         <>
                                             <label>{t('status')}</label>
@@ -79,13 +79,29 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
                                         )}
                                         {src === "feedback" && (
                                         <>
-                                        {/*The names are the same english or french*/}
+                                        {}
                                             <label>{t('status')}</label>
                                         <input className={statusButton === "Invisible" ? "status-button active" : "status-button"} type="button" name={label + "5"} maxLength="60" value="Invisible" onClick={() => handleInputChange('Invisible', label)} />
                                         <input className={statusButton === "Visible" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="Visible" onClick={() => handleInputChange('Visible', label)} />
                                         </>
                                         )}
+
+
+                                        {src === "invoices" && (
+                                            <>
+                                                {}
+                                                <label>{t('status')}</label>
+                                                <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "5"} maxLength="60" value="Completed" onClick={() => handleInputChange('Completed', label)} />
+                                                <input className={statusButton === "Pending" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="Pending" onClick={() => handleInputChange('Pending', label)} />
+                                                <input className={statusButton === "OverDue" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="OverDue" onClick={() => handleInputChange('OverDue', label)} />
+
+                                            </>
+                                        )}
                                         </div>
+
+
+
+
                                 )}
                                
 
