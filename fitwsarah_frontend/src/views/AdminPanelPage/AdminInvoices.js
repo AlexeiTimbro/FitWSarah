@@ -45,7 +45,7 @@ function AdminInvoices() {
             }
         });
 
-        fetch(`http://localhost:8080/api/v1/invoices${params.toString() && "?" + params.toString()}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
