@@ -23,7 +23,7 @@ function NavNotLoggedIn() {
         </div>
 
         <div className="right-links">
-          <button className="login-button" onClick={() => loginWithRedirect()}>{t('login')}</button>;
+          <button className="login-button" onClick={() => loginWithRedirect({ui_locales: 'fr-CA'})}>{t('login')}</button>;
           <RegisterButton/>
         </div>
       </nav>
