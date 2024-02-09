@@ -7,26 +7,23 @@ import './TrainerCoachNotes.css';
 import { useGetAccessToken } from "../../components/authentication/authUtils";
 import { useTranslation } from "react-i18next";
 
-
 function TrainerCoachNotes() {
-
-    const {
-        isAuthenticated,
-    } = useAuth0();
-
+    const { isAuthenticated } = useAuth0();
     const [coachNotes, setCoachNotes] = useState([]);
+    const [editCoachNoteId, setEditCoachNoteId] = useState(null);
+    const [editFormData, setEditFormData] = useState({
+        content_EN: '',
+        content_FR: ''
+    });
     const [accessToken, setAccessToken] = useState(null);
-
     const getAccessToken = useGetAccessToken();
-
-    const { t } = useTranslation('adminCoachNotes');
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchToken = async () => {
             const token = await getAccessToken();
-            if (token) setAccessToken(token);
+            setAccessToken(token);
         };
-
         fetchToken();
     }, [getAccessToken]);
 
@@ -36,34 +33,82 @@ function TrainerCoachNotes() {
         }
     }, [accessToken]);
 
-    const getAllCoachNotes = () => {
-
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes`, {
-            method: "GET",
-            headers: new Headers({
-                Authorization: "Bearer " + accessToken,
-                "Content-Type": "application/json"
-            })
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setCoachNotes(data);
-            })
-            .catch((error) => {
-                console.log(error);
+    const getAllCoachNotes = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json",
+                },
             });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setCoachNotes(data);
+        } catch (error) {
+            console.error("Failed to fetch coach notes:", error);
+        }
     };
+
+    const handleEditClick = (coachNote) => {
+        console.log("Editing coach note with ID:", coachNote.coachNoteId);
+        setEditCoachNoteId(coachNote.coachNoteId);
+        setEditFormData({
+            content_EN: coachNote.content_EN,
+            content_FR: coachNote.content_FR,
+        });
+    };
+
+    const handleSaveClick = async () => {
+        console.log("Saving coach note with ID:", editCoachNoteId);
+        console.log("Data to save:", editFormData);
+
+        if (!editCoachNoteId) {
+            console.error("CoachNote ID is undefined.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes/${editCoachNoteId}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(editFormData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const updatedCoachNote = await response.json();
+            console.log("Updated coach note:", updatedCoachNote);
+
+            setEditCoachNoteId(null);
+            getAllCoachNotes();
+        } catch (error) {
+            console.error("Failed to save coach note:", error);
+        }
+    };
+
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setEditFormData({ ...editFormData, [name]: value });
+    };
+
+    const handleCancelClick = () => {
+        setEditCoachNoteId(null);
+    };
+
 
     return (
         <div>
-
-            {!isAuthenticated && <NavNotLoggedIn/>}
-            {isAuthenticated && <NavLoggedIn/>}
+            {!isAuthenticated && <NavNotLoggedIn />}
+            {isAuthenticated && <NavLoggedIn />}
 
             <div className="accounts-section">
                 <div className="container">
@@ -79,32 +124,65 @@ function TrainerCoachNotes() {
                                 <th>{t('coachNoteId')}</th>
                                 <th>{t('userId')}</th>
                                 <th>{t('username')}</th>
-                                <th>{t('content')}</th>
+                                <th>{t('content_EN')}</th>
+                                <th>{t('content_FR')}</th>
+                                <th>{t('actions')}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {coachNotes.map(coachNotes => (
-                                <tr key={coachNotes.id}>
-                                    <td>{coachNotes.coachNoteId}</td>
-                                    <td>{coachNotes.userId}</td>
-                                    <td>{coachNotes.username}</td>
-                                    <td>{coachNotes.content_EN}</td>
-                                    <td>{coachNotes.content_FR}</td>
+                            {coachNotes.map((coachNote) => (
+                                <tr key={coachNote.coachNoteId}>
+                                    <td>{coachNote.coachNoteId}</td>
+                                    <td>{coachNote.userId}</td>
+                                    <td>{coachNote.username}</td>
+                                    {editCoachNoteId === coachNote.coachNoteId ? (
+                                        <>
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    name="content_EN"
+                                                    value={editFormData.content_EN}
+                                                    onChange={handleChange}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    name="content_FR"
+                                                    value={editFormData.content_FR}
+                                                    onChange={handleChange}
+                                                />
+                                            </td>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <td>{coachNote.content_EN}</td>
+                                            <td>{coachNote.content_FR}</td>
+                                        </>
+                                    )}
                                     <td>
-                                        <button className="button delete-button">{t('delete')}</button>
-                                        <button className="button details-button">{t('details')}</button>
+                                        {editCoachNoteId === coachNote.coachNoteId ? (
+                                            <>
+                                                <button onClick={() => handleSaveClick(editCoachNoteId)} className="blueButton">Save</button>
+                                                <button onClick={handleCancelClick} className="cancelDelete">Cancel</button>
+                                            </>
+                                        ) : (
+                                            <button onClick={() => handleEditClick(coachNote)} className="blueButton">Edit</button>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
                             </tbody>
+
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
 
 
-
-    );}
+    );
+}
 
 export default TrainerCoachNotes;

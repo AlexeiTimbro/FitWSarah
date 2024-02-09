@@ -28,4 +28,9 @@ public class CoachNoteController {
     public CoachNoteResponseModel addCoachNote(@RequestBody CoachNoteRequestModel coachNoteRequestModel){
         return coachNoteService.addCoachNote(coachNoteRequestModel);
     }
+
+    @PutMapping("/{coachNoteId}")
+    public CoachNoteResponseModel updateCoachNoteById(@PathVariable String coachNoteId, @RequestBody CoachNoteRequestModel coachNoteRequestModel){
+        return coachNoteService.updateCoachNoteById(coachNoteId, coachNoteRequestModel);
+    }
 }

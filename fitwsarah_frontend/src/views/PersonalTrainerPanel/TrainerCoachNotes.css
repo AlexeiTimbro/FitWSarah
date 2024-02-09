@@ -59,14 +59,34 @@ body {
     border: none;
 }
 
-/* Specific styles for delete and details buttons */
-.delete-button {
-    background-color: #d9534f; /* Bootstrap 'btn-danger' color */
+.blueButton {
+    background-color: #5bc0de; /* Bootstrap 'btn-info' color */
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: none;
 }
 
-.details-button {
-    background-color: #5bc0de; /* Bootstrap 'btn-info' color */
+.cancelDelete {
+    background-color: #d9534f;
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: none;
 }
+
 
 /* Responsive table styles */
 .table {

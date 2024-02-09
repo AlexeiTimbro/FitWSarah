@@ -3,7 +3,5 @@
   "coachNotes": "Notes de l'Entraîneur",
   "coachNoteId": "ID de Note",
   "userId": "ID Utilisateur",
-  "content": "Contenu",
-  "delete": "Supprimer",
-  "details": "Détails"
+  "content": "Contenu"
 }

@@ -12,4 +12,6 @@ public interface CoachNoteService {
     List<CoachNoteResponseModel> getAllCoachNotes();
 
     CoachNoteResponseModel addCoachNote(CoachNoteRequestModel coachNoteRequestModel);
+
+    CoachNoteResponseModel updateCoachNoteById(String coachNoteId, CoachNoteRequestModel coachNoteRequestModel);
 }

@@ -64,4 +64,17 @@ public class CoachNoteControllerUnitTest {
 
         assertEquals(expectedResponse, actualResponse);
     }
+
+    @Test
+    public void updateCoachNoteTest() {
+        String coachNoteId = "sadsads";
+        CoachNoteRequestModel coachNoteRequestModel = new CoachNoteRequestModel("testUserId", "testNote", "test","sdasda","asdasda");
+        CoachNoteResponseModel expectedResponse = new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda");
+
+        when(coachNoteService.updateCoachNoteById(coachNoteId, coachNoteRequestModel)).thenReturn(expectedResponse);
+
+        CoachNoteResponseModel actualResponse = coachNoteController.updateCoachNoteById(coachNoteId, coachNoteRequestModel);
+
+        assertEquals(expectedResponse, actualResponse);
+    }
 }
