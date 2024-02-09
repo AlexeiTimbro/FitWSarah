@@ -94,8 +94,7 @@ class InvoiceServiceUniyTest {
         String status = "COMPLETED";
         String paymentType = "Credit Card";
 
-        Invoices invoice1 = new Invoices(); // Assume Invoices is a class representing your invoice entity
-        // ... Setup your invoice entity here as needed
+        Invoices invoice1 = new Invoices();
         List<Invoices> invoicesList = Collections.singletonList(invoice1);
         when(invoiceRepository.findAll()).thenReturn(invoicesList);
 

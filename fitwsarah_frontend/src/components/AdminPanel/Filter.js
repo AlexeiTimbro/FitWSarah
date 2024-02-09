@@ -80,7 +80,7 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
                                     </div>
                                     ) : (
                                     <div>
-                                        {}
+
                                         {src === "appointment" && (
                                         <>
                                             <label>{t('status')}</label>
@@ -92,7 +92,7 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
                                         )}
                                         {src === "feedback" && (
                                         <>
-                                        {}
+
                                             <label>{t('status')}</label>
                                         <input className={statusButton === "Invisible" ? "status-button active" : "status-button"} type="button" name={label + "5"} maxLength="60" value="Invisible" onClick={() => handleInputChange('Invisible', label)} />
                                         <input className={statusButton === "Visible" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="Visible" onClick={() => handleInputChange('Visible', label)} />
