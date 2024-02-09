@@ -104,9 +104,9 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
                                             <>
                                                 {}
                                                 <label>{t('state')}</label>
-                                                <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "5"} maxLength="60" value="Completed" onClick={() => handleInputChange('Completed', label)} />
-                                                <input className={statusButton === "Pending" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="Pending" onClick={() => handleInputChange('Pending', label)} />
-                                                <input className={statusButton === "OverDue" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="OverDue" onClick={() => handleInputChange('OverDue', label)} />
+                                                <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "7"} maxLength="60" value="Completed" onClick={() => handleInputChange('COMPLETED', label)} />
+                                                <input className={statusButton === "Pending" ? "status-button active" : "status-button"} type="button" name={label + "8"} maxLength="60" value="Pending" onClick={() => handleInputChange('PENDING', label)} />
+                                                <input className={statusButton === "OverDue" ? "status-button active" : "status-button"} type="button" name={label + "9"} maxLength="60" value="OverDue" onClick={() => handleInputChange('OVERDUE', label)} />
 
                                             </>
                                         )}

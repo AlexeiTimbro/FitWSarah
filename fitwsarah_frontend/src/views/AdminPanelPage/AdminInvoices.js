@@ -17,10 +17,10 @@ function AdminInvoices() {
     const [invoices, setInvoices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [src] = useState('invoices')
-    const { t } = useTranslation('adminPanel');
+    const { t } = useTranslation('filter');
     const getAccessToken = useGetAccessToken();
-    const [searchTerm, setSearchTerm] = useState([["invoiceid",""], ["userid",""], ["username",""], ["state",""],  ["paymenttype",""]]);
-    const labels = ["Invoice ID","User ID", "Username", "State",  "Payment Type"];
+    const [searchTerm, setSearchTerm] = useState([["invoiceid",""], ["userid",""], ["username",""], ["status",""],  ["paymenttype",""]]);
+    const labels = ["Invoice ID","User ID", "Username", "Status",  "Payment Type"];
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -78,7 +78,7 @@ function AdminInvoices() {
     }
 
     function clearFilters() {
-        setSearchTerm([["invoiceid",""],["userid",""], ["username", ""], ["state",""],  ["paymenttype",""]]);
+        setSearchTerm([["invoiceid",""],["userid",""], ["username", ""], ["status",""],  ["paymenttype",""]]);
     }
 
 

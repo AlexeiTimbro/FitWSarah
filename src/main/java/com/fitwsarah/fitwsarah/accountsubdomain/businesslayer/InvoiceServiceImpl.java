@@ -18,6 +18,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
@@ -33,30 +35,40 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public List<InvoiceResponseModel> getAllInvoices(String invoiceid, String userid, String username, String state, String paymenttype) {
-        Set<Invoices> filteredAccounts = new HashSet<>();
+    public List<InvoiceResponseModel> getAllInvoices(String invoiceid, String userid, String username, String status, String paymenttype) {
+      
+        Stream<Invoices> filteredStream = invoiceRepository.findAll().stream();
 
         if (invoiceid != null) {
-            filteredAccounts.addAll(invoiceRepository.findInvoicesByInvoiceIdentifier_InvoiceIdStartingWith(invoiceid));
+            filteredStream = filteredStream.filter(invoice -> invoice.getInvoiceIdentifier().getInvoiceId().startsWith(invoiceid));
         }
 
-        else if (userid != null) {
-            filteredAccounts.addAll(invoiceRepository.findInvoicesByUserIdStartingWith(userid));
-        }
-        else if (username != null) {
-            filteredAccounts.addAll(invoiceRepository.findAllInvoicesByUsernameStartingWith(username));
-        } else if (state != null) {
-            filteredAccounts.addAll(invoiceRepository.findInvoicesByStatus(InvoiceStatus.valueOf(state)));
-        } else if (paymenttype != null) {
-            filteredAccounts.addAll(invoiceRepository.findInvoicesByPaymentTypeStartingWith(paymenttype));
-        }
-        else {
-            filteredAccounts.addAll(invoiceRepository.findAll());
+        if (userid != null) {
+            filteredStream = filteredStream.filter(invoice -> invoice.getUserId().startsWith(userid));
         }
 
-        return invoiceResponseMapper.entityListToResponseModelList(filteredAccounts.stream().sorted(Comparator.comparing(invoices -> invoices.getInvoiceIdentifier().getInvoiceId())).toList());
+        if (username != null) {
+            filteredStream = filteredStream.filter(invoice -> invoice.getUsername().startsWith(username));
+        }
 
+        if (status != null) {
+            InvoiceStatus invoiceStatus = InvoiceStatus.valueOf(status);
+            filteredStream = filteredStream.filter(invoice -> invoice.getStatus() == invoiceStatus);
+        }
+
+        if (paymenttype != null) {
+            filteredStream = filteredStream.filter(invoice -> invoice.getPaymentType().startsWith(paymenttype));
+        }
+
+
+        Set<Invoices> filteredAccounts = filteredStream.collect(Collectors.toSet());
+
+
+        return invoiceResponseMapper.entityListToResponseModelList(filteredAccounts.stream()
+                .sorted(Comparator.comparing(invoices -> invoices.getInvoiceIdentifier().getInvoiceId()))
+                .toList());
     }
+
 
     @Override
     public InvoiceResponseModel addInvoice(InvoiceRequestModel invoiceRequestModel) {
