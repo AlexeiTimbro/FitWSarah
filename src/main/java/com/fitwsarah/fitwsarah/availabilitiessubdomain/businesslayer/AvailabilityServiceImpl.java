@@ -26,9 +26,9 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     }
 
     @Override
-    public List<AvailabilityResponseModel> getAllAppointments(String date) {
+    public List<AvailabilityResponseModel> getAllAvailabilities(String dayOfWeek) {
         Set<Availability> availabilities = new HashSet<>();
-        availabilities.addAll(availabilityRepository.findAllByDate(date));
+        availabilities.addAll(availabilityRepository.findAllByDayOfWeek(dayOfWeek));
 
         return availabilityResponseMapper.entityListToResponseModelList(availabilities.stream().sorted(Comparator.comparing(availability -> availability.getAvailabilityIdentifier().getAvailabilityId())).toList());
     }

@@ -8,5 +8,5 @@ import java.util.List;
 @Embeddable
 public interface AvailabilityRepository extends JpaRepository<Availability, Integer> {
 
-    List<Availability> findAllByDate(String date);
+    List<Availability> findAllByDayOfWeek(String dayOfWeek);
 }

@@ -14,8 +14,8 @@ public class AvailabilityController {
         this.availabilityService = availabilityService;
     }
     @GetMapping()
-    public List<AvailabilityResponseModel> getAllAvailabilities(@RequestParam String date){
-        return availabilityService.getAllAppointments(date);
+    public List<AvailabilityResponseModel> getAllAvailabilities(@RequestParam String dayOfWeek){
+        return availabilityService.getAllAvailabilities(dayOfWeek);
     }
 
 

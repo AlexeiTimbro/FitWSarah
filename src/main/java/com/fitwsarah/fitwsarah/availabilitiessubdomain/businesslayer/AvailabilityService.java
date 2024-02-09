@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AvailabilityService {
 
-    List<AvailabilityResponseModel> getAllAppointments(String date);
+    List<AvailabilityResponseModel> getAllAvailabilities(String dayOfWeek);
 }

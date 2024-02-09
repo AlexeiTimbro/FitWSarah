@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class AvailabilityResponseModel {
     private String availabilityId;
-    private LocalDateTime datetime;
-    private Boolean available;
-    private String date;
+    private String dayOfWeek;
     private String time;
 }

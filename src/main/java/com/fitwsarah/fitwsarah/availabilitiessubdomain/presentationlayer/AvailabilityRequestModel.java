@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class AvailabilityRequestModel {
-    private LocalDateTime datetime;
     private String time;
-    private String date;
+    private String dayOfWeek;
 }

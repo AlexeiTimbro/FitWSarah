@@ -18,11 +18,7 @@ public class Availability {
     @Embedded
     private AvailabilityIdentifier availabilityIdentifier;
 
-    private String userId;
-
-    private Boolean available;
-
-    private String date;
+    private String dayOfWeek;
     private String time;
 
 
@@ -31,10 +27,8 @@ public class Availability {
     }
 
 
-    public Availability(String userId, Boolean available, String date, String time) {
-        this.userId = userId;
-        this.available = available;
-        this.date = date;
+    public Availability(String dayOfWeek, String time) {
+        this.dayOfWeek = dayOfWeek;
         this.time = time;
     }
 
