@@ -16,7 +16,7 @@ i18n
     backend: {
         loadPath: '/LanguageContext/{{lng}}/{{ns}}.json',
     },
-    ns: ['footer', 'adminPanel', 'home', 'appointment', 'auth0', 'coachnotes', 'filter', 'nav', 'settings', 'account', 'contactMe', 'adminCreateInvoice', 'trainerCreateInvoice','adminCoachNotes', 'adminCreateCoachNotes'],
+    ns: ['footer', 'adminPanel', 'home', 'appointment', 'auth0', 'coachnotes', 'filter', 'nav', 'settings', 'account', 'contactMe', 'adminCreateInvoice', 'trainerCreateInvoice','adminCoachNotes', 'adminCreateCoachNotes', 'trainerCreateCoachNotes'],
     defaultNS: 'home'
 
 });
