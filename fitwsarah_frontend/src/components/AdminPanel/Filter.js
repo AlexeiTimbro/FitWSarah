@@ -103,7 +103,7 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
                                         {src === "invoices" && (
                                             <>
                                                 {}
-                                                <label>{t('state')}</label>
+                                                <label>{t('status')}</label>
                                                 <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "7"} maxLength="60" value="Completed" onClick={() => handleInputChange('COMPLETED', label)} />
                                                 <input className={statusButton === "Pending" ? "status-button active" : "status-button"} type="button" name={label + "8"} maxLength="60" value="Pending" onClick={() => handleInputChange('PENDING', label)} />
                                                 <input className={statusButton === "OverDue" ? "status-button active" : "status-button"} type="button" name={label + "9"} maxLength="60" value="OverDue" onClick={() => handleInputChange('OVERDUE', label)} />

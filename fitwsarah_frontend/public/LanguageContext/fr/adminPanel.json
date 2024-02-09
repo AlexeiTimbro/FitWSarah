@@ -9,6 +9,7 @@
     "lastName": "Nom de Famille",
     "phoneNumber": "Numéro de Téléphone",
     "date": "Date",
+    "dueDate": "date d'échéance",
     "time": "Heure",
     "actions": "Actions",
     "save": "Sauvegarder",
@@ -86,5 +87,6 @@
     "areyousure_cancelApp":"Êtes-vous sûr de vouloir annuler le rendez-vous?",
     "areyousure_acceptApp":"Êtes-vous sûr de vouloir accepter le rendez-vous?",
     "remove":"Supprimer",
-    "feedback":"Avis"
+    "feedback":"Avis",
+    "paymentType": "Type de paiement"
 }

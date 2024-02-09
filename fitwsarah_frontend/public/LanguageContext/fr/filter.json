@@ -14,8 +14,8 @@
     "userId":"ID de l'utilisateur",
     "accountId":"ID du compte",
     "username":"Nom d'utilisateur",
-    "paymentType": "Payment Type",
-    "invoiceId": "Invoice Id",
+    "paymentType": "Type de paiement",
+    "invoiceId": "ID de facture",
     "email":"Email",
     "city":"Ville",
     "state":"State"

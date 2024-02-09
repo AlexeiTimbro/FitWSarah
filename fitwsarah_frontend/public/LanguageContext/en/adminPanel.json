@@ -9,6 +9,7 @@
     "lastName": "Last Name",
     "phoneNumber": "Phone Number",
     "date": "Date",
+    "dueDate": "Due Date",
     "time": "Time",
     "actions": "Actions",
     "save": "Save",
@@ -86,6 +87,6 @@
     "areyousure_cancelApp":"Are you sure you want to cancel this appointment?",
     "areyousure_acceptApp":"Are you sure you want to accept this appointment?",
     "remove":"Remove",
-    "feedback":"Feedback"
-
+    "feedback":"Feedback",
+    "paymentType": "Payment Type"
 }

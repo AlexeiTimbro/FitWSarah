@@ -17,7 +17,7 @@ function AdminInvoices() {
     const [invoices, setInvoices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [src] = useState('invoices')
-    const { t } = useTranslation('filter');
+    const { t } = useTranslation( 'adminPanel');
     const getAccessToken = useGetAccessToken();
     const [searchTerm, setSearchTerm] = useState([["invoiceid",""], ["userid",""], ["username",""], ["status",""],  ["paymenttype",""]]);
     const labels = ["Invoice ID","User ID", "Username", "Status",  "Payment Type"];
@@ -68,14 +68,21 @@ function AdminInvoices() {
 
 
     function onInputChange(label, value) {
+
+        const normalizedInputLabel = label.toLowerCase().replace(/\s+/g, '');
+
         const newSearchTerm = searchTerm.map((term) => {
-            if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
+
+            if (term[0].toLowerCase() === normalizedInputLabel) {
+
                 return [term[0], value];
             }
             return term;
         });
+
         setSearchTerm(newSearchTerm);
     }
+
 
     function clearFilters() {
         setSearchTerm([["invoiceid",""],["userid",""], ["username", ""], ["status",""],  ["paymenttype",""]]);
@@ -102,14 +109,14 @@ function AdminInvoices() {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>{t('InvoiceId')}</th>
-                                <th>{t('UserId')}</th>
-                                <th>{t('Username')}</th>
-                                <th>{t('Status')}</th>
-                                <th>{t('Date')}</th>
-                                <th>{t('Due Date')}</th>
-                                <th>{t('Payment Type')}</th>
-                                <th>{t('Price')}</th>
+                                <th>{t('invoiceId')}</th>
+                                <th>{t('userId')}</th>
+                                <th>{t('username')}</th>
+                                <th>{t('status')}</th>
+                                <th>{t('date')}</th>
+                                <th>{t('dueDate')}</th>
+                                <th>{t('paymentType')}</th>
+                                <th>{t('price')}</th>
                             </tr>
                             </thead>
                             <tbody>
