@@ -19,6 +19,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.CREATED;
@@ -36,8 +37,8 @@ class AccountControllerUnitTest {
     @InjectMocks
     private AccountController accountController;
 
-    AccountResponseModel account1 = new AccountResponseModel("uuid-1", "appt1", "adms", "uuid-admin1", "Scheduled");
-    AccountResponseModel account2 = new AccountResponseModel("uuid-2", "appt1", "adms", "uuid-admin1", "Scheduled");
+    AccountResponseModel account1 = new AccountResponseModel("uuid-1", "appt1", "adms", "uuid-admin1", "Scheduled", new Date());
+    AccountResponseModel account2 = new AccountResponseModel("uuid-2", "appt1", "adms", "uuid-admin1", "Scheduled", new Date());
 
     @BeforeEach
     void setUp() {
@@ -56,7 +57,7 @@ class AccountControllerUnitTest {
     @Test
     public void AddAccount_withInvalidKey_ShouldFail() {
         AccountRequestModel requestModel = new AccountRequestModel("3", "smith", "john@gmail.com", "John Ville");
-        AccountResponseModel addedAccount = new AccountResponseModel("3", "3", "smith", "john@gmail.com", "John Ville");
+        AccountResponseModel addedAccount = new AccountResponseModel("3", "3", "smith", "john@gmail.com", "John Ville", new Date());
 
         when(accountService.addAccount(requestModel)).thenReturn(addedAccount);
 
@@ -87,7 +88,7 @@ class AccountControllerUnitTest {
         // Arrange
         String userId = "uuid-1";
         AccountRequestModel updateRequestModel = new AccountRequestModel("JohnDoe", "johndoe@example.com", "123 Main St", "tonrnot");
-        AccountResponseModel updatedAccount = new AccountResponseModel("uuid-1", "JohnDoe", "johndoe@example.com", "123 Main St" , "tonrnot");
+        AccountResponseModel updatedAccount = new AccountResponseModel("uuid-1", "JohnDoe", "johndoe@example.com", "123 Main St" , "tonrnot", new Date());
 
         when(accountService.updateAccount(updateRequestModel, userId)).thenReturn(updatedAccount);
 

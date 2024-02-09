@@ -20,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @ActiveProfiles("test")
@@ -44,7 +45,7 @@ class AccountServiceUnitTest {
         String accountId = "uuid-test1";
         Account account = new Account();
         account.getAccountIdentifier().setAccountId(accountId);
-        AccountResponseModel responseModel = new AccountResponseModel("uuid-test1", "testUser", "uuid-admin1", "uuid-service1", "Active");
+        AccountResponseModel responseModel = new AccountResponseModel("uuid-test1", "testUser", "uuid-admin1", "uuid-service1", "Active", new Date());
 
         when(accountRepository.findAccountByAccountIdentifier_AccountId(accountId)).thenReturn(account);
         when(accountResponseMapper.entityToResponseModel(account)).thenReturn(responseModel);
@@ -72,7 +73,7 @@ class AccountServiceUnitTest {
     void addAccount_Should_Return_Correct_Account() {
         AccountRequestModel requestModel = new AccountRequestModel("uuid-test1","testUser", "test@gmail.com", "Test City");
         Account entity = mock(Account.class);
-        AccountResponseModel mockedResponse = new AccountResponseModel("1","uuid-test1","testUser","test@gmail.com","Test City");
+        AccountResponseModel mockedResponse = new AccountResponseModel("1","uuid-test1","testUser","test@gmail.com","Test City", new Date());
 
         when(accountResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
         when(accountRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
@@ -126,7 +127,7 @@ class AccountServiceUnitTest {
         when(accountRepository.findAllAccountByEmailStartingWith(email)).thenReturn(accounts);
         when(accountRepository.findAllAccountByCityStartingWith(city)).thenReturn(accounts);
 
-        AccountResponseModel responseModel = new AccountResponseModel(accountId, userId, username, email, city);
+        AccountResponseModel responseModel = new AccountResponseModel(accountId, userId, username, email, city, new Date());
         List<AccountResponseModel> responseModels = Collections.singletonList(responseModel);
         when(accountResponseMapper.entityListToResponseModelList(accounts)).thenReturn(responseModels);
 
@@ -159,7 +160,7 @@ class AccountServiceUnitTest {
         when(accountRepository.findAllAccountByEmailStartingWith(email)).thenReturn(accounts);
         when(accountRepository.findAllAccountByCityStartingWith(city)).thenReturn(accounts);
 
-        AccountResponseModel responseModel = new AccountResponseModel(null, userId, username, email, city);
+        AccountResponseModel responseModel = new AccountResponseModel(null, userId, username, email, city, new Date());
         List<AccountResponseModel> responseModels = Collections.singletonList(responseModel);
         when(accountResponseMapper.entityListToResponseModelList(accounts)).thenReturn(responseModels);
 
@@ -211,7 +212,7 @@ class AccountServiceUnitTest {
         when(accountRepository.findAllAccountByEmailStartingWith(email)).thenReturn(accounts);
         when(accountRepository.findAllAccountByCityStartingWith(city)).thenReturn(accounts);
 
-        AccountResponseModel responseModel = new AccountResponseModel(null, userId, username, email, city);
+        AccountResponseModel responseModel = new AccountResponseModel(null, userId, username, email, city, new Date());
         List<AccountResponseModel> responseModels = Collections.singletonList(responseModel);
         when(accountResponseMapper.entityListToResponseModelList(accounts)).thenReturn(responseModels);
 
@@ -232,7 +233,7 @@ class AccountServiceUnitTest {
         String userId = "uuid-test1";
         AccountRequestModel requestModel = new AccountRequestModel(userId, "999", "00", "Brossard");
         Account mockedAccountEntity = mock(Account.class);
-        AccountResponseModel expectedResponse = new AccountResponseModel("000", "999", "00", "Brossard", "China");
+        AccountResponseModel expectedResponse = new AccountResponseModel("000", "999", "00", "Brossard", "China", new Date());
         when(accountRequestMapper.requestModelToEntity(requestModel)).thenReturn(mockedAccountEntity);
         when(accountRepository.findAccountByUserId(userId)).thenReturn(mockedAccountEntity); // Updated line
         when(accountRepository.save(mockedAccountEntity)).thenReturn(mockedAccountEntity);

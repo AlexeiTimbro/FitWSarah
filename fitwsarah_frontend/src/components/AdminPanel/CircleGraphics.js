@@ -1,8 +1,11 @@
 import { Chart, registerables } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
+import { useTranslation } from "react-i18next";
 Chart.register(...registerables)
 
 const CircleGraphics = ({ title,  year, labels, data }) => {
+
+    const { t } = useTranslation('adminAnalytics');
 
     const CircleGarph = {
         labels: labels,
@@ -27,7 +30,7 @@ const CircleGraphics = ({ title,  year, labels, data }) => {
             <h3>{year}</h3>
             {noAppointment ? (
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '300px', height: '300px' }}>
-                    <h3>No Appointment</h3>
+                    <h3>{t('noAppointment')}</h3>
                 </div>
             ) : (
                 <div style={{ width: '300px', height: '300px' }}>

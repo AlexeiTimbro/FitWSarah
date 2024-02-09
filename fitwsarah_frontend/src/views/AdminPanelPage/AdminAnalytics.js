@@ -11,14 +11,13 @@ import CircleGraphics from "../../components/AdminPanel/CircleGraphics";
 
 function AdminAnalytics() {
 
-    const { t } = useTranslation('adminPanel');
+    const { t } = useTranslation('adminAnalytics');
 
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const [accountData, setAccountData] = useState({'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0, '07': 0, '08': 0, '09': 0, '10': 0, '11': 0, '12': 0});
     const [appointmentData, setAppointmentData] = useState([0, 0, 0, 0])
-    const dataValues = []
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -103,13 +102,15 @@ function AdminAnalytics() {
         });
     }
 
+    
+
     return (
         <div style={{backgroundColor: '#f5f5f5' }}>
             <NavLoggedIn/>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <h1>Analytics</h1>
+                <h1>{t('analytics')}</h1>
                 <div>
-                    <label>Year: </label>
+                    <label>{t('title')}: </label>
                     <select title="Year" value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
@@ -122,13 +123,13 @@ function AdminAnalytics() {
                     </select>
                 </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginLeft: '20px', marginRight: '20px', marginBottom: '20px' }}>
                 <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
-                    <LineGraphics title='Accounts' labels={["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]} datasetsLabels='Number of users' 
+                    <LineGraphics title={t('account')} labels={[t('jan'), t('feb'), t('mar'), t('apr'), t('may'), t('jun'), t('jul'), t('aug'), t('sep'), t('oct'), t('nov'), t('dec')]} datasetsLabels={t('nbAccounts')}
                     data={[accountData['01'], accountData['02'], accountData['03'], accountData['04'], accountData['05'], accountData['06'], accountData['07'], accountData['08'], accountData['09'], accountData['10'], accountData['11'], accountData['12']]} year={selectedYear} />
                 </div>
                 <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
-                    <CircleGraphics title='Appointments' year={selectedYear} labels={['Requested', 'Scheduled', 'Completed', 'Cancelled']} data={appointmentData} />
+                    <CircleGraphics title={t('appointment')} year={selectedYear} labels={[t('requested'), t('scheduled'), t('completed'), t('cancelled')]} data={appointmentData} />
                 </div>
             </div>
             <FooterNotLoggedIn/>
