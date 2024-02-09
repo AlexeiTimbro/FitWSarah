@@ -92,7 +92,7 @@ class InvoiceControllerIntegrationTest {
 
         invoiceResponseModelList = Arrays.asList(invoice1);
 
-        given(invoiceService.getAllInvoices()).willReturn(invoiceResponseModelList);
+       // given(invoiceService.getAllInvoices()).willReturn(invoiceResponseModelList);
         given(invoiceService.addInvoice(any(InvoiceRequestModel.class))).willReturn(invoice1);
 
         testToken += obtainAuthToken();

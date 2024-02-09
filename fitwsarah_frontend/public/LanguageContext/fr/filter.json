@@ -6,13 +6,20 @@
     "scheduled": "Prévu",
     "cancelled": "Annulé",
     "completed": "Terminé",
+    "pending": "En Attente",
+    "overDue": "En Retard",
     "appointmentId": "ID du Rendez-vous",
     "status": "Statut",
     "feedbackId":"ID de l'avis",
     "userId":"ID de l'utilisateur",
     "accountId":"ID du compte",
     "username":"Nom d'utilisateur",
+    "paymentType": "Type de paiement",
+    "invoiceId": "ID de facture",
     "email":"Email",
-    "city":"Ville"
+    "city":"Ville",
+    "state":"State"
+
+
 
 }

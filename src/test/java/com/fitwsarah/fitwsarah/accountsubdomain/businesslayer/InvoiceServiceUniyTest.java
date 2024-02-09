@@ -14,19 +14,25 @@ import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
+import com.fitwsarah.fitwsarah.feeedbacksubdomain.datalayer.Feedback;
+import com.fitwsarah.fitwsarah.feeedbacksubdomain.datalayer.State;
+import com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer.FeedbackResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+@ActiveProfiles("test")
 class InvoiceServiceUniyTest {
 
     @InjectMocks
@@ -43,7 +49,7 @@ class InvoiceServiceUniyTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
+    /*@Test
     void getAllInvoices_ShouldReturnInvoices() {
         // Arrange
         Invoices invoice = new Invoices();
@@ -60,7 +66,7 @@ class InvoiceServiceUniyTest {
         // Assert
         assertEquals(invoiceResponseModelList, actualInvoiceResponseModelList);
     }
-
+*/
     @Test
     void createInvoice_ShouldReturnInvoice() {
         // Arrange
@@ -79,12 +85,42 @@ class InvoiceServiceUniyTest {
         assertEquals(invoiceResponseModel, actualInvoiceResponseModel);
     }
 
+    @Test
+    void getAllInvoices_ShouldFilterAndReturnInvoices() {
+        // Arrange
+        String invoiceId = "inv1";
+        String userId = "user1";
+        String userName = "John";
+        String status = "COMPLETED";
+        String paymentType = "Credit Card";
+
+        Invoices invoice1 = new Invoices();
+        List<Invoices> invoicesList = Collections.singletonList(invoice1);
+        when(invoiceRepository.findAll()).thenReturn(invoicesList);
+
+        InvoiceResponseModel invoiceResponseModel = new InvoiceResponseModel(invoiceId, userId, "1", userName, InvoiceStatus.valueOf(status), LocalDateTime.now(), LocalDateTime.now(), paymentType, 100.00);
+        List<InvoiceResponseModel> expectedResponse = Collections.singletonList(invoiceResponseModel);
+        when(invoiceResponseMapper.entityListToResponseModelList(anyList())).thenReturn(expectedResponse);
+
+        // Act
+        List<InvoiceResponseModel> actualResponse = invoiceService.getAllInvoices(invoiceId, userId, userName, status, paymentType);
+
+        // Assert
+        assertNotNull(actualResponse);
+        assertFalse(actualResponse.isEmpty());
+        assertEquals(expectedResponse.size(), actualResponse.size());
+        assertEquals(expectedResponse.get(0), actualResponse.get(0));
+
+        // Verify interactions
+        verify(invoiceRepository).findAll();
+        verify(invoiceResponseMapper).entityListToResponseModelList(anyList());
+    }
 
 
     @Test
     public void getCoachNoteByUserIdReturnsExpectedResult() {
         String userId = "testUserId";
-        List<InvoiceResponseModel> expectedResponse = Collections.singletonList(new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00));
+        List<InvoiceResponseModel> expectedResponse = Collections.singletonList(new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.OVERDUE, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00));
         when(invoiceRepository.findInvoicesByUserId(userId)).thenReturn(Collections.emptyList());
         when(invoiceResponseMapper.entityListToResponseModelList(Collections.emptyList())).thenReturn(expectedResponse);
 
@@ -92,4 +128,7 @@ class InvoiceServiceUniyTest {
 
         assertEquals(expectedResponse, actualResponse);
     }
+
+
+
 }

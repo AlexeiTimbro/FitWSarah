@@ -4,6 +4,7 @@ import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.AccountService;
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.InvoiceService;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.InvoiceStatus;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
+import com.fitwsarah.fitwsarah.feeedbacksubdomain.presentationlayer.FeedbackResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -53,7 +54,7 @@ class InvoiceControllerUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
+    /*@Test
     void getAllInvoices_ShouldReturnInvoices() {
 
         List<InvoiceResponseModel> invoiceResponseModelList = Arrays.asList(
@@ -67,7 +68,7 @@ class InvoiceControllerUnitTest {
 
         assertEquals(invoiceResponseModelList, actual);
     }
-
+*/
     @Test
     void addInvoice_ShouldReturnInvoice() {
 
@@ -92,5 +93,18 @@ class InvoiceControllerUnitTest {
         List<InvoiceResponseModel> actualResponse = invoiceController.getAllInvoiceByUserId(userId);
 
         Assertions.assertEquals(expectedResponse, actualResponse);
+    }
+
+
+    @Test
+    public void getAllInvoices_ShouldReturnFeedbacks() {
+        List<InvoiceResponseModel> expectedFeedbacks = Arrays.asList(invoice1, invoice2);
+
+        when(invoiceService.getAllInvoices(null, null, null, null, null)).thenReturn(expectedFeedbacks);
+
+        List<InvoiceResponseModel> actualFeedbacks = invoiceController.getAllInvoices(null, null, null, null, null);
+        Assertions.assertEquals(expectedFeedbacks, actualFeedbacks);
+        assertThat(actualFeedbacks.get(0), is(invoice1));
+        assertThat(actualFeedbacks.get(1), is(invoice2));
     }
 }

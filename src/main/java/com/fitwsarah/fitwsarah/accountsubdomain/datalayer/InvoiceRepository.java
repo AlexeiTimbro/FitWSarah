@@ -9,4 +9,6 @@ import java.util.List;
 public interface InvoiceRepository extends JpaRepository<Invoices, Integer> {
 
              List<Invoices> findInvoicesByUserId(String userId);
+
+
 }

@@ -18,9 +18,10 @@ public class InvoiceController {
     }
 
     @GetMapping()
-    public List<InvoiceResponseModel> getAllInvoices(){
-        return invoiceService.getAllInvoices();
+    public List<InvoiceResponseModel> getAllInvoices(@RequestParam(required = false) String invoiceid, @RequestParam(required = false) String userid, @RequestParam(required = false) String username,  @RequestParam(required = false) String status, @RequestParam(required = false) String paymenttype) {
+        return invoiceService.getAllInvoices(invoiceid, userid, username, status, paymenttype);
     }
+
 
     @PostMapping()
     public InvoiceResponseModel addInvoice(@RequestBody InvoiceRequestModel invoiceRequestModel){

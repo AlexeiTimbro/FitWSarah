@@ -5,7 +5,8 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './TrainerInvoices.css';
 import { useGetAccessToken } from "../../components/authentication/authUtils";
-
+import { useTranslation } from "react-i18next";
+import Filter from "../../components/AdminPanel/Filter";
 
 
 function TrainerInvoices() {
@@ -16,8 +17,11 @@ function TrainerInvoices() {
 
     const [invoices, setInvoices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
-
+    const [src] = useState('invoices')
+    const { t } = useTranslation( 'adminPanel');
     const getAccessToken = useGetAccessToken();
+    const [searchTerm, setSearchTerm] = useState([["invoiceid",""], ["userid",""], ["username",""], ["status",""],  ["paymenttype",""]]);
+    const labels = ["Invoice ID","User ID", "Username", "Status",  "Payment Type"];
 
 
     useEffect(() => {
@@ -33,11 +37,16 @@ function TrainerInvoices() {
         if (accessToken) {
             getAllInvoices();
         }
-    }, [accessToken]);
-
+    }, [accessToken, searchTerm]);
     const getAllInvoices = () => {
+        const params = new URLSearchParams();
+        searchTerm.forEach(term => {
+            if (term[1]) {
+                params.append(term[0], term[1]);
+            }
+        });
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -59,65 +68,83 @@ function TrainerInvoices() {
     };
 
 
-    useEffect(() => {
-        if (accessToken) {
-            getAllInvoices();
-        }
-    }, [accessToken]);
+
+    function onInputChange(label, value) {
+
+        const normalizedInputLabel = label.toLowerCase().replace(/\s+/g, '');
+
+        const newSearchTerm = searchTerm.map((term) => {
+
+            if (term[0].toLowerCase() === normalizedInputLabel) {
+
+                return [term[0], value];
+            }
+            return term;
+        });
+
+        setSearchTerm(newSearchTerm);
+    }
+
+
+    function clearFilters() {
+        setSearchTerm([["invoiceid",""],["userid",""], ["username", ""], ["status",""],  ["paymenttype",""]]);
+    }
+
 
     return (
         <div>
 
-            {!isAuthenticated && <NavNotLoggedIn/>}
-            {isAuthenticated && <NavLoggedIn/>}
+        {!isAuthenticated && <NavNotLoggedIn/>}
+    {isAuthenticated && <NavLoggedIn/>}
+    <div className="accounts-section">
+        <div className="container">
+            <Link to="/adminPanel" className="button back-button">{t('back')}</Link>
+            <div className="header-section">
+                <h1>{t('invoices')}</h1>
+                <Filter src={src} labels={labels} onInputChange={onInputChange} searchTerm={searchTerm} clearFilters={clearFilters}/>
+            </div>
+            <Link to="/CreateAdminInvoices" className="button back-button">Create Invoice</Link>
+            <div className="table-responsive">
 
-            <div className="accounts-section">
-                <div className="container">
-                    <Link to="/trainerPanel" className="button back-button">Back</Link>
-                    <div className="header-section">
-                        <h1>Invoices</h1>
-                    </div>
-                    <Link to="/trainerCreateInvoices" className="button back-button">Create Invoice</Link>
-                    <div className="table-responsive">
-                        <table className="table">
-                            <thead>
-                            <tr>
-                                <th>InvoiceId</th>
-                                <th>AccountId</th>
-                                <th>Username</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Due Date</th>
-                                <th>Payment Type</th>
-                                <th>Price</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {invoices.map(invoice => (
-                                <tr key={invoice.id}>
-                                    <td>{invoice.invoiceId}</td>
-                                    <td>{invoice.accountId}</td>
-                                    <td>{invoice.username}</td>
-                                    <td>{invoice.status}</td>
-                                    <td>{invoice.date}</td>
-                                    <td>{invoice.dueDate}</td>
-                                    <td>{invoice.paymentType}</td>
-                                    <td>{invoice.price}</td>
-                                    <td>
-                                        <button className="button delete-button">Delete</button>
-                                        <button className="button details-button">Details</button>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th>{t('invoiceId')}</th>
+                        <th>{t('userId')}</th>
+                        <th>{t('username')}</th>
+                        <th>{t('status')}</th>
+                        <th>{t('date')}</th>
+                        <th>{t('dueDate')}</th>
+                        <th>{t('paymentType')}</th>
+                        <th>{t('price')}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {invoices.map(invoice => (
+                        <tr key={invoice.id}>
+                            <td>{invoice.invoiceId}</td>
+                            <td>{invoice.userId}</td>
+                            <td>{invoice.username}</td>
+                            <td>{invoice.status}</td>
+                            <td>{invoice.date}</td>
+                            <td>{invoice.dueDate}</td>
+                            <td>{invoice.paymentType}</td>
+                            <td>{invoice.price}</td>
+                            <td>
+                                <button className="button delete-button">{t('delete')}</button>
+                                <button className="button details-button">{t('details')}</button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 
 
 
-    );}
+);}
 
 export default TrainerInvoices;
