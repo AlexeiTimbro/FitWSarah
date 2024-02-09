@@ -36,7 +36,7 @@ function AdminCreateCoachNotes() {
 
     const fetchAllAccounts = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/accounts`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -76,7 +76,7 @@ function AdminCreateCoachNotes() {
             content_FR: newCoachNote.content_FR,
         };
         try {
-            const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,

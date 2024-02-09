@@ -35,7 +35,7 @@ function TrainerCoachNotes() {
 
     const getAllCoachNotes = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -71,7 +71,7 @@ function TrainerCoachNotes() {
         }
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes/${editCoachNoteId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes/${editCoachNoteId}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
