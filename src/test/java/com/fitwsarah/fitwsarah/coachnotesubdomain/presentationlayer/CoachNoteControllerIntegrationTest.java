@@ -79,6 +79,16 @@ public class CoachNoteControllerIntegrationTest {
                         .content(asJsonString(new CoachNoteRequestModel("testAccountId", "testUserId", "testUsername", "testContent_EN", "testContent_FR"))))
                 .andExpect(status().isOk());
     }
+    @Test
+    public void updateCoachNoteByIdTest() throws Exception {
+        String coachNoteId = "testCoachNoteId";
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/coachnotes/" + coachNoteId)
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(new CoachNoteRequestModel("testAccountId", "testUserId", "testUsername", "testContent_EN", "testContent_FR"))))
+                .andExpect(status().isOk());
+    }
 
     private String asJsonString(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

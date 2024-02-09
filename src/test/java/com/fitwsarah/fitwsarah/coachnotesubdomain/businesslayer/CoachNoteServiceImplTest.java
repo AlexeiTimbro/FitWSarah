@@ -2,9 +2,11 @@ package com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer;
 
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNote;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNoteRepository;
+import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteRequestMapper;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteResponseMapper;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteRequestModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,8 +20,7 @@ import java.util.List;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 public class CoachNoteServiceImplTest {
@@ -104,25 +105,32 @@ public class CoachNoteServiceImplTest {
     }
 
     @Test
-    public void updateCoachNoteReturnsExpectedResult() {
+    public void updateCoachNoteById_ShouldSucceed() {
+// Arrange
+        String existingId = "existingId";
+        CoachNoteRequestModel updateRequest = new CoachNoteRequestModel("userId", "New content EN", "New content FR", "accountId", "username");
+        CoachNote existingCoachNote = new CoachNote();
+        when(coachNoteRepository.findCoachNoteByCoachNoteIdentifier_CoachNoteId(existingId)).thenReturn(existingCoachNote);
 
-        CoachNoteRequestModel requestModel = new CoachNoteRequestModel("testUserId", "testNote", "test","sdasda","asdasda");
+        // Act
+        coachNoteService.updateCoachNoteById(existingId, updateRequest);
 
-        CoachNote entity = mock(CoachNote.class);
-        CoachNoteResponseModel mockedResponse = new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda");
-        when(coachNoteResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
-        when(coachNoteRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
-        when(coachNoteRepository.save(entity)).thenReturn(entity);
+        // Assert
+        verify(coachNoteRepository).save(existingCoachNote);
+        assertEquals(updateRequest.getContent_EN(), existingCoachNote.getContent_EN());
+        assertEquals(updateRequest.getContent_FR(), existingCoachNote.getContent_FR());
+    }
 
-        CoachNoteResponseModel result = coachNoteService.updateCoachNoteById(mockedResponse.getCoachNoteId(),requestModel);
-        assertNotNull(result);
-        assertNotNull(result.getCoachNoteId());
-        assertNotNull(result.getUserId());
-        assertNotNull(result.getAccountId());
-        assertNotNull(result.getUsername());
-        assertNotNull(result.getContent_EN());
-        assertNotNull(result.getContent_FR());
+    @Test
+    public void updateCoachNoteById_ThrowsException_WhenNotFound() {
+        // Arrange
+        String nonExistingId = "nonExistingId";
+        CoachNoteRequestModel updateRequest = new CoachNoteRequestModel("userId", "New content EN", "New content FR", "accountId", "username");
 
+        when(coachNoteRepository.findCoachNoteByCoachNoteIdentifier_CoachNoteId(nonExistingId)).thenReturn(null);
+
+        // Act & Assert
+        assertThrows(EntityNotFoundException.class, () -> coachNoteService.updateCoachNoteById(nonExistingId, updateRequest));
     }
 
 }

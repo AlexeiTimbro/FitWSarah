@@ -62,4 +62,11 @@ public class CoachNoteRepositoryTest {
         List<CoachNote> actualNotes = coachNoteRepository.findCoachNoteByUserId(userId);
         assertEquals(Collections.emptyList(), actualNotes);
     }
+
+    @Test
+    public void findCoachNoteByCoachNoteIdentifier_CoachNoteId() {
+        CoachNoteIdentifier coachNoteIdentifier = savedCoachNotes.get(0).getCoachNoteIdentifier();
+        CoachNote actualNote = coachNoteRepository.findCoachNoteByCoachNoteIdentifier_CoachNoteId(coachNoteIdentifier.getCoachNoteId());
+        assertEquals(savedCoachNotes.get(0), actualNote);
+    }
 }
