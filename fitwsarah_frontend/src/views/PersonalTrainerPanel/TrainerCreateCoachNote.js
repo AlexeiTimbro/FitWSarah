@@ -17,7 +17,7 @@ function TrainerCreateCoachNotes() {
         content_FR: '',
     });
 
-    const { t } = useTranslation('adminCreateCoachNotes');
+    const { t } = useTranslation('trainerCreateCoachNotes');
 
     useEffect(() => {
         const fetchToken = async () => {

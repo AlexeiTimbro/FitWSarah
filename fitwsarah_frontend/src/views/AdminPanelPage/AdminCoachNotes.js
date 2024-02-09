@@ -38,7 +38,7 @@ function AdminCoachNotes() {
 
     const getAllCoachNotes = () => {
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes`, {
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
