@@ -12,6 +12,8 @@ import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer.FitnessPa
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageResponseModel;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -58,6 +60,9 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountResponseModel addAccount(AccountRequestModel accountRequestModel) {
         Account account = accountRequestMapper.requestModelToEntity(accountRequestModel);
+        LocalDate localDate = LocalDate.now();
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        account.setDateCreated(date);
         Account saved = accountRepository.save(account);
         return accountResponseMapper.entityToResponseModel(saved);
     }

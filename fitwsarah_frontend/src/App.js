@@ -21,6 +21,7 @@ import Feedbacks from "./views/PersonalTrainerPanel/TrainerFeedback";
 import AdminFeedback from "./views/AdminPanelPage/Feedback";
 import { LanguageProvider } from './LanguageConfig/LanguageContext.js';
 import ClientInvoices from "./components/clientProfile/clientInvoices";
+import Analytics from "./views/AdminPanelPage/AdminAnalytics";
 import TrainerCoachNotes from "./views/PersonalTrainerPanel/TrainerCoachNotes";
 import AdminCreateCoachNote from "./views/AdminPanelPage/AdminCreateCoachNotes";
 import TrainerCreateCoachNotes from "./views/PersonalTrainerPanel/TrainerCreateCoachNote";
@@ -50,6 +51,7 @@ function App() {
                     <Route path="/trainerFeedback" element={<Feedbacks/>}/>
                     <Route path="/adminFeedback" element={<AdminFeedback/>}/>
                     <Route path="/invoices" element={<ClientInvoices/>}/>
+                    <Route path="/analytics" element={<Analytics/>}/>
                     <Route path="/adminCoachNotes" element={<AdminCoachNote/>}/>
                     <Route path="/trainerCoachNotes" element={<TrainerCoachNotes/>}/>
                     <Route path="/AdminCreateCoachNotes" element={<AdminCreateCoachNote/>}/>

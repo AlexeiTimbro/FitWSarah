@@ -1,0 +1,26 @@
+{
+    "adminAnalytics": "Analytique",
+    "analytics": "Analytique",
+    "title": "Titre",
+    "account": "Compte",
+    "jan": "Janvier",
+    "feb": "Février",
+    "mar": "Mars",
+    "apr": "Avril",
+    "may": "Mai",
+    "jun": "Juin",
+    "jul": "Juillet",
+    "aug": "Août",
+    "sep": "Septembre",
+    "oct": "Octobre",
+    "nov": "Novembre",
+    "dec": "Décembre",
+    "nbAccounts": "Nombre de nouveaux comptes",
+    "appointment": "Rendez-vous",
+    "requested": "Demandé",
+    "scheduled": "Programmé",
+    "completed": "Terminé",
+    "cancelled": "Annulé",
+    "noAppointment": "Aucun rendez-vous"
+  }
+  

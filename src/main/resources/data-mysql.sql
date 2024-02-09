@@ -1,12 +1,12 @@
 USE `fitwsarah-db`;
 
 
-INSERT INTO accounts (user_id, account_id, username, email, city) VALUES
-('1','uuid-acc1', 'johnsmith','johnsmith@example.com', 'New York'),
-('2','uuid-acc2', 'emilyjones', 'emilyjones@example.com', 'Los Angeles'),
-('3','uuid-acc3', 'michaelbrown', 'michaelbrown@example.com', 'Chicago'),
-('4','uuid-acc4', 'sarahwhite', 'sarahwhite@example.com', 'Houston'),
-('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix');
+INSERT INTO accounts (user_id, account_id, username, email, city, date_created) VALUES
+('1','uuid-acc1', 'johnsmith','johnsmith@example.com', 'New York', '2024-02-08'),
+('2','uuid-acc2', 'emilyjones', 'emilyjones@example.com', 'Los Angeles', '2024-01-08'),
+('3','uuid-acc3', 'michaelbrown', 'michaelbrown@example.com', 'Chicago', '2024-01-08'),
+('4','uuid-acc4', 'sarahwhite', 'sarahwhite@example.com', 'Houston', '2024-02-08'),
+('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix', '2023-02-08');
 
 
 INSERT INTO invoices (invoice_id, account_id, user_id, username, status, date, due_date, payment_type, price) VALUES
