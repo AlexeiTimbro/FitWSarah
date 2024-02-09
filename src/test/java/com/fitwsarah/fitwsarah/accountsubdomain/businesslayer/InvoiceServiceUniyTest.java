@@ -84,7 +84,7 @@ class InvoiceServiceUniyTest {
     @Test
     public void getCoachNoteByUserIdReturnsExpectedResult() {
         String userId = "testUserId";
-        List<InvoiceResponseModel> expectedResponse = Collections.singletonList(new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00));
+        List<InvoiceResponseModel> expectedResponse = Collections.singletonList(new InvoiceResponseModel("inv-uuid-1", "uuid-acc1", "1", "johnsmith", InvoiceStatus.OVERDUE, LocalDateTime.now(), LocalDateTime.now(), "Credit Card", 100.00));
         when(invoiceRepository.findInvoicesByUserId(userId)).thenReturn(Collections.emptyList());
         when(invoiceResponseMapper.entityListToResponseModelList(Collections.emptyList())).thenReturn(expectedResponse);
 

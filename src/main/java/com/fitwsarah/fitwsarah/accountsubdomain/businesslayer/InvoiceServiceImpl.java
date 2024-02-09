@@ -33,22 +33,22 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public List<InvoiceResponseModel> getAllInvoices(String invoiceId, String userId, String username, String status, String paymentType) {
+    public List<InvoiceResponseModel> getAllInvoices(String invoiceid, String userid, String username, String state, String paymenttype) {
         Set<Invoices> filteredAccounts = new HashSet<>();
 
-        if (invoiceId != null) {
-            filteredAccounts.addAll(invoiceRepository.findInvoicesByInvoiceIdentifier_InvoiceIdStartingWith(invoiceId));
+        if (invoiceid != null) {
+            filteredAccounts.addAll(invoiceRepository.findInvoicesByInvoiceIdentifier_InvoiceIdStartingWith(invoiceid));
         }
 
-        else if (userId != null) {
-            filteredAccounts.addAll(invoiceRepository.findInvoicesByUserIdStartingWith(userId));
+        else if (userid != null) {
+            filteredAccounts.addAll(invoiceRepository.findInvoicesByUserIdStartingWith(userid));
         }
         else if (username != null) {
             filteredAccounts.addAll(invoiceRepository.findAllInvoicesByUsernameStartingWith(username));
-        } else if (status != null) {
-            filteredAccounts.addAll(invoiceRepository.findInvoicesByStatus(InvoiceStatus.valueOf(status)));
-        } else if (paymentType != null) {
-            filteredAccounts.addAll(invoiceRepository.findInvoicesByPaymentTypeStartingWith(paymentType));
+        } else if (state != null) {
+            filteredAccounts.addAll(invoiceRepository.findInvoicesByStatus(InvoiceStatus.valueOf(state)));
+        } else if (paymenttype != null) {
+            filteredAccounts.addAll(invoiceRepository.findInvoicesByPaymentTypeStartingWith(paymenttype));
         }
         else {
             filteredAccounts.addAll(invoiceRepository.findAll());

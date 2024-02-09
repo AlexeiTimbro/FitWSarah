@@ -14,6 +14,10 @@
     "userId":"User ID",
     "accountId":"Account ID",
     "username":"Username",
+    "paymentType":"Payment Type",
+    "invoiceId":"Invoice ID",
     "email":"Email",
-    "city":"City"
+    "city":"City",
+    "state":"State"
+
 }

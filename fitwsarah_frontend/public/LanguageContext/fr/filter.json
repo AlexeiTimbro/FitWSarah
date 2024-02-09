@@ -6,7 +6,7 @@
     "scheduled": "Prévu",
     "cancelled": "Annulé",
     "completed": "Terminé",
-    "pending": "En attente",
+    "pending": "En Attente",
     "overDue": "En Retard",
     "appointmentId": "ID du Rendez-vous",
     "status": "Statut",
@@ -14,7 +14,12 @@
     "userId":"ID de l'utilisateur",
     "accountId":"ID du compte",
     "username":"Nom d'utilisateur",
+    "paymentType": "Payment Type",
+    "invoiceId": "Invoice Id",
     "email":"Email",
-    "city":"Ville"
+    "city":"Ville",
+    "state":"State"
+
+
 
 }

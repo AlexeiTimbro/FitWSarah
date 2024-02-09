@@ -15,7 +15,9 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
         if (label === "Status") {
                 setStatusButton(event);
                 onInputChange(label, event);
-            } else{
+            }
+
+        else{
             const { value } = event.target;
             onInputChange(label, value);
             }
@@ -45,11 +47,22 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
             return 'accountId'
         case 'Username':
             return 'username'
+       case 'Payment Type':
+            return 'paymentType'
         case 'Email':
             return 'email'
         case 'City':
             return 'city'
+           case  'Invoice ID' :
+               return 'invoiceId'
+
+              case 'State':
+                  return 'state'
        }
+
+
+
+
     }
 
     return (
@@ -90,7 +103,7 @@ function Filter({src, labels, onInputChange, searchTerm, clearFilters}) {
                                         {src === "invoices" && (
                                             <>
                                                 {}
-                                                <label>{t('status')}</label>
+                                                <label>{t('state')}</label>
                                                 <input className={statusButton === "Completed" ? "status-button active" : "status-button"} type="button" name={label + "5"} maxLength="60" value="Completed" onClick={() => handleInputChange('Completed', label)} />
                                                 <input className={statusButton === "Pending" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="Pending" onClick={() => handleInputChange('Pending', label)} />
                                                 <input className={statusButton === "OverDue" ? "status-button active" : "status-button"} type="button" name={label + "6"} maxLength="60" value="OverDue" onClick={() => handleInputChange('OverDue', label)} />
