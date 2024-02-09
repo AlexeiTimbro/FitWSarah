@@ -818,7 +818,6 @@ public class EndToEndTesting {
         sleep(1000);
     }
 
-
     @Test
     public void updateCoachNoteByIdTrainerPanel(){
         open("http://localhost:3000/");
