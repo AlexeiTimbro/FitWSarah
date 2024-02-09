@@ -37,7 +37,7 @@ function AdminAnalytics() {
     }, [accessToken, selectedYear]);
 
     const getAccountsAnalytics = () => {
-        fetch(`http://localhost:8080/api/v1/accounts`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -64,7 +64,7 @@ function AdminAnalytics() {
     }
 
     const getAppointments = () => {
-        fetch(`http://localhost:8080/api/v1/appointments`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
