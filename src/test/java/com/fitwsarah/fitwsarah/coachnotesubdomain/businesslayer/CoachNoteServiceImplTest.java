@@ -109,4 +109,26 @@ public class CoachNoteServiceImplTest {
 
     }
 
+    @Test
+    public void updateCoachNoteReturnsExpectedResult() {
+
+        CoachNoteRequestModel requestModel = new CoachNoteRequestModel("testUserId", "testNote", "test","sdasda","asdasda");
+
+        CoachNote entity = mock(CoachNote.class);
+        CoachNoteResponseModel mockedResponse = new CoachNoteResponseModel("sadsads","testUserId", "testNote", "test","sdasda","asdasda");
+        when(coachNoteResponseMapper.entityToResponseModel(entity)).thenReturn(mockedResponse);
+        when(coachNoteRequestMapper.requestModelToEntity(requestModel)).thenReturn(entity);
+        when(coachNoteRepository.save(entity)).thenReturn(entity);
+
+        CoachNoteResponseModel result = coachNoteService.updateCoachNoteById(mockedResponse.getCoachNoteId(),requestModel);
+        assertNotNull(result);
+        assertNotNull(result.getCoachNoteId());
+        assertNotNull(result.getUserId());
+        assertNotNull(result.getAccountId());
+        assertNotNull(result.getUsername());
+        assertNotNull(result.getContent_EN());
+        assertNotNull(result.getContent_FR());
+
+    }
+
 }
