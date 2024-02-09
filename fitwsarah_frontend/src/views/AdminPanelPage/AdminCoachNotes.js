@@ -10,15 +10,12 @@ import { useTranslation } from "react-i18next";
 
 function AdminCoachNotes() {
 
-    const {
-        isAuthenticated,
-    } = useAuth0();
-
+    const { isAuthenticated } = useAuth0();
     const [coachNotes, setCoachNotes] = useState([]);
+    const [editMode, setEditMode] = useState(null);
+    const [editFormData, setEditFormData] = useState({ content_EN: '', content_FR: '' });
     const [accessToken, setAccessToken] = useState(null);
-
     const getAccessToken = useGetAccessToken();
-
     const { t } = useTranslation('adminCoachNotes');
 
     useEffect(() => {
@@ -26,7 +23,6 @@ function AdminCoachNotes() {
             const token = await getAccessToken();
             if (token) setAccessToken(token);
         };
-
         fetchToken();
     }, [getAccessToken]);
 
@@ -38,7 +34,7 @@ function AdminCoachNotes() {
 
     const getAllCoachNotes = () => {
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes`, {
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -58,6 +54,42 @@ function AdminCoachNotes() {
                 console.log(error);
             });
     };
+
+    const handleEdit = (coachNote) => {
+        setEditMode(coachNote.id);
+        setEditFormData({ content_EN: coachNote.content_EN, content_FR: coachNote.content_FR });
+    };
+
+    const handleSave = async (coachNoteId) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/coachnotes/${coachNoteId}`, {
+                method: "PUT",
+                headers: new Headers({
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify({
+                    content_EN: editFormData.content_EN,
+                    content_FR: editFormData.content_FR,
+                })
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            await response.json();
+            setEditMode(null);
+            getAllCoachNotes();
+        } catch (error) {
+            console.error("Error updating coach note:", error);
+        }
+    };
+
+
+    const handleCancel = () => {
+        setEditMode(null);
+    };
+
+
 
     return (
         <div>

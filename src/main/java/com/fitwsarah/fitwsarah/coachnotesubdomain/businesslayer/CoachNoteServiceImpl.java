@@ -8,6 +8,7 @@ import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteReque
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteResponseMapper;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteRequestModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +44,23 @@ public class CoachNoteServiceImpl implements CoachNoteService{
         CoachNote coachNote = coachNoteRequestMapper.requestModelToEntity(coachNoteRequestModel);
         CoachNote savedCoachNote = coachNoteRepository.save(coachNote);
         return coachNoteResponseMapper.entityToResponseModel(savedCoachNote);
+    }
+
+    @Override
+    public CoachNoteResponseModel updateCoachNoteById(String coachNoteId, CoachNoteRequestModel coachNoteRequestModel) {
+
+        CoachNote coachNote = coachNoteRepository.findCoachNoteByCoachNoteIdentifier_CoachNoteId(coachNoteId);
+
+        if (coachNote == null) {
+            throw new EntityNotFoundException("Coach Note with ID " + coachNoteId + " not found");
+        }
+
+        coachNote.setUserId(coachNoteRequestModel.getContent_EN());
+        coachNote.setContent_EN(coachNoteRequestModel.getContent_FR());
+
+        coachNoteRepository.save(coachNote);
+
+        return coachNoteResponseMapper.entityToResponseModel(coachNote);
     }
 
 }
