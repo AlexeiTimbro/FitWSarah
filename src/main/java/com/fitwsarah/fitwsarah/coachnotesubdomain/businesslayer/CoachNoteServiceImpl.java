@@ -1,7 +1,5 @@
 package com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer;
 
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNote;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNoteRepository;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteRequestMapper;
@@ -55,8 +53,8 @@ public class CoachNoteServiceImpl implements CoachNoteService{
             throw new EntityNotFoundException("Coach Note with ID " + coachNoteId + " not found");
         }
 
-        coachNote.setUserId(coachNoteRequestModel.getContent_EN());
-        coachNote.setContent_EN(coachNoteRequestModel.getContent_FR());
+        coachNote.setContent_EN(coachNoteRequestModel.getContent_EN());
+        coachNote.setContent_FR(coachNoteRequestModel.getContent_FR());
 
         coachNoteRepository.save(coachNote);
 

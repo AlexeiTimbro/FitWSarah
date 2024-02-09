@@ -1,13 +1,7 @@
 package com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer;
 
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
-import com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer.CoachNoteServiceImpl;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNote;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNoteRepository;
-import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteRequestMapper;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer.CoachNoteResponseMapper;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteRequestModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
