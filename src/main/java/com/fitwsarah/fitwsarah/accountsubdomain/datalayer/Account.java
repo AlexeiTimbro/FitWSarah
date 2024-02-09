@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,14 +15,14 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Embedded
     private AccountIdentifier accountIdentifier;
-
     private String userId;
     private String username;
     private String email;
     private String city;
+    @Temporal(TemporalType.DATE)
+    private Date dateCreated;
 
     public Account() {
         this.accountIdentifier = new AccountIdentifier();

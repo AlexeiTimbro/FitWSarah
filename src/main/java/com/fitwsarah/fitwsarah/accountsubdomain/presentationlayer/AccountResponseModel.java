@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
+import java.util.Date;
+
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
@@ -14,4 +16,5 @@ public class AccountResponseModel {
     private String username;
     private String email;
     private String city;
+    private Date dateCreated;
 }

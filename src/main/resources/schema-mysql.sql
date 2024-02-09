@@ -6,7 +6,8 @@ create table if not exists accounts(
     account_id VARCHAR(150) NOT NULL,
     username VARCHAR(50) ,
     email VARCHAR(50) ,
-    city VARCHAR(50)
+    city VARCHAR(50),
+    date_created DATE
 );
 
 create table if not exists invoices(
