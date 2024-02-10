@@ -8,7 +8,6 @@ import com.fitwsarah.fitwsarah.availabilitiessubdomain.datamapperlayer.Availabil
 import com.fitwsarah.fitwsarah.availabilitiessubdomain.datamapperlayer.AvailabilityResponseMapper;
 import com.fitwsarah.fitwsarah.availabilitiessubdomain.presentationlayer.AvailabilityRequestModel;
 import com.fitwsarah.fitwsarah.availabilitiessubdomain.presentationlayer.AvailabilityResponseModel;
-import com.fitwsarah.fitwsarah.feeedbacksubdomain.datalayer.Feedback;
 import org.springframework.stereotype.Service;
 
 

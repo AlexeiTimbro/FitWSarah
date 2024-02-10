@@ -106,7 +106,9 @@ const AvailabilitiesCalendar = ({onChange}) => {
         <div className='time-picker'>
             <div>
             <div class="focusable time-picker" tabindex="0" role="group">
+            {!noAvailabilities &&
                       <ul>
+                        
                         {availabilities.map((availability, index) => (
                             <li key={index}>
                                 <input
@@ -117,11 +119,11 @@ const AvailabilitiesCalendar = ({onChange}) => {
                                     value={`${availability.time}`}
                                 />
                                 <label htmlFor={`timeslot_${index}`}>
-                                    <span>{availability.time}</span><br/>
+                                  <span>{availability.time}</span><br/>
                                 </label>
                             </li>
                         ))}
-                    </ul>
+                    </ul>}
                     {noAvailabilities && <p>No available dates for {date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
                     <p className="date">{date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>

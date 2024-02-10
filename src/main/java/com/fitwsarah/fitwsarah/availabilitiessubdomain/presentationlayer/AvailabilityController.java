@@ -19,7 +19,7 @@ public class AvailabilityController {
         return availabilityService.getAllAvailabilities(dayOfWeek);
     }
 
-    @PostMapping()
+    @PostMapping("/add")
     public ResponseEntity<AvailabilityResponseModel> addAvailability(@RequestParam String dayOfWeek, @RequestBody AvailabilityRequestModel availabilityRequestModel){
         return ResponseEntity.status(HttpStatus.CREATED).body(availabilityService.addAvailability(dayOfWeek, availabilityRequestModel));
     }
