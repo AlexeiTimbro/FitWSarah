@@ -11,16 +11,16 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class AppointmentRequestModel {
 
-    private String availabilityId;
-    private String userId;
-    private String serviceId;
-    private Status status;
-    private String location;
-    private String firstName;
-    private String lastName;
-    private String phoneNum;
-    private String date;
-    private String time;
+    String availabilityId;
+    String userId;
+    String serviceId;
+    Status status;
+    String location;
+    String firstName;
+    String lastName;
+    String phoneNum;
+    String date;
+    String time;
 
     public String getFirstName() {
         return firstName;

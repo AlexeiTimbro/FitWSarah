@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useGetAccessToken } from "../../components/authentication/authUtils";
 import LineGraphics from "../../components/AdminPanel/LineGraphics";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
+import FooterNotLoggedIn from "../../components/footer/footer";
 import CircleGraphics from "../../components/AdminPanel/CircleGraphics";
 
 

@@ -1,6 +1,5 @@
 package com.fitwsarah.fitwsarah.coachnotesubdomain.datamapperlayer;
 
-import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.datalayer.CoachNote;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
 import org.mapstruct.Mapper;

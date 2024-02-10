@@ -5,7 +5,7 @@ import { Container, Row, Col, Modal, Form, Button } from 'react-bootstrap';
 import "../../css/style.css";
 import { Link } from 'react-router-dom';
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
+import FooterNotLoggedIn from "../../components/footer/footer";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import AddMemberProfile from "../authentication/Signup";
 import { ROLES } from "../../components/authentication/roles";
