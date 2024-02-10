@@ -1,8 +1,6 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datamapperlayer;
 
-import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageIdentifier;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.PromoOffers;
-import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.FitnessPackageRequestModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer.PromoOfferRequestModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

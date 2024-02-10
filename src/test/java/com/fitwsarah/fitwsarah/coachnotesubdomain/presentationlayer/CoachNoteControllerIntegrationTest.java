@@ -3,8 +3,6 @@ package com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentRequestModel;
 import com.fitwsarah.fitwsarah.coachnotesubdomain.businesslayer.CoachNoteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

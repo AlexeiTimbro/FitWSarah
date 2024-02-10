@@ -1,52 +1,26 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 
-        import com.fasterxml.jackson.core.JsonProcessingException;
-        import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
-        import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountIdentifier;
-        import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountRepository;
-        import org.junit.jupiter.api.AfterEach;
-        import org.junit.jupiter.api.BeforeEach;
-        import org.junit.jupiter.api.Test;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-        import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-        import org.springframework.boot.test.context.SpringBootTest;
-        import org.springframework.http.MediaType;
-        import org.springframework.test.context.ActiveProfiles;
-        import org.springframework.test.web.reactive.server.WebTestClient;
-        import org.springframework.test.web.servlet.MockMvc;
-
-        import com.fasterxml.jackson.databind.ObjectMapper;
-        import org.junit.jupiter.api.AfterEach;
-        import org.junit.jupiter.api.BeforeEach;
-        import org.junit.jupiter.api.Test;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-        import org.springframework.boot.test.context.SpringBootTest;
-        import org.springframework.http.HttpStatus;
-        import org.springframework.http.MediaType;
-        import org.springframework.http.ResponseEntity;
-        import org.springframework.test.web.servlet.MockMvc;
-
-        import java.util.List;
-
-        import static org.hamcrest.Matchers.hasSize;
-
-
-        import static org.junit.Assert.assertEquals;
-        import static org.junit.Assert.assertNotNull;
-        import static org.mockito.Mockito.mock;
-        import static org.mockito.Mockito.verify;
-        import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-        import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-        import static org.hamcrest.Matchers.hasSize;
-
-        import org.springframework.http.*;
-        import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-        import org.springframework.web.client.RestTemplate;
-        import com.fasterxml.jackson.databind.JsonNode;
-        import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountIdentifier;
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.ResponseEntity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.springframework.http.*;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.databind.JsonNode;
 
 @SpringBootTest
 @AutoConfigureMockMvc

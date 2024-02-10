@@ -1,19 +1,12 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.businesslayer;
 
-import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountRepository;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.InvoiceRepository;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.InvoiceStatus;
 import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Invoices;
-import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountRequestMapper;
-import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountResponseMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.InvoiceRequestMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.InvoiceResponseMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.InvoiceRequestModel;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.InvoiceResponseModel;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
-import com.fitwsarah.fitwsarah.coachnotesubdomain.presentationlayer.CoachNoteResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

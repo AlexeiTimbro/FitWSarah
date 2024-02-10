@@ -1,6 +1,5 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer;
 
-import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.AccountIdentifier;
 import jakarta.persistence.*;
 import lombok.Data;
 

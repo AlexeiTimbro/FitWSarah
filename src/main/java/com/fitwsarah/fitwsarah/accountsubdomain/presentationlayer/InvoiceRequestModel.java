@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Value
 @Builder

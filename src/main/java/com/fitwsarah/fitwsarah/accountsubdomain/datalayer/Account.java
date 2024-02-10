@@ -3,9 +3,7 @@ package com.fitwsarah.fitwsarah.accountsubdomain.datalayer;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="accounts")

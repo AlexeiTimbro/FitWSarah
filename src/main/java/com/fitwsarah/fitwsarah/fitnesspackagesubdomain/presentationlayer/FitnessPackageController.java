@@ -1,6 +1,5 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.presentationlayer;
 
-import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
