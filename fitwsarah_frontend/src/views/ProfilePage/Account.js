@@ -79,7 +79,6 @@ function Profile() {
                 setUsername(userData.username || '');
                 setEmail(userData.email || '');
                 setCity(userData.city || '');
-                //setAccountId(userData.accountId || '');
             })
             .catch((error) => {
                 console.error("Error message:", error.message);
@@ -102,7 +101,6 @@ function Profile() {
             return response.json();
         })
         .then((data) => {
-            console.log(data);
             setAppointments(data);
         })
         .catch((error) => {
@@ -126,7 +124,6 @@ function Profile() {
 
     function changeStatus(stat) {
         setStatus(stat);
-        console.log(status);
     }
 
 
