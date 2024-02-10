@@ -4,7 +4,7 @@ import configData from "../../config.json";
 import { Container } from "react-bootstrap";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
+import FooterNotLoggedIn from "../../components/footer/footer";
 import BookingButton from "../../components/booking/bookingButton";
 import './NewAppointment.css';
 import { useLocation } from "react-router-dom";

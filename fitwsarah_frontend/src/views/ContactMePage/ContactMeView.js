@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import "../../css/style.css";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
+import FooterNotLoggedIn from "../../components/footer/footer";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { ROLES } from "../../components/authentication/roles";
 import "../../components/authentication/switch.css"

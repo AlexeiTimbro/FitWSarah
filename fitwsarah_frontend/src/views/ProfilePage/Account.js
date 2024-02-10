@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
-import FooterNotLoggedIn from "../../components/footer/footerNotLoggedIn/footerNotLoggedIn";
+import FooterNotLoggedIn from "../../components/footer/footer.js";
 import './Account.css';
 import Sidebar from "./SideBar";
 import Settings from '../../components/clientProfile/setting.js';

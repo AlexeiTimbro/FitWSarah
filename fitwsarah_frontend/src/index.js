@@ -1,16 +1,12 @@
 import './index.css';
 import './App.js';
 import './components/booking/bookingButton.js';
-import './components/clientProfile/clientCoachNotes.js';
-import './components/home/home.js';
 import './components/clientProfile/clientInvoices.js';
-import './components/feedback/personalTrainerFeedback.js';
 import './components/clientProfile/setting.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './components/navigation/NotLoggedIn/navNotLoggedIn.js';
 import './components/navigation/loggedIn/navLoggedIn.js';
-import './components/footer/footerNotLoggedIn/footerNotLoggedIn.js';
-import './components/footer/footerLoggedIn/footerLoggedIn.js';
+import './components/footer/footer.js';
 import './components/CoachNote/CoachNote.js';
 import './LanguageConfig/i18n.js';
 
