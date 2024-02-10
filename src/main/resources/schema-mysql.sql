@@ -77,7 +77,7 @@ create table if not exists availabilities(
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     availability_id VARCHAR(36) NOT NULL,
     time VARCHAR(50),
-    dayOfWeek VARCHAR(50)
+    day_of_week VARCHAR(50)
 );
 
 create table if not exists coach_notes(

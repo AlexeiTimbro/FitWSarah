@@ -9,4 +9,5 @@ import java.util.List;
 public interface AvailabilityRepository extends JpaRepository<Availability, Integer> {
 
     List<Availability> findAllByDayOfWeek(String dayOfWeek);
+    Availability findAvailabilityByAvailabilityIdentifier_AvailabilityId(String availabilityId);
 }

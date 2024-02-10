@@ -51,7 +51,7 @@ INSERT INTO promo_offers (promotion_id, title, availability, description, price)
 ('29ebf549-2caf-4919-ba15-9c5904534dc1', 'Nutrition Newcomer', 1, 'First-time consultation discount for nutrition planning', 45.00),
 ('1de4e220-af32-4f0d-94eb-1b906bb8b2e1', 'Cycling Challenge', 1, 'Join our monthly cycling challenge and win prizes', 30.00);
 
-INSERT INTO availabilities (availability_id,dayOfWeek, time) VALUES
+INSERT INTO availabilities (availability_id,day_of_week, time) VALUES
 ('uuid-avail1', 'Monday','10:00:00'),
 ('uuid-avail2', 'Monday ','11:00:00'),
 ('uuid-avail3', 'Sunday ','09:30:00'),

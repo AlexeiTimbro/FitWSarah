@@ -88,5 +88,14 @@
     "areyousure_acceptApp":"Are you sure you want to accept this appointment?",
     "remove":"Remove",
     "feedback":"Feedback",
-    "paymentType": "Payment Type"
+    "paymentType": "Payment Type",
+    "availabilities":"Availabilities",
+    "monday":"Monday",
+    "tuesday":"Tuesday",
+    "wednesday":"Wednesday",
+    "thursday":"Thursday",
+    "friday":"Friday",
+    "saturday":"Saturday",
+    "sunday":"Sunday"
+
 }

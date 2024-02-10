@@ -1,7 +1,8 @@
 package com.fitwsarah.fitwsarah.availabilitiessubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.availabilitiessubdomain.businesslayer.AvailabilityService;
-import com.fitwsarah.fitwsarah.availabilitiessubdomain.datalayer.Availability;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,16 @@ public class AvailabilityController {
         return availabilityService.getAllAvailabilities(dayOfWeek);
     }
 
+    @PostMapping()
+    public ResponseEntity<AvailabilityResponseModel> addAvailability(@RequestParam String dayOfWeek, @RequestBody AvailabilityRequestModel availabilityRequestModel){
+        return ResponseEntity.status(HttpStatus.CREATED).body(availabilityService.addAvailability(dayOfWeek, availabilityRequestModel));
+    }
 
+    @DeleteMapping("/{availabilityId}")
+    public ResponseEntity<Void> deleteAvailability(@PathVariable String availabilityId){
+        availabilityService.deleteAvailability(availabilityId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
 }
 

@@ -80,6 +80,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("api/v1/fitnessPackages/**").permitAll()
                         .requestMatchers("api/v1/send/**").permitAll()
+                        .requestMatchers("api/v1/availabilities/**").permitAll()
                         .requestMatchers("api/v1/feedbacks/**").permitAll()
                         .requestMatchers("api/v1/appointments").hasAnyRole("Admin", "Personal Trainer", "Member")
                         .requestMatchers("api/v1/accounts/users/userId").hasRole("Member")

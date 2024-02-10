@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './NewAppointment.css';
+import {useGetAccessToken} from "../../components/authentication/authUtils";
 import { useLanguage } from '../../LanguageConfig/LanguageContext';
 
 const AvailabilitiesCalendar = ({onChange}) => {
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState('');
+  const [availabilities, setAvailabilities] = useState([]);
+  const [noAvailabilities, setNoAvailabilities] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
+  const getAccessToken = useGetAccessToken();
   const { language } = useLanguage();
 
   const getLocale = () => {
     return language === 'en' ? 'en-CA' : 'fr-CA';
   };
+
+  useEffect(() => {
+    const fetchToken = async () => {
+        const token = await getAccessToken();
+        if (token) setAccessToken(token);
+    };
+    fetchToken();
+}, [getAccessToken]);
+
+  useEffect(() => {
+    if (accessToken) {
+        getAllAvailabilities();
+    }
+}, [accessToken, date]);
+
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
@@ -38,6 +58,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
     if (view === 'month') {
       const dayOfWeek = date.getDay();
       if (dayOfWeek === 0 || dayOfWeek === 6) {
+
         return 'past-day'; 
       }
       if(date < new Date() && !isSameDay(date, new Date())){
@@ -47,6 +68,34 @@ const AvailabilitiesCalendar = ({onChange}) => {
     return null;
   };
 
+  const getAllAvailabilities = () => {
+    const formattedDate = date.toLocaleDateString(getLocale(), { weekday: 'long' });
+    fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/availabilities?dayOfWeek=${formattedDate}`,  {
+      method: "GET",
+      headers: new Headers({
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json"
+      })
+  })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            if(data.length == 0){
+            setNoAvailabilities(true);
+            }else{
+              setNoAvailabilities(false);
+              setAvailabilities(data);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
   
   return (
 <div>
@@ -57,48 +106,23 @@ const AvailabilitiesCalendar = ({onChange}) => {
         <div className='time-picker'>
             <div>
             <div class="focusable time-picker" tabindex="0" role="group">
-                    <ul>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_0" name="selectedTimeSlot" onChange={handleTimeChange} value="09:00"/>
-                            <label class="" for="timeslot_0" tabindex="-1"><span>09:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_1" name="selectedTimeSlot" onChange={handleTimeChange} value="10:00"/>
-                            <label class="" for="timeslot_1" tabindex="-1"><span>10:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_2" name="selectedTimeSlot" onChange={handleTimeChange} value="11:00"/>
-                            <label class="" for="timeslot_2" tabindex="-1"><span>11:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_3" name="selectedTimeSlot" onChange={handleTimeChange} value="12:00"/>
-                            <label class="" for="timeslot_3" tabindex="-1"><span>12:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_4" name="selectedTimeSlot" onChange={handleTimeChange} value="13:00"/>
-                            <label class="" for="timeslot_4" tabindex="-1"><span>13:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_5" name="selectedTimeSlot" onChange={handleTimeChange} value="14:00"/>
-                            <label class="" for="timeslot_5" tabindex="-1"><span>14:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_6" name="selectedTimeSlot" onChange={handleTimeChange} value="15:00"/>
-                            <label class="" for="timeslot_6" tabindex="-1"><span>15:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_7" name="selectedTimeSlot" onChange={handleTimeChange} value="16:00"/>
-                            <label class="" for="timeslot_7" tabindex="-1"><span>16:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_8" name="selectedTimeSlot" onChange={handleTimeChange} value="17:00"/>
-                            <label class="" for="timeslot_8" tabindex="-1"><span>17:00</span><br/></label>
-                        </li>
-                        <li class="" >
-                            <input type="radio" tabindex="-1" id="timeslot_9" name="selectedTimeSlot" onChange={handleTimeChange} value="18:00"/>
-                            <label class="" for="timeslot_9" tabindex="-1"><span>18:00</span><br/></label>
-                        </li>
+                      <ul>
+                        {availabilities.map((availability, index) => (
+                            <li key={index}>
+                                <input
+                                    type="radio"
+                                    id={`timeslot_${index}`}
+                                    name="selectedTimeSlot"
+                                    onChange={handleTimeChange}
+                                    value={`${availability.time}`}
+                                />
+                                <label htmlFor={`timeslot_${index}`}>
+                                    <span>{availability.time}</span><br/>
+                                </label>
+                            </li>
+                        ))}
                     </ul>
+                    {noAvailabilities && <p>No available dates for {date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
                     <p className="date">{date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
             </div>
