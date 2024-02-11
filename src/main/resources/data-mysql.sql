@@ -51,12 +51,12 @@ INSERT INTO promo_offers (promotion_id, title, availability, description, price)
 ('29ebf549-2caf-4919-ba15-9c5904534dc1', 'Nutrition Newcomer', 1, 'First-time consultation discount for nutrition planning', 45.00),
 ('1de4e220-af32-4f0d-94eb-1b906bb8b2e1', 'Cycling Challenge', 1, 'Join our monthly cycling challenge and win prizes', 30.00);
 
-INSERT INTO availabilities (availability_id, available, account_id, datetime) VALUES
-('uuid-avail1', 1, 'uuid-acc1', '2023-12-01 10:00:00'),
-('uuid-avail2', 0, 'uuid-acc2', '2023-12-02 11:00:00'),
-('uuid-avail3', 1, 'uuid-acc3', '2023-12-03 09:30:00'),
-('uuid-avail4', 0, 'uuid-acc4', '2023-12-04 14:00:00'),
-('uuid-avail5', 1, 'uuid-acc5', '2023-12-05 16:30:00');
+INSERT INTO availabilities (availability_id,day_of_week, time) VALUES
+('uuid-avail1', 'Monday','10:00'),
+('uuid-avail2', 'Monday ','11:00'),
+('uuid-avail3', 'Sunday ','09:30'),
+('uuid-avail4', 'Thursday ','14:00'),
+('uuid-avail5', 'Friday ','16:30');
 
 INSERT INTO coach_notes (coach_note_id, account_id, user_id, username, content_en, content_fr) VALUES
                                                                                                    ('1', 'uuid-acc1', '65b9b977d5fa901a57937bc3', 'johnsmith', 'Keep up the great work with your training!', 'Continuez votre excellent travail avec votre entraînement !'),

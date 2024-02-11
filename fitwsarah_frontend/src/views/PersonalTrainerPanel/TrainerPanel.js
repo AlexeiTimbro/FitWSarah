@@ -59,6 +59,9 @@ function PersonalTrainerPanel() {
                             <p>{t('lastMonthTotalAccounts', { count: 'XX' })}</p>
                             <span className="more-options">...</span>
                         </Link>
+                        <Link className="section" to="/availabilities">
+                            <h2>{t('availabilities')}</h2>
+                        </Link>
                         <Link className="section" to="/trainerAppointments">
                             <h2>{t('adminPanelAppointments')}</h2>
                             <p>{t('currentTotalAppointments', { count: 'XX' })}</p>

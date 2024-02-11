@@ -24,6 +24,7 @@ import ClientInvoices from "./components/clientProfile/clientInvoices";
 import Analytics from "./views/AdminPanelPage/AdminAnalytics";
 import TrainerCoachNotes from "./views/PersonalTrainerPanel/TrainerCoachNotes";
 import AdminCreateCoachNote from "./views/AdminPanelPage/AdminCreateCoachNotes";
+import Availabilities from "./views/PersonalTrainerPanel/Availabilities";
 import TrainerCreateCoachNotes from "./views/PersonalTrainerPanel/TrainerCreateCoachNote";
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
                     <Route path="/trainerCoachNotes" element={<TrainerCoachNotes/>}/>
                     <Route path="/AdminCreateCoachNotes" element={<AdminCreateCoachNote/>}/>
                     <Route path="/TrainerCreateCoachNotes" element={<TrainerCreateCoachNotes/>}/>
+                    <Route path="/availabilities" element={<Availabilities/>}/>
 
                 </Routes>
             </Router>

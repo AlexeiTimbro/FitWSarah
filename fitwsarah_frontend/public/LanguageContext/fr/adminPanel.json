@@ -88,5 +88,13 @@
     "areyousure_acceptApp":"Êtes-vous sûr de vouloir accepter le rendez-vous?",
     "remove":"Supprimer",
     "feedback":"Avis",
-    "paymentType": "Type de paiement"
+    "paymentType": "Type de paiement",
+    "availabilities":"Disponibilités",
+    "monday":"Lundi",
+    "tuesday":"Mardi",
+    "wednesday":"Mercredi",
+    "thursday":"Jeudi",
+    "friday":"Vendredi",
+    "removeBtn":"Enlever",
+    "availabilitiesTitle":"Disponibilités"
 }
