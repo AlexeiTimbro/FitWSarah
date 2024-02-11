@@ -61,7 +61,6 @@ const BookingButton = ({appointmentDataToSend}) => {
           console.log(data);
           console.log("Added Appointment");
           window.alert("Appointment Successfully booked")
-          window.location.href = '/';
      } catch (error) {
       console.error("Error adding appointment: ", error);
       window.alert("An error has occured! Please try again later.");
