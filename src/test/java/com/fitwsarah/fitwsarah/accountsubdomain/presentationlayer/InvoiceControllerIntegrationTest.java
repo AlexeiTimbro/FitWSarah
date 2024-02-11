@@ -92,6 +92,16 @@ class InvoiceControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
+
+
+    @Test
+    void removeInvoiceByInvoiceId_ShouldSucceed() throws Exception {
+        String actualInvoiceId = "uuid-feed1";
+        mockMvc.perform(delete("/api/v1/invoices/{invoiceId}", actualInvoiceId)
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
     private String asJsonString(Object obj) throws JsonProcessingException {
         return objectMapper.writeValueAsString(obj);
     }

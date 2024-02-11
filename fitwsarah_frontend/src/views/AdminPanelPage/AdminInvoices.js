@@ -45,7 +45,7 @@ function AdminInvoices() {
             }
         });
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices${params.toString() && "?" + params.toString()}`, {
+        fetch(`http://localhost:8080/api/v1/invoices${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -66,6 +66,34 @@ function AdminInvoices() {
             });
     };
 
+
+    const removeInvoices = async (invoiceId) => {
+        fetch(`http://localhost:8080/api/v1/invoices/${invoiceId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            }})
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+            })
+            .then(() =>{
+                getAllInvoices();
+            })
+
+    };
+
+
+
+    const removeConfirmation  = (feedbackId) => {
+        const answer = window.confirm(t("areyousure"));
+        if(answer){
+            removeInvoices(feedbackId);
+            getAllInvoices();
+        }
+    }
 
     function onInputChange(label, value) {
 
@@ -131,7 +159,7 @@ function AdminInvoices() {
                                     <td>{invoice.paymentType}</td>
                                     <td>{invoice.price}</td>
                                     <td>
-                                        <button className="button delete-button">{t('delete')}</button>
+                                        <button className="button delete-button" onClick={() => removeConfirmation(invoice.invoiceId)}>{t('delete')}</button>
                                         <button className="button details-button">{t('details')}</button>
                                     </td>
                                 </tr>

@@ -1,6 +1,8 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 
 import com.fitwsarah.fitwsarah.accountsubdomain.businesslayer.InvoiceService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +31,18 @@ public class InvoiceController {
     @GetMapping("/users/{userId}")
     public List<InvoiceResponseModel> getAllInvoiceByUserId(@PathVariable String userId){
         return invoiceService.getAllInvoiceByUserId(userId);
+    }
+
+@GetMapping("/{invoiceId}")
+public InvoiceResponseModel getInvoiceById(@PathVariable String invoiceId){
+    return invoiceService.getInvoiceById(invoiceId);
+}
+
+
+    @DeleteMapping("/{invoiceId}")
+    public ResponseEntity<Void> removeInvoice(@PathVariable String invoiceId){
+        invoiceService.removeInvoice(invoiceId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

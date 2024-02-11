@@ -13,4 +13,7 @@ public interface InvoiceService {
 
 
    List<InvoiceResponseModel> getAllInvoiceByUserId(String userId);
+
+InvoiceResponseModel getInvoiceById(String invoiceId);
+    void removeInvoice( String invoiceId);
 }

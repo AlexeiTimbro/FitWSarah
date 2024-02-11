@@ -19,9 +19,10 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 @ActiveProfiles("test")
 class InvoiceServiceUniyTest {
 
@@ -120,5 +121,27 @@ class InvoiceServiceUniyTest {
     }
 
 
+    @Test
+    public void removeInvoices_invalidFeedbackId_shouldFail(){
+        String invoiceId = "invalid-invoice-id1";
+
+        when(invoiceRepository.findInvoicesByInvoiceIdentifier_InvoiceId(invoiceId)).thenReturn(null);
+
+        invoiceService.removeInvoice(invoiceId);
+
+        verify(invoiceRepository, never()).delete(any(Invoices.class));
+    }
+
+    @Test
+    public void removeFeedback_validFeedbackId_shouldSucceed(){
+        String invoiceId = "invoice-id1";
+        Invoices entity = mock(Invoices.class);
+
+        when(invoiceRepository.findInvoicesByInvoiceIdentifier_InvoiceId(invoiceId)).thenReturn(entity);
+
+        invoiceService.removeInvoice(invoiceId);
+
+        verify(invoiceRepository, times(1)).delete(entity);
+    }
 
 }
