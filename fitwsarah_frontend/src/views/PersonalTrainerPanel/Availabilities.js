@@ -45,7 +45,7 @@ function Availabilities() {
         }
     });
 
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/availabilities${params.toString() && "?" + params.toString()}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/availabilities${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -77,7 +77,7 @@ function Availabilities() {
         });
         
 
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/availabilities/add${params.toString() && "?" + params.toString()}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/availabilities/add${params.toString() && "?" + params.toString()}`, {
             method: "POST",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -102,7 +102,7 @@ function Availabilities() {
 
     const deleteAvailability = async (availabilityId) => {
         
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/availabilities/${availabilityId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/availabilities/${availabilityId}`, {
             method: "DELETE",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,

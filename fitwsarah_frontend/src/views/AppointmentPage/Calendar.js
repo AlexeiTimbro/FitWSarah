@@ -70,7 +70,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
 
   const getAllAvailabilities = () => {
     const formattedDate = date.toLocaleDateString(getLocale(), { weekday: 'long' });
-    fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/availabilities?dayOfWeek=${formattedDate}`,  {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/availabilities?dayOfWeek=${formattedDate}`,  {
       method: "GET",
       headers: new Headers({
           Authorization: "Bearer " + accessToken,
