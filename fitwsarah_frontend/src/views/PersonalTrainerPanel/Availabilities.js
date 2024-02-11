@@ -137,6 +137,7 @@ function Availabilities() {
             {isAuthenticated && <NavLoggedIn/>}
             <div>
                 <div className="table-container">
+                    <h1>{t('availabilitiesTitle')}</h1>
                     <table>
                         <thead>
                             <tr>
@@ -166,7 +167,9 @@ function Availabilities() {
                             </tr>
                         </thead>
                         <tbody>
-                            {availabilities.map((availability) => (
+                            {availabilities.slice().sort((a, b) => {
+                            return a.time.localeCompare(b.time);
+                            }).map((availability) => (
                                 <tr key={availability.id}>
                                     <td>{availability.time}</td>
                                     <td><button className="availabilityBtn" onClick={() => deleteAvailability(availability.availabilityId)}>-</button></td>

@@ -2,14 +2,13 @@
     border: 2px solid #000;
     border-radius: 8px;
     padding: 20px;
-    margin-top: 20px;
+    margin: 80px;
     background-color: #f0f0f0;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    border: 2px solid #000;
 }
 
 thead th {
@@ -28,7 +27,6 @@ tbody td {
 .select-container select {
     padding: 8px;
     font-size: 16px;
-    border: 2px solid #000;
     border-radius: 8px;
 }
 
@@ -45,6 +43,8 @@ input[type="time"] {
     border-radius: 30px;
     background-color: #007bff;
     color: #fff;
+    width: 2.5em;
+    height: 2.5em;
     cursor: pointer;
 }
 

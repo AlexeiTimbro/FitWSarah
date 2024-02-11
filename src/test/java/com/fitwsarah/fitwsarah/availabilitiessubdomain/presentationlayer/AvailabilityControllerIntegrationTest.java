@@ -1,10 +1,9 @@
-package com.fitwsarah.fitwsarah.feedbacksubdomain.presentationlayer;
+package com.fitwsarah.fitwsarah.availabilitiessubdomain.presentationlayer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fitwsarah.fitwsarah.feedbacksubdomain.businesslayer.FeedbackService;
-import com.fitwsarah.fitwsarah.feedbacksubdomain.datalayer.State;
+import com.fitwsarah.fitwsarah.availabilitiessubdomain.businesslayer.AvailabilityService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,45 +21,51 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class FeedbackControllerIntegrationTest {
+class AvailabilityControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
+
     @MockBean
-    FeedbackService feedbackService;
+    AvailabilityService availabilityService;
+
+    private String dayOfWeek = "Monday";
+    AvailabilityResponseModel availability1 = new AvailabilityResponseModel("uuid-1", dayOfWeek, "10:00");
+
+    private List<AvailabilityResponseModel> availabilityResponseModels;
 
     private String testToken = "Bearer ";
 
-    FeedbackResponseModel feedback1 = new FeedbackResponseModel("uuid-feed1", "uuid-user1", 3,  "test", State.INVISIBLE);
-
-    private List<FeedbackResponseModel> feedbackResponseModelList;
-
     @BeforeEach
     void setUp() throws Exception {
-        feedbackResponseModelList = Arrays.asList(feedback1);
+        availabilityResponseModels = Arrays.asList(availability1);
 
 
-        given(feedbackService.getAllFeedback(null, null, null)).willReturn(feedbackResponseModelList);
+        given(availabilityService.getAllAvailabilities(dayOfWeek)).willReturn(availabilityResponseModels);
         testToken += obtainAuthToken();
     }
 
+
     @Test
-    void getAllFeedback_shouldSucceed() throws Exception{
-        mockMvc.perform(get("/api/v1/feedbacks")
-                        .header("Authorization", testToken)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+    void getAllAvailabilities_shouldSucceed() throws Exception {
+            mockMvc.perform(get("/api/v1/availabilities?dayOfWeek="+dayOfWeek)
+                            .header("Authorization", testToken)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk());
     }
+
     @Test
-    void addFeedback_shouldSucceed() throws Exception{
-        String status = "INVISIBLE";
-        FeedbackRequestModel requestModel = new FeedbackRequestModel("user-id1", 3,"test" , State.valueOf(status));
-        mockMvc.perform(post("/api/v1/feedbacks")
+    void addAvailability() throws Exception{
+        AvailabilityRequestModel requestModel = new AvailabilityRequestModel("10:00", dayOfWeek);
+        mockMvc.perform(post("/api/v1/availabilities/add?dayOfWeek="+dayOfWeek)
                         .header("Authorization", testToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(requestModel)))
@@ -68,18 +73,9 @@ class FeedbackControllerIntegrationTest {
     }
 
     @Test
-    void removeFeedbackByFeedbackId_ShouldSucceed() throws Exception {
-        String actualFeedbackId = "uuid-feed1";
-        mockMvc.perform(delete("/api/v1/feedbacks/{feedbackId}", actualFeedbackId)
-                        .header("Authorization", testToken)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void updateFeedbackState_ShouldSucceed() throws Exception{
-        mockMvc.perform(patch("/api/v1/feedbacks/{feedbackId}/publish", feedback1.getFeedbackId())
-                        .content("VISIBLE")
+    void deleteAvailability() throws Exception{
+        String actualAvailabilityId = "uuid-1";
+        mockMvc.perform(delete("/api/v1/feedbacks/{availabilityId}", actualAvailabilityId)
                         .header("Authorization", testToken)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

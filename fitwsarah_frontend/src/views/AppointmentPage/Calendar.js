@@ -109,7 +109,9 @@ const AvailabilitiesCalendar = ({onChange}) => {
             {!noAvailabilities &&
                       <ul>
                         
-                        {availabilities.map((availability, index) => (
+                        {availabilities.slice().sort((a, b) => {
+                            return a.time.localeCompare(b.time);
+                            }).map((availability, index) => (
                             <li key={index}>
                                 <input
                                     type="radio"
