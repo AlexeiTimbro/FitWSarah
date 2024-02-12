@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import "./Appointment.css";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "../../LanguageConfig/LanguageContext";
+import { format } from "date-fns";
 
 function Appointment( {appointment, accessToken} ) {
 
@@ -18,10 +19,7 @@ function Appointment( {appointment, accessToken} ) {
     const formattedDate = 
         date.getFullYear() + '-' +
         String(date.getMonth() + 1).padStart(2, '0') + '-' +
-        String(date.getDate()).padStart(2, '0') + 'T' +
-        String(date.getHours()).padStart(2, '0') + ':' +
-        String(date.getMinutes()).padStart(2, '0') + ':' +
-        String(date.getSeconds()).padStart(2, '0');
+        String(date.getDate()).padStart(2, '0');
 
     const [currentDateTime, setCurrentDateTime] = useState(formattedDate);
 
@@ -74,6 +72,16 @@ function Appointment( {appointment, accessToken} ) {
             console.error("Error message:", error.message);
         });
     };
+
+    const date_diff_indays = function (date1, date2) {
+        const dt1 = new Date(date1);
+        const dt2 = new Date(date2);
+        return Math.floor(
+          (Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) -
+            Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) /
+            (1000 * 60 * 60 * 24)
+        );
+      };
 
 
   return (
@@ -140,13 +148,11 @@ function Appointment( {appointment, accessToken} ) {
 
             <Modal.Footer style={{textAlign: 'right'}}>
                 <button className="cancel-appointment-button" onClick={() => {
-                    {   const appointmentDate = new Date(appointment.date);
-                        const currentDate = new Date(currentDateTime);
-
-                        const difference = currentDate - appointmentDate;
-                        const differenceInDays = difference / (1000 * 60 * 60 * 24);
-
-                        if (differenceInDays > 2) {
+                    {   
+                        const currentDatef = format(new Date(formattedDate), "yyyy-MM-dd");
+                        const appointmentDate = format(new Date(appointment.date), "yyyy-MM-dd");
+  
+                        if (date_diff_indays(currentDatef, appointmentDate) > 2) {
                             cancelAppointment(appointment.appointmentId);
                             setScheduledCancel(false);
                           } else {
@@ -157,6 +163,34 @@ function Appointment( {appointment, accessToken} ) {
                     }}>{t('appointmentConfirm')}</button>
                 <button className="view-details-button" onClick={() => setScheduledCancel(false)}>{t('appointmentClose')}</button>
             </Modal.Footer>
+        </Modal>
+
+        <Modal show={reschedule} onHide={() => setReschedule(false)}>
+            <Modal.Header closeButton>
+                <Modal.Title>{t('rescheduleAppointment')}</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+            </Modal.Body>
+
+            <Modal.Footer style={{textAlign: 'right'}}>
+                <button className="reschedule-appointment-button" onClick={() => {
+                    {   
+                        const currentDatef = format(new Date(formattedDate), "yyyy-MM-dd");
+                        const appointmentDate = format(new Date(appointment.date), "yyyy-MM-dd");
+  
+                        if (date_diff_indays(currentDatef, appointmentDate) > 2) {
+                            cancelAppointment(appointment.appointmentId);
+                            setScheduledCancel(false);
+                          } else {
+                            alert(t('invalidCancel'));
+                            setScheduledCancel(false);
+                        }
+                    }
+                    }}>{t('appointmentConfirm')}</button>
+                <button className="view-details-button" onClick={() => setReschedule(false)}>{t('appointmentClose')}</button>
+            </Modal.Footer>
+
         </Modal>
     </div>
   );
