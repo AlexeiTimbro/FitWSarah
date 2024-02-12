@@ -435,6 +435,9 @@ public class EndToEndTesting {
         sleep(1000);
     }
 
+
+
+
     @Test
     public void handleAppointmentRequestTrainerPanel(){
         open("http://localhost:3000/");
@@ -612,7 +615,44 @@ public class EndToEndTesting {
         sleep(1000);
     }
 
+    @Test
+    public void RemoveInvoicesByInvoiceIdTrainerPanel(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
 
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("admin@admin.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        sleep(1000);
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        sleep(1000);
+
+
+        SelenideElement adminPanelBtn = $("a[href='/trainerPanel']");
+        adminPanelBtn.click();
+
+        sleep(1000);
+
+        SelenideElement profileBtn = $("a[href='/trainerInvoices']");
+        profileBtn.click();
+
+        sleep(1000);
+
+        SelenideElement deleteInvoiceButton = $("button[class='button delete-button']");
+        deleteInvoiceButton.click();
+
+        sleep(1000);
+    }
 
     @Test
     public void UpdateFitnessPackage() {

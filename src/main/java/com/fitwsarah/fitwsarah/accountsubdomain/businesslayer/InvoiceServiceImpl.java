@@ -77,4 +77,18 @@ public class InvoiceServiceImpl implements InvoiceService{
     public List<InvoiceResponseModel> getAllInvoiceByUserId(String userId) {
         return invoiceResponseMapper.entityListToResponseModelList(invoiceRepository.findInvoicesByUserId(userId));
     }
+
+    @Override
+    public InvoiceResponseModel getInvoiceById(String invoiceId) {
+        return invoiceResponseMapper.entityToResponseModel(invoiceRepository.findInvoicesByInvoiceIdentifier_InvoiceId(invoiceId));
+    }
+
+    @Override
+    public void removeInvoice(String invoiceId) {
+        Invoices existingInvoice = invoiceRepository.findInvoicesByInvoiceIdentifier_InvoiceId(invoiceId);
+        if (existingInvoice == null) {
+            return;
+        }
+        invoiceRepository.delete(existingInvoice);
+    }
 }
