@@ -8,13 +8,16 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class InvoiceControllerUnitTest {
 
@@ -84,5 +87,16 @@ class InvoiceControllerUnitTest {
         Assertions.assertEquals(expectedFeedbacks, actualFeedbacks);
         assertThat(actualFeedbacks.get(0), is(invoice1));
         assertThat(actualFeedbacks.get(1), is(invoice2));
+    }
+
+    @Test
+    public void removeInvoice_validInvoiceId_shouldSucceed() {
+        String invoiceId = "uuid-feed1";
+        doNothing().when(invoiceService).removeInvoice(invoiceId);
+
+        ResponseEntity<Void> result = invoiceController.removeInvoice(invoiceId);
+
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+        verify(invoiceService, times(1)).removeInvoice(invoiceId);
     }
 }

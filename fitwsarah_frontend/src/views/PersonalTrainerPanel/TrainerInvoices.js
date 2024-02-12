@@ -86,6 +86,33 @@ function TrainerInvoices() {
     }
 
 
+    const removeInvoices = async (invoiceId) => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/invoices/${invoiceId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            }})
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+            })
+            .then(() =>{
+                getAllInvoices();
+            })
+
+    };
+
+
+
+    const removeConfirmation  = (feedbackId) => {
+        const answer = window.confirm(t("areyousure"));
+        if(answer){
+            removeInvoices(feedbackId);
+            getAllInvoices();
+        }
+    }
     function clearFilters() {
         setSearchTerm([["invoiceid",""],["userid",""], ["username", ""], ["status",""],  ["paymenttype",""]]);
     }
@@ -131,7 +158,7 @@ function TrainerInvoices() {
                             <td>{invoice.paymentType}</td>
                             <td>{invoice.price}</td>
                             <td>
-                                <button className="button delete-button">{t('delete')}</button>
+                                <button className="button delete-button"  onClick={() => removeConfirmation(invoice.invoiceId)}>{t('delete')}</button>
                                 <button className="button details-button">{t('details')}</button>
                             </td>
                         </tr>
