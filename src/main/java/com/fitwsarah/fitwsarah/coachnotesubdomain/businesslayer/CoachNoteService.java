@@ -14,4 +14,6 @@ public interface CoachNoteService {
     CoachNoteResponseModel addCoachNote(CoachNoteRequestModel coachNoteRequestModel);
 
     CoachNoteResponseModel updateCoachNoteById(String coachNoteId, CoachNoteRequestModel coachNoteRequestModel);
+
+    void deleteCoachNoteById(String coachNoteId);
 }

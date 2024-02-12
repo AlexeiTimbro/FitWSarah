@@ -33,4 +33,9 @@ public class CoachNoteController {
     public CoachNoteResponseModel updateCoachNoteById(@PathVariable String coachNoteId, @RequestBody CoachNoteRequestModel coachNoteRequestModel){
         return coachNoteService.updateCoachNoteById(coachNoteId, coachNoteRequestModel);
     }
+
+    @DeleteMapping("/{coachNoteId}")
+    public void deleteCoachNoteById(@PathVariable String coachNoteId){
+        coachNoteService.deleteCoachNoteById(coachNoteId);
+    }
 }
