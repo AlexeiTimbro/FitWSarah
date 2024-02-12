@@ -104,6 +104,27 @@ function TrainerCoachNotes() {
         setEditCoachNoteId(null);
     };
 
+    const handleDeleteClick = async (coachNoteId) => {
+        if (window.confirm('Are you sure you want to delete this coach note?')) {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/coachnotes/${coachNoteId}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                getAllCoachNotes();
+            } catch (error) {
+                console.error("Failed to delete coach note:", error);
+            }
+        }
+    };
+
 
     return (
         <div>
@@ -167,7 +188,10 @@ function TrainerCoachNotes() {
                                                 <button onClick={handleCancelClick} className="cancelDelete">Cancel</button>
                                             </>
                                         ) : (
-                                            <button onClick={() => handleEditClick(coachNote)} className="blueButton">Edit</button>
+                                            <>
+                                                <button onClick={() => handleEditClick(coachNote)} className="blueButton">Edit</button>
+                                                <button onClick={() => handleDeleteClick(coachNote.coachNoteId)} className="cancelDelete">Delete</button>
+                                            </>
                                         )}
                                     </td>
                                 </tr>
