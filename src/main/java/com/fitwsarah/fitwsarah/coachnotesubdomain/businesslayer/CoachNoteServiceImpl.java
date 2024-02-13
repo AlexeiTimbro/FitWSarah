@@ -61,4 +61,17 @@ public class CoachNoteServiceImpl implements CoachNoteService{
         return coachNoteResponseMapper.entityToResponseModel(coachNote);
     }
 
+    @Override
+    public void deleteCoachNoteById(String coachNoteId) {
+
+        CoachNote coachNote = coachNoteRepository.findCoachNoteByCoachNoteIdentifier_CoachNoteId(coachNoteId);
+
+        if (coachNote == null) {
+            throw new EntityNotFoundException("Coach Note with ID " + coachNoteId + " not found");
+        }
+
+        coachNoteRepository.delete(coachNote);
+
+    }
+
 }

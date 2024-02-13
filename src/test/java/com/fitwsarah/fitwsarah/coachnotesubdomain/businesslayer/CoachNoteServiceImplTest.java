@@ -133,4 +133,28 @@ public class CoachNoteServiceImplTest {
         assertThrows(EntityNotFoundException.class, () -> coachNoteService.updateCoachNoteById(nonExistingId, updateRequest));
     }
 
+    @Test
+    public void deteleCoachNoteById_ShouldSucceed() {
+        // Arrange
+        String existingId = "existingId";
+        CoachNote existingCoachNote = new CoachNote();
+        when(coachNoteRepository.findCoachNoteByCoachNoteIdentifier_CoachNoteId(existingId)).thenReturn(existingCoachNote);
+
+        // Act
+        coachNoteService.deleteCoachNoteById(existingId);
+
+        // Assert
+        verify(coachNoteRepository).delete(existingCoachNote);
+    }
+
+    @Test
+    public void deteleCoachNoteById_ThrowsException_WhenNotFound() {
+        // Arrange
+        String nonExistingId = "nonExistingId";
+        when(coachNoteRepository.findCoachNoteByCoachNoteIdentifier_CoachNoteId(nonExistingId)).thenReturn(null);
+
+        // Act & Assert
+        assertThrows(EntityNotFoundException.class, () -> coachNoteService.deleteCoachNoteById(nonExistingId));
+    }
+
 }
