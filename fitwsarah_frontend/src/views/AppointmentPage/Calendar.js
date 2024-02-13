@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import './NewAppointment.css';
 import {useGetAccessToken} from "../../components/authentication/authUtils";
 import { useLanguage } from '../../LanguageConfig/LanguageContext';
+import { useTranslation } from "react-i18next";
 
 const AvailabilitiesCalendar = ({onChange}) => {
   const [date, setDate] = useState(new Date());
@@ -13,6 +14,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
   const [accessToken, setAccessToken] = useState(null);
   const getAccessToken = useGetAccessToken();
   const { language } = useLanguage();
+  const {t} = useTranslation('home')
 
   const getLocale = () => {
     return language === 'en' ? 'en-CA' : 'fr-CA';
@@ -126,7 +128,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
                             </li>
                         ))}
                     </ul>}
-                    {noAvailabilities && <p>No available dates for {date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+                    {noAvailabilities && <p>{t('noAvailabilities')} {date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
                     <p className="date">{date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
             </div>

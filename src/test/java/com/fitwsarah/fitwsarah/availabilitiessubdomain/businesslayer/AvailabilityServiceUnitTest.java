@@ -41,6 +41,25 @@ class AvailabilityServiceUnitTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    @Test
+    public void getAllAvailabilitiesByDayOfWeek_shouldSucceed(){
+        Availability availability1 = new Availability();
+        availability1.setDayOfWeek("Monday");
+        Availability availability2 = new Availability();
+        availability2.setDayOfWeek("Monday");
+        List<Availability> availabilities = Arrays.asList(availability1, availability2);
+
+        List<AvailabilityResponseModel> responseModels = Arrays.asList(new AvailabilityResponseModel("uuid-avail1", "Monday", "11:00"), new AvailabilityResponseModel("uuid-avail2", "Monday", "10:00"));
+
+
+        when(availabilityRepository.findAllByDayOfWeek("Monday")).thenReturn(availabilities);
+
+        when(availabilityResponseMapper.entityListToResponseModelList(availabilities)).thenReturn(responseModels);
+
+        List<AvailabilityResponseModel> result = availabilityService.getAllAvailabilities("Monday");
+
+        assertEquals(responseModels, result);
+    }
 
 
     @Test

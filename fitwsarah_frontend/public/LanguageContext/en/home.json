@@ -14,5 +14,6 @@
     "description_fr": "Description (French)",
     "otherInformationOptional_en": "Other Information (English) (Optional)",
     "otherInformationOptional_fr": "Other Information (French) (Optional)",
-    "addService": "Add"
+    "addService": "Add",
+    "noAvailabilities":"no available dates for"
 }
