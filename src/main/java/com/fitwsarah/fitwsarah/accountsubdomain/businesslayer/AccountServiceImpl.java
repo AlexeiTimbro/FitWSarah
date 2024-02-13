@@ -129,7 +129,7 @@ public class AccountServiceImpl implements AccountService {
                     "              <li style=\"margin-bottom:20px\"><strong>Choose a fitness service.</strong> Browse fitness services in the Home Page and check their details for more information.</li>\n" +
                     "              <li style=\"margin-bottom:20px\"><strong>Book an appointment.</strong> Book a personal fitness session via the home page from all my current availabilities.</li>\n" +
                     "              <li style=\"margin-bottom:20px\"><strong>Check your profile.</strong> Quickly manage your current appointments, invoices, coach notes and much more.</li>\n" +
-                    "              <li style=\"margin-bottom:20px\"><strong>Learn more about fitness.</strong>Get feedback from me in the form of coach notes that will help you throughout your fitness journey.</li>\n" +
+                    "              <li style=\"margin-bottom:20px\"><strong>Learn more about fitness.</strong> Get feedback from me in the form of coach notes that will help you throughout your fitness journey.</li>\n" +
                     "            </ul>\n" +
                     "            <table align=\"center\" width=\"100%\" border=\"0\" cellPadding=\"0\" cellSpacing=\"0\" role=\"presentation\" style=\"text-align:center\">\n" +
                     "              <tbody>\n" +
