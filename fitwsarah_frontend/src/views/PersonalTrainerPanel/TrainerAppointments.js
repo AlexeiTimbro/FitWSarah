@@ -178,75 +178,7 @@ function AdminAccounts() {
             });
     };
 
-    const getAppointmentInfo = async (appointmentId) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}`, {
-                method: "GET",
-                headers: new Headers({
-                    Authorization: "Bearer " + accessToken,
-                    "Content-Type": "application/json"
-                })
-            });
     
-            if (!response.ok) {
-                throw new Error('Failed to get Appointment Info');
-            }
-    
-            const data = await response.json();
-            console.log(data)
-            getAccountEmail(data.time,data.date,data.userId);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-    
-    const getAccountEmail = async (time, date, userId) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/users/${userId}`, {
-                method: "GET",
-                headers: new Headers({
-                    Authorization: "Bearer " + accessToken,
-                    "Content-Type": "application/json"
-                })
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to get account email');
-            }
-    
-            const data = await response.json();
-            sendCancelMail(time, date, data.email);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-    
-    
-    const sendCancelMail = (time, date, email) => {
-        const cancelMail = {subject: "Cancelled Appointment", message:`Hello, your appointment at ${time} for ${date} has been cancelled.`};
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/send/${email}`, {
-            method: "POST",
-            headers: new Headers({
-                Authorization: "Bearer " + accessToken,
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify(cancelMail)
-
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Failed to send cancellation email');
-                }
-                return response.text();;
-            })
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log(error);
-
-            });
-    };
 
     const updateAppointmentStatus = (appointmentId, status) => {
         fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments/${appointmentId}/cancelled`, {
@@ -267,7 +199,6 @@ function AdminAccounts() {
             .then((data) => {
                 console.log(data);
                 getAppointments();
-                getAppointmentInfo(data.appointmentId);
             })
             .catch((error) => {
                 console.log(error);
