@@ -175,7 +175,7 @@ function AdminCoachNotes() {
                                         ) : (
                                             <>
                                             <button onClick={() => handleEditClick(coachNote)} className="blueButton">Edit</button>
-                                            <button onClick={() => handleDeleteClick(coachNote.coachNoteId)} className="cancelDelete">Delete</button>
+                                            <button onClick={() => handleDeleteClick(coachNote.coachNoteId)} className="ddelete">Delete</button>
                                             </>
                                             )}
                                     </td>

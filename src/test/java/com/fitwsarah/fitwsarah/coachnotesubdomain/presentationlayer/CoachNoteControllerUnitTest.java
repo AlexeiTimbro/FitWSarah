@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 public class CoachNoteControllerUnitTest {
@@ -77,4 +77,25 @@ public class CoachNoteControllerUnitTest {
 
         assertEquals(expectedResponse, actualResponse);
     }
+
+    @Test
+    public void deleteCoachNoteByIdTest() {
+        String coachNoteId = "sadsads";
+
+        // Call the method under test
+        coachNoteController.deleteCoachNoteById(coachNoteId);
+
+        // Verify that the service method was called once with the correct id
+        verify(coachNoteService, times(1)).deleteCoachNoteById(coachNoteId);
+    }
+
+    @Test
+    public void deleteCoachNoteByIdReturnExceptionNotFoundTest(){
+            String coachNoteId = "sadsads";
+        doThrow(new RuntimeException("CoachNote not found")).when(coachNoteService).deleteCoachNoteById(coachNoteId);
+        try {
+            coachNoteController.deleteCoachNoteById(coachNoteId);
+        } catch (RuntimeException e) {
+            assertEquals("CoachNote not found", e.getMessage());
+        } }
 }

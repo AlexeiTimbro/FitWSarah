@@ -88,6 +88,16 @@ public class CoachNoteControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void deleteCoachNoteByIdTest() throws Exception {
+        String coachNoteId = "testCoachNoteId";
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/coachnotes/" + coachNoteId)
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
     private String asJsonString(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(obj);
