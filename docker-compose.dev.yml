@@ -8,6 +8,7 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
       - AUTH0_AUDIENCE=${AUTH0_AUDIENCE}
       - AUTH0_ISSUER=${AUTH0_ISSUER}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
     depends_on:
       mysql1:
         condition: service_healthy

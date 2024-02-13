@@ -42,7 +42,6 @@ class AvailabilityServiceUnitTest {
     }
 
 
-
     @Test
     public void addAvailabilitiesByDayOfWeek_shouldSucceed(){
         String dayOfWeek = "Monday";
