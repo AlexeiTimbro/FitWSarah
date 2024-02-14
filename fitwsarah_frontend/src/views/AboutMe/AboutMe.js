@@ -21,7 +21,9 @@ function AboutMe() {
     } = useAuth0();
 
     const [editMode, setEditMode] = useState(false);
-    const {t} = useTranslation('contactMe');
+    const {t} = useTranslation('aboutMe');
+    const {sub} = isAuthenticated ? user : {};
+
 
     function extractAfterPipe(originalString) {
         const parts = originalString.split('|');
@@ -32,21 +34,16 @@ function AboutMe() {
         }
     }
 
-    const {sub} = isAuthenticated ? user : {};
-    const RegexUserId = sub ? extractAfterPipe(sub) : null;
+    // Define a CustomImg component that applies a class name to the rendered img tag
+    function CustomImg({ src, alt, width, height, className }) {
+        // Include the `className` prop to allow custom class names
+        return <img src={src} alt={alt} width={width} height={height} className={className} />;
+    }
 
-    const [feedbackDataToSend, setFeedbackDataToSend] = useState({});
 
-    const handleInputChange = (e) => {
-        const {name, value} = e?.target || {};
-        const updatedData = {
-            ...feedbackDataToSend,
-            userId: RegexUserId,
-            [name]: value,
-        };
-        console.log(updatedData)
-        setFeedbackDataToSend(updatedData);
-    };
+
+
+
 
     return (
         <div>
@@ -55,13 +52,13 @@ function AboutMe() {
             <div id="contactBackground">
                 <div className="container1">
                     <div className="box">
-                        <p className="pargah1">Hello, I am<br />
-                            <span className="large-bold">Sarah Siddiqui,</span><br />
-                            A professional personal fitness trainer.</p>
+                        <p className="pargah1">{t('hello')}<br />
+                            <span className="large-bold">{t('name')},</span><br />
+                            {t('info')}</p>
                     </div>
                     <div className="box">
                         <div className="image-container">
-                        <img src={workoutImage} alt="Workout" width={400} height={400}/>
+                            <CustomImg src={workoutImage} alt="Workout" width="400" height="400" className="custom-img" />
                         </div>
                     </div>
                 </div>
@@ -69,17 +66,17 @@ function AboutMe() {
                 <div className="container1">
                     <div className="box">
                         <div className="image-container1">
-                        <img src={trainerImage} alt="Trainer" />
+                            <CustomImg src={trainerImage} alt="Workout" width="200"  className="custom-img1" />
                     </div>
                     </div>
                     <div className="box">
-                        <h2>About Us</h2>
+                        <h2>{t('aboutus')}</h2>
                         <div className="p">
-                        <p>I am a  personal fitness trainer who's dedicated to guiding you towards your health<br></br>
-                            and fitness goals. With my expertise, I create tailored workout and nutrition plans<br></br>
-                            to fit your unique needs. Whether you're aiming to lose weight, gain muscle,<br></br>
-                            or simply stay active, I'm here to support and motivate you.<br></br>
-                            Let's work together to achieve a healthier, more vibrant life.<br />
+                        <p>{t('lineone')},<br></br>
+                            {t('linetwo')}.{t('linethree')},<br></br>
+                            {t('linefour')},<br></br>
+                            {t('linefive')}<br></br>
+                            {t('linesix')}.<br />
                             </p>
                         </div>
                     </div>

@@ -94,17 +94,18 @@ textarea{
 
 
 
-.image-container img {
+.image-container .custom-img {
     width: 260px;
     height: 260px;
     object-fit: cover;
 
 }
 
-.image-container1 img {
+.image-container1 .custom-img1 {
     margin-left: auto;
     margin-right: auto;
     display: block;
+    width: 200px;
 }
 
 

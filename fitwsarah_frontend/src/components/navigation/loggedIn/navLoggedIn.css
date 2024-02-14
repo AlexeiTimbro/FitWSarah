@@ -96,9 +96,9 @@ font-size: 14px; /* Adjust as needed */
 
 
 img {
-  margin-right: auto;
-  display: block;
-  width: 200px; /* Adjust as needed */
+  margin-left: 20px;
+  width: 120px;
+
 }
 
 .navbar-container {
