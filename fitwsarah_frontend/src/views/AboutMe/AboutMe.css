@@ -11,6 +11,23 @@ textarea{
     min-height:100%;
     position:relative;
 }
+
+
+.about-us-container {
+    margin-left: 30px;
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center the text */
+
+}
+
+.about-us-container h2 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 .white-title{
     color: white;
     display: flex;
@@ -55,7 +72,9 @@ textarea{
     box-sizing: border-box;
     padding: 20px 30px;
     margin-bottom: 5%;
+
 }
+
 
 .grey-box {
     background-color: grey;
@@ -63,9 +82,11 @@ textarea{
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Set the desired width and height or remove them to allow content to dictate size */
-}
 
+}
+p{
+    color: white;
+}
 .large-bold {
     font-size: 1.5em;
     font-weight: bold;
@@ -76,12 +97,15 @@ textarea{
 }
 
 .image-container img {
-    width: 300px; /* Set the width you want for the image */
-    height: auto; /* Keep the height proportional */
-    object-fit: cover; /* This will cover the area without stretching */
+    width: 300px;
+    height: auto;
+    object-fit: cover;
 }
 
 
+.about-container{
+    margin-left: 30px;
+}
 
 
 .contact-text{

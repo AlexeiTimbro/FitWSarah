@@ -13,7 +13,7 @@ import AddFeedbackButton from '../../components/feedback/newFeedbackBtn';
 import "./AboutMe.css";
 import { useTranslation } from "react-i18next";
 import workoutImage from './workout.png';
-
+import trainerImage from './trainer.png';
 function AboutMe() {
     const {
         isAuthenticated,
@@ -48,16 +48,6 @@ function AboutMe() {
         setFeedbackDataToSend(updatedData);
     };
 
-    const handleStarsChange = (value) => {
-        const updatedData = {
-            ...feedbackDataToSend,
-            userId: RegexUserId,
-            stars: value,
-        };
-        console.log(updatedData)
-        setFeedbackDataToSend(updatedData);
-    };
-
 
     return (
         <div>
@@ -65,15 +55,21 @@ function AboutMe() {
             {isAuthenticated && <NavLoggedIn/>}
             <div id="contactBackground">
                 <div className="feedback-container">
-                    <div className="grey-box">
+                    <div className="text-container">
                         <p>Hello, I am<br/>
-                            <span className="large-bold">Tom Staronskiy,</span><br/>
+                            <span className="large-bold">Sarah Siddiqui,</span><br/>
                             A professional personal fitness trainer.
                         </p>
                     </div>
                     <div className="image-container">
                         <img src={workoutImage} alt="Workout"/>
                     </div>
+                </div>
+
+                <div className="about-us-container">
+                    <h2>About Us</h2>
+                    <p>I am a dedicated personal trainer with many years of expertise<br></br>.
+                        I am fully trained and qualified and I would be happy to have you as client.</p>
                 </div>
                 <FooterNotLoggedIn/>
             </div>
