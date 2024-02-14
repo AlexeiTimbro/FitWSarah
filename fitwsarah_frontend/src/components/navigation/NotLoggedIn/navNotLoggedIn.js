@@ -18,7 +18,7 @@ function NavNotLoggedIn() {
 
         <div className="left-links">
         <Link to="/"><img src={logo} alt="app logo"/></Link>
-        <a href="#">{t('aboutMe')}</a>
+          <Link to="/aboutMe">{t('aboutMe')}</Link>
         <Link to="/contactMe">{t('contactMe')}</Link>
         </div>
 

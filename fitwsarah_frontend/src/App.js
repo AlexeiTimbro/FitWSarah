@@ -26,6 +26,9 @@ import TrainerCoachNotes from "./views/PersonalTrainerPanel/TrainerCoachNotes";
 import AdminCreateCoachNote from "./views/AdminPanelPage/AdminCreateCoachNotes";
 import Availabilities from "./views/PersonalTrainerPanel/Availabilities";
 import TrainerCreateCoachNotes from "./views/PersonalTrainerPanel/TrainerCreateCoachNote";
+import About from "./views/AboutMe/AboutMe";
+import AboutMe from "./views/AboutMe/AboutMe";
+
 
 function App() {
     return (
@@ -58,7 +61,7 @@ function App() {
                     <Route path="/AdminCreateCoachNotes" element={<AdminCreateCoachNote/>}/>
                     <Route path="/TrainerCreateCoachNotes" element={<TrainerCreateCoachNotes/>}/>
                     <Route path="/availabilities" element={<Availabilities/>}/>
-
+                   <Route path="/aboutMe" element={<AboutMe/>}/>
                 </Routes>
             </Router>
         </LanguageProvider>
