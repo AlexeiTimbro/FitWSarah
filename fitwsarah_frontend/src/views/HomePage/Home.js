@@ -30,6 +30,24 @@ function Home() {
     const [editMode, setEditMode] = useState(false);
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
+    const [packageVisibility, setPackageVisibility] = useState({}); // State to manage visibility of fitness packages
+   const[showVisible, setShowVisible] = useState('VISIBLE');
+
+    const handleVisibilityChange = (serviceId, status) => {
+        if (status === 'VISIBLE') {
+            publishConfirmation(serviceId);
+        } else if (status === 'INVISIBLE') {
+            hideFitnessPackage(serviceId);
+            unpublishConfirmation(serviceId);
+        }
+    };
+
+    const hideFitnessPackage = (serviceId) => {
+        setPackageVisibility(prevState => ({
+            ...prevState,
+            [serviceId]: false
+        }));
+    };
 
     const {t} = useTranslation('home');
     const {language} = useLanguage();
@@ -39,7 +57,7 @@ function Home() {
           const token = await getAccessToken();
           if (token) setAccessToken(token);
         };
-  
+
         fetchToken();
       }, [getAccessToken]);
 
@@ -49,7 +67,11 @@ function Home() {
     }, []);
 
     const getAllFitnessServices = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+
+        const params = new URLSearchParams();
+
+
+        fetch(`http://localhost:8080/api/v1/fitnessPackages${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -68,6 +90,32 @@ function Home() {
                 console.log(error);
             });
     };
+
+    const updateFitnessServiceByStatus = async (serviceId, status) => {
+
+        fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}/invisible`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            },
+            body: status
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data)
+                getAllFitnessServices();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
 
     function extractAfterPipe(originalString) {
         const parts = originalString.split('|');
@@ -134,6 +182,20 @@ function Home() {
     };
 
 
+
+    const publishConfirmation  = (serviceId) => {
+        const answer = window.confirm(t("areyousure_publish"));
+        if(answer){
+            updateFitnessServiceByStatus(serviceId, 'VISIBLE');
+        }
+    }
+
+    const unpublishConfirmation  = (serviceId) => {
+        const answer = window.confirm(t('areyousure_UNpublish'));
+        if(answer){
+            updateFitnessServiceByStatus(serviceId, 'INVISIBLE');
+        }
+    }
     const handleEdit = (service) => {
         setSelectedService(service);
         setShowUpdateForm(true);
@@ -206,13 +268,29 @@ function Home() {
                     <Row>
                         {services.map(service => (
                             <Col key={service.id} md={4}>
-                                <div id="serviceCard" className="service-card">
-                                    <h3>{language === 'en' ? service.title_EN : service.title_FR}</h3>
-                                    <p>{language === 'en' ? service.description_EN : service.description_FR}</p>
-                                    <p style={{display: 'none'}}>{language === 'en' ? service.otherInformation_EN : service.otherInformation_FR}</p>
-                                    <p style={{display: 'none'}}>{service.duration}</p>
-
-                                    <div className="price">{service.price} $</div>
+                                {showVisible === 'VISIBLE' && service.status === 'VISIBLE' && (
+                                    <div id="serviceCard" className="service-card">
+                                        <h3>{language === 'en' ? service.title_EN : service.title_FR}</h3>
+                                        <p>{language === 'en' ? service.description_EN : service.description_FR}</p>
+                                        <p style={{ display: 'none' }}>{language === 'en' ? service.otherInformation_EN : service.otherInformation_FR}</p>
+                                        <p style={{ display: 'none' }}>{service.duration}</p>
+                                        <div className="price">{service.price} $</div>
+                                    </div>
+                                )}
+                                {editMode && (
+                                        <>
+                                            {service.status === "INVISIBLE" && (
+                                                <button className="button details-button" onClick={() => handleVisibilityChange(service.serviceId, 'VISIBLE')}>
+                                                    {t('publish')}
+                                                </button>
+                                            )}
+                                            {service.status === "VISIBLE" && (
+                                                <button className="button details-button" onClick={() => handleVisibilityChange(service.serviceId, 'INVISIBLE')}>
+                                                    {t('unpublish')}
+                                                </button>
+                                            )}
+                                        </>
+                                    )}
                                     {!isAuthenticated && <button className="book-button"
                                                                  onClick={() => loginWithRedirect({authorizationParams: {screen_hint: "login"}})}>{t('book')}</button>}
                                     {isAuthenticated && <Link
@@ -231,7 +309,6 @@ function Home() {
                                             </svg>
                                         </button>
                                     }
-                                </div>
                             </Col>
                         ))}
                     </Row>

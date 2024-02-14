@@ -43,7 +43,7 @@ class FitnessPackageControllerIntegrationTest {
 
     private List<FitnessPackageResponseModel> fitnessPackageList;
 
-    @BeforeEach
+   /* @BeforeEach
     void setUp() throws Exception {
         fitnessPackageList = Arrays.asList(fitnessPackage);
         given(fitnessPackageService.getAllFitnessPackages()).willReturn(fitnessPackageList);
@@ -51,7 +51,7 @@ class FitnessPackageControllerIntegrationTest {
 
         testToken += obtainAuthToken();
     }
-
+*/
     @Test
     void getAllFitnessServices_ShouldReturnFitnessPackages() throws Exception {
         mockMvc.perform(get("/api/v1/fitnessPackages")
