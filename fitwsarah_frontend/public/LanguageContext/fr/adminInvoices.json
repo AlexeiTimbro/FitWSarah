@@ -1,0 +1,15 @@
+{
+  "areyousure": "Êtes-vous sûr?",
+  "back": "Retour",
+  "invoices": "Factures",
+  "invoiceId": "ID de facture",
+  "userId": "ID d'utilisateur",
+  "username": "Nom d'utilisateur",
+  "status": "Statut",
+  "date": "Date",
+  "dueDate": "Date d'échéance",
+  "paymentType": "Type de paiement",
+  "price": "Prix",
+  "delete": "Supprimer",
+  "details": "Détails"
+}

@@ -1,0 +1,15 @@
+{
+  "areyousure": "Are you sure?",
+  "back": "Back",
+  "invoices": "Invoices",
+  "invoiceId": "Invoice ID",
+  "userId": "User ID",
+  "username": "Username",
+  "status": "Status",
+  "date": "Date",
+  "dueDate": "Due Date",
+  "paymentType": "Payment Type",
+  "price": "Price",
+  "delete": "Delete",
+  "details": "Details"
+}
