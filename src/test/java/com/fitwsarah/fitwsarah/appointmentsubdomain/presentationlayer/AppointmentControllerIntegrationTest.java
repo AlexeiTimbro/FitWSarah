@@ -22,6 +22,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
+import static net.bytebuddy.matcher.ElementMatchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -128,5 +131,45 @@ class AppointmentControllerIntegrationTest {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(response.getBody());
         return rootNode.path("access_token").asText();
+    }
+
+    @Test
+    void updateAppointmentDateTime_shouldSucceed() throws Exception {
+        String status = "REQUESTED";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel(
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-service1",
+                Status.valueOf(status),
+                "Location 1",
+                "John",
+                "Smith",
+                "444-444-444",
+                "2023-03-20",
+                "10:00"
+        );
+
+        AppointmentResponseModel responseModel = new AppointmentResponseModel(
+                "uuid-appt1",
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-service1",
+                Status.valueOf(status),
+                "Location 1",
+                "John",
+                "Smith",
+                "444-444-444",
+                "2023-03-20",
+                "10:00"
+        );
+
+        given(appointmentService.updateAppointmentDateTime(anyString(), any(AppointmentRequestModel.class)))
+                .willReturn(responseModel);
+
+        mockMvc.perform(put("/api/v1/appointments/{appointmentId}/reschedule", appointment1.getAppointmentId())
+                        .header("Authorization", testToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(requestModel)))
+                .andExpect(status().isOk());
     }
 }

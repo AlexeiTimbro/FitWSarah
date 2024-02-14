@@ -58,7 +58,7 @@ function Profile() {
         if (accessToken) {
             getAppointmentsByUserId(extractAfterPipe(user.sub), status);
         }
-    }, [user, status]);
+    }, [status, accessToken]);
 
     const getAccountByUserId = (userId) => {
         fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/users/${userId}`, {
@@ -126,6 +126,10 @@ function Profile() {
         setStatus(stat);
     }
 
+    function reloadAppointment() {
+        getAppointmentsByUserId(extractAfterPipe(user.sub), status);
+    }
+
 
     return (
         <div>
@@ -155,7 +159,7 @@ function Profile() {
                         <div className="appointments-container">
                             {appointments.map((appointment) => (
                                 <div className="appointment-item">
-                                    <Appointment appointment={appointment} accessToken={accessToken} />
+                                    <Appointment appointment={appointment} accessToken={accessToken} reloadAppointment={reloadAppointment}/>
                                 </div>
                             ))}
                         </div>

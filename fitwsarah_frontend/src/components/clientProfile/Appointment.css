@@ -51,3 +51,8 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.custom-modal .modal-dialog {
+    width: 50%;
+    max-width: none;
+  }

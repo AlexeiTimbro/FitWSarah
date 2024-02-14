@@ -33,8 +33,8 @@ INSERT INTO appointments (appointment_id, availability_id, user_id, service_id, 
 ('uuid-appt7', 'uuid-avail7', 'f485ee1d-77b7-47a7-8903-9f2055b5ee21', '5d95bf15-242b-471c-8d7e-63bb148d05c4', 'COMPLETED', 'Location 7', 'Olivia', 'Taylor', '905-876-2345', '2023-12-07','12:00'),
 ('uuid-appt8', 'uuid-avail8', '08f6a59a-79e1-4b1e-ba0f-6f14115ccca3', 'd701724c-3da5-4d42-9e22-944f097f77e3', 'CANCELLED', 'Location 8', 'Ethan', 'Clark', '416-444-5555', '2023-12-08',' 14:45'),
 ('uuid-appt9', 'uuid-avail9', 'd2a6e1ee-5b0c-403b-8e91-79d2c8228f8a', 'e4f6f0e2-3961-4c06-8f63-399bfdfc695b', 'SCHEDULED', 'Location 9', 'Mia', 'Wong', '647-987-6543', '2023-12-09','09:00'),
-('uuid-appt10', 'uuid-avail10', 'fb0686ac-4907-4d6c-b0cd-0942049e32a9', '562314d2-3a8e-4a41-9b61-7bc9731f555f', 'COMPLETED', 'Location 10', 'Liam', 'Moore', '905-333-2222', '2023-12-10','15:15'),
-('uuid-appt11', 'uuid-avail11', 'cfc49f9d-1711-4a9a-8157-2e865d5c309a', 'f09e14dd-59cf-4644-a525-93bf534c8024', 'SCHEDULED', 'Location 11', 'Ava', 'Harris', '416-876-5432', '2023-12-11 ','10:30');
+('uuid-appt10', 'uuid-avail10', '6598b5ed034ba209b8ce28c2', '562314d2-3a8e-4a41-9b61-7bc9731f555f', 'REQUESTED', 'Location 10', 'Liam', 'Moore', '905-333-2222', '2024-3-10','15:15'),
+('uuid-appt11', 'uuid-avail11', '6598b5ed034ba209b8ce28c2', 'f09e14dd-59cf-4644-a525-93bf534c8024', 'SCHEDULED', 'Location 11', 'Ava', 'Harris', '416-876-5432', '2024-3-11 ','10:30');
 
 
 INSERT INTO fitness_services (service_id, promo_id, status, title_en, title_fr, duration, description_en, description_fr, other_information_en, other_information_fr, price) VALUES
@@ -59,8 +59,8 @@ INSERT INTO availabilities (availability_id,day_of_week, time) VALUES
 ('uuid-avail5', 'Friday ','16:30');
 
 INSERT INTO coach_notes (coach_note_id, account_id, user_id, username, content_en, content_fr) VALUES
-                                                                                                   ('1', 'uuid-acc1', '65b9b977d5fa901a57937bc3', 'johnsmith', 'Keep up the great work with your training!', 'Continuez votre excellent travail avec votre entraînement !'),
-                                                                                                   ('2', 'uuid-acc2', '65b9b977d5fa901a57937bc3', 'emilyjones', 'Remember to stay hydrated during workouts.', 'Noubliez pas de rester hydraté pendant les entraînements.'),
+('1', 'uuid-acc1', '65b9b977d5fa901a57937bc3', 'johnsmith', 'Keep up the great work with your training!', 'Continuez votre excellent travail avec votre entraînement !'),
+('2', 'uuid-acc2', '65b9b977d5fa901a57937bc3', 'emilyjones', 'Remember to stay hydrated during workouts.', 'Noubliez pas de rester hydraté pendant les entraînements.'),
 ('3', 'uuid-acc3', '101188348963819843921', 'michaelbrown', 'Excellent progress on your last session!', 'Excellents progrès lors de votre dernière séance !'),
 ('4', 'uuid-acc4', '101188348963819843921', 'sarahwhite', 'Try to increase your running distance gradually.', 'Essayez d''augmenter progressivement votre distance de course.'),
 ('5', 'uuid-acc5', '101188348963819843921', 'davidjohnson', 'Focus on maintaining a balanced diet.', 'Concentrez-vous sur le maintien d''une alimentation équilibrée.');

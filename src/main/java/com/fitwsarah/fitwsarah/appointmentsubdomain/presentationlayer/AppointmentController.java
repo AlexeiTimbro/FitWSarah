@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 @RestController
 @RequestMapping("api/v1/appointments")
@@ -56,13 +57,8 @@ public class AppointmentController {
         return appointmentService.handleAppointmentRequest(appointmentId, status);
     }
 
-    @DeleteMapping("/{appointmentId}")
-    public void cancelAppointmentById(@PathVariable String appointmentId){
-
-    }
-
-    @DeleteMapping()
-    public void cancelAllAppointments(){
-
+    @PutMapping("/{appointmentId}/reschedule")
+    public AppointmentResponseModel updateAppointmentDateTime(@RequestBody AppointmentRequestModel appointmentRequestModel, @PathVariable String appointmentId){
+        return appointmentService.updateAppointmentDateTime(appointmentId, appointmentRequestModel);
     }
 }

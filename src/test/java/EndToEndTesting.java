@@ -11,8 +11,6 @@ public class EndToEndTesting {
     @BeforeEach
     void setup() {
         WebDriverManager.chromedriver().setup();
-
-
     }
     @Test
     public void signUpNewMember(){
@@ -960,6 +958,81 @@ public class EndToEndTesting {
         availabilitiesBtn.shouldBe(visible);
         availabilitiesBtn.click();
 
+    }
+
+    @Test
+    public void cancelRequestedAppointment(){
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("pt@admin.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        SelenideElement profileBtn = $("a[href='/profile']");
+        profileBtn.click();
+
+        SelenideElement requestedAppointments = $("button[name=\"REQUESTED\"]");
+        requestedAppointments.click();
+
+        SelenideElement cancelBtn = $("button[name=\"RequestedCancel\"]");
+        cancelBtn.click();
+
+        SelenideElement confirmBtn = $("button[name=\"confirm\"]");
+        confirmBtn.click();
+
+        SelenideElement canceledbtn = $("button[name=\"CANCELLED\"]");
+        canceledbtn.click();
+
+        sleep(1000);
+
+        SelenideElement appointment = $("div[class='card-details']");
+        appointment.shouldBe(visible);
+    }
+
+    @Test
+    public void rescheduleAppointment() {
+        open("http://localhost:3000/");
+
+        sleep(5000);
+
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        sleep(1000);
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("pt@admin.com");
+
+        sleep(1000);
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        SelenideElement profileBtn = $("a[href='/profile']");
+        profileBtn.click();
+
+        SelenideElement reschedulebtn = $("button[name=\"Rescedule\"]");
+        reschedulebtn.click();
+
+        SelenideElement confirmBtn = $("button[name=\"confirm\"]");
+        confirmBtn.click();
+
+        sleep(1000);
+
+        SelenideElement appointment = $("div[class='card-details']");
+        appointment.shouldNotBe(visible);
     }
 
 
