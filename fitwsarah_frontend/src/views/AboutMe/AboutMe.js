@@ -53,9 +53,9 @@ function AboutMe() {
             {!isAuthenticated && <NavNotLoggedIn />}
             {isAuthenticated && <NavLoggedIn />}
             <div id="contactBackground">
-                <div className="container">
+                <div className="container1">
                     <div className="box">
-                        <p>Hello, I am<br />
+                        <p className="pargah1">Hello, I am<br />
                             <span className="large-bold">Sarah Siddiqui,</span><br />
                             A professional personal fitness trainer.</p>
                     </div>
@@ -66,26 +66,31 @@ function AboutMe() {
                     </div>
                 </div>
 
-                <div className="container">
+                <div className="container1">
                     <div className="box">
-                        <div className="image-container">
+                        <div className="image-container1">
                         <img src={trainerImage} alt="Trainer" />
                     </div>
                     </div>
                     <div className="box">
                         <h2>About Us</h2>
-                        <p>I am a dedicated personal trainer with many years of expertise.<br />
-                            I am fully trained and qualified and I would be happy to have you as a client.</p>
+                        <div className="p">
+                        <p>I am a  personal fitness trainer who's dedicated to guiding you towards your health<br></br>
+                            and fitness goals. With my expertise, I create tailored workout and nutrition plans<br></br>
+                            to fit your unique needs. Whether you're aiming to lose weight, gain muscle,<br></br>
+                            or simply stay active, I'm here to support and motivate you.<br></br>
+                            Let's work together to achieve a healthier, more vibrant life.<br />
+                            </p>
+                        </div>
                     </div>
-
                 </div>
 
-                <div className="container">
+                <div className="container1">
                     <div className="box">
 
                     </div>
                     <div className="box">
-                        {/* Content for the second half */}
+                        {/* for the feedback */}
                     </div>
                 </div>
 

@@ -96,10 +96,9 @@ font-size: 14px; /* Adjust as needed */
 
 
 img {
-  margin-left: 20px; /* Adjust as needed */
-
-  width: 120px; /* Adjust as needed */
-  height: 50px; /* Adjust as needed */
+  margin-right: auto;
+  display: block;
+  width: 200px; /* Adjust as needed */
 }
 
 .navbar-container {
