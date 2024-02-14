@@ -7,7 +7,7 @@ function Sidebar({ changeSelectedTab }) {
     const { t } = useTranslation('account');
 
     return (
-        <aside className="sidebar">
+        <aside className="sidebar2">
             <nav className="sidebar-navigation">
                 <a name="Appointments" className="sidebar-link" onClick={() => changeSelectedTab("appointments")}>
                     <i className="sidebar-icon vehicles-icon"></i>
