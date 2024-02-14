@@ -12,6 +12,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
   const [availabilities, setAvailabilities] = useState([]);
   const [noAvailabilities, setNoAvailabilities] = useState(false);
   const [accessToken, setAccessToken] = useState(null);
+  const [loading, setLoading] = useState(false);
   const getAccessToken = useGetAccessToken();
   const { language } = useLanguage();
   const {t} = useTranslation('home')
@@ -71,6 +72,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
   };
 
   const getAllAvailabilities = () => {
+    setLoading(true);
     const formattedDate = date.toLocaleDateString(getLocale(), { weekday: 'long' });
     fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/availabilities?dayOfWeek=${formattedDate}`,  {
       method: "GET",
@@ -96,6 +98,8 @@ const AvailabilitiesCalendar = ({onChange}) => {
         })
         .catch((error) => {
             console.log(error);
+        }).finally(() => {
+          setLoading(false);
         });
 };
   
@@ -108,7 +112,8 @@ const AvailabilitiesCalendar = ({onChange}) => {
         <div className='time-picker'>
             <div>
             <div class="focusable time-picker" tabindex="0" role="group">
-            {!noAvailabilities &&
+              {loading && <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity="0.25"/><path fill="currentColor" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>}
+                          {!loading && !noAvailabilities &&
                       <ul>
                         
                         {availabilities.slice().sort((a, b) => {
@@ -128,7 +133,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
                             </li>
                         ))}
                     </ul>}
-                    {noAvailabilities && <p>{t('noAvailabilities')} {date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+                    {!loading && noAvailabilities && <p>{t('noAvailabilities')} {date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
                     <p className="date">{date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
             </div>

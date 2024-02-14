@@ -86,6 +86,20 @@ function AdminAccounts() {
 
 
     const handleSaveClick = (appointmentId) => {
+        const fields = ['location', 'firstName', 'lastName', 'phoneNum'];
+      for (const field of fields) {
+        console.log(field, editFormData[field])
+        if (!editFormData[field]) {
+            alert(t('completeFields'));
+          return;
+        }
+      }
+    const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+        if (!phoneRegex.test(editFormData.phoneNum)) {
+            alert(t('phoneValid'));
+            return;
+        }
+        
         const updatedAppointment = {
             ...editFormData,
             date: format(editFormData.dateTime, 'yyyy-MM-dd'),
@@ -319,7 +333,8 @@ function AdminAccounts() {
                                         </td>
                                         <td>
                                             <input
-                                                type="text"
+                                                type="tel"
+                                                pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"
                                                 name="phoneNum"
                                                 value={editFormData.phoneNum}
                                                 onChange={handleChange}

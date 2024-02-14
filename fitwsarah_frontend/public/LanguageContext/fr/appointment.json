@@ -21,5 +21,8 @@
     "invalidCancel": "Impossible d'annuler moins de 2 jours avant le rendez-vous.\nPour plus d'information contacter sarah.fitness@gmail.com.",
     "Reschedule Appointment": "Replanifier le rendez-vous",
     "appointmentCancelled": "Rendez-vous annulé avec succès",
-    "appointmentRescheduled": "Rendez-vous replanifié avec succès"
+    "appointmentRescheduled": "Rendez-vous replanifié avec succès",
+    "completeFields": "Compléter toutes les détails avant de prendre rendez-vous.",
+    "phoneValid":"Entrer un numéro de téléphone valide en format XXX-XXX-XXXX."
+
 }
