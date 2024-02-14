@@ -167,6 +167,46 @@ class AppointmentControllerUnitTest {
         assertEquals(expectedResponse, result);
     }
 
+    @Test
+    void updateAppointmentDateTime_shouldSucceed() {
+        // Arrange
+        String appointmentId = "uuid-appt1";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel(
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-service1",
+                Status.REQUESTED,
+                "Location 1",
+                "John",
+                "Smith",
+                "444-444-444",
+                "2023-03-20",
+                "10:00"
+        );
+
+        AppointmentResponseModel expectedResponse = new AppointmentResponseModel(
+                appointmentId,
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-service1",
+                Status.REQUESTED,
+                "Location 1",
+                "John",
+                "Smith",
+                "444-444-444",
+                "2023-03-20",
+                "10:00"
+        );
+
+        when(appointmentService.updateAppointmentDateTime(eq(appointmentId), eq(requestModel))).thenReturn(expectedResponse);
+
+        // Act
+        AppointmentResponseModel result = appointmentController.updateAppointmentDateTime(requestModel, appointmentId);
+
+        // Assert
+        assertEquals(expectedResponse, result);
+    }
+
 }
 
 

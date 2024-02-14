@@ -12,5 +12,14 @@
     "selectLocation": "Sélectionnez un emplacement",
     "firstName": "Prénom",
     "lastName": "Nom de famille",
-    "phoneNumber": "Numéro de téléphone"
+    "phoneNumber": "Numéro de téléphone",
+    "appointmentCancel": "Annuler",
+    "appointmentReschedule": "Replanifier",
+    "cancelAppointment": "Annuler le rendez-vous",
+    "appointmentCancelMessage": "Êtes-vous sûr de vouloir annuler ce rendez-vous ?",
+    "appointmentConfirm": "Confirmer le rendez-vous",
+    "invalidCancel": "Impossible d'annuler moins de 2 jours avant le rendez-vous.\nPour plus d'information contacter sarah.fitness@gmail.com.",
+    "Reschedule Appointment": "Replanifier le rendez-vous",
+    "appointmentCancelled": "Rendez-vous annulé avec succès",
+    "appointmentRescheduled": "Rendez-vous replanifié avec succès"
 }

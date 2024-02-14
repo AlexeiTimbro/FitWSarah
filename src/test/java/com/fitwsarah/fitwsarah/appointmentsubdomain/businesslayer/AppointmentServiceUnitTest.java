@@ -328,5 +328,62 @@ class AppointmentServiceUnitTest {
         AppointmentResponseModel result = appointmentService.handleAppointmentRequest(appointmentId, status);
 
         assertEquals(Status.valueOf(status), result.getStatus()); }
+
+    @Test
+    public void updateAppointmentDateTime_shouldSucceed() {
+        String appointmentId = "uuid-appt1";
+        AppointmentRequestModel requestModel = new AppointmentRequestModel(
+                "uuid-avail1",
+                "uuid-account1",
+                "uuid-service1",
+                Status.REQUESTED,
+                "New Location",
+                "Jane",
+                "Doe",
+                "555-555-5555",
+                "2023-03-25",
+                "12:00"
+        );
+
+        Appointment existingAppointment = new Appointment();
+        existingAppointment.getAppointmentIdentifier().setAppointmentId(appointmentId);
+        existingAppointment.setStatus(Status.SCHEDULED);
+
+        when(appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId))
+                .thenReturn(existingAppointment);
+
+        when(appointmentRepository.save(any(Appointment.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        AppointmentResponseModel responseModel = new AppointmentResponseModel(
+                appointmentId,
+                requestModel.getAvailabilityId(),
+                requestModel.getUserId(),
+                requestModel.getServiceId(),
+                requestModel.getStatus(),
+                requestModel.getLocation(),
+                requestModel.getFirstName(),
+                requestModel.getLastName(),
+                requestModel.getPhoneNum(),
+                requestModel.getDate(),
+                requestModel.getTime()
+        );
+
+        when(appointmentResponseMapper.entityToResponseModel(any(Appointment.class)))
+                .thenReturn(responseModel);
+
+        AppointmentResponseModel result = appointmentService.updateAppointmentDateTime(appointmentId, requestModel);
+
+        assertNotNull(result);
+        assertEquals(requestModel.getLocation(), result.getLocation());
+        assertEquals(requestModel.getFirstName(), result.getFirstName());
+        assertEquals(requestModel.getLastName(), result.getLastName());
+        assertEquals(requestModel.getPhoneNum(), result.getPhoneNum());
+        assertEquals(requestModel.getDate(), result.getDate());
+        assertEquals(requestModel.getTime(), result.getTime());
+        assertEquals(requestModel.getStatus(), result.getStatus());
+
+        Mockito.verify(appointmentRepository).save(existingAppointment);
+    }
 }
 

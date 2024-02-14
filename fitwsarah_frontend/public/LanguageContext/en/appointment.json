@@ -12,5 +12,14 @@
     "selectLocation": "Select an available location",
     "firstName": "First Name",
     "lastName": "Last Name",
-    "phoneNumber": "Phone Number"
+    "phoneNumber": "Phone Number",
+    "appointmentCancel": "Cancel",
+    "appointmentReschedule": "Reschedule",
+    "cancelAppointment": "Cancel Appointment",
+    "appointmentCancelMessage": "Are you sure you want to cancel this appointment?",
+    "appointmentConfirm": "Confirm",
+    "invalidCancel": "You can only cancel appointments 2 days in advance\nPlease contact sarah.fitness@gmail.com for further assistance.",
+    "Reschedule Appointment": "Reschedule Appointment",
+    "appointmentCancelled": "Appointment Successfully Cancelled",
+    "appointmentRescheduled": "Appointment Successfully Rescheduled",
 }

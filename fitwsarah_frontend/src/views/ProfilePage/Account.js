@@ -58,7 +58,7 @@ function Profile() {
         if (accessToken) {
             getAppointmentsByUserId(extractAfterPipe(user.sub), status);
         }
-    }, [user, status]);
+    }, [status, accessToken]);
 
     const getAccountByUserId = (userId) => {
         fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/users/${userId}`, {
@@ -79,7 +79,6 @@ function Profile() {
                 setUsername(userData.username || '');
                 setEmail(userData.email || '');
                 setCity(userData.city || '');
-                //setAccountId(userData.accountId || '');
             })
             .catch((error) => {
                 console.error("Error message:", error.message);
@@ -102,7 +101,6 @@ function Profile() {
             return response.json();
         })
         .then((data) => {
-            console.log(data);
             setAppointments(data);
         })
         .catch((error) => {
@@ -126,7 +124,10 @@ function Profile() {
 
     function changeStatus(stat) {
         setStatus(stat);
-        console.log(status);
+    }
+
+    function reloadAppointment() {
+        getAppointmentsByUserId(extractAfterPipe(user.sub), status);
     }
 
 
@@ -158,7 +159,7 @@ function Profile() {
                         <div className="appointments-container">
                             {appointments.map((appointment) => (
                                 <div className="appointment-item">
-                                    <Appointment appointment={appointment} accessToken={accessToken} />
+                                    <Appointment appointment={appointment} accessToken={accessToken} reloadAppointment={reloadAppointment}/>
                                 </div>
                             ))}
                         </div>

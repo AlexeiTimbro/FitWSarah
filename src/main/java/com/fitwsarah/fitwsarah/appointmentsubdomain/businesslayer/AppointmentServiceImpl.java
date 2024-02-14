@@ -131,6 +131,24 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentResponseMapper.entityToResponseModel(appointment);
     }
 
+    @Override
+    public AppointmentResponseModel updateAppointmentDateTime(String appointmentId, AppointmentRequestModel appointmentRequestModel) {
+        Appointment appointment = appointmentRepository.findAppointmentsByAppointmentIdentifier_AppointmentId(appointmentId);
+        appointment.setId(appointment.getId());
+        appointment.setAvailabilityId(appointmentRequestModel.getAvailabilityId());
+        appointment.setUserId(appointmentRequestModel.getUserId());
+        appointment.setServiceId(appointmentRequestModel.getServiceId());
+        appointment.setLocation(appointmentRequestModel.getLocation());
+        appointment.setFirstName(appointmentRequestModel.getFirstName());
+        appointment.setLastName(appointmentRequestModel.getLastName());
+        appointment.setPhoneNum(appointmentRequestModel.getPhoneNum());
+        appointment.setDate(appointmentRequestModel.getDate());
+        appointment.setTime(appointmentRequestModel.getTime());
+        appointment.setStatus(Status.valueOf(Status.REQUESTED.toString()));
+        appointmentRepository.save(appointment);
+        return appointmentResponseMapper.entityToResponseModel(appointment);
+    }
+
 
     @Override
     public void removeAppointment(String appointmentId) {
