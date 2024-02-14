@@ -8,7 +8,6 @@ import FooterNotLoggedIn from "../../components/footer/footer";
 import CircleGraphics from "../../components/AdminPanel/CircleGraphics";
 
 
-
 function AdminAnalytics() {
 
     const { t } = useTranslation('adminAnalytics');
