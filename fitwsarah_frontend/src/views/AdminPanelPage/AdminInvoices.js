@@ -16,7 +16,7 @@ function AdminInvoices() {
 
     const [invoices, setInvoices] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
-    const [src] = useState('invoices')
+    const [src] = useState('adminInvoices')
     const { t } = useTranslation( 'adminPanel');
     const getAccessToken = useGetAccessToken();
     const [searchTerm, setSearchTerm] = useState([["invoiceid",""], ["userid",""], ["username",""], ["status",""],  ["paymenttype",""]]);
