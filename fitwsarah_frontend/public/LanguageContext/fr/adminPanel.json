@@ -96,5 +96,7 @@
     "thursday":"Jeudi",
     "friday":"Vendredi",
     "removeBtn":"Enlever",
-    "availabilitiesTitle":"Disponibilités"
+    "availabilitiesTitle":"Disponibilités",
+    "completeFields": "Compléter toutes les détails avant de confirmer.",
+    "phoneValid":"Entrer un numéro de téléphone valide en format XXX-XXX-XXXX."
 }

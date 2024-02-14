@@ -45,7 +45,18 @@ const BookingButton = ({appointmentDataToSend}) => {
           console.error("Access token not available.");
           return;
       }
-
+      const fields = ['date', 'time', 'location', 'firstName', 'lastName', 'phoneNum'];
+      for (const field of fields) {
+      if (!appointmentDataToSend[field]) {
+         alert(t('completeFields'));
+          return;
+        }
+      }
+    const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+        if (!phoneRegex.test(appointmentDataToSend.phoneNum)) {
+            alert(t('phoneValid'));
+            return;
+        }
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/appointments`, {
         method: "POST",
         headers: {
@@ -63,8 +74,8 @@ const BookingButton = ({appointmentDataToSend}) => {
           window.alert("Appointment Successfully booked")
      } catch (error) {
       console.error("Error adding appointment: ", error);
-      window.alert("An error has occured! Please try again later.");
   }}
+
   const addNewAppointmentData = (e) => {
     e.preventDefault();
     if (accessToken) {

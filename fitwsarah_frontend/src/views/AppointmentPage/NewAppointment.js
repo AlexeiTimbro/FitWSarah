@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import AvailabilitiesCalendar from "./Calendar";
+import { IoLogoWindows } from "react-icons/io5";
 
 function BookAppointment() {
     const {isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -89,7 +90,7 @@ function BookAppointment() {
           <input type="text" id="lastName" maxLength="50" placeholder={t('lastName')} name="lastName" required   onChange={(e) => handleInputChange(e)} />
         </div>
         <div className="form-group">
-          <input type="tel" id="phone" maxLength="10" placeholder={t('phoneNumber')} name="phoneNum" required  onChange={(e) => handleInputChange(e)} />
+            <input type="tel" pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/" maxlength="12" required="" name="phoneNum" placeholder="333-444-5555" id="phone" onChange={(e) => handleInputChange(e)} />
         </div>
     </form>
     <div>
