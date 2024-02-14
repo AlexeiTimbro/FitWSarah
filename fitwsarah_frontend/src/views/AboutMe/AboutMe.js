@@ -72,11 +72,11 @@ function AboutMe() {
                     <div className="box">
                         <h2>{t('aboutus')}</h2>
                         <div className="p">
-                        <p>{t('lineone')},<br></br>
-                            {t('linetwo')}.{t('linethree')},<br></br>
-                            {t('linefour')},<br></br>
-                            {t('linefive')}<br></br>
-                            {t('linesix')}.<br />
+                            <p>{t('lineone')}
+                                {t('linetwo')}
+                                {t('linethree')}
+                                {t('linefour')}
+                                {t('linefive')}
                             </p>
                         </div>
                     </div>
