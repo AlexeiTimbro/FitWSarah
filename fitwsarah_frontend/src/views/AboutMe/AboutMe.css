@@ -107,7 +107,10 @@ p{
     margin-left: 30px;
 }
 
-
+.text-container {
+    color: white;
+    text-align: center;
+}
 .contact-text{
     color: #000;
     text-align: center;
@@ -126,3 +129,14 @@ p{
     text-transform: capitalize;
 }
 
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Adjust based on your spacing needs */
+}
+
+.box {
+    flex: 1; /* Makes each box take up equal space */
+    margin: 0 10px; /* Adds spacing between boxes */
+    /* Add padding, backgrounds, etc., as needed */
+}

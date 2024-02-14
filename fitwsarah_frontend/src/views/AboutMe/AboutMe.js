@@ -48,34 +48,54 @@ function AboutMe() {
         setFeedbackDataToSend(updatedData);
     };
 
-
     return (
         <div>
-            {!isAuthenticated && <NavNotLoggedIn/>}
-            {isAuthenticated && <NavLoggedIn/>}
+            {!isAuthenticated && <NavNotLoggedIn />}
+            {isAuthenticated && <NavLoggedIn />}
             <div id="contactBackground">
-                <div className="feedback-container">
-                    <div className="text-container">
-                        <p>Hello, I am<br/>
-                            <span className="large-bold">Sarah Siddiqui,</span><br/>
-                            A professional personal fitness trainer.
-                        </p>
+                <div className="container">
+                    <div className="box">
+                        <p>Hello, I am<br />
+                            <span className="large-bold">Sarah Siddiqui,</span><br />
+                            A professional personal fitness trainer.</p>
                     </div>
-                    <div className="image-container">
-                        <img src={workoutImage} alt="Workout"/>
+                    <div className="box">
+                        <div className="image-container">
+                        <img src={workoutImage} alt="Workout" width={400} height={400}/>
+                        </div>
                     </div>
                 </div>
 
-                <div className="about-us-container">
-                    <h2>About Us</h2>
-                    <p>I am a dedicated personal trainer with many years of expertise<br></br>.
-                        I am fully trained and qualified and I would be happy to have you as client.</p>
+                <div className="container">
+                    <div className="box">
+                        <div className="image-container">
+                        <img src={trainerImage} alt="Trainer" />
+                    </div>
+                    </div>
+                    <div className="box">
+                        <h2>About Us</h2>
+                        <p>I am a dedicated personal trainer with many years of expertise.<br />
+                            I am fully trained and qualified and I would be happy to have you as a client.</p>
+                    </div>
+
                 </div>
-                <FooterNotLoggedIn/>
+
+                <div className="container">
+                    <div className="box">
+
+                    </div>
+                    <div className="box">
+                        {/* Content for the second half */}
+                    </div>
+                </div>
+
+                <FooterNotLoggedIn />
             </div>
         </div>
     );
 }
+
+
 
 export default AboutMe;
 
