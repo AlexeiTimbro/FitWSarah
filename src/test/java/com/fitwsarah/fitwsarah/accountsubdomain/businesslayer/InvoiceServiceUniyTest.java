@@ -106,7 +106,6 @@ class InvoiceServiceUniyTest {
         verify(invoiceResponseMapper).entityListToResponseModelList(anyList());
     }
 
-
     @Test
     public void getCoachNoteByUserIdReturnsExpectedResult() {
         String userId = "testUserId";
@@ -118,7 +117,6 @@ class InvoiceServiceUniyTest {
 
         assertEquals(expectedResponse, actualResponse);
     }
-
 
     @Test
     public void removeInvoices_invalidInvoiceId_shouldFail(){
