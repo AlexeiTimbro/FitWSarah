@@ -6,6 +6,10 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './AdminPanel.css';
 import { useTranslation } from "react-i18next";
+import { MdManageAccounts, MdAnalytics, MdFeedback, MdSportsMartialArts  } from "react-icons/md";
+import { AiOutlineSchedule } from "react-icons/ai";
+import { LiaFileInvoiceSolid } from "react-icons/lia";
+import { SlSpeech } from "react-icons/sl";
 
 function AdminPanel() {
 
@@ -55,48 +59,47 @@ function AdminPanel() {
           <h1>{t('adminPanel')}</h1>
           <div className="admin-sections">
             <Link className="section" to="/adminAccounts">
+              <div className="section-icon">
+                <MdManageAccounts />
+              </div>
               <h2>{t('adminPanelaccounts')}</h2>
-              <p>{t('currentTotalAccounts', { count: 'XX' })}</p>
-              <p>{t('lastMonthTotalAccounts', { count: 'XX' })}</p>
-              <span className="more-options">...</span>
             </Link>
             <Link className="section" to="/adminAppointments">
+              <div className="section-icon">
+                <AiOutlineSchedule />
+              </div>
               <h2>{t('adminPanelAppointments')}</h2>
-              <p>{t('currentTotalAppointments', { count: 'XX' })}</p>
-              <p>{t('lastMonthTotalAppointments', { count: 'XX' })}</p>
-              <span className="more-options">...</span>
             </Link>
             <Link className="section" to="/adminInvoices">
+              <div className="section-icon">
+                <LiaFileInvoiceSolid />
+              </div>
               <h2>{t('adminPanelInvoices')}</h2>
-              <p>{t('currentTotalInvoices', { count: 'XX' })}</p>
-              <p>{t('lastMonthTotalInvoices', { count: 'XX' })}</p>
-              <span className="more-options">...</span>
             </Link>
             <Link className="section" to="/adminCoachNotes">
+              <div className="section-icon">
+                <SlSpeech />
+              </div>
               <h2>{t('adminPanelCoachNotes')}</h2>
-              <p>{t('currentTotalCoachNotes', { count: 'XX' })}</p>
-              <p>{t('lastMonthTotalCoachNotes', { count: 'XX' })}</p>
-              <span className="more-options">...</span>
             </Link>
             <Link className="section" to="/analytics">
+              <div className="section-icon">
+                <MdAnalytics />
+              </div>
               <h2>{t('adminPanelAnalytics')}</h2>
-              <p>{t('currentTotalAnalytics', { count: 'XX' })}</p>
-              <p>{t('lastMonthTotalAnalytics', { count: 'XX' })}</p>
-              <span className="more-options">...</span>
             </Link>
             <Link className="section" to="/adminFeedback">
+              <div className="section-icon">
+                <MdFeedback />
+              </div>
               <h2>{t('adminPanelFeedback')}</h2>
-              <p>{t('currentTotalFeedback', { count: 'XX' })}</p>
-              <p>{t('lastMonthTotalFeedback', { count: 'XX' })}</p>
-              <span className="more-options">...</span>
             </Link>
             <Link className="section" to="/services">
+              <div className="section-icon">
+                <MdSportsMartialArts />
+              </div>
               <h2>{t('adminPanelServices')}</h2>
-              <p>{t('currentTotalServices', { count: 'XX' })}</p>
-              <p>{t('lastMonthTotalServices', { count: 'XX' })}</p>
-              <span className="more-options">...</span>
             </Link>
-
           </div>
         </div>
       </div>
