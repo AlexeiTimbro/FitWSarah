@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../../config.json";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom"
 
 const BookingButton = ({appointmentDataToSend}) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = useState(null);
   const { t } = useTranslation('appointment');
-
+  const navigate = useNavigate()
   useEffect(() => {
     if (isAuthenticated) {
       const getAccessToken = async () => {
@@ -72,6 +73,7 @@ const BookingButton = ({appointmentDataToSend}) => {
           console.log(data);
           console.log("Added Appointment");
           window.alert("Appointment Successfully booked")
+          navigate(`/`)
      } catch (error) {
       console.error("Error adding appointment: ", error);
   }}
