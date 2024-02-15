@@ -45,8 +45,8 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           DEVELOPMENT_URL: ${{ secrets.DEVELOPMENT_URL }}
-          AUTH0_CLIENT_ID2: ${{AUTH0_CLIENT_ID2}}
-          AUTH0_CLIENT_SECRET: ${{AUTH0_CLIENT_SECRET}}
+          AUTH0_CLIENT_ID2: ${{ secrets.AUTH0_CLIENT_ID2}}
+          AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET}}
 
       - name: Deploy
         if: github.ref == 'refs/heads/master'
