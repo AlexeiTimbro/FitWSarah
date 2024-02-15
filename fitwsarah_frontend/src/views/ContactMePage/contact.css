@@ -35,9 +35,8 @@ label {
     margin-right: 20px;
     margin-left: 10px;
 }
-.account-container {
+.account-container2 {
     flex-grow: 1;
-    margin-bottom: 50px;
     background-color: #f0f0f0;
     padding: 20px;
     border-radius: 10px;

@@ -74,7 +74,7 @@ return (
                 <p className="contact-text">{t('emailAddress')}: sarah.fitness@gmail.com</p>
             </aside>
             </div>
-            <div className="account-container">
+            <div className="account-container2">
                 <h3>{t('provideFeedback')}!</h3>
                 <ReactStars count={5} value={feedbackDataToSend.stars} onChange={handleStarsChange} size={30} half={false} color1="#ddd" color2={'#ffd700'} edit={true} />
                 <div className="form-group">
