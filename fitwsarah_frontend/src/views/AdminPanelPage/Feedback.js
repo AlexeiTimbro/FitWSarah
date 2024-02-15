@@ -46,7 +46,7 @@ function Feedbacks() {
             }
         });
 
-        fetch(`http://localhost:8080/api/v1/feedbacks${params.toString() && "?" + params.toString()}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
@@ -69,7 +69,7 @@ function Feedbacks() {
         };
 
     const removeFeedback = async (feedbackId) => {
-        fetch(`http://localhost:8080/api/v1/feedbacks/api/v1/feedbacks/${feedbackId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks/${feedbackId}`, {
             method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,

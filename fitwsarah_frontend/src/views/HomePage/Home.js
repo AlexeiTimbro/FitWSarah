@@ -93,7 +93,7 @@ function Home() {
 
     const updateFitnessServiceByStatus = async (serviceId, status) => {
 
-        fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}/invisible`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}/invisible`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -157,7 +157,7 @@ function Home() {
 
 
     const handleUpdateService = (serviceId) => {
-                fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}`, {
+                fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
                     method: "PUT",
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
