@@ -273,7 +273,7 @@ function Home() {
                                         <p>{language === 'en' ? service.description_EN : service.description_FR}</p>
                                         <p style={{ display: 'none' }}>{language === 'en' ? service.otherInformation_EN : service.otherInformation_FR}</p>
                                         <p style={{ display: 'none' }}>{service.duration}</p>
-                                        <div className="price">{service.price} $</div>
+                                        <div className="price">{service.price.toFixed(2)} $</div>
 
                                         {!isAuthenticated && <button className="book-button"
                                                                      onClick={() => loginWithRedirect({authorizationParams: {screen_hint: "login"}})}>{t('book')}</button>}
@@ -361,7 +361,7 @@ function Home() {
                 <Modal.Body>{language === 'en' ? selectedService?.description_EN : selectedService?.description_FR}</Modal.Body>
                 <Modal.Body>{language === 'en' ? selectedService?.otherInformation_EN : selectedService?.otherInformation_FR}</Modal.Body>
                 <Modal.Body>{selectedService?.duration}</Modal.Body>
-                <Modal.Body><p>{selectedService?.price}$</p></Modal.Body>
+                <Modal.Body><p>{selectedService?.price.toFixed(2)}$</p></Modal.Body>
                 {isAuthenticated && (
                     <Modal.Footer style={{textAlign: 'right'}}>
                         <button className="book-button">{t('book')}</button>
@@ -481,7 +481,7 @@ function Home() {
                             <Form.Control
                                 type="number"
                                 name="price"
-                                value={selectedService?.price || ''}
+                                value={selectedService?.price.toFixed(2) || ''}
                                 onChange={handleChange}
                             />
                         </Form.Group>
@@ -511,6 +511,7 @@ function Home() {
             <FooterNotLoggedIn/>
         </div>
     );
+
 
 }
 export  default Home;

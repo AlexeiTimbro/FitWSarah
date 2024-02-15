@@ -157,7 +157,7 @@ function AdminInvoices() {
                                     <td>{invoice.date}</td>
                                     <td>{invoice.dueDate}</td>
                                     <td>{invoice.paymentType}</td>
-                                    <td>{invoice.price}</td>
+                                    <td>{invoice.price.toFixed(2)} $</td>
                                     <td>
                                         <button className="button delete-button" onClick={() => removeConfirmation(invoice.invoiceId)}>{t('delete')}</button>
                                         <button className="button details-button">{t('details')}</button>

@@ -149,7 +149,7 @@ function TrainerCreateInvoices() {
 
                 {/* Price */}
                 <label htmlFor="price">{t('Price:')}</label>
-                <input type="text" id="price" name="price" value={newInvoice.price} onChange={handleInputChange} />
+                <input type="text" id="price" name="price" value={newInvoice.price.toFixed(2)} onChange={handleInputChange} />
 
                 <button type="submit">{t('Create Invoice')}</button>
             </form>
