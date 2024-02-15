@@ -125,7 +125,7 @@ function Services() {
                                     <td>{service.duration}</td>
                                     <td className="other-info">{service.otherInformation_EN}</td>
                                     <td className="other-info">{service.otherInformation_FR}</td>
-                                    <td>{service.price}$</td>
+                                    <td>{service.price.toFixed(2)}$</td>
                                     <td>
                                         <button className="button details-button">{t('details')}</button>
                                         <button className="button delete-button">{t('delete')}</button>
