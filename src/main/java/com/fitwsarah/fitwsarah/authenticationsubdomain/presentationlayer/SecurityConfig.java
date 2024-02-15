@@ -82,6 +82,7 @@ public class SecurityConfig {
                         .requestMatchers("api/v1/send/**").permitAll()
                         .requestMatchers("api/v1/availabilities/**").permitAll()
                         .requestMatchers("api/v1/feedbacks/**").permitAll()
+                        .requestMatchers("api/v1/appointments/**").permitAll()
                         .requestMatchers("api/v1/appointments").hasAnyRole("Admin", "Personal Trainer", "Member")
                         .requestMatchers("api/v1/accounts/users/userId").hasRole("Member")
                         .anyRequest().authenticated()
