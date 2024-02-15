@@ -296,20 +296,47 @@ function Home() {
 
                                     </div>
                                 )}
-                                    {editMode && (
-                                        <div>
-                                            {service.status === "INVISIBLE" && (
-                                                <button className="button details-button" onClick={() => publishConfirmation(service.serviceId)}>
-                                                    {t('Visible')}
-                                                </button>
-                                            )}
-                                            {service.status === "VISIBLE" && (
-                                                <button className="button details-button" onClick={() => unpublishConfirmation(service.serviceId)}>
-                                                    {t('Invisible')}
-                                                </button>
-                                            )}
-                                        </div>
-                                    )}
+                                {editMode && (
+                                    <div>
+                                        {service.status === "INVISIBLE" && (
+                                            <button className="button details-button" onClick={() => publishConfirmation(service.serviceId)}>
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                        d="M4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 9H19C19.5523 9 20 8.55228 20 8C20 7.44772 19.5523 7 19 7H5C4.44772 7 4 7.44772 4 8C4 8.55228 4.44772 9 5 9ZM15 15H5C4.44772 15 4 15.4477 4 16C4 16.5523 4.44772 17 5 17H15C15.5523 17 16 16.5523 16 16C16 15.4477 15.5523 15 15 15Z"
+                                                        fill="black"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        )}
+                                        {service.status === "VISIBLE" && (
+                                            <button className="button details-button" onClick={() => unpublishConfirmation(service.serviceId)}>
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                        d="M8 5C8 4.44772 8.44772 4 9 4H15C15.5523 4 16 4.44772 16 5V19C16 19.5523 15.5523 20 15 20H9C8.44772 20 8 19.5523 8 19V5ZM9 2H15C16.6569 2 18 3.34315 18 5V19C18 20.6569 16.6569 22 15 22H9C7.34315 22 6 20.6569 6 19V5C6 3.34315 7.34315 2 9 2ZM14 10V14H10V10H14Z"
+                                                        fill="black"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
+
                             </Col>
                         ))}
                     </Row>
