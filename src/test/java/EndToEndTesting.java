@@ -523,6 +523,41 @@ public class EndToEndTesting {
         sleep(1000);
     }
 
+
+
+    @Test
+    public void UpdateFitnessPackageByStatus() {
+        open("http://localhost:3000/");
+        SelenideElement loginBtn = $("button[class='login-button']");
+        loginBtn.click();
+
+        SelenideElement emailInput = $("input[name='username']");
+        emailInput.setValue("pt@admin.com");
+
+        SelenideElement passwordInput = $("input[name='password']");
+        passwordInput.setValue("Password1");
+
+        SelenideElement continueButton = $("button[name='action']");
+        executeJavaScript("arguments[0].click();", continueButton);
+
+        SelenideElement switchBtn = $("label[class='switch']");
+        switchBtn.click();
+
+        SelenideElement show = $("button[class='button details-button']");
+        show.shouldBe(visible);
+        show.click();
+        sleep(1000);
+
+        Alert alert = switchTo().alert();
+
+        alert.accept();
+
+        sleep(1000);
+
+
+
+    }
+
     @Test
     public void viewAllInvoicesTrainerPanel(){
         open("http://localhost:3000/");
