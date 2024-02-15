@@ -1,6 +1,11 @@
 package com.fitwsarah.fitwsarah.fitnesspackagesubdomain.businesslayer;
 
 
+import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
+import com.fitwsarah.fitwsarah.appointmentsubdomain.presentationlayer.AppointmentResponseModel;
+import com.fitwsarah.fitwsarah.feedbacksubdomain.datalayer.Feedback;
+import com.fitwsarah.fitwsarah.feedbacksubdomain.datalayer.State;
+import com.fitwsarah.fitwsarah.feedbacksubdomain.presentationlayer.FeedbackResponseModel;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.Status;
@@ -132,7 +137,42 @@ class FitnessPackageServiceUnitTest {
         Mockito.verify(fitnessPackageRepository).save(existingFitnessPackage);
     }
 
+    @Test
+    public void updateFitnessPackageStatus_shouldSucceed() {
+        String serviceId = "serviceId1";
+        String status = "VISIBLE";
 
+        FitnessPackage existingFitnessPackage = new FitnessPackage();
+        existingFitnessPackage.getFitnessPackageIdentifier().setServiceId(serviceId);
+        existingFitnessPackage.setStatus(Status.INVISIBLE);
+
+        FitnessPackage updatedFitnessPackage = new FitnessPackage();
+        updatedFitnessPackage.getFitnessPackageIdentifier().setServiceId(serviceId);
+        updatedFitnessPackage.setStatus(Status.valueOf(status));
+
+        FitnessPackageResponseModel responseModel = new FitnessPackageResponseModel(
+                "serviceId1",
+                "promoId1",
+                Status.VISIBLE,
+                "20 minutes",
+                "desc",
+                "other",
+                "fdsaf",
+                "fdsaf",
+                "fasdf",
+                "22.00",
+                99.0
+        );
+
+        when(fitnessPackageRepository.findByFitnessPackageIdentifier_ServiceId(serviceId)).thenReturn(existingFitnessPackage);
+        when(fitnessPackageRepository.save(any(FitnessPackage.class))).thenReturn(updatedFitnessPackage);
+        when(fitnessPackageResponseMapper.entityToResponseModel(any(FitnessPackage.class))).thenReturn(responseModel);
+
+        FitnessPackageResponseModel result = fitnessPackageService.updateFitnessPackageStatus(serviceId, status);
+
+        assertNotNull(result, "Result should not be null");
+        assertEquals(Status.VISIBLE, result.getStatus());
+    }
 
 
 }

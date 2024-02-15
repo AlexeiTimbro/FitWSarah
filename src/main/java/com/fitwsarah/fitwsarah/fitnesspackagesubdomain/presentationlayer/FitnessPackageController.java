@@ -19,8 +19,8 @@ public class FitnessPackageController {
         this.fitnessPackageService = fitnessPackageService;
     }
     @GetMapping()
-    public List<FitnessPackageResponseModel> getAllFitnessServices(){
-        return fitnessPackageService.getAllFitnessPackages();
+    public List<FitnessPackageResponseModel> getAllFitnessServices(@RequestParam(required = false) String serviceId,  @RequestParam(required = false) String status){
+        return fitnessPackageService.getAllFitnessPackages(serviceId, status);
     }
 
     @GetMapping("/{serviceId}")
@@ -38,6 +38,10 @@ public class FitnessPackageController {
         return fitnessPackageService.updateFitnessPackage(fitnessPackageRequestModel, serviceId);
     }
 
+    @PutMapping("/{serviceId}/invisible")
+    public FitnessPackageResponseModel updateFitnessServiceStatus(@PathVariable String serviceId, @RequestBody String status){
+        return fitnessPackageService.updateFitnessPackageStatus( serviceId, status);
+    }
 
 
 

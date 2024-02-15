@@ -15,6 +15,7 @@
     "otherInformationOptional_en": "Autres Informations (Anglais) (Facultatif)",
     "otherInformationOptional_fr": "Autres Informations (Français) (Facultatif)",
     "addService": "Ajouter",
-    "noAvailabilities":"Pas de temps disponible pour"
-    
+    "noAvailabilities":"Pas de temps disponible pour",
+    "areyousure_publish":"Êtes-vous sûr de vouloir publier?",
+    "areyousure_UNpublish":"Êtes-vous sûr de vouloir dépublier?"
 }

@@ -30,6 +30,24 @@ function Home() {
     const [editMode, setEditMode] = useState(false);
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
+    const [packageVisibility, setPackageVisibility] = useState({}); // State to manage visibility of fitness packages
+   const[showVisible, setShowVisible] = useState('VISIBLE');
+
+    const handleVisibilityChange = (serviceId, status) => {
+        if (status === 'VISIBLE') {
+            publishConfirmation(serviceId);
+        } else if (status === 'INVISIBLE') {
+            hideFitnessPackage(serviceId);
+            unpublishConfirmation(serviceId);
+        }
+    };
+
+    const hideFitnessPackage = (serviceId) => {
+        setPackageVisibility(prevState => ({
+            ...prevState,
+            [serviceId]: false
+        }));
+    };
 
     const {t} = useTranslation('home');
     const {language} = useLanguage();
@@ -39,7 +57,7 @@ function Home() {
           const token = await getAccessToken();
           if (token) setAccessToken(token);
         };
-  
+
         fetchToken();
       }, [getAccessToken]);
 
@@ -49,7 +67,11 @@ function Home() {
     }, []);
 
     const getAllFitnessServices = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages`, {
+
+        const params = new URLSearchParams();
+
+
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"
@@ -68,6 +90,32 @@ function Home() {
                 console.log(error);
             });
     };
+
+    const updateFitnessServiceByStatus = async (serviceId, status) => {
+
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}/invisible`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            },
+            body: status
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data)
+                getAllFitnessServices();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
 
     function extractAfterPipe(originalString) {
         const parts = originalString.split('|');
@@ -134,6 +182,20 @@ function Home() {
     };
 
 
+
+    const publishConfirmation  = (serviceId) => {
+        const answer = window.confirm(t("areyousure_publish"));
+        if(answer){
+            updateFitnessServiceByStatus(serviceId, 'VISIBLE');
+        }
+    }
+
+    const unpublishConfirmation  = (serviceId) => {
+        const answer = window.confirm(t('areyousure_UNpublish'));
+        if(answer){
+            updateFitnessServiceByStatus(serviceId, 'INVISIBLE');
+        }
+    }
     const handleEdit = (service) => {
         setSelectedService(service);
         setShowUpdateForm(true);
@@ -185,7 +247,6 @@ function Home() {
       setFitnessDataToSend(updatedData);
     };
 
-
     return (
         <div>
             {!isAuthenticated && <NavNotLoggedIn/>}
@@ -206,32 +267,76 @@ function Home() {
                     <Row>
                         {services.map(service => (
                             <Col key={service.id} md={4}>
-                                <div id="serviceCard" className="service-card">
-                                    <h3>{language === 'en' ? service.title_EN : service.title_FR}</h3>
-                                    <p>{language === 'en' ? service.description_EN : service.description_FR}</p>
-                                    <p style={{display: 'none'}}>{language === 'en' ? service.otherInformation_EN : service.otherInformation_FR}</p>
-                                    <p style={{display: 'none'}}>{service.duration}</p>
+                                {showVisible === 'VISIBLE' && service.status === 'VISIBLE' && (
+                                    <div id="serviceCard" className="service-card">
+                                        <h3>{language === 'en' ? service.title_EN : service.title_FR}</h3>
+                                        <p>{language === 'en' ? service.description_EN : service.description_FR}</p>
+                                        <p style={{ display: 'none' }}>{language === 'en' ? service.otherInformation_EN : service.otherInformation_FR}</p>
+                                        <p style={{ display: 'none' }}>{service.duration}</p>
+                                        <div className="price">{service.price} $</div>
 
-                                    <div className="price">{service.price} $</div>
-                                    {!isAuthenticated && <button className="book-button"
-                                                                 onClick={() => loginWithRedirect({authorizationParams: {screen_hint: "login"}})}>{t('book')}</button>}
-                                    {isAuthenticated && <Link
-                                        to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}>
-                                        <button className="book-button">{t('book')}</button>
-                                    </Link>}
-                                    <button className="book-button"
-                                            onClick={() => handleShow(service.serviceId)}>{t('details')}</button>
-                                    {editMode &&
-                                        <button onClick={() => handleEdit(service)} className="edit-button">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C17.98 2.9 17.35 2.9 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04Z"
-                                                    fill="black"/>
-                                            </svg>
-                                        </button>
-                                    }
-                                </div>
+                                        {!isAuthenticated && <button className="book-button"
+                                                                     onClick={() => loginWithRedirect({authorizationParams: {screen_hint: "login"}})}>{t('book')}</button>}
+                                        {isAuthenticated && <Link
+                                            to={`/bookAppointments/?serviceId=${service.serviceId}&userId=${RegexUserId}`}>
+                                            <button className="book-button">{t('book')}</button>
+                                        </Link>}
+                                        <button className="book-button"
+                                                onClick={() => handleShow(service.serviceId)}>{t('details')}</button>
+                                        {editMode &&
+                                            <button onClick={() => handleEdit(service)} className="edit-button">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C17.98 2.9 17.35 2.9 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04Z"
+                                                        fill="black"/>
+                                                </svg>
+                                            </button>
+                                        }
+
+                                    </div>
+                                )}
+                                {editMode && (
+                                    <div>
+                                        {service.status === "INVISIBLE" && (
+                                            <button className="button details-button" onClick={() => publishConfirmation(service.serviceId)}>
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                        d="M4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 9H19C19.5523 9 20 8.55228 20 8C20 7.44772 19.5523 7 19 7H5C4.44772 7 4 7.44772 4 8C4 8.55228 4.44772 9 5 9ZM15 15H5C4.44772 15 4 15.4477 4 16C4 16.5523 4.44772 17 5 17H15C15.5523 17 16 16.5523 16 16C16 15.4477 15.5523 15 15 15Z"
+                                                        fill="black"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        )}
+                                        {service.status === "VISIBLE" && (
+                                            <button className="button details-button" onClick={() => unpublishConfirmation(service.serviceId)}>
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                        d="M8 5C8 4.44772 8.44772 4 9 4H15C15.5523 4 16 4.44772 16 5V19C16 19.5523 15.5523 20 15 20H9C8.44772 20 8 19.5523 8 19V5ZM9 2H15C16.6569 2 18 3.34315 18 5V19C18 20.6569 16.6569 22 15 22H9C7.34315 22 6 20.6569 6 19V5C6 3.34315 7.34315 2 9 2ZM14 10V14H10V10H14Z"
+                                                        fill="black"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
+
                             </Col>
                         ))}
                     </Row>
@@ -395,7 +500,7 @@ function Home() {
                         <Button variant="primary" onClick={() => {
                             handleUpdateService(selectedService.serviceId)
 
-                            }}>
+                        }}>
                             Update Service
                         </Button>
                     </Form>
@@ -406,7 +511,6 @@ function Home() {
             <FooterNotLoggedIn/>
         </div>
     );
-
 
 }
 export  default Home;

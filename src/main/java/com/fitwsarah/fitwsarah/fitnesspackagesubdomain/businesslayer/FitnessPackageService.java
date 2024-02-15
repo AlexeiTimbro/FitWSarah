@@ -7,13 +7,17 @@ import java.util.List;
 
 public interface FitnessPackageService {
 
-    List<FitnessPackageResponseModel> getAllFitnessPackages();
+    List<FitnessPackageResponseModel> getAllFitnessPackages(String serviceId, String status);
 
     FitnessPackageResponseModel getFitnessPackageByFitnessPackageId(String fitnessPackageId);
 
     FitnessPackageResponseModel addFitnessPackage(FitnessPackageRequestModel fitnessPackageRequestModel);
 
     FitnessPackageResponseModel updateFitnessPackage(FitnessPackageRequestModel fitnessPackageRequestModel, String serviceId);
+
+
+    FitnessPackageResponseModel updateFitnessPackageStatus(String serviceId, String status);
+
 
 
     void removeFitnessPackage(String fitnessPackageId);
