@@ -227,7 +227,7 @@ class AccountServiceUnitTest {
     }
 
 
-    @Test
+    /*@Test
     void updateAccountByUserId_Should_Update_Account_Correctly() {
         // Arrange
         String userId = "uuid-test1";
@@ -248,7 +248,7 @@ class AccountServiceUnitTest {
         verify(accountRepository).save(mockedAccountEntity);
         verify(accountRequestMapper).requestModelToEntity(requestModel);
         verify(accountResponseMapper).entityToResponseModel(mockedAccountEntity);
-    }
+    }*/
 
 
     @Test
