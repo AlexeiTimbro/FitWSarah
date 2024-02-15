@@ -93,7 +93,6 @@ textarea{
 }
 
 
-
 .image-container .custom-img {
     width: 260px;
     height: 260px;
@@ -108,10 +107,48 @@ textarea{
     width: 200px;
 }
 
+.recentTitle{
+    text-align: center;
+    margin: 40px;
+}
 
 .about-container{
     margin-left: 30px;
 }
+.mySwiper{
+    width:92em;
+    height: 100%;
+}
+.swiper-slide{
+    height:400px;
+    overflow:hidden;
+    position:relative;
+    width: 250px;
+}
+.swiper-slide-active{
+    width:80%;
+    margin-right:15px;
+}
+.swiper-content{
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+}
+
+.scrolling-wrapper-flexbox {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  
+    .card {
+      flex: 0 0 auto;
+      padding: 0 10% 0 10%;
+      margin: 10px;
+    }
+  }
+  .scrolling-wrapper-flexbox {
+    -webkit-overflow-scrolling: touch;
+  }
 
 .text-container {
     color: white;
@@ -139,6 +176,7 @@ textarea{
     display: flex;
     justify-content: space-between;
     color: white;
+    margin-bottom: 120px;
 }
 h2{
     color: white;
@@ -150,7 +188,6 @@ h2{
     text-align: center;
 }
 .box {
-    flex: 1; /* Makes each box take up equal space */
-    margin: 0 10px; /* Adds spacing between boxes */
-    /* Add padding, backgrounds, etc., as needed */
+    flex: 1;
+    margin: 0 10px;
 }

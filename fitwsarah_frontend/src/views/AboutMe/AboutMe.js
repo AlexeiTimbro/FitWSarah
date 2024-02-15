@@ -4,44 +4,74 @@ import "../../css/style.css";
 import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLoggedIn";
 import FooterNotLoggedIn from "../../components/footer/footer";
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
-import { ROLES } from "../../components/authentication/roles";
 import "../../components/authentication/switch.css"
-import RoleBasedSwitch from "../../components/authentication/RoleBasedSwitch";
 import 'react-toastify/dist/ReactToastify.css';
-import ReactStars from 'react-stars'
-import AddFeedbackButton from '../../components/feedback/newFeedbackBtn';
+import {useGetAccessToken} from "../../components/authentication/authUtils";
 import "./AboutMe.css";
 import { useTranslation } from "react-i18next";
 import workoutImage from './workout.png';
 import trainerImage from './trainer.png';
+import FeedbackCard from "../../components/AboutMe/feedbackCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css';
+
 function AboutMe() {
     const {
-        isAuthenticated,
-        user
+        isAuthenticated
     } = useAuth0();
+    const [feedbacks, setFeedbacks] = useState([]);
+    const [accessToken, setAccessToken] = useState(null);
+    const getAccessToken = useGetAccessToken();
+    const [searchTerm] = useState([["status","VISIBLE"]]);
+    const { t } = useTranslation('aboutMe');
 
-    const [editMode, setEditMode] = useState(false);
-    const {t} = useTranslation('aboutMe');
-    const {sub} = isAuthenticated ? user : {};
+    useEffect(() => {
+        const fetchToken = async () => {
+            const token = await getAccessToken();
+            if (token) setAccessToken(token);
+        };
+        fetchToken();
+    }, [getAccessToken]);
 
-
-    function extractAfterPipe(originalString) {
-        const parts = originalString.split('|');
-        if (parts.length === 2) {
-            return parts[1];
-        } else {
-            return originalString;
+    useEffect(() => {
+        if (accessToken) {
+            getAllFeedback();
         }
-    }
+    }, [accessToken, searchTerm, isAuthenticated]);
 
+    const getAllFeedback = () => {
+        const params = new URLSearchParams();
+        searchTerm.forEach(term => {
+            if (term[1]) {
+                params.append(term[0], term[1]);
+            }
+        });
+
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/feedbacks${params.toString() && "?" + params.toString()}`, {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            }
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            setFeedbacks(data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
     // Define a CustomImg component that applies a class name to the rendered img tag
     function CustomImg({ src, alt, width, height, className }) {
-        // Include the `className` prop to allow custom class names
         return <img src={src} alt={alt} width={width} height={height} className={className} />;
     }
-
-
-
 
 
 
@@ -81,16 +111,25 @@ function AboutMe() {
                         </div>
                     </div>
                 </div>
-
-                <div className="container1">
+                {isAuthenticated && (
+                <div className="container1">  
                     <div className="box">
-
+                    <h2 className="recentTitle">{t('feedbacks')}<br /></h2>
+                    <Swiper slidesPerView={2}spaceBetween={15}className="mySwiper">
+                        <div class="scrolling-wrapper-flexbox">
+                            {feedbacks.map(feedback => (
+                                <SwiperSlide>
+                                <div class="card" key={feedback.id}>
+                                <FeedbackCard feedback={feedback} />
+                                </div>
+                                </SwiperSlide>
+                            ))}
+                        </div>
+                    </Swiper>
                     </div>
-                    <div className="box">
-                        {/* for the feedback */}
-                    </div>
+                    
                 </div>
-
+                )}
                 <FooterNotLoggedIn />
             </div>
         </div>
