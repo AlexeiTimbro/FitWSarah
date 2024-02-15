@@ -128,18 +128,27 @@ function Settings() {
         }
     }
 
+    function extractBeforePipe(userId) {
+        const parts = userId.split('|');
+        if (parts.length === 2) {
+            return parts[0];
+        } else {
+            return userId;
+        }
+    }
+
     return (
         <div>
             <h1>{t('accountSettings')}</h1>
             <Form>
                 <Form.Group controlId="formUsername">
                     <Form.Label>{t('username')}</Form.Label>
-                    <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} disabled={extractBeforePipe(user.sub) != 'auth0'} />
                 </Form.Group>
 
                 <Form.Group controlId="formEmail">
                     <Form.Label>{t('email')}</Form.Label>
-                    <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <Form.Control type="text" value={email} onChange={(e) => setEmail(e.target.value)} disabled={extractBeforePipe(user.sub) != 'auth0'} />
                 </Form.Group>
 
                 <Form.Group controlId="formCity" style={{ marginBottom: '10px' }}>

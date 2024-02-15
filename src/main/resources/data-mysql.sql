@@ -6,7 +6,9 @@ INSERT INTO accounts (user_id, account_id, username, email, city, date_created) 
 ('2','uuid-acc2', 'emilyjones', 'emilyjones@example.com', 'Los Angeles', '2024-01-08'),
 ('3','uuid-acc3', 'michaelbrown', 'michaelbrown@example.com', 'Chicago', '2024-01-08'),
 ('4','uuid-acc4', 'sarahwhite', 'sarahwhite@example.com', 'Houston', '2024-02-08'),
-('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix', '2023-02-08');
+('5','uuid-acc5', 'davidjohnson', 'davidjohnson@example.com', 'Phoenix', '2023-02-08'),
+('65cd8599c2b1eb728f81e1aa', 'ac366e05-1009-4e6f-a80c-cf8a19290993', 'emile', 'emilegirard@gmail.com', 'Montreal', '2024-02-14'),
+('65cd8599c2b1eb728f81e1aa', 'ac366e05-1009-4e6f-a80c-cf8a19290996', 'emile', 'emilegirardgmail.com', 'Montreal', '2024-02-14');
 
 
 INSERT INTO invoices (invoice_id, account_id, user_id, username, status, date, due_date, payment_type, price) VALUES

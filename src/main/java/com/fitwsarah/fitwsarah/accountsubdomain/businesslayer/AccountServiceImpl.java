@@ -6,14 +6,18 @@ import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountRequestMa
 import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountResponseMapper;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequestModel;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
-import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -23,14 +27,26 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
     private AccountResponseMapper accountResponseMapper;
     private AccountRequestMapper accountRequestMapper;
+    private final RestTemplate restTemplate;
+
+    @Value("${auth0.domain}")
+    private String domain;
+
+    @Value("${spring.security.oauth2.resourceserver.jwt.client-id}")
+    private String clientId;
+
+    @Value("${spring.security.oauth2.resourceserver.jwt.client-secret}")
+    private String clientSecret;
+
 
     private JavaMailSender javaMailSender;
 
-    public AccountServiceImpl(JavaMailSender javaMailSender, AccountRepository accountRepository, AccountResponseMapper accountResponseMapper, AccountRequestMapper accountRequestMapper) {
+    public AccountServiceImpl(JavaMailSender javaMailSender, AccountRepository accountRepository, AccountResponseMapper accountResponseMapper, AccountRequestMapper accountRequestMapper, RestTemplate restTemplate) {
         this.accountRepository = accountRepository;
         this.accountResponseMapper = accountResponseMapper;
         this.accountRequestMapper = accountRequestMapper;
         this.javaMailSender = javaMailSender;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -60,7 +76,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountResponseModel getByUserId(String userId) {
-        return accountResponseMapper.entityToResponseModel(accountRepository.findAccountByUserId(userId));
+        Account account = accountRepository.findAccountByUserId(userId);
+        return accountResponseMapper.entityToResponseModel(account);
     }
     @Override
     public AccountResponseModel addAccount(AccountRequestModel accountRequestModel) {
@@ -83,7 +100,75 @@ public class AccountServiceImpl implements AccountService {
         account.setId(existingAccount.getId());
         account.setAccountIdentifier(existingAccount.getAccountIdentifier());
         account.setUserId(existingAccount.getUserId());
+
+        boolean emailUpdateSuccess = true;
+        boolean usernameUpdateSuccess = true;
+
+        if (accountRequestModel.getEmail() != null && !accountRequestModel.getEmail().isEmpty()) {
+            Map<String, Object> emailUpdate = new HashMap<>();
+            emailUpdate.put("email", accountRequestModel.getEmail());
+            emailUpdateSuccess = updateAuth0UserInformation(userId, emailUpdate);
+        }
+
+        if (accountRequestModel.getUsername() != null && !accountRequestModel.getUsername().isEmpty()) {
+            Map<String, Object> usernameUpdate = new HashMap<>();
+            usernameUpdate.put("username", accountRequestModel.getUsername());
+            if (emailUpdateSuccess) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+            usernameUpdateSuccess = updateAuth0UserInformation(userId, usernameUpdate);
+        }
+
+        if (!emailUpdateSuccess || !usernameUpdateSuccess) {
+            return null;
+        }
         return accountResponseMapper.entityToResponseModel(accountRepository.save(account));
+    }
+
+    public String getManagementApiToken() {
+        RestTemplate restTemplate = new RestTemplate();
+        String tokenUrl = "https://" + domain + "/oauth/token";
+
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("client_id", clientId);
+        requestBody.put("client_secret", clientSecret);
+        requestBody.put("audience", "https://" + domain + "/api/v2/");
+        requestBody.put("grant_type", "client_credentials");
+        requestBody.put("scope", "read:users update:users");
+
+        Map<String, String> response = restTemplate.postForObject(tokenUrl, requestBody, Map.class);
+        return response.get("access_token");
+    }
+
+    public boolean updateAuth0UserInformation(String userId, Map<String, Object> updates) {
+        String token = getManagementApiToken();
+        if (token == null) {
+            return false;
+        }
+
+        String updateUserUrl = "https://" + domain + "/api/v2/users/auth0|" + userId;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
+
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(updates, headers);
+
+        try {
+            restTemplate.exchange(updateUserUrl, HttpMethod.PATCH, entity, String.class);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public RestTemplate restTemplate() {
+        return new RestTemplate(new HttpComponentsClientHttpRequestFactory());
     }
 
 

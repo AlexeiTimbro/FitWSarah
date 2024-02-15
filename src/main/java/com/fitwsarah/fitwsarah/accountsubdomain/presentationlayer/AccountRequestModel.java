@@ -1,16 +1,14 @@
 package com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Setter
 public class AccountRequestModel {
-    private String userId;
-    private String username;
-    private String email;
-    private String city;
+    String userId;
+    String username;
+    String email;
+    String city;
 }

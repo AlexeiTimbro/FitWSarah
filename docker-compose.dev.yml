@@ -9,6 +9,10 @@ services:
       - AUTH0_AUDIENCE=${AUTH0_AUDIENCE}
       - AUTH0_ISSUER=${AUTH0_ISSUER}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - AUTH0_CLIENT_ID=${AUTH0_CLIENT_ID}
+      - AUTH0_CLIENT_ID2=${AUTH0_CLIENT_ID2}
+      - AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET}
+      - AUTH0_DOMAIN=${AUTH0_DOMAIN}
     depends_on:
       mysql1:
         condition: service_healthy
