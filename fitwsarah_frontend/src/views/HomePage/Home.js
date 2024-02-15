@@ -71,7 +71,7 @@ function Home() {
         const params = new URLSearchParams();
 
 
-        fetch(`http://localhost:8080/api/v1/fitnessPackages${params.toString() && "?" + params.toString()}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages${params.toString() && "?" + params.toString()}`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json"

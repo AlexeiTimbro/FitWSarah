@@ -15,5 +15,7 @@
     "otherInformationOptional_en": "Other Information (English) (Optional)",
     "otherInformationOptional_fr": "Other Information (French) (Optional)",
     "addService": "Add",
-    "noAvailabilities":"No available dates for"
+    "noAvailabilities":"No available dates for",
+    "areyousure_publish":"Are you sure you want to publish?",
+    "areyousure_UNpublish":"Are you sure you want to unpublish?"
 }
