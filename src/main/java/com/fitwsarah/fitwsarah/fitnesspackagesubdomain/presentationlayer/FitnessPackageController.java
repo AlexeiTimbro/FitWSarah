@@ -15,62 +15,35 @@ public class FitnessPackageController {
 
     private FitnessPackageService fitnessPackageService;
 
-    public FitnessPackageController(FitnessPackageService fitnessPackageService){
+    public FitnessPackageController(FitnessPackageService fitnessPackageService) {
         this.fitnessPackageService = fitnessPackageService;
     }
+
     @GetMapping()
-    public List<FitnessPackageResponseModel> getAllFitnessServices(@RequestParam(required = false) String serviceId,  @RequestParam(required = false) String status){
+    public List<FitnessPackageResponseModel> getAllFitnessServices(@RequestParam(required = false) String serviceId, @RequestParam(required = false) String status) {
         return fitnessPackageService.getAllFitnessPackages(serviceId, status);
     }
 
     @GetMapping("/{serviceId}")
-    public FitnessPackageResponseModel getFitnessServiceById(@PathVariable String serviceId){
+    public FitnessPackageResponseModel getFitnessServiceById(@PathVariable String serviceId) {
         return fitnessPackageService.getFitnessPackageByFitnessPackageId(serviceId);
     }
 
     @PostMapping()
-    public ResponseEntity<FitnessPackageResponseModel> addFitnessService(@RequestBody FitnessPackageRequestModel fitnessPackageRequestModel){
+    public ResponseEntity<FitnessPackageResponseModel> addFitnessService(@RequestBody FitnessPackageRequestModel fitnessPackageRequestModel) {
         return ResponseEntity.status(HttpStatus.CREATED).body(fitnessPackageService.addFitnessPackage(fitnessPackageRequestModel));
     }
 
     @PutMapping("/{serviceId}")
-    public FitnessPackageResponseModel updateFitnessService(@RequestBody FitnessPackageRequestModel fitnessPackageRequestModel, @PathVariable String serviceId){
+    public FitnessPackageResponseModel updateFitnessService(@RequestBody FitnessPackageRequestModel fitnessPackageRequestModel, @PathVariable String serviceId) {
         return fitnessPackageService.updateFitnessPackage(fitnessPackageRequestModel, serviceId);
     }
 
     @PutMapping("/{serviceId}/invisible")
-    public FitnessPackageResponseModel updateFitnessServiceStatus(@PathVariable String serviceId, @RequestBody String status){
-        return fitnessPackageService.updateFitnessPackageStatus( serviceId, status);
+    public FitnessPackageResponseModel updateFitnessServiceStatus(@PathVariable String serviceId, @RequestBody String status) {
+        return fitnessPackageService.updateFitnessPackageStatus(serviceId, status);
     }
 
 
-
-
-    @DeleteMapping("/{serviceId}")
-    public void deleteFitnessService(@PathVariable String serviceId){
-
-    }
-
-    @DeleteMapping()
-    public void deleteAllFitnessServices(){
-
-    }
-
-    //All requests regarding promo offers in a fitness service
-    @GetMapping("/{serviceId}/promoOffers/{promoId}")
-    public PromoOfferResponseModel getPromoOfferByFitnessServiceId(@PathVariable String serviceId, @PathVariable String promoId){
-        return null;
-    }
-    @PostMapping("/{serviceId}")
-    public PromoOfferResponseModel addPromoOfferByFitnessServiceId(@RequestBody PromoOfferRequestModel promoOfferRequestModel,@PathVariable String serviceId){
-        return null;
-    }
-    @PutMapping("/{serviceId}/promoOffers/{promoId}")
-    public PromoOfferResponseModel updatePromoOfferByFitnessServiceId(@RequestBody PromoOfferRequestModel promoOfferRequestModel, @PathVariable String serviceId, @PathVariable String promoId){
-        return null;
-    }
-    @DeleteMapping("/{serviceId}/promoOffers/{promoId}")
-    public void deletePromoOfferByFitnessServiceId(@PathVariable String serviceId, @PathVariable String promoId){
-
-    }
 }
+

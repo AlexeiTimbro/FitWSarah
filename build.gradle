@@ -73,11 +73,32 @@ jacoco{
 
 jacocoTestReport {
     dependsOn test
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-//"com/movielister/**/MovieDetailsServiceApplication.class",
-// "**/*MapperImpl.class"
+                    '**/AppointmentResponseMapperImpl.class',
+                    '**/AppointmentRequestMapperImpl.class',
+                    '**/CoachNoteResponseMapperImpl.class',
+                    '**/CoachNoteRequestMapperImpl.class',
+                    '**/FeedbackResponseMapperImpl.class',
+                    '**/FeedbackRequestMapperImpl.class',
+                    '**/FitnessPackageResponseMapperImpl.class',
+                    '**/FitnessPackageRequestMapperImpl.class',
+                    '**/AvailabilityResponseMapperImpl.class',
+                    '**/AvailabilityRequestMapperImpl.class',
+                    '**/AccountResponseMapperImpl.class',
+                    '**/AccountRequestMapperImpl.class',
+                    '**/InvoiceResponseMapperImpl.class',
+                    '**/InvoiceRequestMapperImpl.class',
+                    '**/MailService.class',
+                    '**/MailStructure.class',
+                    '**/MailController.class',
+                    '**/RestClientConfig.class',
+                    '**/FitWSarahApplication.class',
             ])
         }))
     }

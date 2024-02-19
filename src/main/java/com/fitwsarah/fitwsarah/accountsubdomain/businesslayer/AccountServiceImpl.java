@@ -7,6 +7,7 @@ import com.fitwsarah.fitwsarah.accountsubdomain.datamapperlayer.AccountResponseM
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequestModel;
 import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountResponseModel;
 import jakarta.mail.internet.MimeMessage;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -91,6 +92,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Generated
     public AccountResponseModel updateAccount(AccountRequestModel accountRequestModel, String userId) {
         Account existingAccount = accountRepository.findAccountByUserId((userId));
         if(existingAccount == null){
@@ -129,6 +131,7 @@ public class AccountServiceImpl implements AccountService {
         return accountResponseMapper.entityToResponseModel(accountRepository.save(account));
     }
 
+    @Generated
     public String getManagementApiToken() {
         RestTemplate restTemplate = new RestTemplate();
         String tokenUrl = "https://" + domain + "/oauth/token";
@@ -144,6 +147,7 @@ public class AccountServiceImpl implements AccountService {
         return response.get("access_token");
     }
 
+    @Generated
     public boolean updateAuth0UserInformation(String userId, Map<String, Object> updates) {
         String token = getManagementApiToken();
         if (token == null) {
@@ -167,16 +171,13 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Generated
     public RestTemplate restTemplate() {
         return new RestTemplate(new HttpComponentsClientHttpRequestFactory());
     }
 
 
-    @Override
-    public void removeAccount(String accountId) {
-
-    }
-
+    @Generated
     private void sendWelcomeEmail(Account account) {
         try {
             String template = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +

@@ -25,40 +25,16 @@ public class AccountController {
         return accountService.getAccountByAccountId(accountId);
     }
 
-    @GetMapping("/users/{userId}")
-    public AccountResponseModel getAccountByUserId(@PathVariable String userId){
-        return accountService.getByUserId(userId);
-    }
-
-
     @PostMapping()
     public ResponseEntity<AccountResponseModel> addAccount(@RequestBody AccountRequestModel accountRequestModel){
         return ResponseEntity.status(HttpStatus.CREATED).body(accountService.addAccount(accountRequestModel));
     }
 
-    @PostMapping("/{accountId}")
-    public InvoiceResponseModel addInvoiceByAccountId(@RequestBody InvoiceRequestModel invoiceRequestModel, @PathVariable String accountId){
-        return null;
-    }
-    @GetMapping("/{accountId}/invoices")
-    public InvoiceResponseModel getAllInvoicesByAccountId(@PathVariable String accountId){
-        return null;
-    }
-
-
-
-    @DeleteMapping("/{accountId}")
-    public void deleteAccountById(@PathVariable String accountId){
-
-    }
 
     @PutMapping("/users/{userId}")
     public  ResponseEntity<AccountResponseModel> updateAccountByUserId(@RequestBody AccountRequestModel accountRequestModel, @PathVariable String userId){
         return ResponseEntity.status(HttpStatus.OK).body(accountService.updateAccount(accountRequestModel, userId));
     }
 
-    @DeleteMapping()
-    public void deleteAllAccounts(){
 
-    }
 }

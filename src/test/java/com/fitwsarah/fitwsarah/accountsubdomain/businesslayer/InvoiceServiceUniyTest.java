@@ -73,6 +73,7 @@ class InvoiceServiceUniyTest {
 
         // Assert
         assertEquals(invoiceResponseModel, actualInvoiceResponseModel);
+
     }
 
     @Test
@@ -139,6 +140,7 @@ class InvoiceServiceUniyTest {
         invoiceService.removeInvoice(invoiceId);
 
         verify(invoiceRepository, times(1)).delete(entity);
+
     }
 
 
