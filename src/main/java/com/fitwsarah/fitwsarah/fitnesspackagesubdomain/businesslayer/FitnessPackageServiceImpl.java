@@ -98,8 +98,5 @@ public class FitnessPackageServiceImpl implements FitnessPackageService{
     }
 
 
-    @Override
-    public void removeFitnessPackage(String fitnessPackageId) {
 
-    }
 }

@@ -57,8 +57,5 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.updateAccount(accountRequestModel, userId));
     }
 
-    @DeleteMapping()
-    public void deleteAllAccounts(){
 
-    }
 }

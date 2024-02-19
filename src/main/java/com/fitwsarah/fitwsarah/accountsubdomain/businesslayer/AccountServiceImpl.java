@@ -172,10 +172,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
-    @Override
-    public void removeAccount(String accountId) {
 
-    }
 
     private void sendWelcomeEmail(Account account) {
         try {

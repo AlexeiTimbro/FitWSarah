@@ -1,5 +1,7 @@
 package com.fitwsarah.fitwsarah.appointmentsubdomain.businesslayer;
 
+import com.fitwsarah.fitwsarah.accountsubdomain.datalayer.Account;
+import com.fitwsarah.fitwsarah.accountsubdomain.presentationlayer.AccountRequestModel;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Appointment;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.AppointmentRepository;
 import com.fitwsarah.fitwsarah.appointmentsubdomain.datalayer.Status;
@@ -24,8 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
 
 @ActiveProfiles("test")
 class AppointmentServiceUnitTest {
@@ -296,6 +298,9 @@ class AppointmentServiceUnitTest {
         assertThrows(EntityNotFoundException.class, () -> {
             // When
             appointmentService.updateAppointmentDetails(requestModel, nonExistentAppointmentId);
+            verify(appointmentRepository, never()).save(any(Appointment.class));
+            verify(appointmentRequestMapper, never()).requestModelToEntity(any(AppointmentRequestModel.class));
+            verify(appointmentResponseMapper, never()).entityToResponseModel(any(Appointment.class));
         });
     }
 

@@ -20,5 +20,5 @@ public interface FitnessPackageService {
 
 
 
-    void removeFitnessPackage(String fitnessPackageId);
+
 }
