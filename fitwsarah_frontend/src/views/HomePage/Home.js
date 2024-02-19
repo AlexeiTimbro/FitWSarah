@@ -157,7 +157,7 @@ function Home() {
 
 
     const handleUpdateService = (serviceId) => {
-                fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/fitnessPackages/${serviceId}`, {
+                fetch(`http://localhost:8080/api/v1/fitnessPackages/${serviceId}`, {
                     method: "PUT",
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -361,7 +361,7 @@ function Home() {
                 <Modal.Body>{language === 'en' ? selectedService?.description_EN : selectedService?.description_FR}</Modal.Body>
                 <Modal.Body>{language === 'en' ? selectedService?.otherInformation_EN : selectedService?.otherInformation_FR}</Modal.Body>
                 <Modal.Body>{selectedService?.duration}</Modal.Body>
-                <Modal.Body><p>{selectedService?.price.toFixed(2)}$</p></Modal.Body>
+                <Modal.Body><p>{selectedService?.price}$</p></Modal.Body>
                 {isAuthenticated && (
                     <Modal.Footer style={{textAlign: 'right'}}>
                         <button className="book-button">{t('book')}</button>
@@ -481,7 +481,7 @@ function Home() {
                             <Form.Control
                                 type="number"
                                 name="price"
-                                value={selectedService?.price.toFixed(2) || ''}
+                                value={selectedService?.price || ''}
                                 onChange={handleChange}
                             />
                         </Form.Group>
