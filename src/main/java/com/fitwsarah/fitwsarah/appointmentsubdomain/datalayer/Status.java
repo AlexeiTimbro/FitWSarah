@@ -4,5 +4,5 @@ public enum Status {
     REQUESTED,
     SCHEDULED,
     CANCELLED,
-    COMPLETED
+    ACTIVE, VISIBLE, INVISIBLE, COMPLETED
 }

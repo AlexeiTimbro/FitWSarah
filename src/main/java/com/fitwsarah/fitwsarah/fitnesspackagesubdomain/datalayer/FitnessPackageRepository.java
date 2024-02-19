@@ -6,7 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Embeddable
 public interface FitnessPackageRepository extends JpaRepository<FitnessPackage, Integer> {
     FitnessPackage findByFitnessPackageIdentifier_ServiceId(String serviceId);
-
-    FitnessPackage findFitnessPackageByFitnessPackageIdentifier_ServiceIdAndPromoIdentifier_PromoId(String serviceId, String promoId);
-
 }

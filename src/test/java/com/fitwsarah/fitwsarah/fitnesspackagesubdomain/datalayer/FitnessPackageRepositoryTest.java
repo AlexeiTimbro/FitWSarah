@@ -59,31 +59,4 @@ class FitnessPackageRepositoryTest {
         assertNull(found);
     }
 
-
-
-    @Test
-    public void whenFindByNonExistentServiceIdAndPromoId_thenReturnNull() {
-        // Arrange
-        String nonExistentServiceId = "nonExistentId";
-        String promoId = "promoId";
-
-        // Act
-        FitnessPackage found = fitnessPackageRepository.findFitnessPackageByFitnessPackageIdentifier_ServiceIdAndPromoIdentifier_PromoId(nonExistentServiceId, promoId);
-
-        // Assert
-        assertNull(found);
-    }
-
-    @Test
-    public void whenFindByServiceIdAndNonExistentPromoId_thenReturnNull() {
-        // Arrange
-        String promoId = "nonExistentId";
-
-        // Act
-        FitnessPackage found = fitnessPackageRepository.findFitnessPackageByFitnessPackageIdentifier_ServiceIdAndPromoIdentifier_PromoId(savedServiceId, promoId);
-
-        // Assert
-        assertNull(found);
-    }
-
 }

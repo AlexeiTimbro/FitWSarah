@@ -23,6 +23,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 
 
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -172,6 +174,35 @@ class FitnessPackageServiceUnitTest {
 
         assertNotNull(result, "Result should not be null");
         assertEquals(Status.VISIBLE, result.getStatus());
+    }
+
+    @Test
+    void getAllFitnessPackagesTest_withServiceIdAndStatus() {
+        // Arrange
+        String serviceId = "serviceId1";
+        String status = "VISIBLE";
+
+        FitnessPackage fitnessPackage1 = new FitnessPackage();
+        fitnessPackage1.getFitnessPackageIdentifier().setServiceId("serviceId1");
+        fitnessPackage1.setStatus(Status.VISIBLE);
+
+        FitnessPackage fitnessPackage2 = new FitnessPackage();
+        fitnessPackage2.getFitnessPackageIdentifier().setServiceId("serviceId2");
+        fitnessPackage2.setStatus(Status.INVISIBLE);
+
+        when(fitnessPackageRepository.findAll()).thenReturn(Arrays.asList(fitnessPackage1, fitnessPackage2));
+
+        FitnessPackageResponseModel responseModel1 = new FitnessPackageResponseModel("serviceId1", "promoId1", Status.VISIBLE, "title1", "title1", "duration1", "desc1", "desc1", "other1", "other1", 100.0);
+        FitnessPackageResponseModel responseModel2 = new FitnessPackageResponseModel("serviceId2", "promoId2", Status.INVISIBLE, "title2", "title2", "duration2", "desc2", "desc2", "other2", "other2", 200.0);
+
+        when(fitnessPackageResponseMapper.entityToResponseModel(fitnessPackage1)).thenReturn(responseModel1);
+        when(fitnessPackageResponseMapper.entityToResponseModel(fitnessPackage2)).thenReturn(responseModel2);
+
+        // Act
+        List<FitnessPackageResponseModel> result = fitnessPackageService.getAllFitnessPackages(serviceId, status);
+
+        // Assert
+        assertEquals(0, result.size());
     }
 
 

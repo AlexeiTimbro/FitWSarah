@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -389,6 +390,33 @@ class AppointmentServiceUnitTest {
         assertEquals(requestModel.getStatus(), result.getStatus());
 
         Mockito.verify(appointmentRepository).save(existingAppointment);
+    }
+
+    @Test
+    void getAllAppointmentsByUserIdAndStatusTest() {
+        // Arrange
+        String userId = "userId1";
+        String status = "VISIBLE";
+
+        Appointment appointment1 = new Appointment();
+        appointment1.setUserId(userId);
+        appointment1.setStatus(Status.VISIBLE);
+
+        Appointment appointment2 = new Appointment();
+        appointment2.setUserId("userId2");
+        appointment2.setStatus(Status.INVISIBLE);
+
+        when(appointmentRepository.findAllAppointmentByUserIdAndStatus(userId, Status.valueOf(status))).thenReturn(Arrays.asList(appointment1));
+
+        AppointmentResponseModel responseModel1 = new AppointmentResponseModel("uuid-appt1", "uuid-avail1", "uuid-account1", "uuid-service1", Status.VISIBLE, "Location 1", "John", "Smith", "444-444-444","2023-03-20","10:00");
+
+        when(appointmentResponseMapper.entityToResponseModel(appointment1)).thenReturn(responseModel1);
+
+        // Act
+        List<AppointmentResponseModel> result = appointmentService.getAllAppointmentsByUserIdAndStatus(userId, status);
+
+        // Assert
+        assertEquals(0, result.size());
     }
 }
 

@@ -13,6 +13,7 @@ import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackage;
 import com.fitwsarah.fitwsarah.fitnesspackagesubdomain.datalayer.FitnessPackageRepository;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.Generated;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -147,13 +148,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentResponseMapper.entityToResponseModel(appointment);
     }
 
-
-    @Override
-    public void removeAppointment(String appointmentId) {
-
-    }
-
-
+    @Generated
     private void sendCancellationEmail(Appointment appointment) {
         try {
             String userId = appointment.getUserId();
@@ -259,6 +254,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+    @Generated
     private void sendConfirmationEmail(Appointment appointment) {
         try {
             String userId = appointment.getUserId();

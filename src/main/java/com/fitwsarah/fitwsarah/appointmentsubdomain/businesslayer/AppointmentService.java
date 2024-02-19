@@ -22,6 +22,4 @@ public interface AppointmentService {
 
     AppointmentResponseModel updateAppointmentDateTime(String appointmentId, AppointmentRequestModel appointmentRequestModel);
 
-
-    void removeAppointment(String appointmentId);
 }
