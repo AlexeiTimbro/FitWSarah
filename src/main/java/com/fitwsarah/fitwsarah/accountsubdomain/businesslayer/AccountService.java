@@ -17,5 +17,5 @@ public interface AccountService {
 
     AccountResponseModel updateAccount(AccountRequestModel accountRequestModel, String userId);
 
-
+    void deleteAccount(String accountId);
 }

@@ -74,7 +74,7 @@ const AvailabilitiesCalendar = ({onChange}) => {
   const getAllAvailabilities = () => {
     setLoading(true);
     const formattedDate = date.toLocaleDateString(getLocale(), { weekday: 'long' });
-    fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/availabilities?dayOfWeek=${formattedDate}`,  {
+    fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/availabilities?dayOfWeek=${formattedDate}`,  {
       method: "GET",
       headers: new Headers({
           Authorization: "Bearer " + accessToken,
@@ -102,45 +102,56 @@ const AvailabilitiesCalendar = ({onChange}) => {
           setLoading(false);
         });
 };
+const isTimeSlotBooked = (timeSlot) => {
+  const formattedDate2 = date.toLocaleDateString(getLocale(), { year: 'numeric', month: '2-digit', day: '2-digit' });
+  const formattedDate = date.toLocaleDateString(getLocale(), { weekday: 'long' });
   
-  return (
-<div>
+  return availabilities.some(availability => {
+    const availabilityDate = new Date(availability.dayOfWeek);
+    const selectedDate = new Date(formattedDate2);
+        return availabilityDate.getTime() === selectedDate.getTime() && availability.time === timeSlot;
+  });
+
+  //return availabilities.some(availability => availability.dayOfWeek === formattedDate && availability.time === timeSlot);
+
+};
+  
+return (
+  <div>
     <div className="calendar-container">
+      <div>
+        <Calendar onChange={handleDateChange} value={date} navigation={false} locale={getLocale()} />
+      </div>
+      <div className='time-picker'>
         <div>
-        <Calendar onChange={handleDateChange} value={date} tileClassName={highlightedDay}  navigation={false} locale={getLocale()}/>
+          <div className="focusable time-picker" tabIndex="0" role="group">
+            {loading && <p>Loading...</p>}
+            {!loading && !noAvailabilities &&
+              <ul>
+                {availabilities.slice().sort((a, b) => a.time.localeCompare(b.time)).map((availability, index) => (
+                  <li key={index}>
+                    <input
+                      type="radio"
+                      id={`timeslot_${index}`}
+                      name="selectedTimeSlot"
+                      onChange={handleTimeChange}
+                      value={`${availability.time}`}
+                      disabled={isTimeSlotBooked(availability.time)}
+                    />
+                    <label htmlFor={`timeslot_${index}`} className={isTimeSlotBooked(availability.time) ? 'booked-time' : ''}>
+                      <span>{availability.time}</span><br />
+                    </label>
+                  </li>
+                ))}
+              </ul>}
+            {!loading && noAvailabilities && <p>{t('noAvailabilities')} {date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+            <p className="date">{date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+          </div>
         </div>
-        <div className='time-picker'>
-            <div>
-            <div class="focusable time-picker" tabindex="0" role="group">
-              {loading && <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity="0.25"/><path fill="currentColor" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>}
-                          {!loading && !noAvailabilities &&
-                      <ul>
-                        
-                        {availabilities.slice().sort((a, b) => {
-                            return a.time.localeCompare(b.time);
-                            }).map((availability, index) => (
-                            <li key={index}>
-                                <input
-                                    type="radio"
-                                    id={`timeslot_${index}`}
-                                    name="selectedTimeSlot"
-                                    onChange={handleTimeChange}
-                                    value={`${availability.time}`}
-                                />
-                                <label htmlFor={`timeslot_${index}`}>
-                                  <span>{availability.time}</span><br/>
-                                </label>
-                            </li>
-                        ))}
-                    </ul>}
-                    {!loading && noAvailabilities && <p>{t('noAvailabilities')} {date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
-                    <p className="date">{date.toLocaleDateString(getLocale(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-</div>
-  );
+  </div>
+);
 };
 
 export default AvailabilitiesCalendar;

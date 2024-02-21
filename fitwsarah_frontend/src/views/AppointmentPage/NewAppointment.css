@@ -60,6 +60,9 @@
     vertical-align: top;
     text-align: left;
   }
+  .booked-time{
+    background-color: red;
+  }
 
   input[type="radio"] {
     position: absolute;

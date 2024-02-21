@@ -68,7 +68,27 @@ function AdminAccounts() {
           console.log(error);
       });
   };
+  const handleDelete = (accountId) => {
 
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/${accountId}`, {
+        method: "DELETE",
+        headers: new Headers({
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json"
+        })
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+    })
+    .then(() => {
+        getAllAccounts();
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+};
     function onInputChange(label, value) {
         const newSearchTerm = searchTerm.map((term) => {
             if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
@@ -115,8 +135,7 @@ function AdminAccounts() {
                     <td>{account.email}</td>
                     <td>{account.city}</td>
                     <td>
-                      <button className="button delete-button">{t('delete')}</button>
-                      <button className="button details-button">{t('details')}</button>
+                      <button className="button delete-button" onClick={() => handleDelete(account.accountId)}>{t('delete')}</button>
                     </td>
                   </tr>
                 ))}
