@@ -5,6 +5,7 @@ import NavNotLoggedIn from "../../components/navigation/NotLoggedIn/navNotLogged
 import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './TrainerAccounts.css';
+import Filter from "../../components/AdminPanel/Filter";
 import { useTranslation } from "react-i18next";
 
 
@@ -46,6 +47,27 @@ function AdminAccounts() {
     }, [accessToken]);
 
 
+    const handleDelete = (accountId) => {
+
+        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/accounts/${accountId}`, {
+            method: "DELETE",
+            headers: new Headers({
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json"
+            })
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+        })
+        .then(() => {
+            getAllAccounts();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
     function onInputChange(label, value) {
         const newSearchTerm = searchTerm.map((term) => {
             if (term[0] === label.toLowerCase().replace(/\s+/g, '')) {
@@ -119,6 +141,9 @@ function AdminAccounts() {
                                     <td>{account.username}</td>
                                     <td>{account.email}</td>
                                     <td>{account.city}</td>
+                                    <td>
+                                    <button className="button delete-button" onClick={() => handleDelete(account.accountId)}>{t('delete')}</button>
+                                    </td>
                                 </tr>
                             ))}
                             </tbody>

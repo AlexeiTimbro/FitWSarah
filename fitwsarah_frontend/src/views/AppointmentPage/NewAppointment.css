@@ -61,7 +61,7 @@
     text-align: left;
   }
   .booked-time{
-    background-color: red;
+    color: darkred;
   }
 
   input[type="radio"] {
