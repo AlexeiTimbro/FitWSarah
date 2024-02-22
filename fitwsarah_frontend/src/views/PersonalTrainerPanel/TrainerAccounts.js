@@ -6,6 +6,7 @@ import NavLoggedIn from "../../components/navigation/loggedIn/navLoggedIn";
 import { Link } from 'react-router-dom';
 import './TrainerAccounts.css';
 import Filter from "../../components/AdminPanel/Filter";
+import { useGetAccessToken } from "../../components/authentication/authUtils";
 import { useTranslation } from "react-i18next";
 
 
@@ -14,7 +15,6 @@ function AdminAccounts() {
 
     const {
         isAuthenticated,
-        getAccessTokenSilently,
     } = useAuth0();
 
     const [accounts, setAccounts] = useState([]);
@@ -22,34 +22,26 @@ function AdminAccounts() {
     const { t } = useTranslation('adminPanel');
     const [searchTerm, setSearchTerm] = useState([["accountid",""], ["username",""], ["email",""], ["city",""]]);
     const labels = ["Account ID", "Username", "Email", "City"];
-
+    const getAccessToken = useGetAccessToken();
+    
     useEffect(() => {
-        if (isAuthenticated) {
-            const getAccessToken = async () => {
-                try {
-                    const token = await getAccessTokenSilently({
-                        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-                        scope: configData.scope,
-                    });
-                    setAccessToken(token);
-                } catch (e) {
-                    console.error(e.message);
-                }
-            };
-            getAccessToken();
-        }
-    }, [getAccessTokenSilently, isAuthenticated]);
-
-    useEffect(() => {
-        if (accessToken) {
-            getAllAccounts();
-        }
-    }, [accessToken]);
-
+        const fetchToken = async () => {
+          const token = await getAccessToken();
+          if (token) setAccessToken(token);
+        };
+  
+        fetchToken();
+      }, [getAccessToken]);
+  
+      useEffect(() => {
+          if (accessToken) {
+              getAllAccounts();
+          }
+      }, [accessToken, searchTerm]);
 
     const handleDelete = (accountId) => {
 
-        fetch(`${process.env.REACT_APP_DEVELOPMENT_URL}/api/v1/accounts/${accountId}`, {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/accounts/${accountId}`, {
             method: "DELETE",
             headers: new Headers({
                 Authorization: "Bearer " + accessToken,
