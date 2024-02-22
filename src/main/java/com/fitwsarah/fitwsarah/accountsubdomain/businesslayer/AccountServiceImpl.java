@@ -130,6 +130,15 @@ public class AccountServiceImpl implements AccountService {
         }
         return accountResponseMapper.entityToResponseModel(accountRepository.save(account));
     }
+    @Generated
+    @Override
+    public void deleteAccount(String accountId) {
+        Account account = accountRepository.findAccountByAccountIdentifier_AccountId(accountId);
+        if (account == null){
+            return;
+        }
+        accountRepository.delete(account);
+    }
 
     @Generated
     public String getManagementApiToken() {

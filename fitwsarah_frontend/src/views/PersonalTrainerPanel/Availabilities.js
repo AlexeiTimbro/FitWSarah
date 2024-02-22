@@ -168,6 +168,10 @@ function Availabilities() {
                         </thead>
                         <tbody>
                             {availabilities.slice().sort((a, b) => {
+                                if(a == null){
+                                    window.alert(t('completeFields'))
+                                    return;
+                                }
                             return a.time.localeCompare(b.time);
                             }).map((availability) => (
                                 <tr key={availability.id}>

@@ -17,7 +17,7 @@ function AdminCoachNotes() {
     });
     const [accessToken, setAccessToken] = useState(null);
     const getAccessToken = useGetAccessToken();
-    const { t } = useTranslation();
+    const { t } = useTranslation('adminCoachNotes');
 
     useEffect(() => {
         const fetchToken = async () => {
